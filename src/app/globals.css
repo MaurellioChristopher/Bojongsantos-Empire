@@ -39,6 +39,16 @@
   --color-error: #ff3b30;
   --color-error-bg: rgba(255, 59, 48, 0.12);
 
+  /* Official Garda Pangan Environmental Color System */
+  --color-garda-forest-deep: #0e2316;
+  --color-garda-forest: #0a5a2f;
+  --color-garda-forest-hover: #11713d;
+  --color-garda-forest-card: #0d2b14;
+  --color-garda-sun: #ffe602;
+  --color-garda-sun-hover: #ffd800;
+  --color-garda-cream: #FCF9E0;
+  --color-garda-mint: #eefbf4;
+
   /* Fonts (Refined Modern Neo-Grotesque & Apple Hierarchy) */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
   --font-sf-pro: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
@@ -658,7 +668,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Garda Pangan Style Rounded Action Button with Arrow Disc */
 .btn-garda-pill {
-  background-color: #062312;
+  background-color: #0a5a2f;
   color: #ffffff;
   font-weight: 700;
   font-size: 14px;
@@ -671,19 +681,20 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  box-shadow: 0 10px 25px -5px rgba(6, 35, 18, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px -5px rgba(10, 90, 47, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .btn-garda-pill:hover {
-  background-color: #0a381d;
+  background-color: #0e2316;
+  color: #ffe602;
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px -5px rgba(6, 35, 18, 0.35);
+  box-shadow: 0 14px 30px -5px rgba(14, 35, 22, 0.45);
 }
 
 .btn-garda-pill-gold {
-  background-color: #f7ce3e;
-  color: #062312;
+  background-color: #ffe602;
+  color: #0e2316;
   font-weight: 800;
   font-size: 14px;
   letter-spacing: -0.01em;
@@ -695,11 +706,12 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  box-shadow: 0 10px 25px -5px rgba(247, 206, 62, 0.35);
+  box-shadow: 0 10px 25px -5px rgba(255, 230, 2, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .btn-garda-pill-gold:hover {
-  background-color: #ffd84d;
+  background-color: #ffd800;
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px -5px rgba(247, 206, 62, 0.5);
+  box-shadow: 0 14px 30px -5px rgba(255, 230, 2, 0.5);
 }
