@@ -70,8 +70,8 @@ export function PenyediaDashboard() {
 
   const stats = [
     { label: 'Surplus Aktif', value: activeItems.length, unit: 'item', icon: Package, color: '#1d1d1f' },
-    { label: 'Booking Masuk', value: pendingBookings.length, unit: 'pesanan', icon: ClipboardList, color: '#ff9500' },
-    { label: 'Makanan Disalurkan', value: totalKg, unit: 'kg', icon: CheckCircle, color: '#34c759' },
+    { label: 'Booking Masuk', value: pendingBookings.length, unit: 'pesanan', icon: ClipboardList, color: '#ea580c' },
+    { label: 'Makanan Disalurkan', value: totalKg, unit: 'kg', icon: CheckCircle, color: '#16a34a' },
     { label: 'Total Transaksi', value: completedBookings.length, unit: 'kali', icon: TrendingUp, color: '#1d1d1f' },
   ];
 
@@ -149,7 +149,7 @@ export function PenyediaDashboard() {
                     <div className="text-body-strong text-[#1d1d1f] line-clamp-1 mb-1">{item.name}</div>
                     <div className="text-caption-apple text-[#86868b] mb-2">{item.quantity} kg • {item.portionCount} porsi</div>
                   </div>
-                  <div className="text-fine-print text-[#ff9500] font-medium pt-2 border-t border-[rgba(0,0,0,0.06)]">
+                  <div className="text-fine-print text-[#ea580c] font-medium pt-2 border-t border-[rgba(0,0,0,0.06)]">
                     Sisa waktu: {formatCountdown(item.expiryTime)}
                   </div>
                 </div>

@@ -16,7 +16,7 @@ import {
   ChevronRight,
   Info,
 } from 'lucide-react';
-import { formatPrice, formatCountdown } from '@/lib/utils';
+import { formatPrice, formatCountdown, getSurplusPhoto } from '@/lib/utils';
 import { getSafetyGuideline } from '@/lib/safetyGuidelines';
 import { FOOD_CATEGORY_EMOJI, FOOD_CATEGORY_LABELS } from '@/types';
 import type { SurplusItem } from '@/types';
@@ -106,7 +106,7 @@ export function CheckoutModal({
                   : 'text-[#86868b] hover:text-[#1d1d1f]'
               }`}
             >
-              <ShieldCheck size={14} className="text-[#34c759]" /> Panduan Mutu ({guideline.categoryName})
+              <ShieldCheck size={14} className="text-[#16a34a]" /> Panduan Mutu ({guideline.categoryName})
             </button>
           </div>
 
@@ -117,17 +117,7 @@ export function CheckoutModal({
               <div className="flex items-start sm:items-center gap-3.5">
                 <div className="w-16 h-16 rounded-[14px] overflow-hidden bg-white shadow-sm border border-[rgba(0,0,0,0.08)] flex-shrink-0 relative">
                   <img
-                    src={
-                      item.photo && !item.photo.includes('placeholder')
-                        ? item.photo
-                        : item.foodCategory === 'roti'
-                        ? '/images/surplus-sourdough.jpg'
-                        : item.foodCategory === 'minuman'
-                        ? '/images/surplus-juice.jpg'
-                        : item.foodCategory === 'sayur' || item.foodCategory === 'buah'
-                        ? '/images/surplus-produce.jpg'
-                        : '/images/surplus-nasi-liwet.jpg'
-                    }
+                    src={getSurplusPhoto(item)}
                     alt={item.name}
                     className="w-full h-full object-cover"
                   />
@@ -138,7 +128,7 @@ export function CheckoutModal({
                       {FOOD_CATEGORY_LABELS[item.foodCategory] || item.foodCategory}
                     </span>
                     {item.isFree && (
-                      <span className="text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#34c759]/15 text-[#1b8a36]">
+                      <span className="text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#16a34a]/10 text-[#15803d]">
                         Gratis
                       </span>
                     )}
@@ -179,9 +169,9 @@ export function CheckoutModal({
 
                   <div className="p-4 rounded-[16px] bg-white border border-[rgba(0,0,0,0.08)]">
                     <div className="text-fine-print uppercase font-semibold text-[#86868b] tracking-wider mb-1 flex items-center gap-1">
-                      <Clock size={13} className="text-[#ff9500]" /> Batas Waktu Ambil
+                      <Clock size={13} className="text-[#ea580c]" /> Batas Waktu Ambil
                     </div>
-                    <div className="text-caption-strong text-[#ff9500] font-bold">
+                    <div className="text-caption-strong text-[#ea580c] font-bold">
                       {formatCountdown(item.expiryTime)} lagi
                     </div>
                     <div className="text-fine-print text-[#86868b] mt-0.5">
@@ -206,7 +196,7 @@ export function CheckoutModal({
 
                   <div className="flex justify-between text-caption-apple text-[#86868b]">
                     <span>Biaya Penyelamatkan Pangan (ESG)</span>
-                    <span className="text-[#34c759] font-medium">Rp 0 (Subsidi AksesPangan)</span>
+                    <span className="text-[#16a34a] font-medium">Rp 0 (Subsidi AksesPangan)</span>
                   </div>
 
                   <div className="pt-2 border-t border-[rgba(0,0,0,0.08)] flex justify-between items-center">
@@ -242,7 +232,7 @@ export function CheckoutModal({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="p-3.5 rounded-[14px] bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)]">
                     <div className="text-fine-print text-[#86868b] mb-1 flex items-center gap-1">
-                      <ThermometerSun size={13} className="text-[#ff9500]" /> Suhu Penyimpanan
+                      <ThermometerSun size={13} className="text-[#ea580c]" /> Suhu Penyimpanan
                     </div>
                     <div className="text-caption-strong text-[#1d1d1f]">
                       {guideline.storageTemp}
@@ -260,9 +250,9 @@ export function CheckoutModal({
 
                   <div className="p-3.5 rounded-[14px] bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)]">
                     <div className="text-fine-print text-[#86868b] mb-1 flex items-center gap-1">
-                      <ShieldCheck size={13} className="text-[#34c759]" /> Maks. Kulkas (&lt;4°C)
+                      <ShieldCheck size={13} className="text-[#16a34a]" /> Maks. Kulkas (&lt;4°C)
                     </div>
-                    <div className="text-caption-strong text-[#34c759]">
+                    <div className="text-caption-strong text-[#15803d]">
                       {guideline.maxRefrigeratedHours} Jam
                     </div>
                   </div>

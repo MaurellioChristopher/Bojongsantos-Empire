@@ -23,7 +23,7 @@ import {
   Activity,
 } from 'lucide-react';
 import { getActiveSurplus, calculateImpact } from '@/lib/data';
-import { formatCountdown, formatPrice } from '@/lib/utils';
+import { formatCountdown, formatPrice, getSurplusPhoto } from '@/lib/utils';
 import type { SurplusItem, ImpactData } from '@/types';
 
 // ============================================================
@@ -246,9 +246,11 @@ export function LandingPage() {
         return '/images/surplus-produce.jpg';
       case 'minuman':
         return '/images/surplus-beverage.jpg';
+      case 'buah':
+        return '/images/surplus-buah-potong.jpg';
       case 'nasi':
       default:
-        return '/images/surplus-gourmet.jpg';
+        return '/images/surplus-nasi-liwet.jpg';
     }
   };
 
@@ -700,7 +702,7 @@ export function LandingPage() {
               <div>
                 <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
                   <img
-                    src="/images/surplus-gourmet.jpg"
+                    src="/images/surplus-nasi-liwet.jpg"
                     alt="Donasi Makanan"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -922,13 +924,13 @@ export function LandingPage() {
                     {/* Image Header */}
                     <div className="relative h-48 w-full overflow-hidden bg-[#f0f0f0]">
                       <img
-                        src={item.photo || getCategoryPhoto(item.foodCategory)}
+                        src={getSurplusPhoto(item)}
                         alt={item.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 right-3 z-10">
                         {item.isFree ? (
-                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white text-black shadow-md">
+                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#16a34a] text-white shadow-md">
                             GRATIS
                           </span>
                         ) : (
@@ -961,7 +963,11 @@ export function LandingPage() {
 
                   {/* Card Footer */}
                   <div className="px-6 py-4 bg-[#fafafc] border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
-                    <div className="text-xs text-neutral-600 font-medium flex items-center gap-1.5 font-mono">
+                    <div className="text-xs text-[#ea580c] font-medium flex items-center gap-1.5 font-mono">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600"></span>
+                      </span>
                       <Clock size={13} />
                       <span>Sisa {formatCountdown(item.expiryTime)}</span>
                     </div>

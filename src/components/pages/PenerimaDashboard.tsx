@@ -8,7 +8,7 @@ import { useNotification } from '@/contexts/NotificationContext';
 import { getActiveSurplus, getBookingBySurplus } from '@/lib/data';
 import { surplusService } from '@/services/surplusService';
 import { bookingService } from '@/services/bookingService';
-import { formatCountdown, formatPrice, calculateDistance } from '@/lib/utils';
+import { formatCountdown, formatPrice, calculateDistance, getSurplusPhoto } from '@/lib/utils';
 import { FOOD_CATEGORY_LABELS, FOOD_CATEGORY_EMOJI } from '@/types';
 import { DEFAULT_CENTER } from '@/lib/constants';
 import type { SurplusItem, FoodCategory, Coordinates } from '@/types';
@@ -222,16 +222,7 @@ export function PenerimaDashboard() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredItems.map((item) => {
-                  const foodPhoto =
-                    item.photo && !item.photo.includes('placeholder')
-                      ? item.photo
-                      : item.foodCategory === 'roti'
-                      ? '/images/surplus-sourdough.jpg'
-                      : item.foodCategory === 'minuman'
-                      ? '/images/surplus-juice.jpg'
-                      : item.foodCategory === 'sayur' || item.foodCategory === 'buah'
-                      ? '/images/surplus-produce.jpg'
-                      : '/images/surplus-nasi-liwet.jpg';
+                  const foodPhoto = getSurplusPhoto(item);
 
                   return (
                     <motion.div
@@ -309,10 +300,10 @@ export function PenerimaDashboard() {
                       <div className="px-5 pb-5 pt-3 border-t border-[rgba(0,0,0,0.06)] bg-[#fafafc] flex items-center justify-between">
                         <div className="flex flex-col">
                           <span className="text-[10px] uppercase font-mono tracking-wider text-[#86868b]">Waktu Habis</span>
-                          <div className="text-caption-strong text-[#ff9500] flex items-center gap-1.5 font-mono">
+                          <div className="text-caption-strong text-[#ea580c] flex items-center gap-1.5 font-mono">
                             <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600"></span>
                             </span>
                             <Clock size={12} />
                             <span>{formatCountdown(item.expiryTime)}</span>

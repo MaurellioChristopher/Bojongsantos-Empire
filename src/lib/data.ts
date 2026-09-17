@@ -141,7 +141,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'RM Minang Raya Buahbatu',
       name: 'Nasi Padang Rendang & Gulai Ayam',
       description: 'Paket nasi padang lengkap lauk rendang sapi empuk, gulai ayam, sayur nangka, dan sambal hijau segar.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-padang.jpg',
       quantity: 5,
       portionCount: 12,
       productionTime: new Date(Date.now() - 3 * 3600000).toISOString(),
@@ -161,7 +161,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Katering Mitra Batununggal',
       name: 'Nasi Bento Katering Seminar',
       description: 'Nasi bento higienis isi ayam teriyaki, egg roll, salad mayones, dan nasi pulen sisa pesanan seminar.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-bento.jpg',
       quantity: 4,
       portionCount: 10,
       productionTime: new Date(Date.now() - 1.5 * 3600000).toISOString(),
@@ -181,7 +181,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Dapur Lengkong Tradisional',
       name: 'Paket Nasi Timbel Komplit',
       description: 'Nasi timbel daun pisang, ayam goreng lengkuas, gepuk daging sapi, tahu tempe dan sambal dadak.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-timbel.jpg',
       quantity: 7,
       portionCount: 18,
       productionTime: new Date(Date.now() - 2.5 * 3600000).toISOString(),
@@ -201,7 +201,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Resto Timur Tengah Dayeuhkolot',
       name: 'Nasi Kebuli Daging Kambing',
       description: 'Nasi kebuli rempah arabian dengan potongan daging kambing empuk, acar nanas, dan kerupuk emping.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-kebuli.jpg',
       quantity: 5,
       portionCount: 14,
       productionTime: new Date(Date.now() - 4 * 3600000).toISOString(),
@@ -261,7 +261,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Resto Sehat Alami Batununggal',
       name: 'Capcay Seafood & Tahu Organik',
       description: 'Capcay sayur kuah kental dengan udang, bakso ikan, brokoli, wortel manis, dan tahu sutra organik.',
-      photo: '/images/surplus-produce.jpg',
+      photo: '/images/surplus-capcay.jpg',
       quantity: 4,
       portionCount: 12,
       productionTime: new Date(Date.now() - 2 * 3600000).toISOString(),
@@ -301,7 +301,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Kios Buah Berkah Bojongsoang',
       name: 'Semangka & Melon Potong Higienis',
       description: 'Semangka merah tanpa biji dan melon madu manis potongan segar dalam kotak food-grade tertutup.',
-      photo: '/images/surplus-produce.jpg',
+      photo: '/images/surplus-buah-potong.jpg',
       quantity: 5,
       portionCount: 15,
       productionTime: new Date(Date.now() - 1 * 3600000).toISOString(),
@@ -363,8 +363,12 @@ export function getSurplusItems(): SurplusItem[] {
   const hasActiveBdg = items.some((i) => i.id.startsWith('surplus-bdg') && i.status === 'active' && i.expiryTime > now);
   const needsPhotoUpdate = items.some((i) => 
     (i.id === 'surplus-bdg-1' && i.photo !== '/images/surplus-nasi-liwet.jpg') ||
-    (i.id === 'surplus-bdg-7' && i.photo !== '/images/surplus-sourdough.jpg') ||
-    (i.id === 'surplus-bdg-12' && i.photo !== '/images/surplus-juice.jpg')
+    (i.id === 'surplus-bdg-2' && i.photo !== '/images/surplus-nasi-padang.jpg') ||
+    (i.id === 'surplus-bdg-3' && i.photo !== '/images/surplus-nasi-bento.jpg') ||
+    (i.id === 'surplus-bdg-4' && i.photo !== '/images/surplus-nasi-timbel.jpg') ||
+    (i.id === 'surplus-bdg-5' && i.photo !== '/images/surplus-nasi-kebuli.jpg') ||
+    (i.id === 'surplus-bdg-8' && i.photo !== '/images/surplus-capcay.jpg') ||
+    (i.id === 'surplus-bdg-10' && i.photo !== '/images/surplus-buah-potong.jpg')
   );
   if (!items.some((i) => i.id.startsWith('surplus-bdg')) || !hasActiveBdg || needsPhotoUpdate) {
     const bdgItems = getBandungSeedItems();

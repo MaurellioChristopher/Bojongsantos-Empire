@@ -67,7 +67,7 @@ export function TermsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-5 rounded-[14px] bg-[#f5f5f7] flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#ff9500] flex-shrink-0 shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#ea580c] flex-shrink-0 shadow-sm">
                 <ThermometerSun size={18} />
               </div>
               <div>
@@ -91,7 +91,7 @@ export function TermsPage() {
             </div>
 
             <div className="p-5 rounded-[14px] bg-[#f5f5f7] flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#ff3b30] flex-shrink-0 shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#dc2626] flex-shrink-0 shadow-sm">
                 <AlertTriangle size={18} />
               </div>
               <div>
@@ -103,7 +103,7 @@ export function TermsPage() {
             </div>
 
             <div className="p-5 rounded-[14px] bg-[#f5f5f7] flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#34c759] flex-shrink-0 shadow-sm">
+              <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center text-[#16a34a] flex-shrink-0 shadow-sm">
                 <CheckCircle size={18} />
               </div>
               <div>
@@ -117,11 +117,11 @@ export function TermsPage() {
         </div>
 
         {/* Warning Callout Box (Apple subtle style) */}
-        <div className="p-5 rounded-[14px] bg-[#fff8eb] border border-[#ffe1a8] flex items-start gap-3.5 mb-8">
-          <AlertTriangle size={20} className="text-[#ff9500] flex-shrink-0 mt-0.5" />
+        <div className="p-5 rounded-[14px] bg-[#fff7ed] border border-[#ffedd5] flex items-start gap-3.5 mb-8">
+          <AlertTriangle size={20} className="text-[#ea580c] flex-shrink-0 mt-0.5" />
           <div>
-            <div className="text-body-strong text-[#b25e00] mb-0.5">Catatan Penting Konsumsi</div>
-            <div className="text-caption-apple text-[#8f4b00]">
+            <div className="text-body-strong text-[#9a3412] mb-0.5">Catatan Penting Konsumsi</div>
+            <div className="text-caption-apple text-[#7c2d12]">
               Jika setelah dibuka makanan mengeluarkan bau masam, berlendir, atau kemasan rusak, segera buang dan laporkan melalui platform. Keselamatan Anda selalu menjadi prioritas utama.
             </div>
           </div>

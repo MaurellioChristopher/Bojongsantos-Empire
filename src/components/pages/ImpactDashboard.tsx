@@ -42,7 +42,7 @@ export function ImpactDashboard() {
       <div className="apple-container">
         {/* Apple Environment Style Header */}
         <div className="text-center max-w-[760px] mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 bg-[#34c759]/15 text-[#34c759] px-3.5 py-1 rounded-full text-xs font-semibold mb-4">
+          <div className="inline-flex items-center gap-2 bg-[#16a34a]/10 text-[#15803d] px-3.5 py-1 rounded-full text-xs font-semibold mb-4">
             <Leaf size={14} /> Laporan Lingkungan & Emisi Net-Zero
           </div>
           <h1 className="text-hero-display text-[#1d1d1f] mb-3">
@@ -66,10 +66,10 @@ export function ImpactDashboard() {
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div className="w-10 h-10 rounded-full bg-[#34c759]/10 flex items-center justify-center mx-auto mb-3 text-[#34c759]">
+            <div className="w-10 h-10 rounded-full bg-[#16a34a]/10 flex items-center justify-center mx-auto mb-3 text-[#16a34a]">
               <Heart size={20} />
             </div>
-            <div className="text-display-md text-[#34c759] font-semibold mb-0.5">
+            <div className="text-display-md text-[#15803d] font-semibold mb-0.5">
               {impact.totalPortions.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">porsi</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Porsi Terdistribusi</div>
@@ -86,10 +86,10 @@ export function ImpactDashboard() {
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div className="w-10 h-10 rounded-full bg-[#ff9500]/10 flex items-center justify-center mx-auto mb-3 text-[#ff9500]">
+            <div className="w-10 h-10 rounded-full bg-[#16a34a]/10 flex items-center justify-center mx-auto mb-3 text-[#16a34a]">
               <TreePine size={20} />
             </div>
-            <div className="text-display-md text-[#ff9500] font-semibold mb-0.5">
+            <div className="text-display-md text-[#15803d] font-semibold mb-0.5">
               {impact.treeEquivalent.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">pohon</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Setara Serapan Pohon</div>
@@ -105,7 +105,7 @@ export function ImpactDashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#34c759] flex-shrink-0 shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#16a34a] flex-shrink-0 shadow-sm">
                 <TreePine size={22} />
               </div>
               <div>
@@ -129,7 +129,7 @@ export function ImpactDashboard() {
             </div>
 
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#ff9500] flex-shrink-0 shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] flex-shrink-0 shadow-sm">
                 <Droplets size={22} />
               </div>
               <div>

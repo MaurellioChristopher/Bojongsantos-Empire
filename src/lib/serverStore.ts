@@ -87,7 +87,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Dapur Sunda Bojongsoang',
       name: 'Nasi Liwet Komplit Ayam Bakar',
       description: 'Nasi liwet wangi kasturi, ayam bakar bumbu rujak, tahu tempe goreng, lalapan segar dan sambal terasi khas priangan.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-liwet.jpg',
       quantity: 6,
       portionCount: 15,
       productionTime: new Date(Date.now() - 2 * 3600000).toISOString(),
@@ -107,7 +107,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'RM Minang Raya Buahbatu',
       name: 'Nasi Padang Rendang & Gulai Ayam',
       description: 'Paket nasi padang lengkap lauk rendang sapi empuk, gulai ayam, sayur nangka, dan sambal hijau segar.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-padang.jpg',
       quantity: 5,
       portionCount: 12,
       productionTime: new Date(Date.now() - 3 * 3600000).toISOString(),
@@ -127,7 +127,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Katering Mitra Batununggal',
       name: 'Nasi Bento Katering Seminar',
       description: 'Nasi bento higienis isi ayam teriyaki, egg roll, salad mayones, dan nasi pulen sisa pesanan seminar.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-bento.jpg',
       quantity: 4,
       portionCount: 10,
       productionTime: new Date(Date.now() - 1.5 * 3600000).toISOString(),
@@ -147,7 +147,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Dapur Lengkong Tradisional',
       name: 'Paket Nasi Timbel Komplit',
       description: 'Nasi timbel daun pisang, ayam goreng lengkuas, gepuk daging sapi, tahu tempe dan sambal dadak.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-timbel.jpg',
       quantity: 7,
       portionCount: 18,
       productionTime: new Date(Date.now() - 2.5 * 3600000).toISOString(),
@@ -167,7 +167,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Resto Timur Tengah Dayeuhkolot',
       name: 'Nasi Kebuli Daging Kambing',
       description: 'Nasi kebuli rempah arabian dengan potongan daging kambing empuk, acar nanas, dan kerupuk emping.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-kebuli.jpg',
       quantity: 5,
       portionCount: 14,
       productionTime: new Date(Date.now() - 4 * 3600000).toISOString(),
@@ -207,7 +207,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Bakery Sourdough Bojongsoang',
       name: 'Roti Sourdough & Baguette Organik',
       description: 'Artisan rustic sourdough loaf dan baguette gandum organik tanpa pengawet. Sangat bergizi.',
-      photo: '/images/surplus-bakery.jpg',
+      photo: '/images/surplus-sourdough.jpg',
       quantity: 3,
       portionCount: 10,
       productionTime: new Date(Date.now() - 4 * 3600000).toISOString(),
@@ -227,7 +227,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Resto Sehat Alami Batununggal',
       name: 'Capcay Seafood & Tahu Organik',
       description: 'Capcay sayur kuah kental dengan udang, bakso ikan, brokoli, wortel manis, dan tahu sutra organik.',
-      photo: '/images/surplus-produce.jpg',
+      photo: '/images/surplus-capcay.jpg',
       quantity: 4,
       portionCount: 12,
       productionTime: new Date(Date.now() - 2 * 3600000).toISOString(),
@@ -267,7 +267,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Kios Buah Berkah Bojongsoang',
       name: 'Semangka & Melon Potong Higienis',
       description: 'Semangka merah tanpa biji dan melon madu manis potongan segar dalam kotak food-grade tertutup.',
-      photo: '/images/surplus-produce.jpg',
+      photo: '/images/surplus-buah-potong.jpg',
       quantity: 5,
       portionCount: 15,
       productionTime: new Date(Date.now() - 1 * 3600000).toISOString(),
@@ -307,7 +307,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Kedai Segar Bojongsoang',
       name: 'Jus Jeruk Peras & Alpukat Murni',
       description: 'Jus jeruk peras murni tanpa gula pasir dan jus alpukat mentega segar dingin kemasan botol.',
-      photo: '/images/surplus-beverage.jpg',
+      photo: '/images/surplus-juice.jpg',
       quantity: 3,
       portionCount: 10,
       productionTime: new Date(Date.now() - 2 * 3600000).toISOString(),
@@ -328,7 +328,7 @@ function getInitialServerState(): ServerState {
       providerBusinessName: 'Restoran Minang Jaya',
       name: 'Nasi Padang Sisa Catering',
       description: 'Lauk ayam bakar, rendang, sayur nangka, sambal ijo. Dikemas higienis dalam box makanan.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-padang.jpg',
       quantity: 5,
       portionCount: 10,
       productionTime: new Date(Date.now() - 2 * 3600000).toISOString(),
@@ -395,10 +395,15 @@ function getInitialServerState(): ServerState {
 }
 
 export function getServerStore(): ServerState {
-  if (!global.__aksespangan_server_store__ || !global.__aksespangan_server_store__.surplusItems.some((i) => i.id.startsWith('surplus-bdg'))) {
+  const needsUpdate =
+    !global.__aksespangan_server_store__ ||
+    !global.__aksespangan_server_store__.surplusItems.some((i) => i.id.startsWith('surplus-bdg')) ||
+    !global.__aksespangan_server_store__.surplusItems.some((i) => i.id === 'surplus-bdg-2' && i.photo === '/images/surplus-nasi-padang.jpg');
+
+  if (needsUpdate) {
     global.__aksespangan_server_store__ = getInitialServerState();
   }
-  return global.__aksespangan_server_store__;
+  return global.__aksespangan_server_store__!;
 }
 
 export function calculateServerImpact(): ImpactData {

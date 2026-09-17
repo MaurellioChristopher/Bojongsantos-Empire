@@ -392,7 +392,7 @@ export function PenyediaSurplus() {
                 </div>
 
                 <div className="pt-3 border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
-                  <span className="text-fine-print text-[#ff9500]">
+                  <span className="text-fine-print text-[#ea580c]">
                     Sisa: {formatCountdown(item.expiryTime)}
                   </span>
                   <div className="flex items-center gap-2">
