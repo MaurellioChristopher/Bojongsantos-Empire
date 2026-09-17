@@ -60,108 +60,157 @@ export function Navbar({ currentRoute }: NavbarProps) {
     window.location.hash = '#/penerima';
   };
 
+  const isLanding = activeRoute === '/' || activeRoute === '';
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isPastHero, setIsPastHero] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 30);
+      const threshold = window.innerHeight * 2.4;
+      setIsPastHero(window.scrollY > threshold);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isLanding]);
+
+  const isDark = isLanding ? !isPastHero : false;
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-[rgba(0,0,0,0.06)] transition-all">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300 ${
+        isDark
+          ? 'bg-black/80 border-b border-white/10 text-white'
+          : 'bg-white/95 border-b border-[rgba(0,0,0,0.06)] text-black shadow-xs'
+      }`}
+    >
       {/* SINGLE LUXURY EDITORIAL NAVIGATION BAR (68px) */}
       <nav className="w-full h-[68px] px-6 sm:px-10 flex items-center justify-between">
         <div className="w-full max-w-[1440px] mx-auto flex items-center justify-between gap-8">
           {/* Left: Luxury Brand Mark + Editorial Navigation */}
           <div className="flex items-center gap-10">
             {/* Peak Design Style Monogram */}
-            <a href="#/" className="flex items-center gap-3 no-underline text-black group">
-              <div className="w-8 h-8 bg-black text-white flex items-center justify-center rounded-[3px] transition-transform duration-300 group-hover:scale-105">
+            <a href="#/" className={`flex items-center gap-3 no-underline group ${isDark ? 'text-white' : 'text-black'}`}>
+              <div className={`w-8 h-8 flex items-center justify-center rounded-[3px] transition-transform duration-300 group-hover:scale-105 ${
+                isDark ? 'bg-[#ffe602] text-black' : 'bg-black text-white'
+              }`}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="#ffffff" />
-                  <path d="M3.5 13.5L12 19.5L20.5 13.5" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
+                  <path d="M3.5 13.5L12 19.5L20.5 13.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-[13px] tracking-[0.2em] text-black uppercase leading-none">
-                  Akses<span className="font-light text-[#777777]">Pangan</span>
+                <span className="font-semibold text-[13px] tracking-[0.2em] uppercase leading-none">
+                  Akses<span className={isDark ? 'font-light text-[#ffe602]' : 'font-light text-[#777777]'}>Pangan</span>
                 </span>
-                <span className="text-[9px] tracking-[0.25em] text-[#999999] uppercase font-mono mt-0.5">
+                <span className={`text-[9px] tracking-[0.25em] uppercase font-mono mt-0.5 ${
+                  isDark ? 'text-white/60' : 'text-[#999999]'
+                }`}>
                   Surplus Network
                 </span>
               </div>
             </a>
 
             {/* Desktop Navigation Links */}
-            <div className="hidden lg:flex items-center gap-8 text-[12px] font-medium tracking-[0.08em] uppercase text-[#666666]">
+            <div className={`hidden lg:flex items-center gap-8 text-[12px] font-medium tracking-[0.08em] uppercase ${
+              isDark ? 'text-white/80' : 'text-[#666666]'
+            }`}>
               <a
                 href="#/penerima"
-                className={`transition-colors no-underline hover:text-black py-1 relative ${
-                  activeRoute.startsWith('/penerima') ? 'text-black font-semibold' : ''
+                className={`transition-colors no-underline py-1 relative ${
+                  isDark
+                    ? activeRoute.startsWith('/penerima') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    : activeRoute.startsWith('/penerima') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Katalog Surplus
                 {activeRoute.startsWith('/penerima') && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-black" />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
                 )}
               </a>
 
               <a
                 href="#/penyedia"
-                className={`transition-colors no-underline hover:text-black py-1 relative ${
-                  activeRoute.startsWith('/penyedia') ? 'text-black font-semibold' : ''
+                className={`transition-colors no-underline py-1 relative ${
+                  isDark
+                    ? activeRoute.startsWith('/penyedia') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    : activeRoute.startsWith('/penyedia') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Untuk Penyedia
                 {activeRoute.startsWith('/penyedia') && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-black" />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
                 )}
               </a>
 
               <a
                 href="#/dashboard"
-                className={`transition-colors no-underline hover:text-black py-1 relative ${
-                  activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : ''
+                className={`transition-colors no-underline py-1 relative ${
+                  isDark
+                    ? activeRoute.startsWith('/dashboard') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    : activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Dampak ESG
                 {activeRoute.startsWith('/dashboard') && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-black" />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
                 )}
               </a>
 
               <a
                 href="#/terms"
-                className={`transition-colors no-underline hover:text-black py-1 relative ${
-                  activeRoute.startsWith('/terms') ? 'text-black font-semibold' : ''
+                className={`transition-colors no-underline py-1 relative ${
+                  isDark
+                    ? activeRoute.startsWith('/terms') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    : activeRoute.startsWith('/terms') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Standar Mutu
                 {activeRoute.startsWith('/terms') && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-[1.5px] bg-black" />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
                 )}
               </a>
 
               {user?.role === 'admin' && (
                 <a
                   href="#/admin"
-                  className="transition-colors no-underline text-black font-semibold flex items-center gap-1 py-1"
+                  className={`transition-colors no-underline font-semibold flex items-center gap-1 py-1 ${
+                    isDark ? 'text-white' : 'text-black'
+                  }`}
                 >
-                  <Shield size={13} className="text-black" />
+                  <Shield size={13} className={isDark ? 'text-[#ffe602]' : 'text-black'} />
                   Admin
                 </a>
               )}
             </div>
           </div>
 
-          {/* Center: Peak Design Ultra-Clean Search Input */}
+          {/* Center: Search Input */}
           <div className="hidden md:flex flex-1 max-w-sm mx-4">
             <form onSubmit={handleSearchSubmit} className="w-full relative">
               <Search
                 size={14}
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#999999] pointer-events-none"
+                className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${
+                  isDark ? 'text-white/60' : 'text-[#999999]'
+                }`}
               />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Cari hidangan surplus, bakery, hotel..."
-                className="w-full h-[36px] pl-9 pr-12 text-[12px] rounded-[3px] border border-[rgba(0,0,0,0.12)] bg-[#fafafc] text-black placeholder-[#999999] focus:bg-white focus:border-black focus:outline-none transition-all"
+                className={`w-full h-[36px] pl-9 pr-12 text-[12px] rounded-[3px] border transition-all ${
+                  isDark
+                    ? 'border-white/20 bg-white/10 text-white placeholder-white/50 focus:bg-white/15 focus:border-[#ffe602] focus:outline-none'
+                    : 'border-[rgba(0,0,0,0.12)] bg-[#fafafc] text-black placeholder-[#999999] focus:bg-white focus:border-black focus:outline-none'
+                }`}
               />
-              <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono text-[#888888] bg-white px-1.5 py-0.5 rounded border border-[rgba(0,0,0,0.1)]">
+              <span className={`absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono px-1.5 py-0.5 rounded border ${
+                isDark
+                  ? 'text-white/60 bg-white/10 border-white/20'
+                  : 'text-[#888888] bg-white border-[rgba(0,0,0,0.1)]'
+              }`}>
                 ⌘K
               </span>
             </form>
@@ -172,7 +221,9 @@ export function Navbar({ currentRoute }: NavbarProps) {
             {/* Support Link */}
             <a
               href="#/terms"
-              className="hidden sm:inline-block text-[#666666] hover:text-black transition-colors no-underline"
+              className={`hidden sm:inline-block transition-colors no-underline ${
+                isDark ? 'text-white/70 hover:text-white' : 'text-[#666666] hover:text-black'
+              }`}
             >
               Bantuan
             </a>
@@ -182,14 +233,18 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <div className="flex items-center gap-3">
                 <a
                   href={user.role === 'penyedia' ? '#/penyedia' : '#/penerima'}
-                  className="flex items-center gap-1.5 text-black no-underline font-semibold"
+                  className={`flex items-center gap-1.5 no-underline font-semibold ${
+                    isDark ? 'text-white' : 'text-black'
+                  }`}
                 >
                   <User size={15} />
                   <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
                 </a>
                 <button
                   onClick={handleLogout}
-                  className="text-xs text-[#888888] hover:text-black transition-colors p-1"
+                  className={`text-xs transition-colors p-1 cursor-pointer ${
+                    isDark ? 'text-white/70 hover:text-white' : 'text-[#888888] hover:text-black'
+                  }`}
                   title="Keluar"
                 >
                   <LogOut size={14} />
@@ -198,7 +253,9 @@ export function Navbar({ currentRoute }: NavbarProps) {
             ) : (
               <a
                 href="#/login"
-                className="flex items-center gap-1.5 text-black hover:opacity-70 transition-opacity no-underline font-semibold"
+                className={`flex items-center gap-1.5 transition-opacity no-underline font-semibold ${
+                  isDark ? 'text-white hover:text-[#ffe602]' : 'text-black hover:opacity-70'
+                }`}
               >
                 <User size={15} />
                 <span className="hidden sm:inline">Masuk</span>
@@ -208,12 +265,16 @@ export function Navbar({ currentRoute }: NavbarProps) {
             {/* Claim Bag / Cart Icon */}
             <a
               href={user?.role === 'penyedia' ? '#/penyedia/booking' : '#/penerima/booking'}
-              className="relative p-1.5 text-black hover:opacity-70 transition-opacity no-underline"
+              className={`relative p-1.5 transition-opacity no-underline ${
+                isDark ? 'text-white' : 'text-black'
+              }`}
               title="Pesanan / Klaim Surplus"
             >
               <ShoppingBag size={17} />
               {activeBookingsCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-black text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                <span className={`absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center ${
+                  isDark ? 'bg-[#ffe602] text-black' : 'bg-black text-white'
+                }`}>
                   {activeBookingsCount}
                 </span>
               )}

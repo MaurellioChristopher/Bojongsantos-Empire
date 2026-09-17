@@ -118,7 +118,7 @@ function AppRouter() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
           className={`w-full ${showMobileDock ? 'pb-24 md:pb-0' : ''}`}
-          style={{ paddingTop: showNav ? '68px' : '0' }}
+          style={{ paddingTop: showNav && route !== '/' ? '68px' : '0' }}
         >
           {renderPage()}
         </motion.main>
