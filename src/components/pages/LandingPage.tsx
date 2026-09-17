@@ -71,19 +71,19 @@ function AnimatedCounter({
 const educationalFacts = [
   {
     id: 1,
-    highlight: 'Negara Pembuang Pangan Terbesar ke-2 G20',
+    highlight: 'Pembuang Pangan Terbesar ke-2 di G20',
     fact: 'Indonesia merupakan negara pembuang sampah makanan terbesar kedua di antara negara G20! Sebanyak 23 hingga 48 juta ton makanan terbuang sia-sia setiap tahunnya.',
     source: 'Kajian Bappenas & Food Loss & Waste Indonesia',
   },
   {
     id: 2,
-    highlight: 'Metana 25x Lebih Merusak dari CO₂',
+    highlight: 'Gas Metana 25x Lebih Merusak Iklim',
     fact: 'Sampah makanan yang membusuk di TPA menghasilkan gas metana (CH₄) yang memiliki potensi pemanasan iklim 25 kali lipat lebih agresif daripada karbon dioksida!',
     source: 'Kementerian Lingkungan Hidup & Kehutanan',
   },
   {
     id: 3,
-    highlight: 'Sanggup Beri Makan 50% Populasi',
+    highlight: 'Sanggup Mencukupi Gizi 50% Populasi',
     fact: 'Jika diselamatkan secara terstruktur, susut dan sisa pangan berkualitas di Indonesia sanggup mencukupi gizi hingga 28 juta warga pra-sejahtera dan mengentaskan kelaparan.',
     source: 'World Resources Institute (WRI)',
   },
@@ -95,18 +95,18 @@ const educationalFacts = [
   },
 ];
 
-// Media Coverage (Garda Pangan Exact Partners)
+// Media Coverage (Clean Neutral Badges)
 const mediaCoverage = [
-  { name: 'BBC Indonesia', type: 'Media Global' },
+  { name: 'BBC Indonesia', type: 'Global' },
   { name: 'Metro TV', type: 'Televisi' },
-  { name: 'Kompas', type: 'Media Nasional' },
+  { name: 'Kompas', type: 'Nasional' },
   { name: 'Jawa Pos', type: 'Surat Kabar' },
   { name: 'Liputan 6', type: 'Televisi' },
   { name: 'The Jakarta Post', type: 'Media' },
   { name: 'IDN Times', type: 'Digital' },
   { name: 'Trans 7', type: 'Televisi' },
-  { name: 'Detikcom', type: 'Portal Berita' },
-  { name: 'Kumparan', type: 'Media Digital' },
+  { name: 'Detikcom', type: 'Portal' },
+  { name: 'Kumparan', type: 'Digital' },
 ];
 
 const ecosystemPartners = [
@@ -115,7 +115,7 @@ const ecosystemPartners = [
   { name: 'Aloft Hotel', type: 'Mitra Dapur' },
   { name: 'Super Indo', type: 'Retail Segar' },
   { name: 'Lemonilo', type: 'Healthy Food' },
-  { name: 'Badan Pangan Nasional', type: 'Instansi Pemerintah' },
+  { name: 'Badan Pangan Nasional', type: 'Instansi' },
   { name: 'Bappenas', type: 'Kementerian PPN' },
   { name: 'Koalisi Pangan Lestari', type: 'Aliansi ESG' },
 ];
@@ -128,40 +128,42 @@ export function LandingPage() {
 
   // Responsive Scroll Track for the Camera Zoom Sequence
   const heroSequenceRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroSequenceRef,
-    offset: ['start start', 'end end'],
-  });
+  const { scrollY } = useScroll();
 
   // ============================================================
-  // FLUID CAMERA & PORTAL CIRCLE ZOOM CHOREOGRAPHY
-  // 1. Text scales and flies outward: [0, 0.45] -> scale 1 to 3.8, opacity 1 to 0
-  // 2. The portal circle scales up: [0, 0.48] -> scale 1 to 28 (engulfing the entire screen)
-  // 3. World backdrop reveals: [0.15, 0.45] -> opacity 0 to 1
-  // 4. Content inside (Tahukah Kamu + Counters): [0.42, 0.58] -> slides up smoothly
+  // BULLETPROOF PIXEL-DRIVEN CAMERA ZOOM INTERPOLATION
+  // Phase 1 (0px - 180px): Supporting text & buttons gently dissolve
+  // Phase 2 (50px - 220px): Letters F & OD drift outward
+  // Phase 3 (120px - 650px): Portal lens (letter 'O') expands to engulf screen
+  // Phase 4 (450px - 650px): Hero Stage 1 dissolves to 0
+  // Phase 5 (550px - 1450px): Stage 2 ("Tahukah Kamu?" + Live Telemetry) materializes
   // ============================================================
-  const textScale = useTransform(scrollYProgress, [0, 0.45], [1, 3.8]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.22, 0.42], [1, 0.8, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.45], [0, -35]);
+  const heroSupportingOpacity = useTransform(scrollY, [0, 180], [1, 0]);
+  const heroSupportingY = useTransform(scrollY, [0, 180], [0, -25]);
+  const heroSupportingYReverse = useTransform(scrollY, [0, 180], [0, 25]);
 
-  const portalScale = useTransform(scrollYProgress, [0, 0.48], [1, 28]);
-  const portalBorderWidth = useTransform(scrollYProgress, [0, 0.2, 0.45], [4, 2, 0.5]);
+  const letterOpacity = useTransform(scrollY, [50, 220], [1, 0]);
+  const letterFX = useTransform(scrollY, [50, 220], [0, -50]);
+  const letterOdX = useTransform(scrollY, [50, 220], [0, 50]);
 
-  const worldOpacity = useTransform(scrollYProgress, [0.18, 0.46], [0, 1]);
+  const videoOpacity = useTransform(scrollY, [80, 380], [0.55, 0]);
+  const portalScale = useTransform(scrollY, [120, 650], [1, 32]);
 
-  const stage2Opacity = useTransform(scrollYProgress, [0.42, 0.55, 0.88, 0.98], [0, 1, 1, 0.15]);
-  const stage2Y = useTransform(scrollYProgress, [0.42, 0.58], [60, 0]);
-  const stage2Scale = useTransform(scrollYProgress, [0.42, 0.58], [0.95, 1]);
+  // Entire Hero Stage 1 cleanly cross-fades to 0 to prevent ANY ghost text
+  const heroStage1Opacity = useTransform(scrollY, [450, 650], [1, 0]);
+  const portalOpacity = useTransform(scrollY, [450, 650], [1, 0]);
 
-  // Smooth scroll trigger to zoom directly into the circle
+  // Stage 2 emerges pristine and crystal clear from the center
+  const stage2Opacity = useTransform(scrollY, [550, 750, 1250, 1450], [0, 1, 1, 0]);
+  const stage2Y = useTransform(scrollY, [550, 750, 1250, 1450], [40, 0, 0, -50]);
+  const stage2Scale = useTransform(scrollY, [550, 750], [0.94, 1]);
+
+  // Soft smooth scroll trigger to dive into the next stage
   const handlePortalClick = () => {
-    if (heroSequenceRef.current) {
-      const targetScroll = heroSequenceRef.current.offsetTop + window.innerHeight * 1.25;
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth',
-      });
-    }
+    window.scrollTo({
+      top: 850,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {
@@ -205,83 +207,113 @@ export function LandingPage() {
       : activeItems.filter((i) => i.foodCategory === selectedCategory);
 
   return (
-    <div className="w-full bg-[#0e2316] text-[#1d1d1f] overflow-x-hidden selection:bg-[#0e2316] selection:text-[#ffe602]">
+    <div className="w-full bg-[#0a0a0c] text-[#1d1d1f] selection:bg-black selection:text-white">
       {/* ============================================================
-          SECTION 1: SCROLL-DRIVEN CAMERA / PORTAL CIRCLE ZOOM
-          Track: 230vh. Sticky: 100vh.
-          The circular portal zooms into the camera, opening up into
-          the food rescue world with zero blank white spots!
+          SECTION 1: HERO SCROLL-DRIVEN CAMERA ZOOM WITH VIDEO BACKGROUND
+          - Background: Real Looping Video (/videos/hero-food.webm)
+          - Letter 'O': Holds high-res food rescue photo, integrated inline into 'F[O]OD'
+          - Zoom transition: Soft camera dive directly through the 'O' portal
+          - Color: Obsidian black & warm gold accents (Zero annoying green!)
           ============================================================ */}
-      <section ref={heroSequenceRef} className="relative w-full h-[230vh] bg-[#0e2316]">
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0e2316] flex items-center justify-center">
-          {/* LAYER 0: Ambient Forest Backdrop with Subtle Glow */}
-          <div className="absolute inset-0 z-0 bg-[#0e2316] pointer-events-none">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(10,90,47,0.4)_0%,_#0e2316_75%)]" />
-          </div>
-
-          {/* LAYER 1: The Food Rescue World (Revealed as the Circle Scales Up) */}
+      <section ref={heroSequenceRef} className="relative w-full h-[260vh] bg-black">
+        <div className="sticky top-0 h-screen w-full overflow-hidden bg-black flex items-center justify-center">
+          {/* Real Background Video Playing */}
           <motion.div
-            style={{ opacity: worldOpacity }}
-            className="absolute inset-0 z-10 w-full h-full pointer-events-none"
+            style={{ opacity: videoOpacity }}
+            className="absolute inset-0 w-full h-full pointer-events-none"
           >
-            <img
-              src="/images/hero-food-kitchen.jpg"
-              alt="Kitchen Atmosphere"
-              className="w-full h-full object-cover object-center scale-105"
-            />
-            {/* Rich dark forest overlay for high-contrast reading */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0e2316]/90 via-[#0e2316]/75 to-[#0e2316]/95" />
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster="/images/hero-food-kitchen.jpg"
+              className="w-full h-full object-cover object-center pointer-events-none"
+            >
+              <source src="/videos/hero-food.webm" type="video/webm" />
+            </video>
           </motion.div>
 
-          {/* LAYER 2: The Portal Circle that Zooms into the Camera */}
-          <motion.div
-            style={{
-              scale: portalScale,
-              borderWidth: portalBorderWidth,
-            }}
-            onClick={handlePortalClick}
-            className="absolute z-20 size-[84px] sm:size-[92px] rounded-full overflow-hidden border-[#ffe602] bg-[#0e2316] shadow-[0_0_40px_rgba(255,230,2,0.5)] cursor-pointer flex items-center justify-center will-change-transform"
-            title="Klik untuk zoom masuk ke dalam portal"
-          >
-            <img
-              src="/images/hero-food-delivery.jpg"
-              alt="Live Portal View"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
+          {/* Deep Cinematic Black Gradients for Pure Elegance */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/80 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#000000_85%)] pointer-events-none" />
 
-          {/* LAYER 3: The Surrounding Typography (Zooms out and fades as camera enters circle) */}
+          {/* Hero Content & Unified Typography */}
           <motion.div
-            style={{
-              scale: textScale,
-              opacity: textOpacity,
-              y: textY,
-            }}
-            className="relative z-20 flex flex-col items-center justify-center text-center px-6 max-w-5xl pointer-events-none select-none will-change-transform"
+            style={{ opacity: heroStage1Opacity }}
+            className="relative z-20 flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl select-none will-change-transform"
           >
             {/* Top Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a5a2f]/80 border border-[#ffe602]/40 text-[10px] font-semibold tracking-[0.22em] uppercase text-[#ffe602] mb-6 shadow-sm">
+            <motion.div
+              style={{ opacity: heroSupportingOpacity, y: heroSupportingY }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] font-semibold tracking-[0.22em] uppercase text-[#ffe602] mb-5 shadow-sm"
+            >
               <span className="w-2 h-2 rounded-full bg-[#ffe602] animate-ping" />
               <span>INDONESIA FOOD LOSS &amp; WASTE SOLUTION</span>
+            </motion.div>
+
+            {/* Main Headline */}
+            <div className="flex flex-col items-center justify-center leading-none">
+              {/* Line 1: ONE STOP */}
+              <motion.div
+                style={{ opacity: heroSupportingOpacity, y: heroSupportingY }}
+                className="font-serif text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold tracking-tight text-white uppercase leading-tight mb-1"
+              >
+                ONE STOP
+              </motion.div>
+
+              {/* Line 2: The Core Hero F[O]OD */}
+              <div className="relative flex items-center justify-center whitespace-nowrap font-serif text-[clamp(3.5rem,8.5vw,7.2rem)] font-black uppercase tracking-tight leading-none text-white my-1">
+                <motion.span
+                  style={{ opacity: letterOpacity, x: letterFX }}
+                  className="inline-block"
+                >
+                  F
+                </motion.span>
+
+                {/* The Inline Portal "O" with photo & glowing gold border */}
+                <span className="relative inline-flex items-center justify-center mx-[0.06em] align-middle">
+                  <motion.div
+                    style={{
+                      scale: portalScale,
+                      opacity: portalOpacity,
+                    }}
+                    onClick={handlePortalClick}
+                    className="relative size-[0.80em] rounded-full overflow-hidden border-[3px] sm:border-[5px] border-[#ffe602] shadow-[0_0_45px_rgba(255,230,2,0.65)] cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform group bg-black"
+                    title="Klik atau scroll untuk menyelami gerakan penyelamatan pangan"
+                  >
+                    <img
+                      src="/images/hero-food-delivery.jpg"
+                      alt="Food Rescue Portal"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 pointer-events-none"
+                    />
+                    <div className="absolute inset-0 rounded-full border border-white/30 pointer-events-none" />
+                  </motion.div>
+                </span>
+
+                <motion.span
+                  style={{ opacity: letterOpacity, x: letterOdX }}
+                  className="inline-block"
+                >
+                  OD
+                </motion.span>
+              </div>
+
+              {/* Line 3: RESCUE & SURPLUS SOLUTION */}
+              <motion.div
+                style={{ opacity: heroSupportingOpacity, y: heroSupportingYReverse }}
+                className="font-serif text-[clamp(1.8rem,4.5vw,3.8rem)] font-bold tracking-tight uppercase leading-tight text-[#ffe602] mt-1"
+              >
+                RESCUE &amp; SURPLUS <span className="text-white">SOLUTION</span>
+              </motion.div>
             </div>
 
-            {/* Title with Empty Spot reserved for the Centered Portal Circle */}
-            <h1 className="font-serif text-[clamp(2.6rem,6.8vw,5.5rem)] font-bold uppercase leading-[0.94] tracking-[-0.03em] text-center mb-6">
-              <span className="block text-white">ONE STOP</span>
-              <span className="relative block text-[#ffe602]">
-                F
-                {/* Spacer box matching the portal circle dimensions */}
-                <span className="inline-block size-[84px] sm:size-[92px] mx-1.5 -translate-y-[0.08em] align-middle opacity-0 pointer-events-none" />
-                OD RESCUE
-              </span>
-              <span className="block text-white">
-                &amp; SURPLUS <span className="text-[#ffe602]">SOLUTION</span>
-              </span>
-            </h1>
-
-            {/* Subtext and dual CTA buttons */}
-            <div className="flex flex-col items-center pointer-events-auto">
-              <p className="max-w-xl text-sm sm:text-base text-white/85 leading-relaxed font-normal mb-8 text-center">
+            {/* Subtext and dual action buttons */}
+            <motion.div
+              style={{ opacity: heroSupportingOpacity, y: heroSupportingYReverse }}
+              className="flex flex-col items-center mt-6 sm:mt-8 pointer-events-auto"
+            >
+              <p className="max-w-xl text-sm sm:text-base text-white/85 leading-relaxed font-normal mb-7 text-center">
                 Pusat koordinasi penyelamatan makanan surplus hotel dan restoran untuk disalurkan
                 secara bermartabat kepada masyarakat pra-sejahtera.
               </p>
@@ -289,13 +321,13 @@ export function LandingPage() {
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <a href="#/penerima" className="btn-garda-pill-gold group">
                   <span>AMBIL SURPLUS SEKARANG</span>
-                  <span className="w-8 h-8 rounded-full bg-[#0e2316] text-[#ffe602] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                  <span className="w-8 h-8 rounded-full bg-black text-[#ffe602] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowRight size={14} />
                   </span>
                 </a>
                 <a href="#/penyedia" className="btn-garda-pill group">
                   <span className="text-white">GABUNG SEBAGAI MITRA</span>
-                  <span className="w-8 h-8 rounded-full bg-[#ffe602] text-[#0e2316] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                  <span className="w-8 h-8 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowRight size={14} />
                   </span>
                 </a>
@@ -304,34 +336,26 @@ export function LandingPage() {
               {/* Clickable Cue to Dive In */}
               <button
                 onClick={handlePortalClick}
-                className="mt-8 flex items-center gap-2 text-xs font-mono text-[#ffe602] hover:underline cursor-pointer transition-colors"
+                className="mt-7 flex items-center gap-2 text-xs font-mono text-[#ffe602] hover:text-white cursor-pointer transition-colors"
               >
-                <span>Klik portal atau scroll untuk menyelami</span>
+                <span>Klik lingkaran atau scroll perlahan untuk masuk</span>
                 <ChevronDown size={14} className="animate-bounce" />
               </button>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* LAYER 4: Stage 2 - "Tahukah Kamu?" Card + Real-time Impact Counters
-              Emerges seamlessly inside the circle once the camera dives in */}
+          {/* Stage 2: Next Page Stage ("Tahukah Kamu?" Card + Real-Time Telemetry Counters)
+              Emerges softly from inside the portal with zero cutoffs or blank spots */}
           <motion.div
             style={{
               opacity: stage2Opacity,
               y: stage2Y,
               scale: stage2Scale,
             }}
-            className="absolute z-30 inset-x-4 sm:inset-x-8 max-w-5xl mx-auto flex flex-col justify-center pointer-events-auto will-change-transform"
+            className="absolute z-30 top-1/2 -translate-y-1/2 inset-x-4 sm:inset-x-8 max-w-5xl mx-auto flex flex-col justify-center pointer-events-auto will-change-transform"
           >
             {/* Top Educational Fact Card */}
-            <div className="relative bg-[#0d2b14]/95 backdrop-blur-xl border border-white/20 rounded-[2rem] p-6 sm:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.6)] overflow-hidden mb-5">
-              {/* Watermark */}
-              <div className="absolute -bottom-16 -right-16 text-white/5 pointer-events-none">
-                <svg width="280" height="280" viewBox="0 0 100 100" fill="currentColor">
-                  <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="6" fill="none" />
-                  <path d="M50 20 L50 80 M20 50 L80 50" stroke="currentColor" strokeWidth="6" />
-                </svg>
-              </div>
-
+            <div className="relative bg-[#121214]/95 backdrop-blur-2xl border border-white/15 rounded-[2rem] p-6 sm:p-10 shadow-[0_30px_80px_rgba(0,0,0,0.8)] overflow-hidden mb-5">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
                 {/* Left Title */}
                 <div className="lg:col-span-4">
@@ -370,7 +394,7 @@ export function LandingPage() {
                     </motion.div>
                   </AnimatePresence>
 
-                  {/* Fact Navigation Bar */}
+                  {/* Navigation Bar */}
                   <div className="flex items-center justify-between pt-3 border-t border-white/10">
                     <div className="flex items-center gap-1.5">
                       {educationalFacts.map((_, idx) => (
@@ -388,14 +412,14 @@ export function LandingPage() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={prevFact}
-                        className="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-[#ffe602] hover:text-[#0e2316] transition-colors flex items-center justify-center cursor-pointer"
+                        className="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-[#ffe602] hover:text-black transition-colors flex items-center justify-center cursor-pointer"
                         aria-label="Fakta Sebelumnya"
                       >
                         <ChevronLeft size={16} />
                       </button>
                       <button
                         onClick={nextFact}
-                        className="w-8 h-8 rounded-full bg-[#ffe602] text-[#0e2316] hover:bg-[#ffd800] transition-colors flex items-center justify-center cursor-pointer font-bold shadow-md"
+                        className="w-8 h-8 rounded-full bg-[#ffe602] text-black hover:bg-[#ffd800] transition-colors flex items-center justify-center cursor-pointer font-bold shadow-md"
                         aria-label="Fakta Selanjutnya"
                       >
                         <ChevronRight size={16} />
@@ -407,7 +431,7 @@ export function LandingPage() {
             </div>
 
             {/* Bottom 4-Counter Metrics Strip */}
-            <div className="bg-[#0d2b14]/95 backdrop-blur-xl border border-white/20 rounded-[2rem] p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <div className="bg-[#121214]/95 backdrop-blur-2xl border border-white/15 rounded-[2rem] p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Metric 1 */}
                 <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
@@ -467,10 +491,10 @@ export function LandingPage() {
       </section>
 
       {/* ============================================================
-          SECTION 2: INFINITE SMOOTH MARQUEE TICKER (Seamless Deep Forest)
-          No white spot: connects directly from #0e2316 to #0a381d
+          SECTION 2: INFINITE SMOOTH MARQUEE TICKER (Seamless Dark Charcoal)
+          Zero white blank spots: seamlessly connects from #000000 to #0f0f11
           ============================================================ */}
-      <section className="w-full py-12 bg-[#092614] border-y border-white/10 overflow-hidden">
+      <section className="w-full py-12 bg-[#0f0f12] border-y border-white/10 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 mb-5 text-center">
           <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#ffe602] font-semibold">
             DILIPUT OLEH MEDIA &amp; TERHUBUNG DENGAN EKOSISTEM KULINER
@@ -479,14 +503,14 @@ export function LandingPage() {
 
         {/* Row 1 (Forward) */}
         <div className="relative overflow-hidden py-1.5">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#092614] to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#092614] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#0f0f12] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#0f0f12] to-transparent" />
 
           <div className="animate-marquee gap-5">
             {[...mediaCoverage, ...mediaCoverage].map((item, idx) => (
               <div
                 key={idx}
-                className="h-11 px-5 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 hover:border-[#ffe602]/50 transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
+                className="h-11 px-5 rounded-full border border-white/10 bg-white/5 hover:bg-white/15 hover:border-[#ffe602]/50 transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
               >
                 <span className="w-2 h-2 rounded-full bg-[#ffe602]" />
                 <span className="text-sm font-bold text-white tracking-tight">{item.name}</span>
@@ -500,14 +524,14 @@ export function LandingPage() {
 
         {/* Row 2 (Reverse) */}
         <div className="relative overflow-hidden py-1.5 mt-2.5">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#092614] to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#092614] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#0f0f12] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#0f0f12] to-transparent" />
 
           <div className="animate-marquee-reverse gap-5">
             {[...ecosystemPartners, ...ecosystemPartners].map((item, idx) => (
               <div
                 key={idx}
-                className="h-11 px-5 rounded-full border border-[#ffe602]/30 bg-white/5 hover:bg-[#ffe602]/20 hover:border-[#ffe602] transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
+                className="h-11 px-5 rounded-full border border-[#ffe602]/25 bg-white/5 hover:bg-[#ffe602]/15 hover:border-[#ffe602] transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
               >
                 <span className="w-2 h-2 rounded-full bg-[#ffe602]" />
                 <span className="text-sm font-bold text-white tracking-tight">{item.name}</span>
@@ -521,17 +545,17 @@ export function LandingPage() {
       </section>
 
       {/* ============================================================
-          SECTION 3: "AYO JADI AGEN PERUBAHAN!" (4 Garda Pangan Action Cards)
-          Background: Exact Warm Vanilla Cream #FCF9E0
+          SECTION 3: "AYO JADI AGEN PERUBAHAN!" (4 Clean Action Cards)
+          Background: Refined Soft Neutral Ivory #f8f8f9 with pure white cards
           ============================================================ */}
-      <section className="w-full py-24 px-4 sm:px-8 bg-[#FCF9E0] border-b border-[rgba(10,90,47,0.1)]">
+      <section className="w-full py-24 px-4 sm:px-8 bg-[#f8f8f9] border-b border-[rgba(0,0,0,0.06)]">
         <div className="max-w-6xl mx-auto">
           {/* Heading */}
           <div className="flex flex-col items-center text-center mb-16">
-            <h2 className="font-serif text-[clamp(2.2rem,5vw,3.5rem)] font-bold text-[#0e2316] leading-tight mb-3">
+            <h2 className="font-serif text-[clamp(2.2rem,5vw,3.5rem)] font-bold text-black leading-tight mb-3">
               Ayo jadi agen perubahan!
             </h2>
-            <p className="max-w-xl text-base sm:text-lg text-[#0e2316]/75 leading-relaxed">
+            <p className="max-w-xl text-base sm:text-lg text-[#555555] leading-relaxed">
               Mari bergabung dalam gerakan untuk menyelamatkan pangan yang berpotensi terbuang!
             </p>
           </div>
@@ -542,17 +566,17 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2.5rem] border border-white p-6 flex flex-col justify-between shadow-[0_20px_30px_rgba(18,34,21,0.08)] hover:shadow-[0_24px_40px_rgba(18,34,21,0.14)] transition-all"
+              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f5f5f7]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
                   <img
                     src="/images/surplus-gourmet.jpg"
                     alt="Donasi Makanan"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-[#0a5a2f] mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
                   Donasi Makanan
                 </h3>
                 <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
@@ -562,7 +586,7 @@ export function LandingPage() {
 
               <a href="#/penyedia/surplus" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Mulai Donasi</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-[#0e2316] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -572,17 +596,17 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2.5rem] border border-white p-6 flex flex-col justify-between shadow-[0_20px_30px_rgba(18,34,21,0.08)] hover:shadow-[0_24px_40px_rgba(18,34,21,0.14)] transition-all"
+              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f5f5f7]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
                   <img
                     src="/images/surplus-bakery.jpg"
                     alt="Ambil Surplus"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-[#0a5a2f] mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
                   Ambil Surplus
                 </h3>
                 <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
@@ -592,7 +616,7 @@ export function LandingPage() {
 
               <a href="#/penerima" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Ambil Makanan</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-[#0e2316] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -602,17 +626,17 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2.5rem] border border-white p-6 flex flex-col justify-between shadow-[0_20px_30px_rgba(18,34,21,0.08)] hover:shadow-[0_24px_40px_rgba(18,34,21,0.14)] transition-all"
+              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f5f5f7]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
                   <img
                     src="/images/hero-food-delivery.jpg"
                     alt="Usul Penerima"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-[#0a5a2f] mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
                   Usul Penerima
                 </h3>
                 <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
@@ -622,7 +646,7 @@ export function LandingPage() {
 
               <a href="#/terms" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Rekomendasikan</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-[#0e2316] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -632,17 +656,17 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2.5rem] border border-white p-6 flex flex-col justify-between shadow-[0_20px_30px_rgba(18,34,21,0.08)] hover:shadow-[0_24px_40px_rgba(18,34,21,0.14)] transition-all"
+              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f5f5f7]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
                   <img
                     src="/images/hero-food-kitchen.jpg"
                     alt="Jadi Relawan"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-[#0a5a2f] mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
                   Jadi Relawan
                 </h3>
                 <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
@@ -652,7 +676,7 @@ export function LandingPage() {
 
               <a href="#/register" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Daftar Relawan</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-[#0e2316] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -664,9 +688,9 @@ export function LandingPage() {
       {/* ============================================================
           SECTION 4: SPLIT FEATURE BANNER ("Anda Pemilik Bisnis Makanan?")
           Left: Chef / Kitchen Photo
-          Right: Garda Forest Green #0A5A2F with Yellow #ffe602
+          Right: Sleek Charcoal Card with Gold Highlights (No annoying green)
           ============================================================ */}
-      <section className="w-full overflow-hidden bg-[#0A5A2F]">
+      <section className="w-full overflow-hidden bg-[#111114]">
         <div className="flex flex-col lg:flex-row min-h-[400px]">
           {/* Left Photo */}
           <div className="relative w-full lg:w-1/2 min-h-[280px] lg:min-h-[400px]">
@@ -675,11 +699,11 @@ export function LandingPage() {
               alt="Dapur Mitra Kuliner"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A5A2F]/80 to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#111114]/80 to-transparent lg:hidden" />
           </div>
 
-          {/* Right Garda Green Box */}
-          <div className="relative flex w-full lg:w-1/2 flex-col items-start justify-center gap-6 bg-[#0A5A2F] px-8 py-12 sm:px-12 sm:py-16 lg:px-16 text-white">
+          {/* Right Sleek Dark Box */}
+          <div className="relative flex w-full lg:w-1/2 flex-col items-start justify-center gap-6 bg-[#111114] px-8 py-12 sm:px-12 sm:py-16 lg:px-16 text-white">
             <div className="flex flex-col items-start gap-3">
               <span className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-[#ffe602]">
                 <Building2 size={13} />
@@ -697,7 +721,7 @@ export function LandingPage() {
 
             <a href="#/register" className="btn-garda-pill-gold group">
               <span>Daftar Jadi Mitra</span>
-              <span className="w-8 h-8 rounded-full bg-[#0e2316] text-[#ffe602] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+              <span className="w-8 h-8 rounded-full bg-black text-[#ffe602] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                 <ArrowRight size={14} />
               </span>
             </a>
@@ -707,17 +731,17 @@ export function LandingPage() {
 
       {/* ============================================================
           SECTION 5: CURATED SURPLUS CATALOGUE (Interactive Real-Time Items)
-          Clean white surface with crisp green accents
+          Pure crisp white surface with modern borders
           ============================================================ */}
       <section className="w-full py-20 px-6 sm:px-12 bg-white border-b border-[rgba(0,0,0,0.06)]">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-[rgba(0,0,0,0.08)]">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#0a5a2f] font-semibold block mb-1.5 font-mono">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-[#86868b] font-semibold block mb-1.5 font-mono">
                 INVENTARIS SURPLUS AKTIF HARI INI
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#0e2316]">
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-black">
                 Katalog Makanan Tersedia
               </h2>
               <p className="text-[14px] text-[#555555] m-0 mt-1">
@@ -727,7 +751,7 @@ export function LandingPage() {
 
             <a
               href="#/penerima"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#0a5a2f] hover:underline mt-4 sm:mt-0"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-black hover:underline mt-4 sm:mt-0"
             >
               <span>BUKA PETA GEOLOCATION</span>
               <ArrowRight size={14} />
@@ -742,7 +766,7 @@ export function LandingPage() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`relative px-4 py-2 text-xs font-semibold tracking-wider rounded-full transition-all cursor-pointer whitespace-nowrap uppercase ${
                   selectedCategory === cat.id
-                    ? 'bg-[#0a5a2f] text-white shadow-md'
+                    ? 'bg-black text-white shadow-md'
                     : 'bg-[#f5f5f7] text-[#4a5568] hover:bg-[#e8e8ed]'
                 }`}
               >
@@ -763,7 +787,7 @@ export function LandingPage() {
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.3 }}
                   whileHover={{ y: -6 }}
-                  className="bg-white rounded-3xl border border-[rgba(0,0,0,0.08)] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(10,90,47,0.12)] flex flex-col justify-between group transition-all"
+                  className="bg-white rounded-3xl border border-[rgba(0,0,0,0.08)] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] flex flex-col justify-between group transition-all"
                 >
                   <div>
                     {/* Image Header */}
@@ -775,11 +799,11 @@ export function LandingPage() {
                       />
                       <div className="absolute top-3 right-3 z-10">
                         {item.isFree ? (
-                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#0a5a2f] text-white shadow-md">
+                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-black text-[#ffe602] shadow-md">
                             GRATIS
                           </span>
                         ) : (
-                          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-[#0e2316]/90 backdrop-blur-md text-[#ffe602] border border-white/20 shadow-md">
+                          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-black/90 backdrop-blur-md text-[#ffe602] border border-white/20 shadow-md">
                             {formatPrice(item.price)}
                           </span>
                         )}
@@ -794,10 +818,10 @@ export function LandingPage() {
                     {/* Body */}
                     <div className="p-6">
                       <div className="text-xs font-medium uppercase text-[#86868b] mb-1.5 flex items-center gap-1">
-                        <MapPin size={12} className="text-[#0a5a2f] shrink-0" />
+                        <MapPin size={12} className="text-black shrink-0" />
                         <span className="truncate">{item.providerBusinessName} • {item.address}</span>
                       </div>
-                      <h3 className="font-serif text-xl font-bold text-[#0e2316] mb-2 line-clamp-1">
+                      <h3 className="font-serif text-xl font-bold text-black mb-2 line-clamp-1">
                         {item.name}
                       </h3>
                       <p className="text-xs text-[#555555] leading-relaxed line-clamp-2 m-0">
@@ -807,7 +831,7 @@ export function LandingPage() {
                   </div>
 
                   {/* Card Footer */}
-                  <div className="px-6 py-4 bg-[#fbfdfc] border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
+                  <div className="px-6 py-4 bg-[#fafafc] border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
                     <div className="text-xs text-amber-700 font-medium flex items-center gap-1.5 font-mono">
                       <Clock size={13} />
                       <span>Sisa {formatCountdown(item.expiryTime)}</span>
@@ -815,7 +839,7 @@ export function LandingPage() {
 
                     <a
                       href="#/penerima"
-                      className="text-xs font-bold uppercase tracking-wider py-2 px-4 bg-[#0a5a2f] text-[#ffe602] hover:bg-[#0e2316] rounded-full transition-colors no-underline shadow-sm"
+                      className="text-xs font-bold uppercase tracking-wider py-2 px-4 bg-black text-white hover:bg-[#222222] rounded-full transition-colors no-underline shadow-sm"
                     >
                       Klaim Porsi →
                     </a>
@@ -830,7 +854,7 @@ export function LandingPage() {
               <p className="text-[#666666] text-sm mb-3">Tidak ada surplus aktif di kategori ini saat ini.</p>
               <button
                 onClick={() => setSelectedCategory('all')}
-                className="text-xs font-bold uppercase tracking-wider text-[#0a5a2f] underline cursor-pointer"
+                className="text-xs font-bold uppercase tracking-wider text-black underline cursor-pointer"
               >
                 Lihat Semua Kategori
               </button>
@@ -842,7 +866,7 @@ export function LandingPage() {
       {/* ============================================================
           SECTION 6: PROTOKOL KEAMANAN (3 Pillars of Food Rescue)
           ============================================================ */}
-      <section className="w-full py-24 px-6 sm:px-12 bg-[#0e2316] text-white">
+      <section className="w-full py-24 px-6 sm:px-12 bg-[#0d0d0f] text-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#ffe602] block mb-2.5 font-mono">
@@ -905,7 +929,7 @@ export function LandingPage() {
       {/* ============================================================
           SECTION 7: FOOTER
           ============================================================ */}
-      <footer className="w-full bg-[#08180e] text-white py-16 px-6 sm:px-12 border-t border-white/10">
+      <footer className="w-full bg-black text-white py-16 px-6 sm:px-12 border-t border-white/10">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
             <div>
@@ -959,7 +983,7 @@ export function LandingPage() {
 
           <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50">
             <p className="m-0 mb-3 sm:mb-0">
-              © 2026 AksesPangan. Gerakan Penyelamatan Makanan Indonesia. Terinspirasi oleh standar Garda Pangan.
+              © 2026 AksesPangan. Gerakan Penyelamatan Makanan Indonesia.
             </p>
             <div className="flex gap-6">
               <a href="#/terms" className="hover:text-white transition-colors">Privasi</a>

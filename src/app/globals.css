@@ -666,9 +666,9 @@ h1, h2, h3, h4, h5, h6 {
   animation: pulse-subtle 3s ease-in-out infinite;
 }
 
-/* Garda Pangan Style Rounded Action Button with Arrow Disc */
+/* Sleek Neutral & Gold Pill Buttons */
 .btn-garda-pill {
-  background-color: #0a5a2f;
+  background-color: #000000;
   color: #ffffff;
   font-weight: 700;
   font-size: 14px;
@@ -681,20 +681,20 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  box-shadow: 0 10px 25px -5px rgba(10, 90, 47, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .btn-garda-pill:hover {
-  background-color: #0e2316;
+  background-color: #1c1c1f;
   color: #ffe602;
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px -5px rgba(14, 35, 22, 0.45);
+  box-shadow: 0 14px 30px -5px rgba(0, 0, 0, 0.45);
 }
 
 .btn-garda-pill-gold {
   background-color: #ffe602;
-  color: #0e2316;
+  color: #000000;
   font-weight: 800;
   font-size: 14px;
   letter-spacing: -0.01em;

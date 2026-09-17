@@ -62,22 +62,26 @@ export function Navbar({ currentRoute }: NavbarProps) {
 
   const isLanding = activeRoute === '/' || activeRoute === '';
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isPastHero, setIsPastHero] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 60);
+      setIsScrolled(window.scrollY > 30);
+      const threshold = window.innerHeight * 2.4;
+      setIsPastHero(window.scrollY > threshold);
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isLanding]);
 
-  const isDark = isLanding && !isScrolled;
+  const isDark = isLanding ? !isPastHero : false;
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300 ${
         isDark
-          ? 'bg-[#0e2316]/85 border-b border-white/10 text-white'
+          ? 'bg-black/80 border-b border-white/10 text-white'
           : 'bg-white/95 border-b border-[rgba(0,0,0,0.06)] text-black shadow-xs'
       }`}
     >
@@ -89,7 +93,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
             {/* Peak Design Style Monogram */}
             <a href="#/" className={`flex items-center gap-3 no-underline group ${isDark ? 'text-white' : 'text-black'}`}>
               <div className={`w-8 h-8 flex items-center justify-center rounded-[3px] transition-transform duration-300 group-hover:scale-105 ${
-                isDark ? 'bg-[#ffe602] text-[#0e2316]' : 'bg-black text-white'
+                isDark ? 'bg-[#ffe602] text-black' : 'bg-black text-white'
               }`}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
@@ -269,7 +273,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <ShoppingBag size={17} />
               {activeBookingsCount > 0 && (
                 <span className={`absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center ${
-                  isDark ? 'bg-[#ffe602] text-[#0e2316]' : 'bg-black text-white'
+                  isDark ? 'bg-[#ffe602] text-black' : 'bg-black text-white'
                 }`}>
                   {activeBookingsCount}
                 </span>
