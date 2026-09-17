@@ -284,14 +284,35 @@ export default function SurplusMap({
               </button>
             </div>
 
-            {/* Food Title & Provider */}
-            <h3 className="text-base font-bold text-[#1d1d1f] mb-1 tracking-tight">
-              {activeItem.name}
-            </h3>
-            <p className="text-xs text-[#86868b] mb-3 flex items-center gap-1">
-              <MapPin size={12} className="text-[#1d1d1f]" />
-              <span className="truncate">{activeItem.providerBusinessName} • {activeItem.address}</span>
-            </p>
+            {/* Food Title & Provider with Photo Thumbnail */}
+            <div className="flex items-start gap-3 mb-3">
+              <div className="w-14 h-14 rounded-[10px] overflow-hidden bg-gray-100 flex-shrink-0 border border-[rgba(0,0,0,0.08)]">
+                <img
+                  src={
+                    activeItem.photo && !activeItem.photo.includes('placeholder')
+                      ? activeItem.photo
+                      : activeItem.foodCategory === 'roti'
+                      ? '/images/surplus-sourdough.jpg'
+                      : activeItem.foodCategory === 'minuman'
+                      ? '/images/surplus-juice.jpg'
+                      : activeItem.foodCategory === 'sayur' || activeItem.foodCategory === 'buah'
+                      ? '/images/surplus-produce.jpg'
+                      : '/images/surplus-nasi-liwet.jpg'
+                  }
+                  alt={activeItem.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-base font-bold text-[#1d1d1f] mb-0.5 tracking-tight line-clamp-1">
+                  {activeItem.name}
+                </h3>
+                <p className="text-xs text-[#86868b] m-0 flex items-center gap-1">
+                  <MapPin size={12} className="text-[#1d1d1f] shrink-0" />
+                  <span className="truncate">{activeItem.providerBusinessName} • {activeItem.address}</span>
+                </p>
+              </div>
+            </div>
 
             {/* Micro Details Bar */}
             <div className="flex items-center gap-4 text-xs text-[#555555] mb-4 py-2 px-3 bg-[#f5f5f7] rounded-[10px]">

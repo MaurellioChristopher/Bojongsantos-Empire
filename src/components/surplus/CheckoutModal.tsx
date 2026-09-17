@@ -115,8 +115,22 @@ export function CheckoutModal({
             {/* 1. Item Header Card */}
             <div className="p-4 sm:p-5 rounded-[18px] bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-start sm:items-center gap-3.5">
-                <div className="w-14 h-14 rounded-[14px] bg-white flex items-center justify-center text-3xl shadow-sm border border-[rgba(0,0,0,0.06)] flex-shrink-0">
-                  {emoji}
+                <div className="w-16 h-16 rounded-[14px] overflow-hidden bg-white shadow-sm border border-[rgba(0,0,0,0.08)] flex-shrink-0 relative">
+                  <img
+                    src={
+                      item.photo && !item.photo.includes('placeholder')
+                        ? item.photo
+                        : item.foodCategory === 'roti'
+                        ? '/images/surplus-sourdough.jpg'
+                        : item.foodCategory === 'minuman'
+                        ? '/images/surplus-juice.jpg'
+                        : item.foodCategory === 'sayur' || item.foodCategory === 'buah'
+                        ? '/images/surplus-produce.jpg'
+                        : '/images/surplus-nasi-liwet.jpg'
+                    }
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
