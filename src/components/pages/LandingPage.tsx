@@ -16,6 +16,11 @@ import {
   Building2,
   Flame,
   Globe2,
+  Utensils,
+  Users,
+  Scale,
+  Quote,
+  Activity,
 } from 'lucide-react';
 import { getActiveSurplus, calculateImpact } from '@/lib/data';
 import { formatCountdown, formatPrice } from '@/lib/utils';
@@ -146,7 +151,7 @@ export function LandingPage() {
   const letterFX = useTransform(scrollY, [50, 220], [0, -50]);
   const letterOdX = useTransform(scrollY, [50, 220], [0, 50]);
 
-  const videoOpacity = useTransform(scrollY, [80, 380], [0.55, 0]);
+  const videoOpacity = useTransform(scrollY, [0, 250, 1250, 1450], [0.55, 0.45, 0.45, 0]);
   const portalScale = useTransform(scrollY, [120, 650], [1, 32]);
 
   // Entire Hero Stage 1 cleanly cross-fades to 0 to prevent ANY ghost text
@@ -169,6 +174,14 @@ export function LandingPage() {
   useEffect(() => {
     setActiveItems(getActiveSurplus());
     setImpact(calculateImpact());
+  }, []);
+
+  // Smooth auto-rotation for the educational facts
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveFactIndex((prev) => (prev + 1) % educationalFacts.length);
+    }, 6000);
+    return () => clearInterval(timer);
   }, []);
 
   const nextFact = () => {
@@ -345,7 +358,7 @@ export function LandingPage() {
           </motion.div>
 
           {/* Stage 2: Next Page Stage ("Tahukah Kamu?" Card + Real-Time Telemetry Counters)
-              Emerges softly from inside the portal with zero cutoffs or blank spots */}
+              Emerges softly from inside the portal with video playing in background */}
           <motion.div
             style={{
               opacity: stage2Opacity,
@@ -354,13 +367,29 @@ export function LandingPage() {
             }}
             className="absolute z-30 top-1/2 -translate-y-1/2 inset-x-4 sm:inset-x-8 max-w-5xl mx-auto flex flex-col justify-center pointer-events-auto will-change-transform"
           >
-            {/* Top Educational Fact Card */}
-            <div className="relative bg-[#121214]/95 backdrop-blur-2xl border border-white/15 rounded-[2rem] p-6 sm:p-10 shadow-[0_30px_80px_rgba(0,0,0,0.8)] overflow-hidden mb-5">
+            {/* Top Live Status Indicator Bar */}
+            <div className="flex items-center justify-between mb-3 px-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ffe602]/15 border border-[#ffe602]/30 text-[#ffe602] text-[10px] font-mono tracking-widest font-bold uppercase shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-[#ffe602] animate-ping" />
+                <span>REAL-TIME FOOD RESCUE TELEMETRY</span>
+              </div>
+              <div className="hidden sm:inline-flex items-center gap-2 text-[11px] font-mono text-white/60 tracking-wider">
+                <Activity size={13} className="text-[#ffe602]" />
+                <span>MONITORING DARURAT PANGAN NASIONAL</span>
+              </div>
+            </div>
+
+            {/* Top Educational Fact Card with Frosted Glass & Ambient Glow */}
+            <div className="relative bg-[#0f0f13]/85 backdrop-blur-3xl border border-white/20 rounded-[2.2rem] p-6 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.85)] overflow-hidden mb-5 group hover:border-[#ffe602]/40 transition-all duration-500">
+              {/* Ambient Gold Light Reflection */}
+              <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#ffe602]/10 rounded-full blur-3xl pointer-events-none" />
+              <Quote className="absolute right-6 top-6 size-24 text-white/[0.04] pointer-events-none" />
+
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
                 {/* Left Title */}
                 <div className="lg:col-span-4">
-                  <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-[#ffe602] mb-2 font-bold">
-                    <Flame size={13} />
+                  <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-[#ffe602] mb-2.5 font-bold px-2.5 py-1 rounded-md bg-[#ffe602]/15 border border-[#ffe602]/25">
+                    <Flame size={12} />
                     <span>DARURAT SAMPAH PANGAN</span>
                   </div>
                   <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#ffe602] leading-[1.05] mb-2">
@@ -376,19 +405,20 @@ export function LandingPage() {
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeFactIndex}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -12 }}
+                      transition={{ duration: 0.35 }}
                       className="mb-4"
                     >
-                      <span className="inline-block px-3 py-0.5 rounded-full bg-[#ffe602]/20 text-[#ffe602] text-[11px] font-bold uppercase tracking-wider mb-2">
+                      <span className="inline-block px-3 py-1 rounded-full bg-[#ffe602]/20 text-[#ffe602] text-[11px] font-bold uppercase tracking-wider mb-2 border border-[#ffe602]/30">
                         {educationalFacts[activeFactIndex].highlight}
                       </span>
-                      <p className="text-base sm:text-xl font-medium text-white leading-relaxed mb-2">
+                      <p className="text-base sm:text-xl font-medium text-white leading-relaxed mb-2 drop-shadow-sm">
                         "{educationalFacts[activeFactIndex].fact}"
                       </p>
-                      <span className="text-[11px] text-white/50 font-mono">
+                      <span className="text-[11px] text-white/50 font-mono flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#ffe602]" />
                         Sumber data: {educationalFacts[activeFactIndex].source}
                       </span>
                     </motion.div>
@@ -430,61 +460,91 @@ export function LandingPage() {
               </div>
             </div>
 
-            {/* Bottom 4-Counter Metrics Strip */}
-            <div className="bg-[#121214]/95 backdrop-blur-2xl border border-white/15 rounded-[2rem] p-5 sm:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+            {/* Bottom 4-Counter Metrics Strip with Glassmorphism & Icons */}
+            <div className="relative bg-[#0f0f13]/85 backdrop-blur-3xl border border-white/20 rounded-[2.2rem] p-5 sm:p-6 shadow-[0_25px_70px_rgba(0,0,0,0.8)] overflow-hidden">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Metric 1 */}
-                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                  <div className="flex items-baseline gap-1.5 text-[#ffe602] mb-0.5">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold">
-                      <AnimatedCounter value={825002} />
-                    </span>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/70">Porsi</span>
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                      <Utensils size={14} />
+                    </div>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Porsi</span>
+                  </div>
+                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                    <AnimatedCounter value={825002} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Makanan Diselamatkan
                   </p>
+                  <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
+                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[88%]" />
+                  </div>
                 </div>
 
                 {/* Metric 2 */}
-                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                  <div className="flex items-baseline gap-1.5 text-[#ffe602] mb-0.5">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold">
-                      <AnimatedCounter value={29294} />
-                    </span>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/70">Orang</span>
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                      <Users size={14} />
+                    </div>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Jiwa</span>
+                  </div>
+                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                    <AnimatedCounter value={29294} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Penerima Manfaat
                   </p>
+                  <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
+                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[74%]" />
+                  </div>
                 </div>
 
                 {/* Metric 3 */}
-                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                  <div className="flex items-baseline gap-1.5 text-[#ffe602] mb-0.5">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold">
-                      <AnimatedCounter value={658000} />
-                    </span>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/70">KG</span>
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                      <Scale size={14} />
+                    </div>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Kilogram</span>
+                  </div>
+                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                    <AnimatedCounter value={658000} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Pangan Tercegah TPA
                   </p>
+                  <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
+                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[82%]" />
+                  </div>
                 </div>
 
                 {/* Metric 4 */}
-                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
-                  <div className="flex items-baseline gap-1.5 text-[#ffe602] mb-0.5">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold">
-                      <AnimatedCounter value={1506416} />
-                    </span>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/70">KGCO₂-ek</span>
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                      <Leaf size={14} />
+                    </div>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">KGCO₂-ek</span>
+                  </div>
+                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                    <AnimatedCounter value={1506416} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Emisi Gas Dicegah
                   </p>
+                  <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
+                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[95%]" />
+                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* Subtle Scroll Cue at the bottom of Stage 2 */}
+            <div className="mt-3.5 flex items-center justify-center gap-2 text-[11px] font-mono text-white/60">
+              <span>Scroll perlahan untuk menjelajahi katalog surplus &amp; ekosistem</span>
+              <ChevronDown size={13} className="text-[#ffe602] animate-bounce" />
             </div>
           </motion.div>
         </div>
