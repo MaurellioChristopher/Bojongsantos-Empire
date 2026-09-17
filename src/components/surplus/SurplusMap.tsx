@@ -6,7 +6,7 @@ import L from 'leaflet';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Clock, ArrowRight, X, Sparkles, Navigation, CheckCircle2 } from 'lucide-react';
 import { MAP_CONFIG } from '@/lib/constants';
-import { formatPrice, formatCountdown } from '@/lib/utils';
+import { formatPrice, formatCountdown, getSurplusPhoto } from '@/lib/utils';
 import { FOOD_CATEGORY_EMOJI, FOOD_CATEGORY_LABELS } from '@/types';
 import type { SurplusItem, Coordinates, FoodCategory } from '@/types';
 
@@ -264,7 +264,7 @@ export default function SurplusMap({
                 <span
                   className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                     activeItem.isFree
-                      ? 'bg-[#34c759]/15 text-[#1b8a36]'
+                      ? 'bg-[#16a34a]/10 text-[#15803d]'
                       : 'bg-[#1d1d1f] text-white'
                   }`}
                 >
@@ -288,17 +288,7 @@ export default function SurplusMap({
             <div className="flex items-start gap-3 mb-3">
               <div className="w-14 h-14 rounded-[10px] overflow-hidden bg-gray-100 flex-shrink-0 border border-[rgba(0,0,0,0.08)]">
                 <img
-                  src={
-                    activeItem.photo && !activeItem.photo.includes('placeholder')
-                      ? activeItem.photo
-                      : activeItem.foodCategory === 'roti'
-                      ? '/images/surplus-sourdough.jpg'
-                      : activeItem.foodCategory === 'minuman'
-                      ? '/images/surplus-juice.jpg'
-                      : activeItem.foodCategory === 'sayur' || activeItem.foodCategory === 'buah'
-                      ? '/images/surplus-produce.jpg'
-                      : '/images/surplus-nasi-liwet.jpg'
-                  }
+                  src={getSurplusPhoto(activeItem)}
                   alt={activeItem.name}
                   className="w-full h-full object-cover"
                 />
@@ -320,7 +310,7 @@ export default function SurplusMap({
                 Stok: <span className="font-semibold text-[#1d1d1f]">{activeItem.quantity} kg</span> ({activeItem.portionCount} porsi)
               </div>
               <span className="text-gray-300">•</span>
-              <div className="flex items-center gap-1 text-[#ff9500] font-medium">
+              <div className="flex items-center gap-1 text-[#ea580c] font-medium">
                 <Clock size={12} />
                 <span>Sisa {formatCountdown(activeItem.expiryTime)}</span>
               </div>

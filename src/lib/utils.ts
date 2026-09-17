@@ -168,15 +168,15 @@ export function co2eToTrees(co2eKg: number): number {
 export function getStatusColor(status: BookingStatus): string {
   switch (status) {
     case 'menunggu':
-      return 'bg-amber-100 text-amber-800';
+      return 'bg-orange-50 text-orange-800 border border-orange-200/60';
     case 'dikonfirmasi':
-      return 'bg-emerald-100 text-emerald-800';
+      return 'bg-emerald-50 text-emerald-800 border border-emerald-200/60';
     case 'diambil':
-      return 'bg-blue-100 text-blue-800';
+      return 'bg-blue-50 text-blue-800 border border-blue-200/60';
     case 'dibatalkan':
-      return 'bg-red-100 text-red-800';
+      return 'bg-red-50 text-red-800 border border-red-200/60';
     case 'kedaluwarsa':
-      return 'bg-gray-100 text-gray-600';
+      return 'bg-gray-100 text-gray-600 border border-gray-200/60';
     default:
       return 'bg-gray-100 text-gray-600';
   }
@@ -277,3 +277,30 @@ export function getCategoryIcon(category: string): string {
   };
   return icons[category] || '📦';
 }
+
+/**
+ * Smart food photo resolver that returns the exact matching authentic photo for each dish
+ */
+export function getSurplusPhoto(item?: { name?: string; foodCategory?: string; photo?: string } | null): string {
+  if (!item) return '/images/surplus-nasi-liwet.jpg';
+  const name = (item.name || '').toLowerCase();
+
+  if (name.includes('liwet')) return '/images/surplus-nasi-liwet.jpg';
+  if (name.includes('padang') || name.includes('rendang')) return '/images/surplus-nasi-padang.jpg';
+  if (name.includes('bento') || name.includes('teriyaki')) return '/images/surplus-nasi-bento.jpg';
+  if (name.includes('timbel')) return '/images/surplus-nasi-timbel.jpg';
+  if (name.includes('kebuli') || name.includes('kambing')) return '/images/surplus-nasi-kebuli.jpg';
+  if (name.includes('capcay')) return '/images/surplus-capcay.jpg';
+  if (name.includes('semangka') || name.includes('melon') || item.foodCategory === 'buah') return '/images/surplus-buah-potong.jpg';
+  if (name.includes('sourdough') || name.includes('baguette')) return '/images/surplus-sourdough.jpg';
+  if (item.foodCategory === 'roti' || name.includes('croissant') || name.includes('roti')) return '/images/surplus-bakery.jpg';
+  if (name.includes('jus') || name.includes('alpukat') || name.includes('jeruk')) return '/images/surplus-juice.jpg';
+  if (name.includes('cold brew') || item.foodCategory === 'minuman') return '/images/surplus-beverage.jpg';
+  if (item.foodCategory === 'sayur') return '/images/surplus-produce.jpg';
+
+  if (item.photo && !item.photo.includes('placeholder') && item.photo !== '/images/surplus-gourmet.jpg') {
+    return item.photo;
+  }
+  return '/images/surplus-nasi-liwet.jpg';
+}
+

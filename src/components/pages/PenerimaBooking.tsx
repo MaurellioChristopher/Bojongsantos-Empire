@@ -261,21 +261,21 @@ export function PenerimaBooking() {
                     <div className="p-5 sm:p-6 rounded-[20px] bg-[#f8f8fa] border border-[rgba(0,0,0,0.06)] shadow-xs">
                       <div className="flex items-center justify-between text-xs font-semibold text-[#1d1d1f] mb-6">
                         <span className="flex items-center gap-2 text-sm font-bold">
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#34c759] animate-pulse" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#16a34a] animate-pulse" />
                           Status Penyelamatan Makanan
                         </span>
                         {b.status === 'dikonfirmasi' && (
-                          <span className="text-[#ff9500] font-bold flex items-center gap-1.5 bg-white py-1.5 px-3.5 rounded-full border border-[rgba(0,0,0,0.08)] shadow-xs text-xs">
+                          <span className="text-[#ea580c] font-bold flex items-center gap-1.5 bg-white py-1.5 px-3.5 rounded-full border border-[rgba(0,0,0,0.08)] shadow-xs text-xs">
                             <Clock size={14} /> Sisa Waktu Ambil: {formatCountdown(b.pickupDeadline)}
                           </span>
                         )}
                         {b.status === 'menunggu' && (
-                          <span className="text-[#ff9500] font-medium text-xs bg-[#ff9500]/10 px-3 py-1 rounded-full">
+                          <span className="text-[#ea580c] font-medium text-xs bg-[#ea580c]/10 px-3 py-1 rounded-full">
                             ⏳ Menunggu konfirmasi toko
                           </span>
                         )}
                         {b.status === 'diambil' && (
-                          <span className="text-[#34c759] font-medium text-xs bg-[#34c759]/10 px-3 py-1 rounded-full">
+                          <span className="text-[#15803d] font-medium text-xs bg-[#16a34a]/10 px-3 py-1 rounded-full">
                             🎉 Selesai Diselamatkan
                           </span>
                         )}
@@ -332,7 +332,7 @@ export function PenerimaBooking() {
                         {/* Connector Line 2 -> 3 */}
                         <div className="flex-1 h-[3px] mx-2 mt-4 bg-[#e5e5ea] rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-[#34c759] transition-all duration-500 rounded-full"
+                            className="h-full bg-[#16a34a] transition-all duration-500 rounded-full"
                             style={{ width: currentStep >= 3 ? '100%' : '0%' }}
                           />
                         </div>
@@ -342,7 +342,7 @@ export function PenerimaBooking() {
                           <div
                             className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold transition-all shadow-sm ${
                               currentStep >= 3
-                                ? 'bg-[#34c759] text-white ring-4 ring-[#34c759]/20'
+                                ? 'bg-[#16a34a] text-white ring-4 ring-[#16a34a]/20'
                                 : 'bg-white text-[#86868b] border border-[rgba(0,0,0,0.15)]'
                             }`}
                           >
@@ -411,7 +411,7 @@ export function PenerimaBooking() {
                       )}
 
                       {b.status === 'diambil' && (
-                        <div className="text-xs text-[#34c759] font-semibold flex items-center gap-1">
+                        <div className="text-xs text-[#15803d] font-semibold flex items-center gap-1">
                           <CheckCircle2 size={16} /> Diselamatkan Selesai
                         </div>
                       )}
@@ -494,7 +494,7 @@ export function PenerimaBooking() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#86868b]">Sisa Batas Waktu:</span>
-                    <span className="font-bold text-[#ff9500]">
+                    <span className="font-bold text-[#ea580c]">
                       {formatCountdown(selectedTicket.pickupDeadline)} lagi
                     </span>
                   </div>

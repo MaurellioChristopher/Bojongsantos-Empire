@@ -144,7 +144,7 @@ export function AdminDashboard() {
                 <div className="text-caption-apple text-[#86868b]">Transaksi Tercatat</div>
               </div>
               <div className="card-apple-utility bg-white p-5 text-center">
-                <div className="text-display-md font-semibold text-[#ff9500]">{impact.totalCO2eSaved} kg</div>
+                <div className="text-display-md font-semibold text-[#15803d]">{impact.totalCO2eSaved} kg</div>
                 <div className="text-caption-apple text-[#86868b]">CO₂e Ditekan</div>
               </div>
             </div>
@@ -262,13 +262,13 @@ export function AdminDashboard() {
               {services.map((svc) => (
                 <div key={svc.service} className="card-apple-utility bg-white p-5 flex items-start justify-between">
                   <div className="flex items-start gap-3.5">
-                    <div className="w-10 h-10 rounded-full bg-[#34c759]/10 flex items-center justify-center text-[#34c759] flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-[#16a34a]/10 flex items-center justify-center text-[#16a34a] flex-shrink-0">
                       <CheckCircle2 size={20} />
                     </div>
                     <div>
                       <div className="text-body-strong text-[#1d1d1f] mb-0.5">{svc.service}</div>
-                      <div className="flex items-center gap-2 text-xs text-[#34c759] font-medium">
-                        <span className="w-2 h-2 rounded-full bg-[#34c759] animate-pulse" />
+                      <div className="flex items-center gap-2 text-xs text-[#15803d] font-medium">
+                        <span className="w-2 h-2 rounded-full bg-[#16a34a] animate-pulse" />
                         100% Operasional
                       </div>
                       <div className="text-fine-print text-[#86868b] mt-1.5">
@@ -287,27 +287,27 @@ export function AdminDashboard() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-[#1d1d1f]">
                 <div className="bg-[#f5f5f7] p-2.5 rounded-[8px] flex items-center justify-between">
                   <span>POST /api/auth/login</span>
-                  <span className="text-[#34c759]">Active</span>
+                  <span className="text-[#16a34a]">Active</span>
                 </div>
                 <div className="bg-[#f5f5f7] p-2.5 rounded-[8px] flex items-center justify-between">
                   <span>POST /api/auth/register</span>
-                  <span className="text-[#34c759]">Active</span>
+                  <span className="text-[#16a34a]">Active</span>
                 </div>
                 <div className="bg-[#f5f5f7] p-2.5 rounded-[8px] flex items-center justify-between">
                   <span>GET /api/surplus</span>
-                  <span className="text-[#34c759]">Active</span>
+                  <span className="text-[#16a34a]">Active</span>
                 </div>
                 <div className="bg-[#f5f5f7] p-2.5 rounded-[8px] flex items-center justify-between">
                   <span>POST /api/surplus</span>
-                  <span className="text-[#34c759]">Active</span>
+                  <span className="text-[#16a34a]">Active</span>
                 </div>
                 <div className="bg-[#f5f5f7] p-2.5 rounded-[8px] flex items-center justify-between">
                   <span>POST /api/bookings</span>
-                  <span className="text-[#34c759]">Active</span>
+                  <span className="text-[#16a34a]">Active</span>
                 </div>
                 <div className="bg-[#f5f5f7] p-2.5 rounded-[8px] flex items-center justify-between">
                   <span>GET /api/impact/stats</span>
-                  <span className="text-[#34c759]">Active</span>
+                  <span className="text-[#16a34a]">Active</span>
                 </div>
               </div>
             </div>
