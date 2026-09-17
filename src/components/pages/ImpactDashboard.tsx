@@ -2,9 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Leaf, Heart, Package, TreePine, Award, ShieldCheck, Car, Droplets } from 'lucide-react';
+import {
+  Leaf,
+  Heart,
+  Package,
+  TreePine,
+  Award,
+  ShieldCheck,
+  Car,
+  Droplets,
+  Edit2,
+  Save,
+  X,
+  Target,
+  Lock,
+} from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNotification } from '@/contexts/NotificationContext';
 import { impactService } from '@/services/impactService';
-import type { ImpactData, ImpactTimeline } from '@/types';
+import { getEsgConfig, updateEsgConfig } from '@/lib/data';
+import type { ImpactData, ImpactTimeline, EsgConfig } from '@/types';
 import {
   BarChart,
   Bar,
@@ -16,8 +33,18 @@ import {
 } from 'recharts';
 
 export function ImpactDashboard() {
+  const { user } = useAuth();
+  const { success } = useNotification();
   const [impact, setImpact] = useState<ImpactData | null>(null);
   const [timeline, setTimeline] = useState<ImpactTimeline[]>([]);
+  const [esgConfig, setEsgConfig] = useState<EsgConfig>(getEsgConfig());
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Edit form state
+  const [targetKg, setTargetKg] = useState(10000);
+  const [targetCO2, setTargetCO2] = useState(25000);
+  const [targetPortions, setTargetPortions] = useState(20000);
+  const [missionStatement, setMissionStatement] = useState('');
 
   useEffect(() => {
     async function load() {
@@ -33,63 +60,252 @@ export function ImpactDashboard() {
       }
     }
     load();
+    const cfg = getEsgConfig();
+    setEsgConfig(cfg);
+    setTargetKg(cfg.targetKg);
+    setTargetCO2(cfg.targetCO2);
+    setTargetPortions(cfg.targetPortions);
+    setMissionStatement(cfg.missionStatement);
   }, []);
 
+  // Block access for Penyedia & Penerima
+  if (user?.role === 'penyedia' || user?.role === 'penerima') {
+    const isPenyedia = user.role === 'penyedia';
+    return (
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
+        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-amber-500 mb-4 border border-black/10 shadow-sm">
+          <Lock size={30} />
+        </div>
+        <h2 className="text-display-md text-[#1d1d1f] mb-2">
+          Akses Dibatasi untuk {isPenyedia ? 'Penyedia' : 'Penerima'}
+        </h2>
+        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+          Sesuai aturan hak akses platform AksesPangan, akun {isPenyedia ? 'Mitra Penyedia' : 'Penerima Manfaat'} tidak memiliki izin untuk melihat maupun mengelola fitur Laporan Dampak ESG.
+        </p>
+        <a
+          href={isPenyedia ? '#/penyedia' : '#/penerima'}
+          className="btn-apple-primary text-sm py-2.5 px-6"
+        >
+          Kembali ke {isPenyedia ? 'Dashboard Penyedia' : 'Katalog Surplus'}
+        </a>
+      </div>
+    );
+  }
+
   if (!impact) return null;
+
+  const isAdmin = user?.role === 'admin';
+
+  const handleSaveEsg = (e: React.FormEvent) => {
+    e.preventDefault();
+    const updated = updateEsgConfig({
+      targetKg: Number(targetKg),
+      targetCO2: Number(targetCO2),
+      targetPortions: Number(targetPortions),
+      missionStatement: missionStatement.trim(),
+    });
+    setEsgConfig(updated);
+    setIsEditing(false);
+    success('Konfigurasi ESG Disimpan', 'Target dan komitmen dampak ESG telah diperbarui.');
+  };
+
+  const kgProgress = Math.min(Math.round((impact.totalKgSaved / esgConfig.targetKg) * 100), 100);
+  const co2Progress = Math.min(Math.round((impact.totalCO2eSaved / esgConfig.targetCO2) * 100), 100);
 
   return (
     <div className="min-h-screen bg-[#f5f5f7] py-10 px-4 sm:px-8">
       <div className="apple-container">
         {/* Apple Environment Style Header */}
         <div className="text-center max-w-[760px] mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 bg-[#16a34a]/10 text-[#15803d] px-3.5 py-1 rounded-full text-xs font-semibold mb-4">
-            <Leaf size={14} /> Laporan Lingkungan & Emisi Net-Zero
+          <div
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 text-white"
+            style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+          >
+            <Leaf size={14} /> Laporan Lingkungan &amp; Emisi Net-Zero
           </div>
           <h1 className="text-hero-display text-[#1d1d1f] mb-3">
             Dampak Terukur. Transparan.
           </h1>
-          <p className="text-lead text-[#86868b] font-normal">
-            Metrik langsung dari setiap transaksi penyelamatan makanan layak di seluruh ekosistem AksesPangan.
+          <p className="text-lead text-[#86868b] font-normal mb-4">
+            {esgConfig.missionStatement}
           </p>
+
+          {isAdmin && (
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full border border-neutral-300 bg-white hover:bg-neutral-50 text-neutral-800 transition-colors shadow-2xs cursor-pointer"
+            >
+              <Edit2 size={13} style={{ color: '#FF5A1F' }} />
+              <span>{isEditing ? 'Tutup Pengaturan' : 'Kelola Target ESG (Admin)'}</span>
+            </button>
+          )}
+        </div>
+
+        {/* Admin Edit ESG Panel */}
+        {isAdmin && isEditing && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="card-apple-utility bg-white p-6 mb-8 border-2 border-amber-300 shadow-md"
+          >
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-neutral-100">
+              <h3 className="text-base font-semibold text-neutral-900 m-0 flex items-center gap-2">
+                <Target size={18} style={{ color: '#FF5A1F' }} />
+                <span>Pengaturan Target &amp; Komitmen ESG Nasional</span>
+              </h3>
+              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold">
+                ADMIN ACCESS
+              </span>
+            </div>
+
+            <form onSubmit={handleSaveEsg} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1">
+                  Target Pangan Terselamatkan (kg)
+                </label>
+                <input
+                  type="number"
+                  min="100"
+                  value={targetKg}
+                  onChange={(e) => setTargetKg(Number(e.target.value))}
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1">
+                  Target Reduksi Emisi CO₂e (kg)
+                </label>
+                <input
+                  type="number"
+                  min="100"
+                  value={targetCO2}
+                  onChange={(e) => setTargetCO2(Number(e.target.value))}
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1">
+                  Target Distribusi Porsi
+                </label>
+                <input
+                  type="number"
+                  min="100"
+                  value={targetPortions}
+                  onChange={(e) => setTargetPortions(Number(e.target.value))}
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                />
+              </div>
+
+              <div className="sm:col-span-3">
+                <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1">
+                  Pernyataan Misi &amp; Komitmen Keberlanjutan
+                </label>
+                <textarea
+                  rows={2}
+                  value={missionStatement}
+                  onChange={(e) => setMissionStatement(e.target.value)}
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm resize-none"
+                />
+              </div>
+
+              <div className="sm:col-span-3 flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsEditing(false)}
+                  className="px-4 py-2 text-xs font-medium text-neutral-600 hover:text-black"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="btn-apple-primary text-xs py-2 px-5 flex items-center gap-2"
+                >
+                  <Save size={14} />
+                  <span>Simpan Perubahan Target</span>
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        )}
+
+        {/* ESG Target Progress Bar */}
+        <div className="card-apple-utility bg-white p-6 mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">
+                Pencapaian Target ESG AksesPangan
+              </span>
+              <h3 className="text-base font-semibold text-neutral-900 m-0">
+                {impact.totalKgSaved.toLocaleString('id-ID')} kg dari target {esgConfig.targetKg.toLocaleString('id-ID')} kg ({kgProgress}%)
+              </h3>
+            </div>
+            <span className="text-xs text-neutral-500 font-mono">
+              Reduksi Emisi: {co2Progress}% dari target {esgConfig.targetCO2.toLocaleString('id-ID')} kg CO₂e
+            </span>
+          </div>
+
+          <div className="w-full h-3 bg-neutral-100 rounded-full overflow-hidden flex">
+            <div
+              className="h-full transition-all duration-1000 rounded-full"
+              style={{
+                width: `${kgProgress}%`,
+                background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)',
+              }}
+            />
+          </div>
         </div>
 
         {/* 4 Core Metric Cards (Apple Store Utility Cards style) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div className="w-10 h-10 rounded-full bg-[#f5f5f7] flex items-center justify-center mx-auto mb-3 text-[#1d1d1f]">
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
+              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+            >
               <Package size={20} />
             </div>
-            <div className="text-display-md text-[#1d1d1f] font-semibold mb-0.5">
+            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
               {impact.totalKgSaved.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">kg</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Makanan Terselamatkan</div>
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div className="w-10 h-10 rounded-full bg-[#16a34a]/10 flex items-center justify-center mx-auto mb-3 text-[#16a34a]">
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
+              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+            >
               <Heart size={20} />
             </div>
-            <div className="text-display-md text-[#15803d] font-semibold mb-0.5">
+            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
               {impact.totalPortions.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">porsi</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Porsi Terdistribusi</div>
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div className="w-10 h-10 rounded-full bg-[#1d1d1f]/10 flex items-center justify-center mx-auto mb-3 text-[#1d1d1f]">
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
+              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+            >
               <Leaf size={20} />
             </div>
-            <div className="text-display-md text-[#1d1d1f] font-semibold mb-0.5">
+            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
               {impact.totalCO2eSaved.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">kg</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Emisi CO₂e Dihindari</div>
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div className="w-10 h-10 rounded-full bg-[#16a34a]/10 flex items-center justify-center mx-auto mb-3 text-[#16a34a]">
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
+              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+            >
               <TreePine size={20} />
             </div>
-            <div className="text-display-md text-[#15803d] font-semibold mb-0.5">
+            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
               {impact.treeEquivalent.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">pohon</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Setara Serapan Pohon</div>
@@ -105,8 +321,11 @@ export function ImpactDashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#16a34a] flex-shrink-0 shadow-sm">
-                <TreePine size={22} />
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0"
+                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+              >
+                <TreePine size={20} />
               </div>
               <div>
                 <div className="text-tagline font-semibold text-[#1d1d1f]">{impact.treeEquivalent} Pohon</div>
@@ -117,11 +336,16 @@ export function ImpactDashboard() {
             </div>
 
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#1d1d1f] flex-shrink-0 shadow-sm">
-                <Car size={22} />
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0"
+                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+              >
+                <Car size={20} />
               </div>
               <div>
-                <div className="text-tagline font-semibold text-[#1d1d1f]">{Math.round(impact.totalCO2eSaved * 4.7)} km</div>
+                <div className="text-tagline font-semibold text-[#1d1d1f]">
+                  {Math.round(impact.totalCO2eSaved * 4.7)} km
+                </div>
                 <div className="text-caption-apple text-[#86868b]">
                   Setara jarak perjalanan mobil berbahan bakar fosil yang emisi knalpotnya ditiadakan.
                 </div>
@@ -129,11 +353,16 @@ export function ImpactDashboard() {
             </div>
 
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] flex-shrink-0 shadow-sm">
-                <Droplets size={22} />
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0"
+                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+              >
+                <Droplets size={20} />
               </div>
               <div>
-                <div className="text-tagline font-semibold text-[#1d1d1f]">{(impact.totalKgSaved * 850).toLocaleString('id-ID')} Liter</div>
+                <div className="text-tagline font-semibold text-[#1d1d1f]">
+                  {(impact.totalKgSaved * 850).toLocaleString('id-ID')} Liter
+                </div>
                 <div className="text-caption-apple text-[#86868b]">
                   Air bersih yang dihemat dari siklus produksi bahan baku pertanian pangan.
                 </div>
@@ -142,7 +371,7 @@ export function ImpactDashboard() {
           </div>
         </div>
 
-        {/* 7-Day Trend Chart (Apple Monochrome + Action Blue) */}
+        {/* 7-Day Trend Chart */}
         <div className="card-apple-utility bg-white p-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
             <div>
@@ -181,7 +410,7 @@ export function ImpactDashboard() {
                   }}
                   formatter={(value: any) => [`${value} kg diselamatkan`, 'Makanan']}
                 />
-                <Bar dataKey="kgSaved" fill="#1d1d1f" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="kgSaved" fill="#FFB200" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -190,3 +419,4 @@ export function ImpactDashboard() {
     </div>
   );
 }
+

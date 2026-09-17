@@ -61,6 +61,10 @@ export const STORAGE_KEYS = {
   currentUser: 'aksespangan_current_user',
   impactData: 'aksespangan_impact',
   isSeeded: 'aksespangan_seeded',
+  chatMessages: 'aksespangan_chat_messages',
+  complaints: 'aksespangan_complaints',
+  qualityStandards: 'aksespangan_quality_standards',
+  esgConfig: 'aksespangan_esg_config',
 };
 
 // Navigation items

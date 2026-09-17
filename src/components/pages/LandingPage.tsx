@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { getActiveSurplus, calculateImpact } from '@/lib/data';
 import { formatCountdown, formatPrice, getSurplusPhoto } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 import type { SurplusItem, ImpactData } from '@/types';
 
 // ============================================================
@@ -126,6 +127,7 @@ const ecosystemPartners = [
 ];
 
 export function LandingPage() {
+  const { user, isAuthenticated } = useAuth();
   const [activeItems, setActiveItems] = useState<SurplusItem[]>([]);
   const [impact, setImpact] = useState<ImpactData | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -134,77 +136,61 @@ export function LandingPage() {
   // Responsive Scroll Track for the Camera Zoom Sequence
   const heroSequenceRef = useRef<HTMLDivElement>(null);
   const portalRef = useRef<HTMLDivElement>(null);
-  const [portalCoords, setPortalCoords] = useState<{ cx: number; cy: number; radius: number }>({
-    cx: 0,
-    cy: 0,
-    radius: 40,
-  });
-
-  useEffect(() => {
-    const updateCoords = () => {
-      if (portalRef.current) {
-        const rect = portalRef.current.getBoundingClientRect();
-        setPortalCoords({
-          cx: Math.round(rect.left + rect.width / 2),
-          cy: Math.round(rect.top + rect.height / 2),
-          radius: Math.round(rect.width / 2),
-        });
-      }
-    };
-    // Update after initial render layout
-    const timer = setTimeout(updateCoords, 60);
-    window.addEventListener('resize', updateCoords);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', updateCoords);
-    };
-  }, []);
 
   const { scrollY } = useScroll();
 
   // ============================================================
-  // SCROLL-DRIVEN MEDIA & CIRCLE IRIS APERTURE EXPANSION
-  // Rest State (scrollY = 0): Background is an IMAGE, Video is inside 'O'
-  // Scrolled (scrollY > 20px): Background transitions to VIDEO, Circle aperture expands
-  // Stage 2 (scrollY > 500px): Telemetry & Did You Know materialize
+  // SCROLL-DRIVEN CAMERA DIVE THROUGH THE 'O' PORTAL
+  // The 'O' outline itself expands outwards from letter size to engulf the viewport,
+  // naturally diving the viewer directly into Stage 2 ("Tahukah Kamu?" + Live Telemetry)
   // ============================================================
   // Background Image: visible at rest, fades out as user scrolls
   const heroBgImageOpacity = useTransform(scrollY, [0, 160], [0.65, 0]);
 
   // Background Video: invisible at rest (0), fades in smoothly as user scrolls
-  const heroBgVideoOpacity = useTransform(scrollY, [20, 200, 1250, 1450], [0, 0.6, 0.6, 0]);
+  const heroBgVideoOpacity = useTransform(scrollY, [20, 200, 1250, 1450], [0, 0.65, 0.65, 0]);
 
-  // Entire Hero Stage 1 typography & buttons fade out cleanly as scroll begins
-  const heroStage1Opacity = useTransform(scrollY, [0, 130], [1, 0]);
-  const heroSupportingOpacity = useTransform(scrollY, [0, 130], [1, 0]);
-  const heroSupportingY = useTransform(scrollY, [0, 130], [0, -20]);
-  const heroSupportingYReverse = useTransform(scrollY, [0, 130], [0, 20]);
+  // Hero Stage 1 supporting text and letters fade and slide away cleanly
+  const heroSupportingOpacity = useTransform(scrollY, [0, 110], [1, 0]);
+  const heroSupportingY = useTransform(scrollY, [0, 110], [0, -30]);
+  const heroSupportingYReverse = useTransform(scrollY, [0, 110], [0, 30]);
 
   const letterOpacity = useTransform(scrollY, [15, 120], [1, 0]);
-  const letterF_X = useTransform(scrollY, [15, 130], [0, -35]);
-  const letterOD_X = useTransform(scrollY, [15, 130], [0, 35]);
+  const letterF_X = useTransform(scrollY, [15, 130], [0, -70]);
+  const letterOD_X = useTransform(scrollY, [15, 130], [0, 70]);
 
-  // Circle Iris Aperture Expansion (starts from 42px, expands to 1600px full bleed)
-  const circleRadius = useTransform(scrollY, [0, 520], [42, 1600]);
-  const circleClipPath = useTransform(circleRadius, (r) => `circle(${r}px at 50% 44%)`);
+  // Portal 'O' scales up from 1 to 38 (fills and exceeds viewport at scrollY ~ 500)
+  const portalScale = useTransform(scrollY, (y) => {
+    const progress = Math.min(Math.max(y, 0) / 500, 1);
+    const eased = Math.pow(progress, 1.8);
+    return 1 + 37 * eased;
+  });
 
-  // Expanding gold rim ring that traces the circle edge and gently fades
-  const ringDiameter = useTransform(circleRadius, (r) => `${r * 2}px`);
-  // At scrollY=0, ringOpacity is strictly 0 (no ghost/second ring)
-  const ringOpacity = useTransform(scrollY, [0, 20, 380, 520], [0, 0.95, 0.6, 0]);
+  // Counter-scale child video inside 'O': preserves crystal-clear resolution
+  // while adding a subtle 15% cinematic forward zoom
+  const videoCounterScale = useTransform(portalScale, (s) => {
+    const netScale = 1 + 0.15 * Math.min((s - 1) / 37, 1);
+    return netScale / s;
+  });
 
-  // Full-bleed reveal video layer opacity (at scrollY=0 it is 0 so initial hero is 100% clean)
-  const revealMediaOpacity = useTransform(scrollY, [0, 20, 1250, 1450], [0, 1, 1, 0]);
+  // Smooth subtle centering for the 'O' as it expands
+  const portalX = useTransform(scrollY, [0, 200], [0, 22]);
 
-  // Stage 2 emerges pristine and crystal clear from the center once circle has expanded
-  const stage2Opacity = useTransform(scrollY, [480, 700, 1250, 1450], [0, 1, 1, 0]);
-  const stage2Y = useTransform(scrollY, [480, 700, 1250, 1450], [35, 0, 0, -40]);
-  const stage2Scale = useTransform(scrollY, [480, 700], [0.95, 1]);
+  // Luxury glowing outline: thins slightly as it scales so the ring stays crisp and elegant
+  const portalBorderWidth = useTransform(scrollY, [0, 500], ['3.5px', '0.9px']);
+
+  // Portal opacity: stays 100% visible while expanding, fades out once fully off-screen
+  const portalOpacity = useTransform(scrollY, [460, 540], [1, 0]);
+
+  // Stage 2 emerges pristine and crystal clear from inside the expanded 'O'
+  const stage2Opacity = useTransform(scrollY, [420, 560, 1250, 1450], [0, 1, 1, 0]);
+  const stage2Y = useTransform(scrollY, [420, 560, 1250, 1450], [30, 0, 0, -40]);
+  const stage2Scale = useTransform(scrollY, [420, 560], [0.94, 1]);
 
   // Soft smooth scroll trigger to dive into the next stage
   const handlePortalClick = () => {
     window.scrollTo({
-      top: 850,
+      top: 650,
       behavior: 'smooth',
     });
   };
@@ -303,40 +289,8 @@ export function LandingPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/80 pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#000000_85%)] pointer-events-none" />
 
-          {/* Fullscreen Video Revealed via Expanding Iris Circle as User Scrolls */}
-          <motion.div
-            style={{
-              clipPath: circleClipPath,
-              opacity: revealMediaOpacity,
-            }}
-            className="pointer-events-none absolute inset-0 z-10 will-change-[clip-path]"
-          >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster="/images/hero-food-kitchen.jpg"
-              className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none"
-            >
-              <source src="/videos/hero-food.webm" type="video/webm" />
-            </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/60 pointer-events-none" />
-          </motion.div>
-
-          {/* The Expanding Luxury Rim Ring that traces the iris circle perimeter */}
-          <motion.div
-            style={{
-              width: ringDiameter,
-              height: ringDiameter,
-              opacity: ringOpacity,
-            }}
-            className="pointer-events-none absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 sm:border-4 border-white shadow-[0_0_35px_rgba(255,255,255,0.7)] z-15 will-change-transform"
-          />
-
           {/* Hero Content - Clean, Bold, Impactful Centered Title with Zero Clutter */}
           <motion.div
-            style={{ opacity: heroStage1Opacity }}
             className="relative z-20 flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl select-none will-change-transform"
           >
             {/* Main Headline */}
@@ -349,7 +303,7 @@ export function LandingPage() {
                 ONE STOP
               </motion.div>
 
-              {/* Line 2: The Core Hero F[O]OD with VIDEO inside 'O' */}
+              {/* Line 2: The Core Hero F[O]OD with expanding 'O' portal */}
               <div className="relative flex items-center justify-center whitespace-nowrap font-serif text-[clamp(4rem,9.5vw,8rem)] font-black uppercase tracking-tight leading-none text-white my-1 sm:my-2">
                 <motion.span
                   style={{ opacity: letterOpacity, x: letterF_X }}
@@ -358,26 +312,44 @@ export function LandingPage() {
                   F
                 </motion.span>
 
-                {/* The Inline Portal "O" with Video & Glowing Border */}
+                {/* The Inline Portal "O" that Zooms and Scales Outward to Fill the Screen */}
                 <span className="relative inline-flex items-center justify-center mx-[0.06em] align-middle">
-                  <div
+                  <motion.div
                     ref={portalRef}
                     onClick={handlePortalClick}
-                    className="relative size-[0.80em] rounded-full overflow-hidden border-[3px] sm:border-[4px] border-white shadow-[0_0_30px_rgba(255,255,255,0.7)] cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform group bg-black"
+                    style={{
+                      scale: portalScale,
+                      x: portalX,
+                      borderWidth: portalBorderWidth,
+                      borderColor: '#FFB200',
+                      boxShadow: '0 0 35px rgba(255,178,0,0.65), 0 0 75px rgba(255,57,19,0.35)',
+                      opacity: portalOpacity,
+                    }}
+                    className="relative size-[0.80em] rounded-full overflow-hidden border cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform bg-black z-20 group"
                     title="Klik atau scroll untuk mengeksplorasi"
                   >
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      poster="/images/hero-food-kitchen.jpg"
-                      className="w-full h-full object-cover pointer-events-none"
+                    <motion.div
+                      style={{
+                        scale: videoCounterScale,
+                        x: '-50%',
+                        y: '-50%',
+                      }}
+                      className="absolute left-1/2 top-1/2 w-screen h-screen flex items-center justify-center pointer-events-none"
                     >
-                      <source src="/videos/hero-food.webm" type="video/webm" />
-                    </video>
-                    <div className="absolute inset-0 rounded-full border border-white/30 pointer-events-none" />
-                  </div>
+                      <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        poster="/images/hero-food-kitchen.jpg"
+                        className="w-full h-full object-cover pointer-events-none"
+                      >
+                        <source src="/videos/hero-food.webm" type="video/webm" />
+                      </video>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/50 pointer-events-none" />
+                    </motion.div>
+                    <div className="absolute inset-0 rounded-full border border-white/25 pointer-events-none" />
+                  </motion.div>
                 </span>
 
                 <motion.span
@@ -403,13 +375,19 @@ export function LandingPage() {
               className="flex flex-col items-center mt-8 sm:mt-10 pointer-events-auto"
             >
               <div className="flex flex-wrap items-center justify-center gap-4">
-                <a href="#/penerima" className="btn-garda-pill-gold group">
-                  <span>AMBIL SURPLUS SEKARANG</span>
-                  <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <a
+                  href={isAuthenticated ? (user?.role === 'penerima' ? '#/penerima' : '#/' + user?.role) : '#/login'}
+                  className="btn-garda-pill-gold group"
+                >
+                  <span>{isAuthenticated ? (user?.role === 'penerima' ? 'AMBIL SURPLUS SEKARANG' : 'BUKA DASHBOARD ANDA') : 'AMBIL SURPLUS (MASUK)'}</span>
+                  <span className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1 border border-white/30">
                     <ArrowRight size={14} />
                   </span>
                 </a>
-                <a href="#/penyedia" className="btn-garda-pill group">
+                <a
+                  href={isAuthenticated ? (user?.role === 'penyedia' ? '#/penyedia' : '#/' + user?.role) : '#/register'}
+                  className="btn-garda-pill group"
+                >
                   <span className="text-white">GABUNG SEBAGAI MITRA</span>
                   <span className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowRight size={14} />
@@ -549,7 +527,7 @@ export function LandingPage() {
                     Makanan Diselamatkan
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[88%]" />
+                    <div className="h-full rounded-full w-[88%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
                   </div>
                 </div>
 
@@ -568,7 +546,7 @@ export function LandingPage() {
                     Penerima Manfaat
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[74%]" />
+                    <div className="h-full rounded-full w-[74%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
                   </div>
                 </div>
 
@@ -587,7 +565,7 @@ export function LandingPage() {
                     Pangan Tercegah TPA
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[82%]" />
+                    <div className="h-full rounded-full w-[82%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
                   </div>
                 </div>
 
@@ -606,7 +584,7 @@ export function LandingPage() {
                     Emisi Gas Dicegah
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[95%]" />
+                    <div className="h-full rounded-full w-[95%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
                   </div>
                 </div>
               </div>
@@ -852,7 +830,7 @@ export function LandingPage() {
 
             <a href="#/register" className="btn-garda-pill-gold group">
               <span>Daftar Jadi Mitra</span>
-              <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+              <span className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1 border border-white/30">
                 <ArrowRight size={14} />
               </span>
             </a>
@@ -881,8 +859,9 @@ export function LandingPage() {
             </div>
 
             <a
-              href="#/penerima"
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-black hover:underline mt-4 sm:mt-0"
+              href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] hover:opacity-75 transition-opacity mt-4 sm:mt-0"
+              style={{ color: '#FF5A1F' }}
             >
               <span>BUKA PETA GEOLOCATION</span>
               <ArrowRight size={14} />
@@ -897,9 +876,10 @@ export function LandingPage() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`relative px-4 py-2 text-xs font-semibold tracking-wider rounded-full transition-all cursor-pointer whitespace-nowrap uppercase ${
                   selectedCategory === cat.id
-                    ? 'bg-black text-white shadow-md'
-                    : 'bg-[#f5f5f7] text-[#4a5568] hover:bg-[#e8e8ed]'
+                    ? 'text-white shadow-md'
+                    : 'bg-white text-[#666666] border border-[rgba(0,0,0,0.12)] hover:border-[rgba(0,0,0,0.25)]'
                 }`}
+                style={selectedCategory === cat.id ? { background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)', boxShadow: '0 4px 16px -2px rgba(255,89,31,0.35)' } : {}}
               >
                 {cat.label}
               </button>
@@ -963,20 +943,16 @@ export function LandingPage() {
 
                   {/* Card Footer */}
                   <div className="px-6 py-4 bg-[#fafafc] border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
-                    <div className="text-xs text-[#ea580c] font-medium flex items-center gap-1.5 font-mono">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600"></span>
-                      </span>
-                      <Clock size={13} />
+                    <div className="text-xs text-[#1d1d1f] font-medium flex items-center gap-1.5 font-mono">
+                      <Clock size={13} className="text-[#86868b]" />
                       <span>Sisa {formatCountdown(item.expiryTime)}</span>
                     </div>
 
                     <a
-                      href="#/penerima"
+                      href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
                       className="text-xs font-bold uppercase tracking-wider py-2 px-4 bg-black text-white hover:bg-[#222222] rounded-full transition-colors no-underline shadow-sm"
                     >
-                      Klaim Porsi →
+                      {isAuthenticated && user?.role === 'penerima' ? 'Klaim Porsi →' : 'Masuk untuk Klaim →'}
                     </a>
                   </div>
                 </motion.div>

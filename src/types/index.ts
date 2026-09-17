@@ -191,3 +191,53 @@ export const BUSINESS_TYPE_LABELS: Record<BusinessType, string> = {
   pasar: 'Pasar',
   lainnya: 'Lainnya',
 };
+
+// --- Chat & Complaints ---
+export interface ChatMessage {
+  id: string;
+  senderId: string;
+  senderName: string;
+  senderRole: UserRole;
+  recipientId?: string;
+  bookingId?: string;
+  complaintId?: string;
+  message: string;
+  createdAt: string;
+  isRead: boolean;
+}
+
+export interface AdminComplaint {
+  id: string;
+  userId: string;
+  userName: string;
+  userRole: UserRole;
+  userEmail: string;
+  subject: string;
+  message: string;
+  status: 'open' | 'in_progress' | 'resolved';
+  createdAt: string;
+  updatedAt: string;
+  replies: ChatMessage[];
+}
+
+// --- Quality Standard (Standar Mutu) ---
+export interface QualityStandardItem {
+  id: string;
+  title: string;
+  content: string;
+  order: number;
+  category?: string;
+  updatedAt?: string;
+}
+
+// --- ESG Info & Target Config ---
+export interface EsgConfig {
+  id: string;
+  targetKg: number;
+  targetCO2: number;
+  targetPortions: number;
+  missionStatement: string;
+  verificationProtocol: string;
+  updatedAt: string;
+}
+

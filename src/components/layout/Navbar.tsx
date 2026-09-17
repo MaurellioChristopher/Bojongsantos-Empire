@@ -5,7 +5,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Search,
   User,
   ShoppingBag,
   LogOut,
@@ -25,7 +24,6 @@ export function Navbar({ currentRoute }: NavbarProps) {
   const { info } = useNotification();
   const [mobileMenuOpen, setMenuOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(currentRoute || '/');
-  const [searchQuery, setSearchQuery] = useState('');
   const [activeBookingsCount, setActiveBookingsCount] = useState(0);
 
   useEffect(() => {
@@ -53,11 +51,6 @@ export function Navbar({ currentRoute }: NavbarProps) {
     logout();
     info('Sampai jumpa!', 'Anda telah keluar dari akun');
     window.location.hash = '#/';
-  };
-
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    window.location.hash = '#/penerima';
   };
 
   const isLanding = activeRoute === '/' || activeRoute === '';
@@ -91,10 +84,23 @@ export function Navbar({ currentRoute }: NavbarProps) {
           {/* Left: Luxury Brand Mark + Editorial Navigation */}
           <div className="flex items-center gap-10">
             {/* Peak Design Style Monogram */}
-            <a href="#/" className={`flex items-center gap-3 no-underline group ${isDark ? 'text-white' : 'text-black'}`}>
+            <a
+              href={
+                !isAuthenticated
+                  ? '#/'
+                  : user?.role === 'penyedia'
+                  ? '#/penyedia'
+                  : user?.role === 'admin'
+                  ? '#/admin'
+                  : '#/penerima'
+              }
+              className={`flex items-center gap-3 no-underline group ${isDark ? 'text-white' : 'text-black'}`}
+            >
               <div className={`w-8 h-8 flex items-center justify-center rounded-[3px] transition-transform duration-300 group-hover:scale-105 ${
-                isDark ? 'bg-white text-black' : 'bg-black text-white'
-              }`}>
+                isDark ? 'bg-white text-black' : ''
+              }`}
+              style={!isDark ? { background: 'linear-gradient(135deg, #FFB200 0%, #FF5A1F 55%, #FF3913 100%)', color: '#ffffff' } : {}}
+              >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
                   <path d="M3.5 13.5L12 19.5L20.5 13.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -112,127 +118,220 @@ export function Navbar({ currentRoute }: NavbarProps) {
               </div>
             </a>
 
-            {/* Desktop Navigation Links */}
-            <div className={`hidden lg:flex items-center gap-8 text-[12px] font-medium tracking-[0.08em] uppercase ${
+            {/* Desktop Navigation Links - Dynamically filtered by Role */}
+            <div className={`hidden lg:flex items-center gap-7 text-[12px] font-medium tracking-[0.08em] uppercase ${
               isDark ? 'text-white/80' : 'text-[#666666]'
             }`}>
-              <a
-                href="#/penerima"
-                className={`transition-colors no-underline py-1 relative ${
-                  isDark
-                    ? activeRoute.startsWith('/penerima') ? 'text-white font-semibold' : 'hover:text-white'
-                    : activeRoute.startsWith('/penerima') ? 'text-black font-semibold' : 'hover:text-black'
-                }`}
-              >
-                Katalog Surplus
-                {activeRoute.startsWith('/penerima') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
-                )}
-              </a>
+              {/* Guest links */}
+              {!isAuthenticated && (
+                <>
+                  <a
+                    href="#/"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute === '/' ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute === '/' ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Beranda
+                    {activeRoute === '/' && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/dashboard"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/dashboard') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Dampak ESG
+                    {activeRoute.startsWith('/dashboard') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/terms"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/terms') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/terms') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Standar Mutu
+                    {activeRoute.startsWith('/terms') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                </>
+              )}
 
-              <a
-                href="#/penyedia"
-                className={`transition-colors no-underline py-1 relative ${
-                  isDark
-                    ? activeRoute.startsWith('/penyedia') ? 'text-white font-semibold' : 'hover:text-white'
-                    : activeRoute.startsWith('/penyedia') ? 'text-black font-semibold' : 'hover:text-black'
-                }`}
-              >
-                Untuk Penyedia
-                {activeRoute.startsWith('/penyedia') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
-                )}
-              </a>
+              {/* Penerima links (strictly NO Beranda, NO ESG, NO Standar Mutu) */}
+              {isAuthenticated && user?.role === 'penerima' && (
+                <>
+                  <a
+                    href="#/penerima"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute === '/penerima' ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute === '/penerima' ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Katalog Surplus
+                    {activeRoute === '/penerima' && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/penerima/booking"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/penerima/booking') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/penerima/booking') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Pesanan Saya
+                    {activeRoute.startsWith('/penerima/booking') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/penerima/history"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/penerima/history') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/penerima/history') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Riwayat
+                    {activeRoute.startsWith('/penerima/history') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                </>
+              )}
 
-              <a
-                href="#/dashboard"
-                className={`transition-colors no-underline py-1 relative ${
-                  isDark
-                    ? activeRoute.startsWith('/dashboard') ? 'text-white font-semibold' : 'hover:text-white'
-                    : activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : 'hover:text-black'
-                }`}
-              >
-                Dampak ESG
-                {activeRoute.startsWith('/dashboard') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
-                )}
-              </a>
+              {/* Penyedia links (Strictly NO ESG, NO Standar Mutu, NO Katalog Penerima) */}
+              {isAuthenticated && user?.role === 'penyedia' && (
+                <>
+                  <a
+                    href="#/penyedia"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute === '/penyedia' ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute === '/penyedia' ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Dashboard
+                    {activeRoute === '/penyedia' && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/penyedia/surplus"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/penyedia/surplus') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/penyedia/surplus') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Surplus Saya
+                    {activeRoute.startsWith('/penyedia/surplus') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/penyedia/booking"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/penyedia/booking') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/penyedia/booking') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Pesanan Masuk
+                    {activeRoute.startsWith('/penyedia/booking') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/penyedia/history"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/penyedia/history') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/penyedia/history') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Riwayat
+                    {activeRoute.startsWith('/penyedia/history') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                </>
+              )}
 
-              <a
-                href="#/terms"
-                className={`transition-colors no-underline py-1 relative ${
-                  isDark
-                    ? activeRoute.startsWith('/terms') ? 'text-white font-semibold' : 'hover:text-white'
-                    : activeRoute.startsWith('/terms') ? 'text-black font-semibold' : 'hover:text-black'
-                }`}
-              >
-                Standar Mutu
-                {activeRoute.startsWith('/terms') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
-                )}
-              </a>
-
-              {user?.role === 'admin' && (
-                <a
-                  href="#/admin"
-                  className={`transition-colors no-underline font-semibold flex items-center gap-1 py-1 ${
-                    isDark ? 'text-white' : 'text-black'
-                  }`}
-                >
-                  <Shield size={13} className={isDark ? 'text-white' : 'text-black'} />
-                  Admin
-                </a>
+              {/* Admin links */}
+              {isAuthenticated && user?.role === 'admin' && (
+                <>
+                  <a
+                    href="#/admin"
+                    className={`transition-colors no-underline font-semibold flex items-center gap-1.5 py-1 ${
+                      isDark ? 'text-white' : 'text-black'
+                    }`}
+                  >
+                    <Shield size={13} className={isDark ? 'text-white' : 'text-black'} />
+                    Dashboard Admin
+                  </a>
+                  <a
+                    href="#/terms"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/terms') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/terms') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Kelola Standar Mutu
+                    {activeRoute.startsWith('/terms') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                  <a
+                    href="#/dashboard"
+                    className={`transition-colors no-underline py-1 relative ${
+                      isDark
+                        ? activeRoute.startsWith('/dashboard') ? 'text-white font-semibold' : 'hover:text-white'
+                        : activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : 'hover:text-black'
+                    }`}
+                  >
+                    Kelola Dampak ESG
+                    {activeRoute.startsWith('/dashboard') && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                    )}
+                  </a>
+                </>
               )}
             </div>
           </div>
 
-          {/* Center: Search Input */}
-          <div className="hidden md:flex flex-1 max-w-sm mx-4">
-            <form onSubmit={handleSearchSubmit} className="w-full relative">
-              <Search
-                size={14}
-                className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${
-                  isDark ? 'text-white/60' : 'text-[#999999]'
-                }`}
-              />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Cari hidangan surplus, bakery, hotel..."
-                className={`w-full h-[36px] pl-9 pr-12 text-[12px] rounded-[3px] border transition-all ${
-                  isDark
-                    ? 'border-white/20 bg-white/10 text-white placeholder-white/50 focus:bg-white/15 focus:border-white focus:outline-none'
-                    : 'border-[rgba(0,0,0,0.12)] bg-[#fafafc] text-black placeholder-[#999999] focus:bg-white focus:border-black focus:outline-none'
-                }`}
-              />
-              <span className={`absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-mono px-1.5 py-0.5 rounded border ${
-                isDark
-                  ? 'text-white/60 bg-white/10 border-white/20'
-                  : 'text-[#888888] bg-white border-[rgba(0,0,0,0.1)]'
-              }`}>
-                ⌘K
-              </span>
-            </form>
-          </div>
-
           {/* Right: High-End Actions */}
-          <div className="flex items-center gap-6 text-[12px] font-medium tracking-[0.06em] uppercase">
-            {/* Support Link */}
-            <a
-              href="#/terms"
-              className={`hidden sm:inline-block transition-colors no-underline ${
-                isDark ? 'text-white/70 hover:text-white' : 'text-[#666666] hover:text-black'
-              }`}
-            >
-              Bantuan
-            </a>
+          <div className="flex items-center gap-5 sm:gap-6 text-[12px] font-medium tracking-[0.06em] uppercase">
+            {/* Support Link (only for Guest and Penerima) */}
+            {(!user || user.role === 'penerima') && (
+              <a
+                href="#/terms"
+                className={`hidden sm:inline-block transition-colors no-underline ${
+                  isDark ? 'text-white/70 hover:text-white' : 'text-[#666666] hover:text-black'
+                }`}
+              >
+                Bantuan
+              </a>
+            )}
 
             {/* Account Status */}
             {isAuthenticated && user ? (
               <div className="flex items-center gap-3">
                 <a
-                  href={user.role === 'penyedia' ? '#/penyedia' : '#/penerima'}
+                  href={user.role === 'penyedia' ? '#/penyedia' : user.role === 'admin' ? '#/admin' : '#/penerima'}
                   className={`flex items-center gap-1.5 no-underline font-semibold ${
                     isDark ? 'text-white' : 'text-black'
                   }`}
@@ -254,36 +353,39 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <a
                 href="#/login"
                 className={`flex items-center gap-1.5 transition-opacity no-underline font-semibold ${
-                  isDark ? 'text-white hover:text-white/80' : 'text-black hover:opacity-70'
+                  isDark ? 'text-white hover:text-white/80' : 'hover:opacity-80'
                 }`}
+                style={!isDark ? { color: '#FF5A1F' } : {}}
               >
                 <User size={15} />
                 <span className="hidden sm:inline">Masuk</span>
               </a>
             )}
 
-            {/* Claim Bag / Cart Icon */}
-            <a
-              href={user?.role === 'penyedia' ? '#/penyedia/booking' : '#/penerima/booking'}
-              className={`relative p-1.5 transition-opacity no-underline ${
-                isDark ? 'text-white' : 'text-black'
-              }`}
-              title="Pesanan / Klaim Surplus"
-            >
-              <ShoppingBag size={17} />
-              {activeBookingsCount > 0 && (
-                <span className={`absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center ${
-                  isDark ? 'bg-white text-black' : 'bg-black text-white'
-                }`}>
-                  {activeBookingsCount}
-                </span>
-              )}
-            </a>
+            {/* Claim Bag / Cart Icon (Only for logged-in Penerima or Penyedia) */}
+            {isAuthenticated && user && (user.role === 'penerima' || user.role === 'penyedia') && (
+              <a
+                href={user.role === 'penyedia' ? '#/penyedia/booking' : '#/penerima/booking'}
+                className={`relative p-1.5 transition-opacity no-underline ${
+                  isDark ? 'text-white' : 'text-black'
+                }`}
+                title={user.role === 'penyedia' ? 'Pesanan Masuk' : 'Pesanan Saya'}
+              >
+                <ShoppingBag size={17} />
+                {activeBookingsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center text-white"
+                    style={{ background: isDark ? '#ffffff' : 'linear-gradient(135deg, #FFB200, #FF3913)', color: isDark ? '#000000' : '#ffffff' }}
+                  >
+                    {activeBookingsCount}
+                  </span>
+                )}
+              </a>
+            )}
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden text-black p-1 hover:opacity-75 focus:outline-none"
+              className={`lg:hidden p-1 hover:opacity-75 focus:outline-none ${isDark ? 'text-white' : 'text-black'}`}
               aria-label="Menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -301,60 +403,126 @@ export function Navbar({ currentRoute }: NavbarProps) {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-white text-black px-6 py-6 border-b border-[rgba(0,0,0,0.08)] shadow-xl"
           >
-            <form onSubmit={handleSearchSubmit} className="mb-6">
-              <div className="relative">
-                <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#888888]" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cari hidangan surplus..."
-                  className="w-full h-[38px] pl-10 pr-4 text-xs rounded-[3px] border border-[rgba(0,0,0,0.15)] bg-[#f8f8fa] text-black focus:outline-none"
-                />
-              </div>
-            </form>
-
             <div className="flex flex-col gap-4 text-[14px] font-medium tracking-[0.06em] uppercase">
-              <a
-                href="#/"
-                onClick={() => setMenuOpen(false)}
-                className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
-              >
-                Beranda
-              </a>
-              <a
-                href="#/penerima"
-                onClick={() => setMenuOpen(false)}
-                className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
-              >
-                Katalog Surplus
-              </a>
-              <a
-                href="#/penyedia"
-                onClick={() => setMenuOpen(false)}
-                className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
-              >
-                Untuk Penyedia
-              </a>
-              <a
-                href="#/dashboard"
-                onClick={() => setMenuOpen(false)}
-                className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
-              >
-                Dampak ESG
-              </a>
-              <a
-                href="#/terms"
-                onClick={() => setMenuOpen(false)}
-                className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
-              >
-                Standar Mutu
-              </a>
+              {/* Guest links */}
+              {!isAuthenticated && (
+                <>
+                  <a
+                    href="#/"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Beranda
+                  </a>
+                  <a
+                    href="#/dashboard"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Dampak ESG
+                  </a>
+                  <a
+                    href="#/terms"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Standar Mutu
+                  </a>
+                </>
+              )}
+
+              {/* Penerima links */}
+              {isAuthenticated && user?.role === 'penerima' && (
+                <>
+                  <a
+                    href="#/penerima"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Katalog Surplus
+                  </a>
+                  <a
+                    href="#/penerima/booking"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Pesanan Saya
+                  </a>
+                  <a
+                    href="#/penerima/history"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Riwayat
+                  </a>
+                </>
+              )}
+
+              {/* Penyedia links */}
+              {isAuthenticated && user?.role === 'penyedia' && (
+                <>
+                  <a
+                    href="#/penyedia"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Dashboard
+                  </a>
+                  <a
+                    href="#/penyedia/surplus"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Surplus Saya
+                  </a>
+                  <a
+                    href="#/penyedia/booking"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Pesanan Masuk
+                  </a>
+                  <a
+                    href="#/penyedia/history"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Riwayat
+                  </a>
+                </>
+              )}
+
+              {/* Admin links */}
+              {isAuthenticated && user?.role === 'admin' && (
+                <>
+                  <a
+                    href="#/admin"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100 font-semibold"
+                  >
+                    Dashboard Admin
+                  </a>
+                  <a
+                    href="#/terms"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Kelola Standar Mutu
+                  </a>
+                  <a
+                    href="#/dashboard"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
+                  >
+                    Kelola Dampak ESG
+                  </a>
+                </>
+              )}
 
               <div className="pt-4 flex flex-col gap-3 normal-case tracking-normal">
                 {isAuthenticated && user ? (
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-[#888888]">{user.name}</span>
+                    <span className="text-xs text-[#888888]">{user.name} ({user.role})</span>
                     <button
                       onClick={() => {
                         setMenuOpen(false);

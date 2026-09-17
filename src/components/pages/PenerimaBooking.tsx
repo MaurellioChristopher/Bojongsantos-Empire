@@ -17,6 +17,10 @@ import {
   PackageCheck,
   Sparkles,
   X,
+  MessageSquare,
+  AlertCircle,
+  Lock,
+  Building2,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
@@ -25,6 +29,7 @@ import { bookingService } from '@/services/bookingService';
 import { formatCountdown, getRelativeTime, formatDateTime } from '@/lib/utils';
 import { BOOKING_STATUS_LABELS } from '@/types';
 import type { Booking, BookingStatus } from '@/types';
+import { ChatModal } from '@/components/chat/ChatModal';
 
 type OrderFilter = 'semua' | 'menunggu' | 'siap' | 'selesai' | 'dibatalkan';
 
@@ -34,6 +39,9 @@ export function PenerimaBooking() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [activeFilter, setActiveFilter] = useState<OrderFilter>('semua');
   const [selectedTicket, setSelectedTicket] = useState<Booking | null>(null);
+  const [selectedChatBooking, setSelectedChatBooking] = useState<Booking | null>(null);
+  const [cancelModalBooking, setCancelModalBooking] = useState<Booking | null>(null);
+  const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const refresh = async () => {
     if (!user) return;
@@ -55,7 +63,7 @@ export function PenerimaBooking() {
     } catch {
       updateBookingStatus(booking.id, 'diambil');
     }
-    success('Pengambilan Selesai! 🎉', `Terima kasih telah menyelamatkan ${booking.quantity} kg makanan.`);
+    success('Pengambilan Selesai', `Terima kasih telah menyelamatkan ${booking.quantity} kg makanan.`);
     if (selectedTicket?.id === booking.id) setSelectedTicket(null);
     refresh();
   };
@@ -71,25 +79,25 @@ export function PenerimaBooking() {
     refresh();
   };
 
-  if (!user) {
+  if (!user || user.role !== 'penerima') {
     return (
       <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
         <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#1d1d1f] mb-4 border border-[rgba(0,0,0,0.08)] shadow-sm">
-          <Clock size={32} />
+          <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Pesanan & Status Penyelamatan Saya</h2>
+        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Khusus Penerima Manfaat</h2>
         <p className="text-body-apple text-[#86868b] max-w-md mb-6">
-          Silakan masuk ke akun Anda untuk melihat status pesanan aktif dan tiket penjemputan makanan.
+          Halaman ini khusus untuk Penerima Manfaat yang terdaftar untuk melihat pesanan makanan surplus.
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <button
             onClick={() => login('penerima@aksespangan.id', 'penerima123')}
             className="btn-apple-primary text-sm py-2.5 px-5"
           >
-            ⚡ Masuk Akun Demo Penerima (1-Klik)
+            Masuk Akun Demo Penerima (1-Klik)
           </button>
           <a href="#/login" className="btn-apple-secondary text-sm py-2.5 px-5">
-            Masuk dengan Email
+            Masuk dengan Akun Lain
           </a>
         </div>
       </div>
@@ -112,11 +120,11 @@ export function PenerimaBooking() {
   const renderStatusBadge = (status: BookingStatus) => {
     switch (status) {
       case 'menunggu':
-        return <span className="badge-apple badge-apple-warning">⌛ Menunggu Konfirmasi</span>;
+        return <span className="badge-apple badge-apple-warning">Menunggu Konfirmasi</span>;
       case 'dikonfirmasi':
-        return <span className="badge-apple badge-apple-info">🛵 Siap / Sedang Diambil</span>;
+        return <span className="badge-apple badge-apple-info">Siap Diambil</span>;
       case 'diambil':
-        return <span className="badge-apple badge-apple-success">🎉 Selesai Diambil</span>;
+        return <span className="badge-apple badge-apple-success">Selesai Diambil</span>;
       case 'dibatalkan':
         return <span className="badge-apple badge-apple-neutral text-[#ff3b30]">Dibatalkan</span>;
       case 'kedaluwarsa':
@@ -144,18 +152,28 @@ export function PenerimaBooking() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h1 className="text-display-lg text-[#1d1d1f] mb-1">
-                Pesanan & Status Penyelamatan Saya
+                Pesanan &amp; Status Penyelamatan Saya
               </h1>
               <p className="text-body-apple text-[#86868b] m-0">
-                Pantau proses verifikasi mitra, estimasi penjemputan, dan tiket QR serah terima.
+                Pantau verifikasi mitra, koordinasi via chat, dan konfirmasi saat makanan diterima.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 self-start sm:self-auto bg-white px-4 py-2 rounded-full border border-[rgba(0,0,0,0.08)] shadow-sm">
-              <ShoppingBag size={16} className="text-[#1d1d1f]" />
-              <span className="text-xs font-semibold text-[#1d1d1f]">
-                {activeCount} Pesanan Aktif
-              </span>
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <button
+                onClick={() => setIsComplaintModalOpen(true)}
+                className="btn-apple-secondary text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-700 hover:text-black border-neutral-300 shadow-2xs"
+              >
+                <AlertCircle size={14} style={{ color: '#FF5A1F' }} />
+                <span>Bantuan Admin</span>
+              </button>
+
+              <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-[rgba(0,0,0,0.08)] shadow-xs">
+                <ShoppingBag size={15} className="text-[#1d1d1f]" />
+                <span className="text-xs font-semibold text-[#1d1d1f]">
+                  {activeCount} Aktif
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -184,7 +202,7 @@ export function PenerimaBooking() {
               activeFilter === 'siap' ? 'apple-chip-active' : ''
             }`}
           >
-            🛵 Siap / Sedang Diambil ({bookings.filter((b) => b.status === 'dikonfirmasi').length})
+            Siap Diambil ({bookings.filter((b) => b.status === 'dikonfirmasi').length})
           </button>
           <button
             onClick={() => setActiveFilter('selesai')}
@@ -192,7 +210,7 @@ export function PenerimaBooking() {
               activeFilter === 'selesai' ? 'apple-chip-active' : ''
             }`}
           >
-            🎉 Selesai ({completedCount})
+            Selesai ({completedCount})
           </button>
           <button
             onClick={() => setActiveFilter('dibatalkan')}
@@ -207,7 +225,9 @@ export function PenerimaBooking() {
         {/* Orders List / Empty State */}
         {filteredBookings.length === 0 ? (
           <div className="card-apple-utility bg-white p-12 text-center max-w-md mx-auto">
-            <div className="text-4xl mb-3">🛍️</div>
+            <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-3 text-neutral-400">
+              <ShoppingBag size={22} />
+            </div>
             <h3 className="text-body-strong text-[#1d1d1f] mb-1">
               Tidak Ada Pesanan {activeFilter !== 'semua' ? `Status "${activeFilter.toUpperCase()}"` : ''}
             </h3>
@@ -235,8 +255,8 @@ export function PenerimaBooking() {
                   {/* Top Order Meta Info (Store Name & Status) */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[rgba(0,0,0,0.06)]">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-[12px] bg-[#f5f5f7] flex items-center justify-center text-lg font-bold text-[#1d1d1f]">
-                        🏬
+                      <div className="w-10 h-10 rounded-[12px] bg-[#f5f5f7] flex items-center justify-center text-[#1d1d1f]">
+                        <Building2 size={18} />
                       </div>
                       <div>
                         <div className="text-body-strong text-[#1d1d1f] flex items-center gap-2">
@@ -265,18 +285,18 @@ export function PenerimaBooking() {
                           Status Penyelamatan Makanan
                         </span>
                         {b.status === 'dikonfirmasi' && (
-                          <span className="text-[#ea580c] font-bold flex items-center gap-1.5 bg-white py-1.5 px-3.5 rounded-full border border-[rgba(0,0,0,0.08)] shadow-xs text-xs">
-                            <Clock size={14} /> Sisa Waktu Ambil: {formatCountdown(b.pickupDeadline)}
+                          <span className="text-[#1d1d1f] font-semibold flex items-center gap-1.5 bg-white py-1.5 px-3.5 rounded-full border border-[rgba(0,0,0,0.08)] shadow-xs text-xs">
+                            <Clock size={14} className="text-[#86868b]" /> Sisa Waktu Ambil: {formatCountdown(b.pickupDeadline)}
                           </span>
                         )}
                         {b.status === 'menunggu' && (
-                          <span className="text-[#ea580c] font-medium text-xs bg-[#ea580c]/10 px-3 py-1 rounded-full">
-                            ⏳ Menunggu konfirmasi toko
+                          <span className="text-[#1d1d1f] font-medium text-xs bg-white border border-[rgba(0,0,0,0.08)] px-3 py-1 rounded-full flex items-center gap-1">
+                            <Clock size={13} className="text-[#86868b]" /> Menunggu konfirmasi toko
                           </span>
                         )}
                         {b.status === 'diambil' && (
-                          <span className="text-[#15803d] font-medium text-xs bg-[#16a34a]/10 px-3 py-1 rounded-full">
-                            🎉 Selesai Diselamatkan
+                          <span className="text-[#1d1d1f] font-medium text-xs bg-white border border-[rgba(0,0,0,0.08)] px-3 py-1 rounded-full flex items-center gap-1 text-emerald-700">
+                            <CheckCircle2 size={13} className="text-emerald-600" /> Selesai Diselamatkan
                           </span>
                         )}
                       </div>
@@ -362,8 +382,8 @@ export function PenerimaBooking() {
                   {/* Food Item Details Row */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-2">
                     <div className="flex items-center gap-3.5">
-                      <div className="w-12 h-12 rounded-[12px] bg-[#f5f5f7] flex items-center justify-center text-2xl flex-shrink-0">
-                        🍽️
+                      <div className="w-12 h-12 rounded-[12px] bg-[#f5f5f7] flex items-center justify-center text-[#1d1d1f] flex-shrink-0">
+                        <ShoppingBag size={20} />
                       </div>
                       <div>
                         <h4 className="text-body-strong text-[#1d1d1f] mb-0.5">
@@ -392,9 +412,20 @@ export function PenerimaBooking() {
                         </button>
                       )}
 
+                      {/* Chatting is available as soon as booking is made (menunggu & dikonfirmasi) */}
+                      {['menunggu', 'dikonfirmasi'].includes(b.status) && (
+                        <button
+                          onClick={() => setSelectedChatBooking(b)}
+                          className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-800 border-neutral-300 shadow-2xs hover:border-[#FF5A1F]"
+                        >
+                          <MessageSquare size={14} style={{ color: '#FF5A1F' }} />
+                          <span>{b.status === 'menunggu' ? 'Chat Konfirmasi' : 'Chat Koordinasi'}</span>
+                        </button>
+                      )}
+
                       {b.status === 'menunggu' && (
                         <button
-                          onClick={() => handleCancel(b)}
+                          onClick={() => setCancelModalBooking(b)}
                           className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3.5 text-[#ff3b30] border-[#ff3b30] hover:bg-[#ff3b30]/10"
                         >
                           Batalkan
@@ -402,12 +433,21 @@ export function PenerimaBooking() {
                       )}
 
                       {b.status === 'dikonfirmasi' && (
-                        <button
-                          onClick={() => handleConfirmPickup(b)}
-                          className="btn-apple-primary btn-apple-sm text-xs py-2 px-4 flex items-center gap-1.5"
-                        >
-                          <PackageCheck size={15} /> Konfirmasi Makanan Diterima
-                        </button>
+                        <>
+                          <button
+                            onClick={() => setCancelModalBooking(b)}
+                            className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3 text-[#888888] hover:text-[#ff3b30] hover:border-[#ff3b30]"
+                            title="Batalkan jika ada kendala darurat"
+                          >
+                            Batalkan
+                          </button>
+                          <button
+                            onClick={() => handleConfirmPickup(b)}
+                            className="btn-apple-primary btn-apple-sm text-xs py-2 px-4 flex items-center gap-1.5"
+                          >
+                            <PackageCheck size={15} /> Konfirmasi Makanan Diterima
+                          </button>
+                        </>
                       )}
 
                       {b.status === 'diambil' && (
@@ -494,7 +534,7 @@ export function PenerimaBooking() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#86868b]">Sisa Batas Waktu:</span>
-                    <span className="font-bold text-[#ea580c]">
+                    <span className="font-semibold text-[#1d1d1f]">
                       {formatCountdown(selectedTicket.pickupDeadline)} lagi
                     </span>
                   </div>
@@ -520,7 +560,69 @@ export function PenerimaBooking() {
             </div>
           )}
         </AnimatePresence>
+
+        {/* Modal Konfirmasi Pembatalan Pesanan */}
+        <AnimatePresence>
+          {cancelModalBooking && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94 }}
+                className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 border border-neutral-200 shadow-2xl relative"
+              >
+                <div className="w-12 h-12 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-4 border border-rose-100">
+                  <AlertCircle size={24} />
+                </div>
+                <h3 className="text-display-md text-[#1d1d1f] text-center mb-2">
+                  Batalkan Pesanan?
+                </h3>
+                <p className="text-body-apple text-[#86868b] text-center text-sm mb-6 leading-relaxed">
+                  Apakah Anda yakin ingin membatalkan pesanan <span className="font-semibold text-[#1d1d1f]">"{cancelModalBooking.surplusName}"</span> ({cancelModalBooking.quantity} kg)? Porsi makanan ini akan dikembalikan ke inventaris surplus mitra agar dapat diselamatkan orang lain.
+                </p>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setCancelModalBooking(null)}
+                    className="flex-1 py-2.5 px-4 rounded-xl border border-neutral-300 text-neutral-700 font-semibold text-xs hover:bg-neutral-50 transition-colors uppercase tracking-wider"
+                  >
+                    Kembali
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleCancel(cancelModalBooking);
+                      setCancelModalBooking(null);
+                    }}
+                    className="flex-1 py-2.5 px-4 rounded-xl bg-rose-600 text-white font-semibold text-xs hover:bg-rose-700 shadow-sm transition-colors uppercase tracking-wider"
+                  >
+                    Ya, Batalkan Pesanan
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+
+        {/* Order Coordination Chat Modal */}
+        {selectedChatBooking && (
+          <ChatModal
+            type="order"
+            booking={selectedChatBooking}
+            isOpen={!!selectedChatBooking}
+            onClose={() => setSelectedChatBooking(null)}
+          />
+        )}
+
+        {/* Admin Complaint Modal */}
+        {isComplaintModalOpen && (
+          <ChatModal
+            type="complaint"
+            isOpen={isComplaintModalOpen}
+            onClose={() => setIsComplaintModalOpen(false)}
+          />
+        )}
       </div>
     </div>
   );
 }
+

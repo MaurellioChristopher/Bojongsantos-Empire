@@ -47,7 +47,7 @@ export function RegisterPage() {
       });
 
       if (result.success) {
-        success('Pendaftaran Berhasil! 🎉', 'Selamat datang di ekosistem AksesPangan');
+        success('Pendaftaran Berhasil', 'Selamat datang di ekosistem AksesPangan');
         setTimeout(() => {
           if (role === 'penyedia') window.location.hash = '#/penyedia';
           else window.location.hash = '#/penerima';
@@ -75,11 +75,16 @@ export function RegisterPage() {
     <div className="min-h-screen bg-[#f5f5f7] flex flex-col justify-center items-center py-12 px-4 sm:px-6">
       <div className="w-full max-w-[480px]">
         {/* Brand Header */}
-        <div className="text-center mb-8">
-          <a href="#/" className="inline-flex items-center gap-2 text-3xl mb-3 no-underline">
-            🍽️
+        <div className="text-center mb-8 flex flex-col items-center">
+          <a href="#/" className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 text-white shadow-lg shadow-orange-500/20 no-underline transition-transform hover:scale-105"
+            style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
+              <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
+              <path d="M3.5 13.5L12 19.5L20.5 13.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </a>
-          <h1 className="text-display-md text-[#1d1d1f] mb-1">
+          <h1 className="text-display-md text-[#1d1d1f] mb-1 font-semibold tracking-tight">
             Buat Akun Baru
           </h1>
           <p className="text-body-apple text-[#86868b] m-0">

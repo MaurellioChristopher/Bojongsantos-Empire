@@ -25,7 +25,6 @@ const CATEGORY_COLORS: Record<string, string> = {
 // Create High-End Interactive Leaflet Marker
 function createInteractivePin(item: SurplusItem, isSelected: boolean) {
   const color = CATEGORY_COLORS[item.foodCategory] || '#1d1d1f';
-  const emoji = FOOD_CATEGORY_EMOJI[item.foodCategory] || '🍽️';
   const priceTag = item.isFree ? 'GRATIS' : formatPrice(item.price);
 
   return L.divIcon({
@@ -58,20 +57,24 @@ function createInteractivePin(item: SurplusItem, isSelected: boolean) {
           ${priceTag}
         </div>
 
-        <!-- Pin Head Circle with Category Icon -->
+        <!-- Pin Head Circle with Minimalist Icon -->
         <div style="
-          width: ${isSelected ? '44px' : '36px'};
-          height: ${isSelected ? '44px' : '36px'};
-          background-color: ${color};
+          width: ${isSelected ? '42px' : '34px'};
+          height: ${isSelected ? '42px' : '34px'};
+          background: linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 3px solid #ffffff;
-          box-shadow: 0 4px 14px rgba(0,0,0,0.35)${isSelected ? `, 0 0 0 4px rgba(0, 0, 0, 0.3)` : ''};
+          border: 2.5px solid #ffffff;
+          box-shadow: 0 4px 14px rgba(0,0,0,0.3)${isSelected ? `, 0 0 0 4px rgba(255, 90, 31, 0.35)` : ''};
           transition: all 0.2s ease-out;
         ">
-          <span style="font-size: ${isSelected ? '20px' : '17px'}; line-height: 1;">${emoji}</span>
+          <svg width="${isSelected ? '20' : '16'}" height="${isSelected ? '20' : '16'}" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+            <path d="M7 2v20"></path>
+            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+          </svg>
         </div>
 
         <!-- Pin Point Tip -->
@@ -270,8 +273,8 @@ export default function SurplusMap({
                 >
                   {activeItem.isFree ? 'GRATIS' : formatPrice(activeItem.price)}
                 </span>
-                <span className="text-[11px] font-medium text-[#86868b]">
-                  {FOOD_CATEGORY_EMOJI[activeItem.foodCategory]} {FOOD_CATEGORY_LABELS[activeItem.foodCategory]}
+                <span className="text-[11px] font-medium text-[#86868b] uppercase tracking-wider font-mono">
+                  {FOOD_CATEGORY_LABELS[activeItem.foodCategory]}
                 </span>
               </div>
 
@@ -310,7 +313,7 @@ export default function SurplusMap({
                 Stok: <span className="font-semibold text-[#1d1d1f]">{activeItem.quantity} kg</span> ({activeItem.portionCount} porsi)
               </div>
               <span className="text-gray-300">•</span>
-              <div className="flex items-center gap-1 text-[#ea580c] font-medium">
+              <div className="flex items-center gap-1 text-[#1d1d1f] font-medium">
                 <Clock size={12} />
                 <span>Sisa {formatCountdown(activeItem.expiryTime)}</span>
               </div>
@@ -344,9 +347,8 @@ export default function SurplusMap({
                   : 'bg-white/90 backdrop-blur-md text-[#1d1d1f] border border-[rgba(0,0,0,0.12)] hover:bg-white'
               }`}
             >
-              <span>{FOOD_CATEGORY_EMOJI[item.foodCategory]}</span>
               <span className="font-semibold">{item.providerBusinessName.split(' ')[0]}</span>
-              <span className="text-[10px] opacity-75">
+              <span className="text-[10px] opacity-75 font-mono">
                 ({item.isFree ? 'Gratis' : formatPrice(item.price)})
               </span>
             </button>

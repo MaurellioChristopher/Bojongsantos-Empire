@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, CheckCircle2, XCircle, Calendar, User, Package } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, XCircle, Calendar, User, Package, Archive, Scale } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { getBookingsByProvider } from '@/lib/data';
 import { formatDateTime } from '@/lib/utils';
@@ -38,7 +38,7 @@ export function PenyediaHistory() {
             onClick={() => login('penyedia@aksespangan.id', 'penyedia123')}
             className="btn-apple-primary text-sm py-2.5 px-5"
           >
-            ⚡ Masuk Akun Demo Penyedia (1-Klik)
+            Masuk Akun Demo Penyedia (1-Klik)
           </button>
           <a href="#/login" className="btn-apple-secondary text-sm py-2.5 px-5">
             Masuk dengan Email
@@ -125,7 +125,7 @@ export function PenyediaHistory() {
 
           {bookings.length === 0 ? (
             <div className="text-center py-12 text-[#86868b]">
-              <div className="text-4xl mb-3">📦</div>
+              <Archive size={36} className="text-neutral-400 mx-auto mb-3" />
               <p className="text-body-strong text-[#1d1d1f] mb-1">Belum ada riwayat penyaluran</p>
               <p className="text-caption-apple text-[#86868b] max-w-xs mx-auto mb-4">
                 Surplus yang telah diambil atau diselesaikan akan muncul dalam arsip ini.
@@ -153,7 +153,9 @@ export function PenyediaHistory() {
                       <User size={13} /> Penerima: <span className="text-[#1d1d1f] font-medium">{b.recipientName}</span>
                     </p>
                     <div className="flex items-center gap-4 text-xs text-[#86868b]">
-                      <span className="font-semibold text-[#1d1d1f]">⚖️ {b.quantity} kg</span>
+                      <span className="font-semibold text-[#1d1d1f] flex items-center gap-1">
+                        <Scale size={12} /> {b.quantity} kg
+                      </span>
                       <span>•</span>
                       <span className="flex items-center gap-1">
                         <Calendar size={12} /> {formatDateTime(b.bookedAt)}

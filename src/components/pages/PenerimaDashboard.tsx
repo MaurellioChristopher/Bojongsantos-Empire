@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, List, Map, Filter, Clock, Search, X, CheckCircle2, ChevronRight, AlertTriangle } from 'lucide-react';
+import { MapPin, List, Map, Filter, Clock, Search, X, CheckCircle2, ChevronRight, AlertTriangle, Lock, Sparkles } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { getActiveSurplus, getBookingBySurplus } from '@/lib/data';
@@ -84,7 +84,7 @@ export function PenerimaDashboard() {
         recipientPhone: user.phone || '08123456789',
       });
 
-      success('Pemesanan Berhasil! 🎉', `${item.name} telah dipesan. Dialihkan ke tiket pesanan Anda...`);
+      success('Pemesanan Berhasil', `${item.name} telah dipesan. Dialihkan ke tiket pesanan Anda...`);
       setSelectedItem(null);
       refreshItems();
       setTimeout(() => {
@@ -100,12 +100,71 @@ export function PenerimaDashboard() {
 
   const categories: { id: FoodCategory | 'all'; label: string }[] = [
     { id: 'all', label: 'Semua Kategori' },
-    { id: 'nasi', label: '🍱 Nasi & Lauk' },
-    { id: 'roti', label: '🥐 Roti & Pastry' },
-    { id: 'sayur', label: '🥗 Sayuran' },
-    { id: 'buah', label: '🍎 Buah-buahan' },
-    { id: 'minuman', label: '🧃 Minuman' },
+    { id: 'nasi', label: 'Nasi & Lauk' },
+    { id: 'roti', label: 'Roti & Pastry' },
+    { id: 'sayur', label: 'Sayuran' },
+    { id: 'buah', label: 'Buah-buahan' },
+    { id: 'minuman', label: 'Minuman' },
   ];
+
+  // Access Control: Guests must log in to view and order from Katalog Surplus
+  if (!user) {
+    return (
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
+        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-neutral-800 mb-4 border border-black/10 shadow-sm">
+          <Lock size={30} />
+        </div>
+        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Katalog Terkunci</h2>
+        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+          Sesuai ketentuan platform, pengguna harus masuk sebagai <strong>Penerima Manfaat</strong> untuk menjelajahi Katalog Surplus dan melakukan pemesanan makanan.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <a href="#/login" className="btn-apple-primary text-sm py-2.5 px-6">
+            Masuk ke Akun Penerima
+          </a>
+          <a href="#/register" className="btn-apple-secondary text-sm py-2.5 px-6">
+            Daftar Sebagai Penerima
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  // Access Control: Penyedia cannot order as Penerima
+  if (user.role === 'penyedia') {
+    return (
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
+        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-amber-500 mb-4 border border-black/10 shadow-sm">
+          <Lock size={30} />
+        </div>
+        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Dibatasi untuk Penyedia</h2>
+        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+          Mitra Penyedia tidak dapat mengakses Katalog Surplus untuk memesan makanan sebagai Penerima. Silakan gunakan dashboard penyedia untuk mengelola stok surplus Anda.
+        </p>
+        <a href="#/penyedia" className="btn-apple-primary text-sm py-2.5 px-6">
+          Kembali ke Dashboard Penyedia
+        </a>
+      </div>
+    );
+  }
+
+  // Access Control: Admin cannot order as Penerima
+  if (user.role === 'admin') {
+    return (
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
+        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-neutral-700 mb-4 border border-black/10 shadow-sm">
+          <Lock size={30} />
+        </div>
+        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Administrator</h2>
+        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+          Akun Administrator tidak dapat melakukan pemesanan surplus sebagai Penerima.
+        </p>
+        <a href="#/admin" className="btn-apple-primary text-sm py-2.5 px-6">
+          Kembali ke Dashboard Admin
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f5f5f7] py-8 px-4 sm:px-8">
@@ -115,6 +174,7 @@ export function PenerimaDashboard() {
           <h1 className="text-display-lg text-[#1d1d1f] mb-1">
             Katalog Makanan Surplus
           </h1>
+          <div className="h-[2px] rounded-full mb-2 w-20" style={{ background: 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
           <p className="text-body-apple text-[#86868b]">
             Makanan layak konsumsi siap diselamatkan dari restoran dan toko terdekat.
           </p>
@@ -141,21 +201,19 @@ export function PenerimaDashboard() {
           <div className="flex items-center bg-white border border-[rgba(0,0,0,0.08)] rounded-full p-1 self-start sm:self-auto">
             <button
               onClick={() => setViewMode('list')}
-              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                viewMode === 'list'
-                  ? 'bg-[#1d1d1f] text-white'
-                  : 'text-[#1d1d1f] hover:text-[#86868b]'
+              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all text-white ${
+                viewMode === 'list' ? 'text-white' : 'text-[#1d1d1f] hover:text-[#86868b] !bg-transparent'
               }`}
+              style={viewMode === 'list' ? { background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' } : {}}
             >
               <List size={16} /> Daftar ({filteredItems.length})
             </button>
             <button
               onClick={() => setViewMode('map')}
               className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                viewMode === 'map'
-                  ? 'bg-[#1d1d1f] text-white'
-                  : 'text-[#1d1d1f] hover:text-[#86868b]'
+                viewMode === 'map' ? 'text-white' : 'text-[#1d1d1f] hover:text-[#86868b]'
               }`}
+              style={viewMode === 'map' ? { background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' } : {}}
             >
               <Map size={16} /> Peta
             </button>
@@ -181,11 +239,12 @@ export function PenerimaDashboard() {
           {/* Price Quick Filter */}
           <button
             onClick={() => setPriceFilter(priceFilter === 'free' ? 'all' : 'free')}
-            className={`apple-chip ${
+            className={`apple-chip flex items-center gap-1.5 ${
               priceFilter === 'free' ? 'apple-chip-active' : ''
             }`}
           >
-            ✨ Hanya Gratis
+            <Sparkles size={13} className="text-amber-500" />
+            <span>Hanya Gratis</span>
           </button>
         </div>
 
@@ -203,7 +262,9 @@ export function PenerimaDashboard() {
           <div>
             {filteredItems.length === 0 ? (
               <div className="bg-white rounded-[18px] p-12 text-center border border-[rgba(0,0,0,0.08)] max-w-md mx-auto">
-                <div className="text-4xl mb-3">🔍</div>
+                <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-3 text-neutral-400">
+                  <Search size={22} />
+                </div>
                 <h3 className="text-body-strong mb-1">Tidak Ada Makanan Ditemukan</h3>
                 <p className="text-caption-apple text-[#86868b] mb-4">
                   Coba ubah kata kunci atau ganti filter kategori.
@@ -251,8 +312,7 @@ export function PenerimaDashboard() {
 
                           {/* Top Left: Category Badge */}
                           <div className="absolute top-3 left-3 z-10">
-                            <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 flex items-center gap-1.5 shadow-sm">
-                              <span>{FOOD_CATEGORY_EMOJI[item.foodCategory] || '🍽️'}</span>
+                            <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 flex items-center shadow-sm">
                               <span>{FOOD_CATEGORY_LABELS[item.foodCategory] || item.foodCategory}</span>
                             </span>
                           </div>
@@ -284,7 +344,7 @@ export function PenerimaDashboard() {
                             {item.name}
                           </h3>
                           <div className="text-caption-apple text-[#86868b] mb-2.5 flex items-center gap-1.5">
-                            <MapPin size={13} className="text-[#1d1d1f] shrink-0" />
+                            <MapPin size={13} className="shrink-0" style={{ color: '#FF5A1F' }} />
                             <span className="line-clamp-1">
                               {item.providerBusinessName} • {Math.round(item.distance * 10) / 10} km
                             </span>
@@ -299,12 +359,8 @@ export function PenerimaDashboard() {
                       {/* Bottom Action Area */}
                       <div className="px-5 pb-5 pt-3 border-t border-[rgba(0,0,0,0.06)] bg-[#fafafc] flex items-center justify-between">
                         <div className="flex flex-col">
-                          <span className="text-[10px] uppercase font-mono tracking-wider text-[#86868b]">Waktu Habis</span>
-                          <div className="text-caption-strong text-[#ea580c] flex items-center gap-1.5 font-mono">
-                            <span className="relative flex h-2 w-2">
-                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-500 opacity-75"></span>
-                              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600"></span>
-                            </span>
+                          <span className="text-[10px] uppercase font-mono tracking-wider text-[#86868b]">Sisa Waktu</span>
+                          <div className="text-caption-strong flex items-center gap-1.5 font-mono" style={{ color: '#FF5A1F' }}>
                             <Clock size={12} />
                             <span>{formatCountdown(item.expiryTime)}</span>
                           </div>

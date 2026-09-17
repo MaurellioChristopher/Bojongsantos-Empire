@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, ClipboardList, CheckCircle, Plus, TrendingUp, ArrowRight, Store } from 'lucide-react';
+import { Package, ClipboardList, CheckCircle, Plus, TrendingUp, ArrowRight, Store, Clock } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { getSurplusByProvider, getBookingsByProvider } from '@/lib/data';
 import { surplusService } from '@/services/surplusService';
@@ -28,35 +28,30 @@ export function PenyediaDashboard() {
         setSurplus(s);
         setBookings(b);
       } catch {
-        setSurplus(getSurplusByProvider(providerId));
-        setBookings(getBookingsByProvider(providerId));
+        const [fallbackS, fallbackB] = await Promise.all([
+          getSurplusByProvider(providerId),
+          getBookingsByProvider(providerId),
+        ]);
+        setSurplus(fallbackS);
+        setBookings(fallbackB);
       }
     }
     load();
   }, [user]);
 
-  if (!user) {
+  if (!user || user.role !== 'penyedia') {
     return (
-      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
-        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#1d1d1f] mb-4 border border-[rgba(0,0,0,0.08)] shadow-sm">
-          <Store size={32} />
-        </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Portal Mitra Penyedia Makanan</h2>
-        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
-          Kelola stok makanan surplus dan pantau pesanan pengambilan dari masyarakat secara real-time.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <button
-            onClick={() => login('penyedia@aksespangan.id', 'penyedia123')}
-            className="btn-apple-primary text-sm py-2.5 px-5"
-          >
-            ⚡ Masuk Akun Demo Penyedia (1-Klik)
-          </button>
-          <a href="#/login" className="btn-apple-secondary text-sm py-2.5 px-5">
-            Masuk dengan Email
-          </a>
-          <a href="#/register" className="btn-apple-pearl text-sm py-2.5 px-5">
-            Daftar Mitra Usaha
+      <div className="min-h-screen bg-[#f5f5f7] flex items-center justify-center p-4">
+        <div className="card-apple-utility bg-white p-8 max-w-md w-full text-center">
+          <div className="w-16 h-16 rounded-full bg-[#f5f5f7] flex items-center justify-center mx-auto mb-4 text-[#1d1d1f]">
+            <Store size={32} />
+          </div>
+          <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Terbatas</h2>
+          <p className="text-body-apple text-[#86868b] mb-6">
+            Halaman ini khusus untuk mitra penyedia makanan surplus terverifikasi.
+          </p>
+          <a href="#/login" className="btn-apple-primary w-full">
+            Masuk sebagai Mitra
           </a>
         </div>
       </div>
@@ -69,10 +64,10 @@ export function PenyediaDashboard() {
   const totalKg = completedBookings.reduce((sum, b) => sum + b.quantity, 0);
 
   const stats = [
-    { label: 'Surplus Aktif', value: activeItems.length, unit: 'item', icon: Package, color: '#1d1d1f' },
-    { label: 'Booking Masuk', value: pendingBookings.length, unit: 'pesanan', icon: ClipboardList, color: '#ea580c' },
-    { label: 'Makanan Disalurkan', value: totalKg, unit: 'kg', icon: CheckCircle, color: '#16a34a' },
-    { label: 'Total Transaksi', value: completedBookings.length, unit: 'kali', icon: TrendingUp, color: '#1d1d1f' },
+    { label: 'Surplus Aktif', value: activeItems.length, unit: 'item', icon: Package },
+    { label: 'Booking Masuk', value: pendingBookings.length, unit: 'pesanan', icon: ClipboardList },
+    { label: 'Makanan Disalurkan', value: totalKg, unit: 'kg', icon: CheckCircle },
+    { label: 'Total Transaksi', value: completedBookings.length, unit: 'kali', icon: TrendingUp },
   ];
 
   return (
@@ -97,17 +92,19 @@ export function PenyediaDashboard() {
           </a>
         </div>
 
+        {/* Subtle sunset divider accent bar below header */}
+        <div className="h-[2px] rounded-full mb-8 w-24" style={{ background: 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+
         {/* 4 Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {stats.map((st) => (
             <div key={st.label} className="card-apple-utility bg-white p-5 text-center">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3"
-                style={{ backgroundColor: `${st.color}15`, color: st.color }}
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
+                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
               >
-                <st.icon size={20} />
+                <st.icon size={18} />
               </div>
-              <div className="text-display-md font-semibold text-[#1d1d1f] mb-0.5">
+              <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
                 {st.value} <span className="text-xs font-normal text-[#86868b]">{st.unit}</span>
               </div>
               <div className="text-caption-apple text-[#86868b]">{st.label}</div>
@@ -129,7 +126,7 @@ export function PenyediaDashboard() {
 
           {activeItems.length === 0 ? (
             <div className="text-center py-12 text-[#86868b]">
-              <div className="text-3xl mb-2">📦</div>
+              <Package size={32} className="text-neutral-400 mx-auto mb-2" />
               <p className="text-body-apple m-0">Belum ada surplus aktif saat ini.</p>
               <a href="#/penyedia/surplus" className="link-apple text-sm mt-2 inline-block">
                 + Tambah surplus makanan pertama Anda
@@ -141,7 +138,9 @@ export function PenyediaDashboard() {
                 <div key={item.id} className="p-4 rounded-[14px] bg-[#f5f5f7] flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between mb-2">
-                      <span className="text-2xl">{FOOD_CATEGORY_EMOJI[item.foodCategory] || '🍱'}</span>
+                      <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white text-neutral-600 font-semibold uppercase border border-black/5">
+                        {item.foodCategory}
+                      </span>
                       <span className="badge-apple badge-apple-neutral text-xs">
                         {item.isFree ? 'Gratis' : formatPrice(item.price)}
                       </span>
@@ -149,8 +148,9 @@ export function PenyediaDashboard() {
                     <div className="text-body-strong text-[#1d1d1f] line-clamp-1 mb-1">{item.name}</div>
                     <div className="text-caption-apple text-[#86868b] mb-2">{item.quantity} kg • {item.portionCount} porsi</div>
                   </div>
-                  <div className="text-fine-print text-[#ea580c] font-medium pt-2 border-t border-[rgba(0,0,0,0.06)]">
-                    Sisa waktu: {formatCountdown(item.expiryTime)}
+                  <div className="text-fine-print font-medium pt-2 border-t border-[rgba(0,0,0,0.06)] flex items-center gap-1.5" style={{ color: '#FF5A1F' }}>
+                    <Clock size={12} />
+                    <span>Sisa waktu: {formatCountdown(item.expiryTime)}</span>
                   </div>
                 </div>
               ))}
@@ -172,7 +172,7 @@ export function PenyediaDashboard() {
 
           {pendingBookings.length === 0 ? (
             <div className="text-center py-8 text-[#86868b]">
-              <div className="text-2xl mb-1">✅</div>
+              <CheckCircle size={24} className="text-emerald-500 mx-auto mb-1" />
               <p className="text-body-apple m-0">Tidak ada booking yang menunggu konfirmasi.</p>
             </div>
           ) : (

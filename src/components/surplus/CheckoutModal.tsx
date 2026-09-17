@@ -42,7 +42,6 @@ export function CheckoutModal({
   if (!isOpen || !item) return null;
 
   const guideline = getSafetyGuideline(item.foodCategory);
-  const emoji = FOOD_CATEGORY_EMOJI[item.foodCategory] || '🍽️';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -169,9 +168,9 @@ export function CheckoutModal({
 
                   <div className="p-4 rounded-[16px] bg-white border border-[rgba(0,0,0,0.08)]">
                     <div className="text-fine-print uppercase font-semibold text-[#86868b] tracking-wider mb-1 flex items-center gap-1">
-                      <Clock size={13} className="text-[#ea580c]" /> Batas Waktu Ambil
+                      <Clock size={13} className="text-[#1d1d1f]" /> Batas Waktu Ambil
                     </div>
-                    <div className="text-caption-strong text-[#ea580c] font-bold">
+                    <div className="text-caption-strong text-[#1d1d1f] font-bold">
                       {formatCountdown(item.expiryTime)} lagi
                     </div>
                     <div className="text-fine-print text-[#86868b] mt-0.5">
@@ -211,14 +210,14 @@ export function CheckoutModal({
                 </div>
 
                 {/* Quick Quality Teaser Card */}
-                <div className="p-4 rounded-[16px] bg-[#f0f9ff] border border-[#bae6fd] flex items-start gap-3">
-                  <ShieldCheck size={20} className="text-[#0284c7] flex-shrink-0 mt-0.5" />
-                  <div className="text-xs text-[#0369a1]">
-                    <span className="font-semibold text-[#075985]">Penjaminan Mutu Pangan:</span> {guideline.reheatingInstructions}
+                <div className="p-4 rounded-[16px] bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)] flex items-start gap-3">
+                  <ShieldCheck size={18} className="text-[#1d1d1f] flex-shrink-0 mt-0.5" />
+                  <div className="text-xs text-[#86868b]">
+                    <span className="font-semibold text-[#1d1d1f]">Penjaminan Mutu Pangan:</span> {guideline.reheatingInstructions}
                     <button
                       type="button"
                       onClick={() => setActiveTab('keamanan')}
-                      className="block mt-1 font-bold underline hover:opacity-80"
+                      className="block mt-1 font-semibold text-[#1d1d1f] underline hover:opacity-70"
                     >
                       Lihat instruksi penyimpanan & Do's/Don'ts lengkap →
                     </button>
@@ -232,7 +231,7 @@ export function CheckoutModal({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="p-3.5 rounded-[14px] bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)]">
                     <div className="text-fine-print text-[#86868b] mb-1 flex items-center gap-1">
-                      <ThermometerSun size={13} className="text-[#ea580c]" /> Suhu Penyimpanan
+                      <ThermometerSun size={13} className="text-[#1d1d1f]" /> Suhu Penyimpanan
                     </div>
                     <div className="text-caption-strong text-[#1d1d1f]">
                       {guideline.storageTemp}
@@ -250,9 +249,9 @@ export function CheckoutModal({
 
                   <div className="p-3.5 rounded-[14px] bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)]">
                     <div className="text-fine-print text-[#86868b] mb-1 flex items-center gap-1">
-                      <ShieldCheck size={13} className="text-[#16a34a]" /> Maks. Kulkas (&lt;4°C)
+                      <ShieldCheck size={13} className="text-[#1d1d1f]" /> Maks. Kulkas (&lt;4°C)
                     </div>
-                    <div className="text-caption-strong text-[#15803d]">
+                    <div className="text-caption-strong text-[#1d1d1f]">
                       {guideline.maxRefrigeratedHours} Jam
                     </div>
                   </div>

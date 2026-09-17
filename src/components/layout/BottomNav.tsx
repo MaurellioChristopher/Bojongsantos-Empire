@@ -12,6 +12,7 @@ import {
   Users,
   Receipt,
   FileText,
+  History,
 } from 'lucide-react';
 import { NAV_ITEMS } from '@/lib/constants';
 
@@ -25,14 +26,20 @@ const iconComponents: Record<string, React.ComponentType<{ size?: number }>> = {
   Users,
   Receipt,
   FileText,
+  History,
 };
 
 export function BottomNav() {
   const { user } = useAuth();
   if (!user) return null;
 
-  const roleItems = NAV_ITEMS[user.role as keyof typeof NAV_ITEMS] || [];
-  const items = [...roleItems, ...NAV_ITEMS.shared.slice(0, 1)];
+  // Penyedia & Penerima strictly cannot view shared items (ESG & Quality Standards)
+  const items =
+    user.role === 'penyedia'
+      ? NAV_ITEMS.penyedia
+      : user.role === 'penerima'
+      ? NAV_ITEMS.penerima
+      : [...(NAV_ITEMS.admin || []), ...NAV_ITEMS.shared];
   const visibleItems = items.slice(0, 5);
 
   return (

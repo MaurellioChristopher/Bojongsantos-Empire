@@ -4,12 +4,17 @@
 
 import type {
   User,
+  UserRole,
   SurplusItem,
   Booking,
   Notification,
   ImpactData,
   ImpactTimeline,
   BookingStatus,
+  ChatMessage,
+  AdminComplaint,
+  QualityStandardItem,
+  EsgConfig,
 } from '@/types';
 import { STORAGE_KEYS, CO2E_FACTOR, TREE_CO2_ABSORPTION } from './constants';
 import { generateId, hoursFromNow } from './utils';
@@ -1045,9 +1050,315 @@ export function seedData(): void {
     },
   ];
 
+  const defaultStandards: QualityStandardItem[] = [
+    {
+      id: 'std-1',
+      title: '1. Peran AksesPangan sebagai Platform Penghubung',
+      content: 'AksesPangan adalah platform teknologi yang mempertemukan penyedia surplus pangan (restoran, hotel, kafe, katering, supermarket) dengan penerima manfaat. Kami tidak memproduksi atau mengolah makanan secara langsung. Tanggung jawab atas mutu dan keaslian informasi makanan awal berada pada pihak penyedia terverifikasi.',
+      order: 1,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-2',
+      title: '2. Kebijakan Keamanan Makanan 4 Jam',
+      content: 'Seluruh makanan siap santap yang diunggah wajib mematuhi protokol batas aman penyimpanan suhu ruang maksimum 4 jam sejak selesai dimasak atau dikeluarkan dari pemanas. Penerima diwajibkan segera mengonsumsi atau menyimpan makanan dalam lemari pendingin (< 4°C) sesaat setelah diambil.',
+      order: 2,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-3',
+      title: '3. Tanggung Jawab Penerima & Verifikasi Mandiri',
+      content: 'Penerima memiliki kewajiban untuk memeriksa secara fisik kondisi makanan (aroma, tekstur, suhu kemasan) sebelum menandatangani atau mengonfirmasi pengambilan di lokasi. Jika terdapat keraguan mutu pangan, penerima berhak membatalkan pengambilan di tempat.',
+      order: 3,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-4',
+      title: '4. Standar Kemasan & Higienitas Penyedia',
+      content: 'Penyedia makanan surplus wajib menggunakan wadah makanan food-grade sekali pakai atau kemasan tertutup rapat yang higienis. Makanan tidak boleh terkontaminasi bahan alergen silang tanpa pencantuman label peringatan yang jelas.',
+      order: 4,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-5',
+      title: '5. Ketentuan Pembatalan & Kedaluwarsa Booking',
+      content: 'Setiap pesanan booking surplus memiliki batas waktu tunggu (pickup deadline) maksimum 2 jam. Jika tidak diambil hingga batas waktu terlewati, pesanan akan dibatalkan secara otomatis oleh sistem agar makanan dapat dialihkan kepada penerima lain yang membutuhkan.',
+      order: 5,
+      updatedAt: new Date().toISOString(),
+    },
+  ];
+
+  const defaultEsg: EsgConfig = {
+    id: 'esg-config-main',
+    targetKg: 10000,
+    targetCO2: 25000,
+    targetPortions: 20000,
+    missionStatement: 'Membangun ekosistem sirkular pangan tanpa limbah untuk masa depan Indonesia yang berdaya tahan dan berkeadilan iklim.',
+    verificationProtocol: 'Protokol Verifikasi Standar ESG AksesPangan 2026',
+    updatedAt: new Date().toISOString(),
+  };
+
+  const defaultComplaints: AdminComplaint[] = [
+    {
+      id: 'complaint-1',
+      userId: 'penyedia-1',
+      userName: 'Restoran Padang Sederhana',
+      userRole: 'penyedia',
+      userEmail: 'padang@aksespangan.id',
+      subject: 'Kendala Verifikasi Lokasi Toko',
+      message: 'Mohon bantuan tim admin untuk pembaruan titik koordinat penjemputan mitra di cabang baru.',
+      status: 'in_progress',
+      createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
+      updatedAt: new Date().toISOString(),
+      replies: [
+        {
+          id: 'reply-1',
+          senderId: 'admin-1',
+          senderName: 'Admin AksesPangan',
+          senderRole: 'admin',
+          complaintId: 'complaint-1',
+          message: 'Halo Mitra Restoran Padang Sederhana, koordinat telah kami verifikasi dan sinkronkan ke peta.',
+          createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
+          isRead: true,
+        },
+      ],
+    },
+  ];
+
   setStore(STORAGE_KEYS.users, users);
   setStore(STORAGE_KEYS.surplusItems, surplusItems);
   setStore(STORAGE_KEYS.bookings, bookings);
   setStore(STORAGE_KEYS.notifications, []);
+  setStore(STORAGE_KEYS.qualityStandards, defaultStandards);
+  setStore(STORAGE_KEYS.esgConfig, [defaultEsg]);
+  setStore(STORAGE_KEYS.complaints, defaultComplaints);
+  setStore(STORAGE_KEYS.chatMessages, []);
   localStorage.setItem(STORAGE_KEYS.isSeeded, 'true');
 }
+
+// ============================================================
+// STANDAR MUTU (QUALITY STANDARDS) CRUD
+// ============================================================
+
+export function getQualityStandards(): QualityStandardItem[] {
+  const list = getStore<QualityStandardItem>(STORAGE_KEYS.qualityStandards);
+  if (list.length > 0) return list.sort((a, b) => a.order - b.order);
+
+  // Fallback defaults
+  const defaults: QualityStandardItem[] = [
+    {
+      id: 'std-1',
+      title: '1. Peran AksesPangan sebagai Platform Penghubung',
+      content: 'AksesPangan adalah platform teknologi yang mempertemukan penyedia surplus pangan (restoran, hotel, kafe, katering, supermarket) dengan penerima manfaat. Kami tidak memproduksi atau mengolah makanan secara langsung. Tanggung jawab atas mutu dan keaslian informasi makanan awal berada pada pihak penyedia terverifikasi.',
+      order: 1,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-2',
+      title: '2. Kebijakan Keamanan Makanan 4 Jam',
+      content: 'Seluruh makanan siap santap yang diunggah wajib mematuhi protokol batas aman penyimpanan suhu ruang maksimum 4 jam sejak selesai dimasak atau dikeluarkan dari pemanas. Penerima diwajibkan segera mengonsumsi atau menyimpan makanan dalam lemari pendingin (< 4°C) sesaat setelah diambil.',
+      order: 2,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-3',
+      title: '3. Tanggung Jawab Penerima & Verifikasi Mandiri',
+      content: 'Penerima memiliki kewajiban untuk memeriksa secara fisik kondisi makanan (aroma, tekstur, suhu kemasan) sebelum menandatangani atau mengonfirmasi pengambilan di lokasi. Jika terdapat keraguan mutu pangan, penerima berhak membatalkan pengambilan di tempat.',
+      order: 3,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-4',
+      title: '4. Standar Kemasan & Higienitas Penyedia',
+      content: 'Penyedia makanan surplus wajib menggunakan wadah makanan food-grade sekali pakai atau kemasan tertutup rapat yang higienis. Makanan tidak boleh terkontaminasi bahan alergen silang tanpa pencantuman label peringatan yang jelas.',
+      order: 4,
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: 'std-5',
+      title: '5. Ketentuan Pembatalan & Kedaluwarsa Booking',
+      content: 'Setiap pesanan booking surplus memiliki batas waktu tunggu (pickup deadline) maksimum 2 jam. Jika tidak diambil hingga batas waktu terlewati, pesanan akan dibatalkan secara otomatis oleh sistem agar makanan dapat dialihkan kepada penerima lain yang membutuhkan.',
+      order: 5,
+      updatedAt: new Date().toISOString(),
+    },
+  ];
+  setStore(STORAGE_KEYS.qualityStandards, defaults);
+  return defaults;
+}
+
+export function addQualityStandard(item: Omit<QualityStandardItem, 'id' | 'updatedAt'>): QualityStandardItem {
+  const current = getQualityStandards();
+  const newItem: QualityStandardItem = {
+    ...item,
+    id: generateId(),
+    updatedAt: new Date().toISOString(),
+  };
+  current.push(newItem);
+  setStore(STORAGE_KEYS.qualityStandards, current);
+  return newItem;
+}
+
+export function updateQualityStandard(id: string, updates: Partial<QualityStandardItem>): QualityStandardItem | null {
+  const current = getQualityStandards();
+  const idx = current.findIndex((s) => s.id === id);
+  if (idx === -1) return null;
+  current[idx] = {
+    ...current[idx],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+  setStore(STORAGE_KEYS.qualityStandards, current);
+  return current[idx];
+}
+
+export function deleteQualityStandard(id: string): boolean {
+  const current = getQualityStandards();
+  const filtered = current.filter((s) => s.id !== id);
+  if (filtered.length === current.length) return false;
+  setStore(STORAGE_KEYS.qualityStandards, filtered);
+  return true;
+}
+
+// ============================================================
+// ESG CONFIG CRUD
+// ============================================================
+
+export function getEsgConfig(): EsgConfig {
+  const list = getStore<EsgConfig>(STORAGE_KEYS.esgConfig);
+  if (list && list.length > 0) return list[0];
+  const defaultConfig: EsgConfig = {
+    id: 'esg-config-main',
+    targetKg: 10000,
+    targetCO2: 25000,
+    targetPortions: 20000,
+    missionStatement: 'Membangun ekosistem sirkular pangan tanpa limbah untuk masa depan Indonesia yang berdaya tahan dan berkeadilan iklim.',
+    verificationProtocol: 'Protokol Verifikasi Standar ESG AksesPangan 2026',
+    updatedAt: new Date().toISOString(),
+  };
+  setStore(STORAGE_KEYS.esgConfig, [defaultConfig]);
+  return defaultConfig;
+}
+
+export function updateEsgConfig(updates: Partial<EsgConfig>): EsgConfig {
+  const current = getEsgConfig();
+  const updated: EsgConfig = {
+    ...current,
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+  setStore(STORAGE_KEYS.esgConfig, [updated]);
+  return updated;
+}
+
+// ============================================================
+// CHAT & COMPLAINTS SYSTEM
+// ============================================================
+
+export function getOrderChatMessages(bookingId: string): ChatMessage[] {
+  const messages = getStore<ChatMessage>(STORAGE_KEYS.chatMessages);
+  return messages.filter((m) => m.bookingId === bookingId).sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+}
+
+export function sendOrderChatMessage(data: {
+  bookingId: string;
+  senderId: string;
+  senderName: string;
+  senderRole: UserRole;
+  recipientId?: string;
+  message: string;
+}): ChatMessage {
+  const messages = getStore<ChatMessage>(STORAGE_KEYS.chatMessages);
+  const newMsg: ChatMessage = {
+    id: generateId(),
+    bookingId: data.bookingId,
+    senderId: data.senderId,
+    senderName: data.senderName,
+    senderRole: data.senderRole,
+    recipientId: data.recipientId,
+    message: data.message,
+    createdAt: new Date().toISOString(),
+    isRead: false,
+  };
+  messages.push(newMsg);
+  setStore(STORAGE_KEYS.chatMessages, messages);
+  return newMsg;
+}
+
+export function getAdminComplaints(): AdminComplaint[] {
+  const complaints = getStore<AdminComplaint>(STORAGE_KEYS.complaints);
+  return complaints.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+}
+
+export function getComplaintsByUser(userId: string): AdminComplaint[] {
+  return getAdminComplaints().filter((c) => c.userId === userId);
+}
+
+export function sendAdminComplaint(data: {
+  userId: string;
+  userName: string;
+  userRole: UserRole;
+  userEmail: string;
+  subject: string;
+  message: string;
+}): AdminComplaint {
+  const complaints = getStore<AdminComplaint>(STORAGE_KEYS.complaints);
+  const newComplaint: AdminComplaint = {
+    id: generateId(),
+    userId: data.userId,
+    userName: data.userName,
+    userRole: data.userRole,
+    userEmail: data.userEmail,
+    subject: data.subject,
+    message: data.message,
+    status: 'open',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    replies: [],
+  };
+  complaints.push(newComplaint);
+  setStore(STORAGE_KEYS.complaints, complaints);
+  return newComplaint;
+}
+
+export function replyAdminComplaint(
+  complaintId: string,
+  senderId: string,
+  senderName: string,
+  senderRole: UserRole,
+  message: string
+): ChatMessage | null {
+  const complaints = getStore<AdminComplaint>(STORAGE_KEYS.complaints);
+  const idx = complaints.findIndex((c) => c.id === complaintId);
+  if (idx === -1) return null;
+
+  const replyMsg: ChatMessage = {
+    id: generateId(),
+    complaintId,
+    senderId,
+    senderName,
+    senderRole,
+    message,
+    createdAt: new Date().toISOString(),
+    isRead: false,
+  };
+
+  complaints[idx].replies.push(replyMsg);
+  complaints[idx].updatedAt = new Date().toISOString();
+  if (senderRole === 'admin' && complaints[idx].status === 'open') {
+    complaints[idx].status = 'in_progress';
+  }
+
+  setStore(STORAGE_KEYS.complaints, complaints);
+  return replyMsg;
+}
+
+export function updateComplaintStatus(complaintId: string, status: 'open' | 'in_progress' | 'resolved'): boolean {
+  const complaints = getStore<AdminComplaint>(STORAGE_KEYS.complaints);
+  const idx = complaints.findIndex((c) => c.id === complaintId);
+  if (idx === -1) return false;
+  complaints[idx].status = status;
+  complaints[idx].updatedAt = new Date().toISOString();
+  setStore(STORAGE_KEYS.complaints, complaints);
+  return true;
+}
+

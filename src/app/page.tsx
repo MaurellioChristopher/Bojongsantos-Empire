@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
-import { NotificationProvider } from '@/contexts/NotificationContext';
+import { NotificationProvider, useNotification } from '@/contexts/NotificationContext';
 import { ToastContainer } from '@/components/ui/Toast';
 import { Navbar } from '@/components/layout/Navbar';
 import { BottomNav } from '@/components/layout/BottomNav';
@@ -25,6 +25,7 @@ import { checkAndExpireItems } from '@/lib/data';
 function AppRouter() {
   const [route, setRoute] = useState('/');
   const { user, isAuthenticated, isLoading } = useAuth();
+  const { warning } = useNotification();
 
   // Hash-based routing
   useEffect(() => {
@@ -36,6 +37,83 @@ function AppRouter() {
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
+
+  // Central Role-Based Access Guard according to system specifications
+  useEffect(() => {
+    if (isLoading) return;
+
+    // 0. Pengguna yang sudah login sama sekali TIDAK BISA mengakses Beranda / Halaman Utama ('/' atau '')
+    if (route === '/' || route === '') {
+      if (user?.role === 'penyedia') {
+        window.location.hash = '#/penyedia';
+        return;
+      }
+      if (user?.role === 'penerima') {
+        window.location.hash = '#/penerima';
+        return;
+      }
+      if (user?.role === 'admin') {
+        window.location.hash = '#/admin';
+        return;
+      }
+    }
+
+    // 1. Sebelum Login (Tamu)
+    // Hak akses: Beranda (/), Dampak ESG (/dashboard), Standar Mutu (/terms), Login/Register (/login, /register)
+    const guestAllowed = ['/', '/login', '/register', '/dashboard', '/terms'];
+
+    if (!isAuthenticated) {
+      if (!guestAllowed.includes(route)) {
+        warning('Akses Dibatasi', 'Pengguna sebelum login tidak dapat mengakses fitur ini. Silakan masuk terlebih dahulu.');
+        window.location.hash = '#/login';
+      }
+      return;
+    }
+
+    // 2. Penyedia
+    // Hak akses: Dashboard (/penyedia), Surplus (/penyedia/surplus), Booking (/penyedia/booking), Riwayat (/penyedia/history).
+    // Batasan: Tidak dapat akses beranda (/), /penerima*, /dashboard & /terms, /admin*.
+    if (user?.role === 'penyedia') {
+      const penyediaAllowed = ['/penyedia', '/penyedia/surplus', '/penyedia/booking', '/penyedia/history'];
+      if (!penyediaAllowed.includes(route)) {
+        if (route === '/dashboard' || route === '/terms') {
+          warning('Akses Dibatasi', 'Penyedia tidak dapat melihat atau mengelola Dampak ESG dan Standar Mutu.');
+        } else {
+          warning('Akses Dibatasi', 'Penyedia hanya dapat mengelola surplus dan pesanan masuk.');
+        }
+        window.location.hash = '#/penyedia';
+      }
+      return;
+    }
+
+    // 3. Penerima
+    // Hak akses: Katalog Surplus (/penerima), Pesanan Saya (/penerima/booking), Riwayat (/penerima/history).
+    // Batasan: Tidak dapat akses beranda (/), Dampak ESG (/dashboard), Standar Mutu (/terms), /penyedia*, /admin*.
+    if (user?.role === 'penerima') {
+      const penerimaAllowed = ['/penerima', '/penerima/booking', '/penerima/history'];
+      if (!penerimaAllowed.includes(route)) {
+        if (route === '/dashboard' || route === '/terms') {
+          warning('Akses Dibatasi', 'Penerima tidak dapat melihat halaman Dampak ESG dan Standar Mutu.');
+        } else {
+          warning('Akses Dibatasi', 'Penerima tidak memiliki izin untuk mengakses halaman tersebut.');
+        }
+        window.location.hash = '#/penerima';
+      }
+      return;
+    }
+
+    // 4. Admin
+    // Hak akses: Admin Dashboard (/admin), Standar Mutu (/terms), Dampak ESG (/dashboard).
+    // Batasan: Tidak dapat akses beranda (/), /penerima*, /penyedia*.
+    if (user?.role === 'admin') {
+      const adminAllowed = ['/admin', '/dashboard', '/terms'];
+      if (!adminAllowed.includes(route)) {
+        warning('Akses Dibatasi', 'Admin mengelola sistem dan keluhan melalui Admin Dashboard.');
+        window.location.hash = '#/admin';
+      }
+      return;
+    }
+  }, [route, isAuthenticated, user, isLoading, warning]);
 
   // Periodically check for expired items
   useEffect(() => {
@@ -53,16 +131,23 @@ function AppRouter() {
   if (isLoading) {
     return (
       <div
-        className="min-h-screen flex items-center justify-center"
-        style={{ backgroundColor: 'var(--color-canvas-parchment)' }}
+        className="min-h-screen flex items-center justify-center bg-white"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
+          className="text-center flex flex-col items-center"
         >
-          <div className="text-4xl mb-3">🍽️</div>
-          <div className="text-display-md font-semibold text-[#1d1d1f]">AksesPangan</div>
+          <div
+            className="w-12 h-12 rounded-xl mb-4 flex items-center justify-center shadow-lg shadow-orange-500/20"
+            style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
+              <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
+              <path d="M3.5 13.5L12 19.5L20.5 13.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div className="text-display-md font-semibold text-[#1d1d1f] tracking-tight">AksesPangan</div>
           <div className="mt-2 text-caption-apple text-[#86868b]">Memuat ekosistem penyelamatan pangan...</div>
         </motion.div>
       </div>

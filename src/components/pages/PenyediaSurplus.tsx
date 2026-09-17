@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Package, Edit, Trash2, Clock, MapPin, X, ArrowLeft } from 'lucide-react';
+import { Plus, Package, Edit, Trash2, Clock, MapPin, X, ArrowLeft, PackageOpen, Utensils } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { getSurplusByProvider } from '@/lib/data';
@@ -44,22 +44,22 @@ export function PenyediaSurplus() {
     refreshItems();
   }, [user]);
 
-  if (!user) {
+  if (!user || user.role !== 'penyedia') {
     return (
       <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
         <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#1d1d1f] mb-4 border border-[rgba(0,0,0,0.08)] shadow-sm">
           <Package size={32} />
         </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Kelola Inventaris Surplus</h2>
+        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Khusus Mitra Penyedia</h2>
         <p className="text-body-apple text-[#86868b] max-w-md mb-6">
-          Silakan masuk ke akun Mitra Penyedia Anda untuk menambah dan mengelola stok makanan surplus.
+          Halaman ini khusus untuk Mitra Penyedia untuk menambah dan mengelola stok makanan surplus.
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <button
             onClick={() => login('penyedia@aksespangan.id', 'penyedia123')}
             className="btn-apple-primary text-sm py-2.5 px-5"
           >
-            ⚡ Masuk Akun Demo Penyedia (1-Klik)
+            Masuk Akun Demo Penyedia (1-Klik)
           </button>
           <a href="#/login" className="btn-apple-secondary text-sm py-2.5 px-5">
             Masuk dengan Email
@@ -139,7 +139,7 @@ export function PenyediaSurplus() {
         success('Surplus Diperbarui', `${name} berhasil diubah`);
       } else {
         await surplusService.create(data);
-        success('Surplus Dipublikasikan! 🎉', `${name} sekarang tampil di pencarian`);
+        success('Surplus Dipublikasikan', `${name} sekarang tampil di pencarian`);
       }
       setShowForm(false);
       resetForm();
@@ -223,12 +223,12 @@ export function PenyediaSurplus() {
                       onChange={(e) => setFoodCategory(e.target.value as FoodCategory)}
                       className="apple-input"
                     >
-                      <option value="nasi">🍱 Nasi & Lauk</option>
-                      <option value="roti">🥐 Roti & Pastry</option>
-                      <option value="sayur">🥗 Sayur Mayur</option>
-                      <option value="buah">🍎 Buah-Buahan</option>
-                      <option value="minuman">🧃 Minuman</option>
-                      <option value="lainnya">🍽️ Lainnya</option>
+                      <option value="nasi">Nasi &amp; Lauk</option>
+                      <option value="roti">Roti &amp; Pastry</option>
+                      <option value="sayur">Sayur Mayur</option>
+                      <option value="buah">Buah-Buahan</option>
+                      <option value="minuman">Minuman</option>
+                      <option value="lainnya">Lainnya</option>
                     </select>
                   </div>
 
@@ -361,7 +361,7 @@ export function PenyediaSurplus() {
         {/* List of Items */}
         {items.length === 0 ? (
           <div className="card-apple-utility bg-white p-12 text-center">
-            <div className="text-4xl mb-3">🍽️</div>
+            <PackageOpen size={40} className="text-neutral-400 mx-auto mb-3" />
             <h3 className="text-tagline mb-1 text-[#1d1d1f]">Belum Ada Makanan yang Diunggah</h3>
             <p className="text-caption-apple text-[#86868b] mb-6">
               Mulai selamatkan makanan berlebih dari usaha Anda hari ini.
@@ -376,8 +376,8 @@ export function PenyediaSurplus() {
               <div key={item.id} className="card-apple-utility bg-white flex flex-col justify-between">
                 <div>
                   <div className="flex items-start justify-between mb-3">
-                    <span className="text-3xl p-2.5 bg-[#f5f5f7] rounded-[12px] inline-block">
-                      {FOOD_CATEGORY_EMOJI[item.foodCategory] || '🍱'}
+                    <span className="text-xs font-semibold px-2.5 py-1.5 bg-[#f5f5f7] border border-black/5 rounded-[8px] uppercase tracking-wider text-[#555555] font-mono">
+                      {FOOD_CATEGORY_LABELS[item.foodCategory] || item.foodCategory}
                     </span>
                     <span className={`badge-apple ${
                       item.status === 'active' ? 'badge-apple-success' : 'badge-apple-neutral'
@@ -392,8 +392,9 @@ export function PenyediaSurplus() {
                 </div>
 
                 <div className="pt-3 border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
-                  <span className="text-fine-print text-[#ea580c]">
-                    Sisa: {formatCountdown(item.expiryTime)}
+                  <span className="text-fine-print text-[#86868b] flex items-center gap-1">
+                    <Clock size={12} className="text-[#1d1d1f]" />
+                    <span>Sisa: {formatCountdown(item.expiryTime)}</span>
                   </span>
                   <div className="flex items-center gap-2">
                     <button
