@@ -44,8 +44,8 @@
   --color-garda-forest: #0a5a2f;
   --color-garda-forest-hover: #11713d;
   --color-garda-forest-card: #0d2b14;
-  --color-garda-sun: #ffe602;
-  --color-garda-sun-hover: #ffd800;
+  --color-garda-sun: #ffffff;
+  --color-garda-sun-hover: #f0f0f0;
   --color-garda-cream: #FCF9E0;
   --color-garda-mint: #eefbf4;
 
@@ -687,13 +687,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-garda-pill:hover {
   background-color: #1c1c1f;
-  color: #ffe602;
+  color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 14px 30px -5px rgba(0, 0, 0, 0.45);
 }
 
 .btn-garda-pill-gold {
-  background-color: #ffe602;
+  background-color: #ffffff;
   color: #000000;
   font-weight: 800;
   font-size: 14px;
@@ -706,12 +706,12 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  box-shadow: 0 10px 25px -5px rgba(255, 230, 2, 0.35);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .btn-garda-pill-gold:hover {
-  background-color: #ffd800;
+  background-color: #f0f0f2;
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px -5px rgba(255, 230, 2, 0.5);
+  box-shadow: 0 14px 30px -5px rgba(255, 255, 255, 0.4);
 }

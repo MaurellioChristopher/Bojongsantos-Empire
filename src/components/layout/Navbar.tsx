@@ -93,7 +93,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
             {/* Peak Design Style Monogram */}
             <a href="#/" className={`flex items-center gap-3 no-underline group ${isDark ? 'text-white' : 'text-black'}`}>
               <div className={`w-8 h-8 flex items-center justify-center rounded-[3px] transition-transform duration-300 group-hover:scale-105 ${
-                isDark ? 'bg-[#ffe602] text-black' : 'bg-black text-white'
+                isDark ? 'bg-white text-black' : 'bg-black text-white'
               }`}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
@@ -102,7 +102,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
               </div>
               <div className="flex flex-col">
                 <span className="font-semibold text-[13px] tracking-[0.2em] uppercase leading-none">
-                  Akses<span className={isDark ? 'font-light text-[#ffe602]' : 'font-light text-[#777777]'}>Pangan</span>
+                  Akses<span className={isDark ? 'font-light text-white/80' : 'font-light text-[#777777]'}>Pangan</span>
                 </span>
                 <span className={`text-[9px] tracking-[0.25em] uppercase font-mono mt-0.5 ${
                   isDark ? 'text-white/60' : 'text-[#999999]'
@@ -120,13 +120,13 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 href="#/penerima"
                 className={`transition-colors no-underline py-1 relative ${
                   isDark
-                    ? activeRoute.startsWith('/penerima') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    ? activeRoute.startsWith('/penerima') ? 'text-white font-semibold' : 'hover:text-white'
                     : activeRoute.startsWith('/penerima') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Katalog Surplus
                 {activeRoute.startsWith('/penerima') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
                 )}
               </a>
 
@@ -134,13 +134,13 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 href="#/penyedia"
                 className={`transition-colors no-underline py-1 relative ${
                   isDark
-                    ? activeRoute.startsWith('/penyedia') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    ? activeRoute.startsWith('/penyedia') ? 'text-white font-semibold' : 'hover:text-white'
                     : activeRoute.startsWith('/penyedia') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Untuk Penyedia
                 {activeRoute.startsWith('/penyedia') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
                 )}
               </a>
 
@@ -148,13 +148,13 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 href="#/dashboard"
                 className={`transition-colors no-underline py-1 relative ${
                   isDark
-                    ? activeRoute.startsWith('/dashboard') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    ? activeRoute.startsWith('/dashboard') ? 'text-white font-semibold' : 'hover:text-white'
                     : activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Dampak ESG
                 {activeRoute.startsWith('/dashboard') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
                 )}
               </a>
 
@@ -162,13 +162,13 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 href="#/terms"
                 className={`transition-colors no-underline py-1 relative ${
                   isDark
-                    ? activeRoute.startsWith('/terms') ? 'text-[#ffe602] font-semibold' : 'hover:text-[#ffe602]'
+                    ? activeRoute.startsWith('/terms') ? 'text-white font-semibold' : 'hover:text-white'
                     : activeRoute.startsWith('/terms') ? 'text-black font-semibold' : 'hover:text-black'
                 }`}
               >
                 Standar Mutu
                 {activeRoute.startsWith('/terms') && (
-                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-[#ffe602]' : 'bg-black'}`} />
+                  <span className={`absolute -bottom-1 left-0 right-0 h-[1.5px] ${isDark ? 'bg-white' : 'bg-black'}`} />
                 )}
               </a>
 
@@ -179,7 +179,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                     isDark ? 'text-white' : 'text-black'
                   }`}
                 >
-                  <Shield size={13} className={isDark ? 'text-[#ffe602]' : 'text-black'} />
+                  <Shield size={13} className={isDark ? 'text-white' : 'text-black'} />
                   Admin
                 </a>
               )}
@@ -202,7 +202,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 placeholder="Cari hidangan surplus, bakery, hotel..."
                 className={`w-full h-[36px] pl-9 pr-12 text-[12px] rounded-[3px] border transition-all ${
                   isDark
-                    ? 'border-white/20 bg-white/10 text-white placeholder-white/50 focus:bg-white/15 focus:border-[#ffe602] focus:outline-none'
+                    ? 'border-white/20 bg-white/10 text-white placeholder-white/50 focus:bg-white/15 focus:border-white focus:outline-none'
                     : 'border-[rgba(0,0,0,0.12)] bg-[#fafafc] text-black placeholder-[#999999] focus:bg-white focus:border-black focus:outline-none'
                 }`}
               />
@@ -254,7 +254,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <a
                 href="#/login"
                 className={`flex items-center gap-1.5 transition-opacity no-underline font-semibold ${
-                  isDark ? 'text-white hover:text-[#ffe602]' : 'text-black hover:opacity-70'
+                  isDark ? 'text-white hover:text-white/80' : 'text-black hover:opacity-70'
                 }`}
               >
                 <User size={15} />
@@ -273,7 +273,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <ShoppingBag size={17} />
               {activeBookingsCount > 0 && (
                 <span className={`absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center ${
-                  isDark ? 'bg-[#ffe602] text-black' : 'bg-black text-white'
+                  isDark ? 'bg-white text-black' : 'bg-black text-white'
                 }`}>
                   {activeBookingsCount}
                 </span>

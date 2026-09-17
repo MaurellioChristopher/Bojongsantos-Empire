@@ -322,14 +322,14 @@ export function LandingPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/60 pointer-events-none" />
           </motion.div>
 
-          {/* The Expanding Luxury Gold Rim Ring that traces the iris circle perimeter */}
+          {/* The Expanding Luxury Rim Ring that traces the iris circle perimeter */}
           <motion.div
             style={{
               width: ringDiameter,
               height: ringDiameter,
               opacity: ringOpacity,
             }}
-            className="pointer-events-none absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 sm:border-4 border-[#ffe602] shadow-[0_0_35px_rgba(255,230,2,0.65)] z-15 will-change-transform"
+            className="pointer-events-none absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 sm:border-4 border-white shadow-[0_0_35px_rgba(255,255,255,0.7)] z-15 will-change-transform"
           />
 
           {/* Hero Content - Clean, Bold, Impactful Centered Title with Zero Clutter */}
@@ -356,12 +356,12 @@ export function LandingPage() {
                   F
                 </motion.span>
 
-                {/* The Inline Portal "O" with Video & Glowing Gold Border */}
+                {/* The Inline Portal "O" with Video & Glowing Border */}
                 <span className="relative inline-flex items-center justify-center mx-[0.06em] align-middle">
                   <div
                     ref={portalRef}
                     onClick={handlePortalClick}
-                    className="relative size-[0.80em] rounded-full overflow-hidden border-[3px] sm:border-[4px] border-[#ffe602] shadow-[0_0_30px_rgba(255,230,2,0.65)] cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform group bg-black"
+                    className="relative size-[0.80em] rounded-full overflow-hidden border-[3px] sm:border-[4px] border-white shadow-[0_0_30px_rgba(255,255,255,0.7)] cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform group bg-black"
                     title="Klik atau scroll untuk mengeksplorasi"
                   >
                     <video
@@ -389,9 +389,9 @@ export function LandingPage() {
               {/* Line 3: RESCUE & SURPLUS SOLUTION */}
               <motion.div
                 style={{ opacity: heroSupportingOpacity, y: heroSupportingYReverse }}
-                className="font-serif text-[clamp(1.8rem,4.5vw,3.6rem)] font-bold tracking-tight uppercase leading-tight text-[#ffe602] whitespace-nowrap"
+                className="font-serif text-[clamp(1.8rem,4.5vw,3.6rem)] font-bold tracking-tight uppercase leading-tight text-white whitespace-nowrap"
               >
-                RESCUE &amp; SURPLUS <span className="text-white">SOLUTION</span>
+                RESCUE &amp; SURPLUS <span className="text-white/80">SOLUTION</span>
               </motion.div>
             </div>
 
@@ -403,13 +403,13 @@ export function LandingPage() {
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <a href="#/penerima" className="btn-garda-pill-gold group">
                   <span>AMBIL SURPLUS SEKARANG</span>
-                  <span className="w-8 h-8 rounded-full bg-black text-[#ffe602] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                  <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowRight size={14} />
                   </span>
                 </a>
                 <a href="#/penyedia" className="btn-garda-pill group">
                   <span className="text-white">GABUNG SEBAGAI MITRA</span>
-                  <span className="w-8 h-8 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                  <span className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowRight size={14} />
                   </span>
                 </a>
@@ -418,7 +418,7 @@ export function LandingPage() {
               {/* Minimalist Down Chevron Indicator */}
               <button
                 onClick={handlePortalClick}
-                className="mt-8 text-[#ffe602]/85 hover:text-white transition-colors cursor-pointer"
+                className="mt-8 text-white/70 hover:text-white transition-colors cursor-pointer"
                 aria-label="Scroll ke bawah"
               >
                 <ChevronDown size={22} className="animate-bounce" />
@@ -438,30 +438,30 @@ export function LandingPage() {
           >
             {/* Top Live Status Indicator Bar */}
             <div className="flex items-center justify-between mb-3 px-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ffe602]/15 border border-[#ffe602]/30 text-[#ffe602] text-[10px] font-mono tracking-widest font-bold uppercase shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-[#ffe602] animate-ping" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[10px] font-mono tracking-widest font-bold uppercase shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                 <span>REAL-TIME FOOD RESCUE TELEMETRY</span>
               </div>
               <div className="hidden sm:inline-flex items-center gap-2 text-[11px] font-mono text-white/60 tracking-wider">
-                <Activity size={13} className="text-[#ffe602]" />
+                <Activity size={13} className="text-white/80" />
                 <span>MONITORING DARURAT PANGAN NASIONAL</span>
               </div>
             </div>
 
             {/* Top Educational Fact Card with Frosted Glass & Ambient Glow */}
-            <div className="relative bg-[#0f0f13]/85 backdrop-blur-3xl border border-white/20 rounded-[2.2rem] p-6 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.85)] overflow-hidden mb-5 group hover:border-[#ffe602]/40 transition-all duration-500">
-              {/* Ambient Gold Light Reflection */}
-              <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#ffe602]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative bg-[#0f0f13]/85 backdrop-blur-3xl border border-white/20 rounded-[2.2rem] p-6 sm:p-9 shadow-[0_30px_90px_rgba(0,0,0,0.85)] overflow-hidden mb-5 group hover:border-white/40 transition-all duration-500">
+              {/* Ambient Light Reflection */}
+              <div className="absolute -top-24 -left-24 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
               <Quote className="absolute right-6 top-6 size-24 text-white/[0.04] pointer-events-none" />
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
                 {/* Left Title */}
                 <div className="lg:col-span-4">
-                  <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-[#ffe602] mb-2.5 font-bold px-2.5 py-1 rounded-md bg-[#ffe602]/15 border border-[#ffe602]/25">
-                    <Flame size={12} />
+                  <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-white mb-2.5 font-bold px-2.5 py-1 rounded-md bg-white/10 border border-white/20">
+                    <Flame size={12} className="text-white/80" />
                     <span>DARURAT SAMPAH PANGAN</span>
                   </div>
-                  <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#ffe602] leading-[1.05] mb-2">
+                  <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white leading-[1.05] mb-2">
                     Tahukah <br /> Kamu?
                   </h2>
                   <p className="text-xs text-white/70 leading-relaxed m-0">
@@ -480,14 +480,14 @@ export function LandingPage() {
                       transition={{ duration: 0.35 }}
                       className="mb-4"
                     >
-                      <span className="inline-block px-3 py-1 rounded-full bg-[#ffe602]/20 text-[#ffe602] text-[11px] font-bold uppercase tracking-wider mb-2 border border-[#ffe602]/30">
+                      <span className="inline-block px-3 py-1 rounded-full bg-white/15 text-white text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/25">
                         {educationalFacts[activeFactIndex].highlight}
                       </span>
                       <p className="text-base sm:text-xl font-medium text-white leading-relaxed mb-2 drop-shadow-sm">
                         "{educationalFacts[activeFactIndex].fact}"
                       </p>
                       <span className="text-[11px] text-white/50 font-mono flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#ffe602]" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-white" />
                         Sumber data: {educationalFacts[activeFactIndex].source}
                       </span>
                     </motion.div>
@@ -501,7 +501,7 @@ export function LandingPage() {
                           key={idx}
                           onClick={() => setActiveFactIndex(idx)}
                           className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                            activeFactIndex === idx ? 'w-6 bg-[#ffe602]' : 'w-2 bg-white/30 hover:bg-white/60'
+                            activeFactIndex === idx ? 'w-6 bg-white' : 'w-2 bg-white/30 hover:bg-white/60'
                           }`}
                           aria-label={`Fakta ${idx + 1}`}
                         />
@@ -511,14 +511,14 @@ export function LandingPage() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={prevFact}
-                        className="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-[#ffe602] hover:text-black transition-colors flex items-center justify-center cursor-pointer"
+                        className="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center cursor-pointer"
                         aria-label="Fakta Sebelumnya"
                       >
                         <ChevronLeft size={16} />
                       </button>
                       <button
                         onClick={nextFact}
-                        className="w-8 h-8 rounded-full bg-[#ffe602] text-black hover:bg-[#ffd800] transition-colors flex items-center justify-center cursor-pointer font-bold shadow-md"
+                        className="w-8 h-8 rounded-full bg-white text-black hover:bg-neutral-200 transition-colors flex items-center justify-center cursor-pointer font-bold shadow-md"
                         aria-label="Fakta Selanjutnya"
                       >
                         <ChevronRight size={16} />
@@ -533,78 +533,78 @@ export function LandingPage() {
             <div className="relative bg-[#0f0f13]/85 backdrop-blur-3xl border border-white/20 rounded-[2.2rem] p-5 sm:p-6 shadow-[0_25px_70px_rgba(0,0,0,0.8)] overflow-hidden">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Metric 1 */}
-                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all duration-300">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Utensils size={14} />
                     </div>
                     <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Porsi</span>
                   </div>
-                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                  <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={825002} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Makanan Diselamatkan
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[88%]" />
+                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[88%]" />
                   </div>
                 </div>
 
                 {/* Metric 2 */}
-                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all duration-300">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Users size={14} />
                     </div>
                     <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Jiwa</span>
                   </div>
-                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                  <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={29294} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Penerima Manfaat
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[74%]" />
+                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[74%]" />
                   </div>
                 </div>
 
                 {/* Metric 3 */}
-                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all duration-300">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Scale size={14} />
                     </div>
                     <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Kilogram</span>
                   </div>
-                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                  <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={658000} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Pangan Tercegah TPA
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[82%]" />
+                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[82%]" />
                   </div>
                 </div>
 
                 {/* Metric 4 */}
-                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-[#ffe602]/50 hover:bg-white/[0.08] transition-all duration-300">
+                <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all duration-300">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="w-7 h-7 rounded-lg bg-[#ffe602]/15 text-[#ffe602] flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Leaf size={14} />
                     </div>
                     <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">KGCO₂-ek</span>
                   </div>
-                  <div className="text-[#ffe602] mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
+                  <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={1506416} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
                     Emisi Gas Dicegah
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full bg-gradient-to-r from-[#ffe602] to-[#ffd800] rounded-full w-[95%]" />
+                    <div className="h-full bg-gradient-to-r from-white via-neutral-200 to-neutral-400 rounded-full w-[95%]" />
                   </div>
                 </div>
               </div>
@@ -613,7 +613,7 @@ export function LandingPage() {
             {/* Subtle Scroll Cue at the bottom of Stage 2 */}
             <div className="mt-3.5 flex items-center justify-center gap-2 text-[11px] font-mono text-white/60">
               <span>Scroll perlahan untuk menjelajahi katalog surplus &amp; ekosistem</span>
-              <ChevronDown size={13} className="text-[#ffe602] animate-bounce" />
+              <ChevronDown size={13} className="text-white/80 animate-bounce" />
             </div>
           </motion.div>
         </div>
@@ -625,7 +625,7 @@ export function LandingPage() {
           ============================================================ */}
       <section className="w-full py-12 bg-[#0f0f12] border-y border-white/10 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 mb-5 text-center">
-          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#ffe602] font-semibold">
+          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/70 font-semibold">
             DILIPUT OLEH MEDIA &amp; TERHUBUNG DENGAN EKOSISTEM KULINER
           </span>
         </div>
@@ -639,11 +639,11 @@ export function LandingPage() {
             {[...mediaCoverage, ...mediaCoverage].map((item, idx) => (
               <div
                 key={idx}
-                className="h-11 px-5 rounded-full border border-white/10 bg-white/5 hover:bg-white/15 hover:border-[#ffe602]/50 transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
+                className="h-11 px-5 rounded-full border border-white/10 bg-white/5 hover:bg-white/15 hover:border-white/40 transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
               >
-                <span className="w-2 h-2 rounded-full bg-[#ffe602]" />
+                <span className="w-2 h-2 rounded-full bg-white" />
                 <span className="text-sm font-bold text-white tracking-tight">{item.name}</span>
-                <span className="text-[10px] uppercase font-mono text-[#ffe602] font-semibold px-2 py-0.5 rounded-full bg-[#ffe602]/15">
+                <span className="text-[10px] uppercase font-mono text-white/90 font-semibold px-2 py-0.5 rounded-full bg-white/10">
                   {item.type}
                 </span>
               </div>
@@ -660,9 +660,9 @@ export function LandingPage() {
             {[...ecosystemPartners, ...ecosystemPartners].map((item, idx) => (
               <div
                 key={idx}
-                className="h-11 px-5 rounded-full border border-[#ffe602]/25 bg-white/5 hover:bg-[#ffe602]/15 hover:border-[#ffe602] transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
+                className="h-11 px-5 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 hover:border-white/40 transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
               >
-                <span className="w-2 h-2 rounded-full bg-[#ffe602]" />
+                <span className="w-2 h-2 rounded-full bg-white" />
                 <span className="text-sm font-bold text-white tracking-tight">{item.name}</span>
                 <span className="text-[10px] uppercase font-mono text-white/80 font-semibold px-2 py-0.5 rounded-full bg-white/10">
                   {item.type}
@@ -715,7 +715,7 @@ export function LandingPage() {
 
               <a href="#/penyedia/surplus" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Mulai Donasi</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -745,7 +745,7 @@ export function LandingPage() {
 
               <a href="#/penerima" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Ambil Makanan</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -775,7 +775,7 @@ export function LandingPage() {
 
               <a href="#/terms" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Rekomendasikan</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -805,7 +805,7 @@ export function LandingPage() {
 
               <a href="#/register" className="btn-garda-pill w-full">
                 <span className="text-white text-xs">Daftar Relawan</span>
-                <span className="w-7 h-7 rounded-full bg-[#ffe602] text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -817,7 +817,7 @@ export function LandingPage() {
       {/* ============================================================
           SECTION 4: SPLIT FEATURE BANNER ("Anda Pemilik Bisnis Makanan?")
           Left: Chef / Kitchen Photo
-          Right: Sleek Charcoal Card with Gold Highlights (No annoying green)
+          Right: Sleek Charcoal Card with White Highlights (Apple Luxury Style)
           ============================================================ */}
       <section className="w-full overflow-hidden bg-[#111114]">
         <div className="flex flex-col lg:flex-row min-h-[400px]">
@@ -834,11 +834,11 @@ export function LandingPage() {
           {/* Right Sleek Dark Box */}
           <div className="relative flex w-full lg:w-1/2 flex-col items-start justify-center gap-6 bg-[#111114] px-8 py-12 sm:px-12 sm:py-16 lg:px-16 text-white">
             <div className="flex flex-col items-start gap-3">
-              <span className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-[#ffe602]">
+              <span className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-white/80">
                 <Building2 size={13} />
                 <span>KOLABORASI HOTEL &amp; RESTORAN</span>
               </span>
-              <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] font-bold leading-tight tracking-tight text-[#ffe602]">
+              <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] font-bold leading-tight tracking-tight text-white">
                 Anda pemilik bisnis makanan?
               </h2>
               <p className="max-w-md text-sm sm:text-base leading-relaxed text-white/85">
@@ -850,7 +850,7 @@ export function LandingPage() {
 
             <a href="#/register" className="btn-garda-pill-gold group">
               <span>Daftar Jadi Mitra</span>
-              <span className="w-8 h-8 rounded-full bg-black text-[#ffe602] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+              <span className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                 <ArrowRight size={14} />
               </span>
             </a>
@@ -928,11 +928,11 @@ export function LandingPage() {
                       />
                       <div className="absolute top-3 right-3 z-10">
                         {item.isFree ? (
-                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-black text-[#ffe602] shadow-md">
+                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white text-black shadow-md">
                             GRATIS
                           </span>
                         ) : (
-                          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-black/90 backdrop-blur-md text-[#ffe602] border border-white/20 shadow-md">
+                          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-black/90 backdrop-blur-md text-white border border-white/20 shadow-md">
                             {formatPrice(item.price)}
                           </span>
                         )}
@@ -961,7 +961,7 @@ export function LandingPage() {
 
                   {/* Card Footer */}
                   <div className="px-6 py-4 bg-[#fafafc] border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
-                    <div className="text-xs text-amber-700 font-medium flex items-center gap-1.5 font-mono">
+                    <div className="text-xs text-neutral-600 font-medium flex items-center gap-1.5 font-mono">
                       <Clock size={13} />
                       <span>Sisa {formatCountdown(item.expiryTime)}</span>
                     </div>
@@ -998,7 +998,7 @@ export function LandingPage() {
       <section className="w-full py-24 px-6 sm:px-12 bg-[#0d0d0f] text-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#ffe602] block mb-2.5 font-mono">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 block mb-2.5 font-mono">
               PROTOKOL KEAMANAN &amp; INTEGRITAS
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
@@ -1010,43 +1010,43 @@ export function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#ffe602]/40 transition-colors flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/30 transition-colors flex flex-col justify-between">
               <div>
-                <span className="font-serif text-3xl font-bold text-[#ffe602] block mb-4">01</span>
+                <span className="font-serif text-3xl font-bold text-white block mb-4">01</span>
                 <h3 className="text-lg font-bold text-white mb-2">Unggah Surplus 60 Detik</h3>
                 <p className="text-xs text-white/70 leading-relaxed mb-6">
                   Restoran dan bakery terverifikasi mengunggah hidangan berlebih, porsi aman, dan batas kadaluwarsa melalui antarmuka khusus tanpa hambatan birokrasi.
                 </p>
               </div>
-              <a href="#/penyedia" className="text-xs font-bold uppercase tracking-wider text-[#ffe602] inline-flex items-center gap-1.5 hover:underline">
+              <a href="#/penyedia" className="text-xs font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 hover:underline">
                 <span>Alur Mitra Penyedia</span>
                 <ChevronRight size={14} />
               </a>
             </div>
 
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#ffe602]/40 transition-colors flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/30 transition-colors flex flex-col justify-between">
               <div>
-                <span className="font-serif text-3xl font-bold text-[#ffe602] block mb-4">02</span>
+                <span className="font-serif text-3xl font-bold text-white block mb-4">02</span>
                 <h3 className="text-lg font-bold text-white mb-2">SOP Countdown 4 Jam</h3>
                 <p className="text-xs text-white/70 leading-relaxed mb-6">
                   Algoritma ketat menjaga rentang waktu konsumsi makanan. Setiap item yang melewati batas aman secara otomatis ditarik dari katalog publik.
                 </p>
               </div>
-              <a href="#/terms" className="text-xs font-bold uppercase tracking-wider text-[#ffe602] inline-flex items-center gap-1.5 hover:underline">
+              <a href="#/terms" className="text-xs font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 hover:underline">
                 <span>Panduan Keamanan Pangan</span>
                 <ChevronRight size={14} />
               </a>
             </div>
 
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#ffe602]/40 transition-colors flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/30 transition-colors flex flex-col justify-between">
               <div>
-                <span className="font-serif text-3xl font-bold text-[#ffe602] block mb-4">03</span>
+                <span className="font-serif text-3xl font-bold text-white block mb-4">03</span>
                 <h3 className="text-lg font-bold text-white mb-2">Reduksi Emisi Metana Nyata</h3>
                 <p className="text-xs text-white/70 leading-relaxed mb-6">
                   Setiap kilogram makanan yang terselamatkan diverifikasi dalam laporan iklim ESG: 1 kg pangan setara pencegahan 2.5 kg gas rumah kaca CO₂e.
                 </p>
               </div>
-              <a href="#/dashboard" className="text-xs font-bold uppercase tracking-wider text-[#ffe602] inline-flex items-center gap-1.5 hover:underline">
+              <a href="#/dashboard" className="text-xs font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 hover:underline">
                 <span>Telemetri Karbon</span>
                 <ChevronRight size={14} />
               </a>
@@ -1062,7 +1062,7 @@ export function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#ffe602] mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
                 Katalog &amp; Pangan
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
@@ -1074,7 +1074,7 @@ export function LandingPage() {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#ffe602] mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
                 Mitra Penyedia
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
@@ -1086,7 +1086,7 @@ export function LandingPage() {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#ffe602] mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
                 Dampak Lingkungan
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
@@ -1098,7 +1098,7 @@ export function LandingPage() {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#ffe602] mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
                 Platform &amp; Legalitas
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
