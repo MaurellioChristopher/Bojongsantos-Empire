@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 /* ============================================================
@@ -39,9 +39,11 @@
   --color-error: #ff3b30;
   --color-error-bg: rgba(255, 59, 48, 0.12);
 
-  /* Fonts */
-  --font-sf-pro: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
-  --font-sf-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+  /* Fonts (Consistent Apple & Inter System) */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --font-sf-pro: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+  --font-sf-display: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   /* Radii */
   --radius-sm: 8px;
@@ -521,22 +523,26 @@
 }
 
 /* ============================================================
-   Peak Design Inspired Editorial Tokens & Typography
+   Consistent Unified Typography Tokens (Apple SF Pro / Inter Display)
    ============================================================ */
 .font-luxury-headline {
-  font-family: 'Playfair Display', Didot, 'Bodoni MT', Georgia, serif;
+  font-family: var(--font-sf-display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 .font-luxury-italic {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  font-style: italic;
-  font-feature-settings: "ital" 1;
+  font-family: var(--font-sf-display);
+  font-style: normal;
+  letter-spacing: -0.02em;
+  opacity: 0.95;
 }
 
 .font-editorial-italic {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-family: var(--font-sf-display);
   font-style: italic;
-  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 
 .btn-peak-white {

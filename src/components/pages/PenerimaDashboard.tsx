@@ -221,65 +221,116 @@ export function PenerimaDashboard() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredItems.map((item) => (
-                  <motion.div
-                    key={item.id}
-                    layout
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="card-apple-utility flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Top Meta Bar */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="w-12 h-12 bg-[#f5f5f7] rounded-[14px] flex items-center justify-center text-2xl">
-                          {FOOD_CATEGORY_EMOJI[item.foodCategory] || '🍽️'}
+                {filteredItems.map((item) => {
+                  const foodPhoto =
+                    item.photo && !item.photo.includes('placeholder')
+                      ? item.photo
+                      : item.foodCategory === 'roti'
+                      ? '/images/surplus-sourdough.jpg'
+                      : item.foodCategory === 'minuman'
+                      ? '/images/surplus-juice.jpg'
+                      : item.foodCategory === 'sayur' || item.foodCategory === 'buah'
+                      ? '/images/surplus-produce.jpg'
+                      : '/images/surplus-nasi-liwet.jpg';
+
+                  return (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      whileHover={{
+                        y: -6,
+                        boxShadow: '0 20px 30px -10px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)',
+                      }}
+                      className="bg-white rounded-[18px] border border-[rgba(0,0,0,0.08)] overflow-hidden flex flex-col justify-between hover:border-black/30 transition-all duration-300 group shadow-sm"
+                    >
+                      <div>
+                        {/* Rich Food Image Banner / Background */}
+                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#f0f0f0]">
+                          <img
+                            src={foodPhoto}
+                            alt={item.name}
+                            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-108"
+                          />
+
+                          {/* Vignette Gradient Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
+
+                          {/* Top Left: Category Badge */}
+                          <div className="absolute top-3 left-3 z-10">
+                            <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 flex items-center gap-1.5 shadow-sm">
+                              <span>{FOOD_CATEGORY_EMOJI[item.foodCategory] || '🍽️'}</span>
+                              <span>{FOOD_CATEGORY_LABELS[item.foodCategory] || item.foodCategory}</span>
+                            </span>
+                          </div>
+
+                          {/* Top Right: Price Badge */}
+                          <div className="absolute top-3 right-3 z-10">
+                            <span
+                              className={`text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full shadow-sm backdrop-blur-md ${
+                                item.isFree
+                                  ? 'bg-[#1b8a36] text-white border border-emerald-400/40'
+                                  : 'bg-black text-white border border-white/20'
+                              }`}
+                            >
+                              {item.isFree ? 'GRATIS' : formatPrice(item.price)}
+                            </span>
+                          </div>
+
+                          {/* Bottom Left: Portions Tag */}
+                          <div className="absolute bottom-3 left-3 z-10">
+                            <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded-[3px] bg-black/70 backdrop-blur-md text-white border border-white/15">
+                              {item.quantity} kg · {item.portionCount} porsi
+                            </span>
+                          </div>
                         </div>
-                        <span
-                          className={`badge-apple ${
-                            item.isFree ? 'badge-apple-success' : 'badge-apple-info'
-                          }`}
+
+                        {/* Content Area */}
+                        <div className="p-5">
+                          <h3 className="text-body-strong text-[#1d1d1f] mb-1.5 line-clamp-1 group-hover:text-black transition-colors">
+                            {item.name}
+                          </h3>
+                          <div className="text-caption-apple text-[#86868b] mb-2.5 flex items-center gap-1.5">
+                            <MapPin size={13} className="text-[#1d1d1f] shrink-0" />
+                            <span className="line-clamp-1">
+                              {item.providerBusinessName} • {Math.round(item.distance * 10) / 10} km
+                            </span>
+                          </div>
+
+                          <p className="text-caption-apple text-[#555555] mb-2 line-clamp-2 leading-relaxed">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bottom Action Area */}
+                      <div className="px-5 pb-5 pt-3 border-t border-[rgba(0,0,0,0.06)] bg-[#fafafc] flex items-center justify-between">
+                        <div className="flex flex-col">
+                          <span className="text-[10px] uppercase font-mono tracking-wider text-[#86868b]">Waktu Habis</span>
+                          <div className="text-caption-strong text-[#ff9500] flex items-center gap-1.5 font-mono">
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                            </span>
+                            <Clock size={12} />
+                            <span>{formatCountdown(item.expiryTime)}</span>
+                          </div>
+                        </div>
+
+                        <motion.button
+                          onClick={() => setSelectedItem(item)}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="btn-apple-primary btn-apple-sm text-xs font-semibold shadow-sm cursor-pointer"
                         >
-                          {item.isFree ? 'GRATIS' : formatPrice(item.price)}
-                        </span>
+                          Detail & Pesan
+                        </motion.button>
                       </div>
-
-                      {/* Title & Provider */}
-                      <h3 className="text-body-strong text-[#1d1d1f] mb-1 line-clamp-1">
-                        {item.name}
-                      </h3>
-                      <div className="text-caption-apple text-[#86868b] mb-3 flex items-center gap-1.5">
-                        <MapPin size={13} className="text-[#1d1d1f]" />
-                        <span className="line-clamp-1">
-                          {item.providerBusinessName} • {Math.round(item.distance * 10) / 10} km
-                        </span>
-                      </div>
-
-                      <p className="text-caption-apple text-[#1d1d1f] mb-6 line-clamp-2">
-                        {item.description}
-                      </p>
-                    </div>
-
-                    {/* Bottom Action Area */}
-                    <div className="pt-4 border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <span className="text-fine-print text-[#86868b]">Waktu Habis</span>
-                        <div className="text-caption-strong text-[#ff9500] flex items-center gap-1">
-                          <Clock size={13} />
-                          <span>{formatCountdown(item.expiryTime)}</span>
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={() => setSelectedItem(item)}
-                        className="btn-apple-primary btn-apple-sm text-xs"
-                      >
-                        Detail & Pesan
-                      </button>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </div>
             )}
           </div>

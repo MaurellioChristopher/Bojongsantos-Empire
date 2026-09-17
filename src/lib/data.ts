@@ -121,7 +121,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Dapur Sunda Bojongsoang',
       name: 'Nasi Liwet Komplit Ayam Bakar',
       description: 'Nasi liwet wangi kasturi, ayam bakar bumbu rujak, tahu tempe goreng, lalapan segar dan sambal terasi khas priangan.',
-      photo: '/images/surplus-gourmet.jpg',
+      photo: '/images/surplus-nasi-liwet.jpg',
       quantity: 6,
       portionCount: 15,
       productionTime: new Date(Date.now() - 2 * 3600000).toISOString(),
@@ -241,7 +241,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Bakery Sourdough Bojongsoang',
       name: 'Roti Sourdough & Baguette Organik',
       description: 'Artisan rustic sourdough loaf dan baguette gandum organik tanpa pengawet. Sangat bergizi.',
-      photo: '/images/surplus-bakery.jpg',
+      photo: '/images/surplus-sourdough.jpg',
       quantity: 3,
       portionCount: 10,
       productionTime: new Date(Date.now() - 4 * 3600000).toISOString(),
@@ -341,7 +341,7 @@ export function getBandungSeedItems(): SurplusItem[] {
       providerBusinessName: 'Kedai Segar Bojongsoang',
       name: 'Jus Jeruk Peras & Alpukat Murni',
       description: 'Jus jeruk peras murni tanpa gula pasir dan jus alpukat mentega segar dingin kemasan botol.',
-      photo: '/images/surplus-beverage.jpg',
+      photo: '/images/surplus-juice.jpg',
       quantity: 3,
       portionCount: 10,
       productionTime: new Date(Date.now() - 2 * 3600000).toISOString(),
@@ -359,7 +359,14 @@ export function getBandungSeedItems(): SurplusItem[] {
 
 export function getSurplusItems(): SurplusItem[] {
   let items = getStore<SurplusItem>(STORAGE_KEYS.surplusItems);
-  if (!items.some((i) => i.id.startsWith('surplus-bdg'))) {
+  const now = new Date().toISOString();
+  const hasActiveBdg = items.some((i) => i.id.startsWith('surplus-bdg') && i.status === 'active' && i.expiryTime > now);
+  const needsPhotoUpdate = items.some((i) => 
+    (i.id === 'surplus-bdg-1' && i.photo !== '/images/surplus-nasi-liwet.jpg') ||
+    (i.id === 'surplus-bdg-7' && i.photo !== '/images/surplus-sourdough.jpg') ||
+    (i.id === 'surplus-bdg-12' && i.photo !== '/images/surplus-juice.jpg')
+  );
+  if (!items.some((i) => i.id.startsWith('surplus-bdg')) || !hasActiveBdg || needsPhotoUpdate) {
     const bdgItems = getBandungSeedItems();
     items = [...bdgItems, ...items.filter((i) => !i.id.startsWith('surplus-bdg'))];
     setStore(STORAGE_KEYS.surplusItems, items);
