@@ -163,26 +163,26 @@ export function LandingPage() {
   const { scrollY } = useScroll();
 
   // ============================================================
-  // BULLETPROOF SCROLL-DRIVEN CIRCLE IRIS APERTURE EXPANSION
-  // Phase 1 (0px - 220px): Hero supporting text & buttons dissolve
-  // Phase 2 (20px - 200px): Letters F & OD drift gently outward and fade
-  // Phase 3 (0px - 520px): Circular aperture expands from portal position to 1600px (full-bleed photo)
-  // Phase 4 (500px - 1250px): Stage 2 ("Tahukah Kamu?" + Live Telemetry) materializes smoothly
-  // Phase 5 (1250px - 1500px): Stage 2 fades out as user scrolls into the Marquee & Catalog
+  // SCROLL-DRIVEN MEDIA & CIRCLE IRIS APERTURE EXPANSION
+  // Rest State (scrollY = 0): Background is an IMAGE, Video is inside 'O'
+  // Scrolled (scrollY > 20px): Background transitions to VIDEO, Circle aperture expands
+  // Stage 2 (scrollY > 500px): Telemetry & Did You Know materialize
   // ============================================================
-  const heroSupportingOpacity = useTransform(scrollY, [0, 180], [1, 0]);
-  const heroSupportingY = useTransform(scrollY, [0, 180], [0, -20]);
-  const heroSupportingYReverse = useTransform(scrollY, [0, 180], [0, 20]);
+  // Background Image: visible at rest, fades out as user scrolls
+  const heroBgImageOpacity = useTransform(scrollY, [0, 160], [0.65, 0]);
 
-  const letterOpacity = useTransform(scrollY, [20, 180], [1, 0]);
-  const letterF_X = useTransform(scrollY, [20, 200], [0, -35]);
-  const letterOD_X = useTransform(scrollY, [20, 200], [0, 35]);
+  // Background Video: invisible at rest (0), fades in smoothly as user scrolls
+  const heroBgVideoOpacity = useTransform(scrollY, [20, 200, 1250, 1450], [0, 0.6, 0.6, 0]);
 
-  // Ambient Video background in the base hero
-  const videoOpacity = useTransform(scrollY, [0, 250, 1250, 1450], [0.55, 0.35, 0.35, 0]);
+  // Entire Hero Stage 1 typography & buttons fade out cleanly as scroll begins
+  const heroStage1Opacity = useTransform(scrollY, [0, 130], [1, 0]);
+  const heroSupportingOpacity = useTransform(scrollY, [0, 130], [1, 0]);
+  const heroSupportingY = useTransform(scrollY, [0, 130], [0, -20]);
+  const heroSupportingYReverse = useTransform(scrollY, [0, 130], [0, 20]);
 
-  // Entire Hero Stage 1 typography fades out cleanly and promptly as circle begins expanding
-  const heroStage1Opacity = useTransform(scrollY, [0, 110], [1, 0]);
+  const letterOpacity = useTransform(scrollY, [15, 120], [1, 0]);
+  const letterF_X = useTransform(scrollY, [15, 130], [0, -35]);
+  const letterOD_X = useTransform(scrollY, [15, 130], [0, 35]);
 
   // Circle Iris Aperture Expansion (starts from 42px, expands to 1600px full bleed)
   const circleRadius = useTransform(scrollY, [0, 520], [42, 1600]);
@@ -193,8 +193,8 @@ export function LandingPage() {
   // At scrollY=0, ringOpacity is strictly 0 (no ghost/second ring)
   const ringOpacity = useTransform(scrollY, [0, 20, 380, 520], [0, 0.95, 0.6, 0]);
 
-  // Full-bleed reveal image opacity (at scrollY=0 it is 0 so initial hero is 100% clean)
-  const revealImageOpacity = useTransform(scrollY, [0, 20, 1250, 1450], [0, 1, 1, 0]);
+  // Full-bleed reveal video layer opacity (at scrollY=0 it is 0 so initial hero is 100% clean)
+  const revealMediaOpacity = useTransform(scrollY, [0, 20, 1250, 1450], [0, 1, 1, 0]);
 
   // Stage 2 emerges pristine and crystal clear from the center once circle has expanded
   const stage2Opacity = useTransform(scrollY, [480, 700, 1250, 1450], [0, 1, 1, 0]);
@@ -268,9 +268,21 @@ export function LandingPage() {
           ============================================================ */}
       <section ref={heroSequenceRef} className="relative w-full h-[260vh] bg-black">
         <div className="sticky top-0 h-screen w-full overflow-hidden bg-black flex items-center justify-center">
-          {/* Real Background Video Playing */}
+          {/* Static Background Image at Rest (Scroll = 0) */}
           <motion.div
-            style={{ opacity: videoOpacity }}
+            style={{ opacity: heroBgImageOpacity }}
+            className="absolute inset-0 w-full h-full pointer-events-none"
+          >
+            <img
+              src="/images/hero-food-kitchen.jpg"
+              alt="Hero Food Background"
+              className="w-full h-full object-cover object-center pointer-events-none"
+            />
+          </motion.div>
+
+          {/* Background Video that Fades In When Scrolled */}
+          <motion.div
+            style={{ opacity: heroBgVideoOpacity }}
             className="absolute inset-0 w-full h-full pointer-events-none"
           >
             <video
@@ -289,24 +301,24 @@ export function LandingPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/80 pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#000000_85%)] pointer-events-none" />
 
-          {/* ============================================================
-              NEW: Fullscreen High-Res Photo Revealed via Expanding Iris Circle
-              As user scrolls, the circle aperture smoothly expands from the
-              center (or 'O' portal) outward to cover the entire viewport!
-              ============================================================ */}
+          {/* Fullscreen Video Revealed via Expanding Iris Circle as User Scrolls */}
           <motion.div
             style={{
               clipPath: circleClipPath,
-              opacity: revealImageOpacity,
+              opacity: revealMediaOpacity,
             }}
             className="pointer-events-none absolute inset-0 z-10 will-change-[clip-path]"
           >
-            <img
-              src="/images/hero-food-delivery.jpg"
-              alt="Aksi Nyata Penyelamatan Pangan"
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster="/images/hero-food-kitchen.jpg"
               className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none"
-            />
-            {/* Elegant dark gradient overlay to keep high contrast & luxury dark mode */}
+            >
+              <source src="/videos/hero-food.webm" type="video/webm" />
+            </video>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/60 pointer-events-none" />
           </motion.div>
 
@@ -320,32 +332,23 @@ export function LandingPage() {
             className="pointer-events-none absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 sm:border-4 border-[#ffe602] shadow-[0_0_35px_rgba(255,230,2,0.65)] z-15 will-change-transform"
           />
 
-          {/* Hero Content & Unified Typography */}
+          {/* Hero Content - Clean, Bold, Impactful Centered Title with Zero Clutter */}
           <motion.div
             style={{ opacity: heroStage1Opacity }}
             className="relative z-20 flex flex-col items-center justify-center text-center px-4 sm:px-6 max-w-5xl select-none will-change-transform"
           >
-            {/* Top Pill Badge */}
-            <motion.div
-              style={{ opacity: heroSupportingOpacity, y: heroSupportingY }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[10px] font-semibold tracking-[0.22em] uppercase text-[#ffe602] mb-5 shadow-sm"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#ffe602] animate-ping" />
-              <span>INDONESIA FOOD LOSS &amp; WASTE SOLUTION</span>
-            </motion.div>
-
             {/* Main Headline */}
             <div className="flex flex-col items-center justify-center leading-none">
               {/* Line 1: ONE STOP */}
               <motion.div
                 style={{ opacity: heroSupportingOpacity, y: heroSupportingY }}
-                className="font-serif text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold tracking-tight text-white uppercase leading-tight mb-1"
+                className="font-serif text-[clamp(2.2rem,5.5vw,4.5rem)] font-bold tracking-tight text-white uppercase leading-tight"
               >
                 ONE STOP
               </motion.div>
 
-              {/* Line 2: The Core Hero F[O]OD */}
-              <div className="relative flex items-center justify-center whitespace-nowrap font-serif text-[clamp(3.5rem,8.5vw,7.2rem)] font-black uppercase tracking-tight leading-none text-white my-1">
+              {/* Line 2: The Core Hero F[O]OD with VIDEO inside 'O' */}
+              <div className="relative flex items-center justify-center whitespace-nowrap font-serif text-[clamp(4rem,9.5vw,8rem)] font-black uppercase tracking-tight leading-none text-white my-1 sm:my-2">
                 <motion.span
                   style={{ opacity: letterOpacity, x: letterF_X }}
                   className="inline-block"
@@ -353,19 +356,24 @@ export function LandingPage() {
                   F
                 </motion.span>
 
-                {/* The Inline Portal "O" with photo & glowing gold border */}
+                {/* The Inline Portal "O" with Video & Glowing Gold Border */}
                 <span className="relative inline-flex items-center justify-center mx-[0.06em] align-middle">
                   <div
                     ref={portalRef}
                     onClick={handlePortalClick}
                     className="relative size-[0.80em] rounded-full overflow-hidden border-[3px] sm:border-[4px] border-[#ffe602] shadow-[0_0_30px_rgba(255,230,2,0.65)] cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform group bg-black"
-                    title="Klik atau scroll untuk melihat aksi nyata penyelamatan pangan"
+                    title="Klik atau scroll untuk mengeksplorasi"
                   >
-                    <img
-                      src="/images/hero-food-delivery.jpg"
-                      alt="Food Rescue Portal"
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 pointer-events-none"
-                    />
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      poster="/images/hero-food-kitchen.jpg"
+                      className="w-full h-full object-cover pointer-events-none"
+                    >
+                      <source src="/videos/hero-food.webm" type="video/webm" />
+                    </video>
                     <div className="absolute inset-0 rounded-full border border-white/30 pointer-events-none" />
                   </div>
                 </span>
@@ -381,22 +389,17 @@ export function LandingPage() {
               {/* Line 3: RESCUE & SURPLUS SOLUTION */}
               <motion.div
                 style={{ opacity: heroSupportingOpacity, y: heroSupportingYReverse }}
-                className="font-serif text-[clamp(1.8rem,4.5vw,3.8rem)] font-bold tracking-tight uppercase leading-tight text-[#ffe602] mt-1"
+                className="font-serif text-[clamp(1.8rem,4.5vw,3.6rem)] font-bold tracking-tight uppercase leading-tight text-[#ffe602] whitespace-nowrap"
               >
                 RESCUE &amp; SURPLUS <span className="text-white">SOLUTION</span>
               </motion.div>
             </div>
 
-            {/* Subtext and dual action buttons */}
+            {/* Clean Action Buttons Below the Headline */}
             <motion.div
               style={{ opacity: heroSupportingOpacity, y: heroSupportingYReverse }}
-              className="flex flex-col items-center mt-6 sm:mt-8 pointer-events-auto"
+              className="flex flex-col items-center mt-8 sm:mt-10 pointer-events-auto"
             >
-              <p className="max-w-xl text-sm sm:text-base text-white/85 leading-relaxed font-normal mb-7 text-center">
-                Pusat koordinasi penyelamatan makanan surplus hotel dan restoran untuk disalurkan
-                secara bermartabat kepada masyarakat pra-sejahtera.
-              </p>
-
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <a href="#/penerima" className="btn-garda-pill-gold group">
                   <span>AMBIL SURPLUS SEKARANG</span>
@@ -412,13 +415,13 @@ export function LandingPage() {
                 </a>
               </div>
 
-              {/* Clickable Cue to Dive In */}
+              {/* Minimalist Down Chevron Indicator */}
               <button
                 onClick={handlePortalClick}
-                className="mt-7 flex items-center gap-2 text-xs font-mono text-[#ffe602] hover:text-white cursor-pointer transition-colors"
+                className="mt-8 text-[#ffe602]/85 hover:text-white transition-colors cursor-pointer"
+                aria-label="Scroll ke bawah"
               >
-                <span>Scroll perlahan untuk memperbesar gambar &amp; eksplorasi</span>
-                <ChevronDown size={14} className="animate-bounce" />
+                <ChevronDown size={22} className="animate-bounce" />
               </button>
             </motion.div>
           </motion.div>
