@@ -604,3 +604,102 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
 }
+
+/* ============================================================
+   Garda Pangan Inspired Keyframes & Dynamic Utilities
+   ============================================================ */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.85; }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
+/* Garda Pangan Style Rounded Action Button with Arrow Disc */
+.btn-garda-pill {
+  background-color: #062312;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  padding: 8px 10px 8px 24px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  box-shadow: 0 10px 25px -5px rgba(6, 35, 18, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-garda-pill:hover {
+  background-color: #0a381d;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -5px rgba(6, 35, 18, 0.35);
+}
+
+.btn-garda-pill-gold {
+  background-color: #f7ce3e;
+  color: #062312;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  padding: 8px 10px 8px 24px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  box-shadow: 0 10px 25px -5px rgba(247, 206, 62, 0.35);
+}
+
+.btn-garda-pill-gold:hover {
+  background-color: #ffd84d;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -5px rgba(247, 206, 62, 0.5);
+}
