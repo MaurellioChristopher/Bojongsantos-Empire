@@ -212,31 +212,6 @@ export function LandingPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/40 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30 pointer-events-none" />
 
-          {/* Top-Left Chapter Stamp */}
-          <div className="absolute top-6 left-6 z-10">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentScene.tag}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.3 }}
-                className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/90 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-[2px] border border-white/20 shadow-sm flex items-center gap-2"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span>{currentScene.tag}</span>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Floating Real-Time Radar Badge (Right Top) */}
-          <div className="absolute top-6 right-6 z-10 flex items-center gap-2 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-[10px] tracking-wider uppercase font-mono text-white/90 shadow-sm">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span>Live Food Rescue Network</span>
-          </div>
 
           {/* Bottom Overlay: Story Info Card + Interactive Progress Controls */}
           <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
