@@ -77,8 +77,8 @@ const educationalFacts = [
   },
   {
     id: 2,
-    highlight: 'Metana 25x Lebih Berbahaya dari CO₂',
-    fact: 'Sampah makanan yang berakhir dan membusuk di TPA menghasilkan gas metana (CH₄) yang memiliki potensi pemanasan iklim 25 kali lipat lebih agresif daripada karbon dioksida!',
+    highlight: 'Metana 25x Lebih Merusak dari CO₂',
+    fact: 'Sampah makanan yang membusuk di TPA menghasilkan gas metana (CH₄) yang memiliki potensi pemanasan iklim 25 kali lipat lebih agresif daripada karbon dioksida!',
     source: 'Kementerian Lingkungan Hidup & Kehutanan',
   },
   {
@@ -126,7 +126,7 @@ export function LandingPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeFactIndex, setActiveFactIndex] = useState(0);
 
-  // Reference for the Scroll-Driven Sequence (380vh Track)
+  // Responsive Scroll Track for the Camera Zoom Sequence
   const heroSequenceRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroSequenceRef,
@@ -134,24 +134,35 @@ export function LandingPage() {
   });
 
   // ============================================================
-  // CAMERA & TYPOGRAPHY ZOOM TRANSITION TRANSFORMS
-  // Phase 1 (0 to 0.35): Typography zooms in 1x -> 8x into the letter 'O' portal
-  // Phase 2 (0.25 to 0.45): Portal circle expands outward, text fades into the world
-  // Phase 3 (0.45 to 0.85): "Tahukah Kamu?" Educational Stage slides up into view
+  // FLUID CAMERA & PORTAL CIRCLE ZOOM CHOREOGRAPHY
+  // 1. Text scales and flies outward: [0, 0.45] -> scale 1 to 3.8, opacity 1 to 0
+  // 2. The portal circle scales up: [0, 0.48] -> scale 1 to 28 (engulfing the entire screen)
+  // 3. World backdrop reveals: [0.15, 0.45] -> opacity 0 to 1
+  // 4. Content inside (Tahukah Kamu + Counters): [0.42, 0.58] -> slides up smoothly
   // ============================================================
-  const typographyScale = useTransform(scrollYProgress, [0, 0.35], [1, 8.5]);
-  const typographyOpacity = useTransform(scrollYProgress, [0, 0.22, 0.35], [1, 0.9, 0]);
-  const heroCtaOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const heroCtaY = useTransform(scrollYProgress, [0, 0.1], [0, 20]);
+  const textScale = useTransform(scrollYProgress, [0, 0.45], [1, 3.8]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.22, 0.42], [1, 0.8, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.45], [0, -35]);
 
-  // Iris / Circular Reveal Expansion (expanding from 80px to 2200px)
-  const revealRadius = useTransform(scrollYProgress, [0.08, 0.4], [90, 2200]);
-  const revealClipPath = useTransform(revealRadius, (r) => `circle(${r}px at 50% 50%)`);
+  const portalScale = useTransform(scrollYProgress, [0, 0.48], [1, 28]);
+  const portalBorderWidth = useTransform(scrollYProgress, [0, 0.2, 0.45], [4, 2, 0.5]);
 
-  // Stage 2: Educational & Real-time Impact Cards
-  const stage2Opacity = useTransform(scrollYProgress, [0.38, 0.48, 0.88, 0.98], [0, 1, 1, 0.2]);
-  const stage2Y = useTransform(scrollYProgress, [0.38, 0.52], [90, 0]);
-  const stage2Scale = useTransform(scrollYProgress, [0.38, 0.52], [0.93, 1]);
+  const worldOpacity = useTransform(scrollYProgress, [0.18, 0.46], [0, 1]);
+
+  const stage2Opacity = useTransform(scrollYProgress, [0.42, 0.55, 0.88, 0.98], [0, 1, 1, 0.15]);
+  const stage2Y = useTransform(scrollYProgress, [0.42, 0.58], [60, 0]);
+  const stage2Scale = useTransform(scrollYProgress, [0.42, 0.58], [0.95, 1]);
+
+  // Smooth scroll trigger to zoom directly into the circle
+  const handlePortalClick = () => {
+    if (heroSequenceRef.current) {
+      const targetScroll = heroSequenceRef.current.offsetTop + window.innerHeight * 1.25;
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   useEffect(() => {
     setActiveItems(getActiveSurplus());
@@ -194,61 +205,73 @@ export function LandingPage() {
       : activeItems.filter((i) => i.foodCategory === selectedCategory);
 
   return (
-    <div className="w-full bg-white overflow-x-hidden selection:bg-[#0e2316] selection:text-[#ffe602]">
+    <div className="w-full bg-[#0e2316] text-[#1d1d1f] overflow-x-hidden selection:bg-[#0e2316] selection:text-[#ffe602]">
       {/* ============================================================
-          SECTION 1: SCROLL-DRIVEN CAMERA / TYPOGRAPHY ZOOM SEQUENCE
-          Track: 380vh. Pinned Sticky Viewport: 100vh.
-          Camera zooms through the letter 'O' into the food rescue world!
-          Palette: Exact Garda Forest Deep (#0e2316) & Garda Sun (#ffe602)
+          SECTION 1: SCROLL-DRIVEN CAMERA / PORTAL CIRCLE ZOOM
+          Track: 230vh. Sticky: 100vh.
+          The circular portal zooms into the camera, opening up into
+          the food rescue world with zero blank white spots!
           ============================================================ */}
-      <section ref={heroSequenceRef} className="relative w-full h-[380vh]">
+      <section ref={heroSequenceRef} className="relative w-full h-[230vh] bg-[#0e2316]">
         <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0e2316] flex items-center justify-center">
-          {/* LAYER 0: Ambient Deep Forest Texture Backdrop */}
+          {/* LAYER 0: Ambient Forest Backdrop with Subtle Glow */}
           <div className="absolute inset-0 z-0 bg-[#0e2316] pointer-events-none">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(10,90,47,0.3)_0%,_transparent_70%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(10,90,47,0.4)_0%,_#0e2316_75%)]" />
           </div>
 
-          {/* LAYER 1: Full-Screen Background Revealed via Dynamic Circular Iris Clip */}
+          {/* LAYER 1: The Food Rescue World (Revealed as the Circle Scales Up) */}
           <motion.div
-            style={{ clipPath: revealClipPath }}
-            className="absolute inset-0 z-10 w-full h-full pointer-events-none will-change-[clip-path]"
+            style={{ opacity: worldOpacity }}
+            className="absolute inset-0 z-10 w-full h-full pointer-events-none"
           >
             <img
               src="/images/hero-food-kitchen.jpg"
               alt="Kitchen Atmosphere"
               className="w-full h-full object-cover object-center scale-105"
             />
-            {/* Dark gradient overlay for contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0e2316] via-[#0e2316]/65 to-[#0e2316]/75" />
+            {/* Rich dark forest overlay for high-contrast reading */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0e2316]/90 via-[#0e2316]/75 to-[#0e2316]/95" />
           </motion.div>
 
-          {/* LAYER 2: Zooming Camera Typography Unit (ONE STOP F[O]OD RESCUE) */}
+          {/* LAYER 2: The Portal Circle that Zooms into the Camera */}
           <motion.div
             style={{
-              scale: typographyScale,
-              opacity: typographyOpacity,
+              scale: portalScale,
+              borderWidth: portalBorderWidth,
+            }}
+            onClick={handlePortalClick}
+            className="absolute z-20 size-[84px] sm:size-[92px] rounded-full overflow-hidden border-[#ffe602] bg-[#0e2316] shadow-[0_0_40px_rgba(255,230,2,0.5)] cursor-pointer flex items-center justify-center will-change-transform"
+            title="Klik untuk zoom masuk ke dalam portal"
+          >
+            <img
+              src="/images/hero-food-delivery.jpg"
+              alt="Live Portal View"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          {/* LAYER 3: The Surrounding Typography (Zooms out and fades as camera enters circle) */}
+          <motion.div
+            style={{
+              scale: textScale,
+              opacity: textOpacity,
+              y: textY,
             }}
             className="relative z-20 flex flex-col items-center justify-center text-center px-6 max-w-5xl pointer-events-none select-none will-change-transform"
           >
-            {/* Top pill badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a5a2f]/70 border border-[#ffe602]/30 text-[10px] font-semibold tracking-[0.24em] uppercase text-[#ffe602] mb-6 shadow-sm">
+            {/* Top Pill Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a5a2f]/80 border border-[#ffe602]/40 text-[10px] font-semibold tracking-[0.22em] uppercase text-[#ffe602] mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#ffe602] animate-ping" />
               <span>INDONESIA FOOD LOSS &amp; WASTE SOLUTION</span>
             </div>
 
-            {/* Giant Title with Centered Circular Portal inside the 'O' */}
-            <h1 className="font-serif text-[clamp(2.75rem,7vw,5.6rem)] font-bold uppercase leading-[0.94] tracking-[-0.03em] text-center mb-6">
+            {/* Title with Empty Spot reserved for the Centered Portal Circle */}
+            <h1 className="font-serif text-[clamp(2.6rem,6.8vw,5.5rem)] font-bold uppercase leading-[0.94] tracking-[-0.03em] text-center mb-6">
               <span className="block text-white">ONE STOP</span>
               <span className="relative block text-[#ffe602]">
                 F
-                {/* Circular Portal Lens in the letter 'O' */}
-                <span className="relative mx-[0.03em] inline-block size-[0.8em] -translate-y-[0.08em] overflow-hidden rounded-full border-4 border-[#ffe602] bg-[#0e2316] align-middle shadow-[0_0_40px_rgba(255,230,2,0.5)]">
-                  <img
-                    src="/images/hero-food-delivery.jpg"
-                    alt="Portal"
-                    className="h-full w-full object-cover"
-                  />
-                </span>
+                {/* Spacer box matching the portal circle dimensions */}
+                <span className="inline-block size-[84px] sm:size-[92px] mx-1.5 -translate-y-[0.08em] align-middle opacity-0 pointer-events-none" />
                 OD RESCUE
               </span>
               <span className="block text-white">
@@ -256,12 +279,9 @@ export function LandingPage() {
               </span>
             </h1>
 
-            {/* Subtext and dual action buttons (fade out fast as user scrolls) */}
-            <motion.div
-              style={{ opacity: heroCtaOpacity, y: heroCtaY }}
-              className="flex flex-col items-center pointer-events-auto"
-            >
-              <p className="max-w-xl text-sm sm:text-base text-white/80 leading-relaxed font-normal mb-8 text-center">
+            {/* Subtext and dual CTA buttons */}
+            <div className="flex flex-col items-center pointer-events-auto">
+              <p className="max-w-xl text-sm sm:text-base text-white/85 leading-relaxed font-normal mb-8 text-center">
                 Pusat koordinasi penyelamatan makanan surplus hotel dan restoran untuk disalurkan
                 secara bermartabat kepada masyarakat pra-sejahtera.
               </p>
@@ -281,14 +301,19 @@ export function LandingPage() {
                 </a>
               </div>
 
-              <div className="mt-8 flex items-center gap-2 text-xs font-mono text-white/50 animate-pulse">
-                <span>Scroll ke bawah untuk menyelami</span>
-                <ChevronDown size={14} />
-              </div>
-            </motion.div>
+              {/* Clickable Cue to Dive In */}
+              <button
+                onClick={handlePortalClick}
+                className="mt-8 flex items-center gap-2 text-xs font-mono text-[#ffe602] hover:underline cursor-pointer transition-colors"
+              >
+                <span>Klik portal atau scroll untuk menyelami</span>
+                <ChevronDown size={14} className="animate-bounce" />
+              </button>
+            </div>
           </motion.div>
 
-          {/* LAYER 3: Stage 2 - "Tahukah Kamu?" Card + Real-time Impact Metrics */}
+          {/* LAYER 4: Stage 2 - "Tahukah Kamu?" Card + Real-time Impact Counters
+              Emerges seamlessly inside the circle once the camera dives in */}
           <motion.div
             style={{
               opacity: stage2Opacity,
@@ -298,10 +323,10 @@ export function LandingPage() {
             className="absolute z-30 inset-x-4 sm:inset-x-8 max-w-5xl mx-auto flex flex-col justify-center pointer-events-auto will-change-transform"
           >
             {/* Top Educational Fact Card */}
-            <div className="relative bg-[#0d2b14]/95 backdrop-blur-xl border border-white/20 rounded-[2rem] p-6 sm:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.5)] overflow-hidden mb-6">
-              {/* Decorative Watermark */}
+            <div className="relative bg-[#0d2b14]/95 backdrop-blur-xl border border-white/20 rounded-[2rem] p-6 sm:p-10 shadow-[0_30px_70px_rgba(0,0,0,0.6)] overflow-hidden mb-5">
+              {/* Watermark */}
               <div className="absolute -bottom-16 -right-16 text-white/5 pointer-events-none">
-                <svg width="300" height="300" viewBox="0 0 100 100" fill="currentColor">
+                <svg width="280" height="280" viewBox="0 0 100 100" fill="currentColor">
                   <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="6" fill="none" />
                   <path d="M50 20 L50 80 M20 50 L80 50" stroke="currentColor" strokeWidth="6" />
                 </svg>
@@ -322,7 +347,7 @@ export function LandingPage() {
                   </p>
                 </div>
 
-                {/* Right Interactive Carousel */}
+                {/* Right Fact Carousel */}
                 <div className="lg:col-span-8 flex flex-col justify-between min-h-[140px]">
                   <AnimatePresence mode="wait">
                     <motion.div
@@ -340,7 +365,7 @@ export function LandingPage() {
                         "{educationalFacts[activeFactIndex].fact}"
                       </p>
                       <span className="text-[11px] text-white/50 font-mono">
-                        Sumber: {educationalFacts[activeFactIndex].source}
+                        Sumber data: {educationalFacts[activeFactIndex].source}
                       </span>
                     </motion.div>
                   </AnimatePresence>
@@ -442,30 +467,30 @@ export function LandingPage() {
       </section>
 
       {/* ============================================================
-          SECTION 2: INFINITE SMOOTH MARQUEE TICKER (Media & Mitra Ekosistem)
-          Exact Garda Pangan Media & Partner Logos with Gradient Vignettes
+          SECTION 2: INFINITE SMOOTH MARQUEE TICKER (Seamless Deep Forest)
+          No white spot: connects directly from #0e2316 to #0a381d
           ============================================================ */}
-      <section className="w-full py-12 bg-white border-y border-[rgba(0,0,0,0.06)] overflow-hidden">
+      <section className="w-full py-12 bg-[#092614] border-y border-white/10 overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 mb-5 text-center">
-          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#86868b] font-semibold">
+          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#ffe602] font-semibold">
             DILIPUT OLEH MEDIA &amp; TERHUBUNG DENGAN EKOSISTEM KULINER
           </span>
         </div>
 
         {/* Row 1 (Forward) */}
         <div className="relative overflow-hidden py-1.5">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#092614] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#092614] to-transparent" />
 
           <div className="animate-marquee gap-5">
             {[...mediaCoverage, ...mediaCoverage].map((item, idx) => (
               <div
                 key={idx}
-                className="h-11 px-5 rounded-full border border-[rgba(10,90,47,0.15)] bg-[#f8faf9] hover:bg-[#eefbf4] hover:border-[#0a5a2f] transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
+                className="h-11 px-5 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 hover:border-[#ffe602]/50 transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
               >
-                <span className="w-2 h-2 rounded-full bg-[#0a5a2f]" />
-                <span className="text-sm font-bold text-[#0e2316] tracking-tight">{item.name}</span>
-                <span className="text-[10px] uppercase font-mono text-[#0a5a2f] font-semibold px-2 py-0.5 rounded-full bg-[#0a5a2f]/10">
+                <span className="w-2 h-2 rounded-full bg-[#ffe602]" />
+                <span className="text-sm font-bold text-white tracking-tight">{item.name}</span>
+                <span className="text-[10px] uppercase font-mono text-[#ffe602] font-semibold px-2 py-0.5 rounded-full bg-[#ffe602]/15">
                   {item.type}
                 </span>
               </div>
@@ -475,18 +500,18 @@ export function LandingPage() {
 
         {/* Row 2 (Reverse) */}
         <div className="relative overflow-hidden py-1.5 mt-2.5">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#092614] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#092614] to-transparent" />
 
           <div className="animate-marquee-reverse gap-5">
             {[...ecosystemPartners, ...ecosystemPartners].map((item, idx) => (
               <div
                 key={idx}
-                className="h-11 px-5 rounded-full border border-[rgba(255,230,2,0.5)] bg-[#fffdf0] hover:bg-[#ffe602]/20 hover:border-[#ffe602] transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
+                className="h-11 px-5 rounded-full border border-[#ffe602]/30 bg-white/5 hover:bg-[#ffe602]/20 hover:border-[#ffe602] transition-all flex items-center justify-center gap-2.5 shrink-0 cursor-default select-none shadow-xs"
               >
                 <span className="w-2 h-2 rounded-full bg-[#ffe602]" />
-                <span className="text-sm font-bold text-[#0e2316] tracking-tight">{item.name}</span>
-                <span className="text-[10px] uppercase font-mono text-[#0e2316] font-semibold px-2 py-0.5 rounded-full bg-[#ffe602]/25">
+                <span className="text-sm font-bold text-white tracking-tight">{item.name}</span>
+                <span className="text-[10px] uppercase font-mono text-white/80 font-semibold px-2 py-0.5 rounded-full bg-white/10">
                   {item.type}
                 </span>
               </div>
@@ -497,8 +522,7 @@ export function LandingPage() {
 
       {/* ============================================================
           SECTION 3: "AYO JADI AGEN PERUBAHAN!" (4 Garda Pangan Action Cards)
-          Background: Official Warm Cream #FCF9E0
-          Cards: Clean white rounded-[2.5rem] cards with action pill buttons
+          Background: Exact Warm Vanilla Cream #FCF9E0
           ============================================================ */}
       <section className="w-full py-24 px-4 sm:px-8 bg-[#FCF9E0] border-b border-[rgba(10,90,47,0.1)]">
         <div className="max-w-6xl mx-auto">
@@ -642,7 +666,7 @@ export function LandingPage() {
           Left: Chef / Kitchen Photo
           Right: Garda Forest Green #0A5A2F with Yellow #ffe602
           ============================================================ */}
-      <section className="w-full overflow-hidden">
+      <section className="w-full overflow-hidden bg-[#0A5A2F]">
         <div className="flex flex-col lg:flex-row min-h-[400px]">
           {/* Left Photo */}
           <div className="relative w-full lg:w-1/2 min-h-[280px] lg:min-h-[400px]">
@@ -651,7 +675,7 @@ export function LandingPage() {
               alt="Dapur Mitra Kuliner"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A5A2F]/80 to-transparent lg:hidden" />
           </div>
 
           {/* Right Garda Green Box */}
@@ -683,13 +707,14 @@ export function LandingPage() {
 
       {/* ============================================================
           SECTION 5: CURATED SURPLUS CATALOGUE (Interactive Real-Time Items)
+          Clean white surface with crisp green accents
           ============================================================ */}
       <section className="w-full py-20 px-6 sm:px-12 bg-white border-b border-[rgba(0,0,0,0.06)]">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-[rgba(0,0,0,0.08)]">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#86868b] font-semibold block mb-1.5 font-mono">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-[#0a5a2f] font-semibold block mb-1.5 font-mono">
                 INVENTARIS SURPLUS AKTIF HARI INI
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#0e2316]">
