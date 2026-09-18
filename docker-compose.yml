@@ -11,7 +11,7 @@ services:
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
         SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
-    container_name: aksespangan-web-gateway
+    container_name: gateway-web-3000
     ports:
       - "3000:3000"
     env_file:
@@ -41,7 +41,7 @@ services:
     build:
       context: ./microservices
       dockerfile: Dockerfile
-    container_name: aksespangan-auth-service
+    container_name: auth-service-3001
     command: ["node", "auth.js"]
     ports:
       - "3001:3001"
@@ -58,7 +58,7 @@ services:
     build:
       context: ./microservices
       dockerfile: Dockerfile
-    container_name: aksespangan-inventory-service
+    container_name: inventory-food-3002
     command: ["node", "inventory.js"]
     ports:
       - "3002:3002"
@@ -75,7 +75,7 @@ services:
     build:
       context: ./microservices
       dockerfile: Dockerfile
-    container_name: aksespangan-booking-service
+    container_name: booking-order-3003
     command: ["node", "booking.js"]
     ports:
       - "3003:3003"
@@ -92,7 +92,7 @@ services:
     build:
       context: ./microservices
       dockerfile: Dockerfile
-    container_name: aksespangan-analytics-service
+    container_name: analytics-esg-3004
     command: ["node", "analytics.js"]
     ports:
       - "3004:3004"
@@ -109,7 +109,7 @@ services:
     build:
       context: ./microservices
       dockerfile: Dockerfile
-    container_name: aksespangan-governance-service
+    container_name: governance-audit-3005
     command: ["node", "governance.js"]
     ports:
       - "3005:3005"
@@ -122,3 +122,4 @@ services:
 networks:
   aksespangan-network:
     driver: bridge
+
