@@ -1,5 +1,8 @@
 services:
-  app:
+  # ============================================================
+  # 1. Web Application & API Gateway (Next.js Standalone)
+  # ============================================================
+  web-gateway:
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,13 +11,114 @@ services:
         NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
         NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
         SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
-    container_name: aksespangan-app
+    container_name: aksespangan-web-gateway
     ports:
-      # Port mapping: [Port di Laptop Host] : [Port di dalam Container]
       - "3000:3000"
     env_file:
       - .env.local
     environment:
       - PORT=3000
       - HOSTNAME=0.0.0.0
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - INVENTORY_SERVICE_URL=http://inventory-service:3002
+      - BOOKING_SERVICE_URL=http://booking-service:3003
+      - ANALYTICS_SERVICE_URL=http://analytics-service:3004
+      - GOVERNANCE_SERVICE_URL=http://governance-service:3005
+    depends_on:
+      - auth-service
+      - inventory-service
+      - booking-service
+      - analytics-service
+      - governance-service
+    networks:
+      - aksespangan-network
     restart: unless-stopped
+
+  # ============================================================
+  # 2. Auth & Identity Microservice
+  # ============================================================
+  auth-service:
+    build:
+      context: ./microservices
+      dockerfile: Dockerfile
+    container_name: aksespangan-auth-service
+    command: ["node", "auth.js"]
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+    networks:
+      - aksespangan-network
+    restart: unless-stopped
+
+  # ============================================================
+  # 3. Surplus Food Inventory Microservice
+  # ============================================================
+  inventory-service:
+    build:
+      context: ./microservices
+      dockerfile: Dockerfile
+    container_name: aksespangan-inventory-service
+    command: ["node", "inventory.js"]
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+    networks:
+      - aksespangan-network
+    restart: unless-stopped
+
+  # ============================================================
+  # 4. Booking & Distribution Microservice
+  # ============================================================
+  booking-service:
+    build:
+      context: ./microservices
+      dockerfile: Dockerfile
+    container_name: aksespangan-booking-service
+    command: ["node", "booking.js"]
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+    networks:
+      - aksespangan-network
+    restart: unless-stopped
+
+  # ============================================================
+  # 5. Ecology & Carbon Analytics Microservice
+  # ============================================================
+  analytics-service:
+    build:
+      context: ./microservices
+      dockerfile: Dockerfile
+    container_name: aksespangan-analytics-service
+    command: ["node", "analytics.js"]
+    ports:
+      - "3004:3004"
+    environment:
+      - PORT=3004
+    networks:
+      - aksespangan-network
+    restart: unless-stopped
+
+  # ============================================================
+  # 6. Governance & Audit Microservice
+  # ============================================================
+  governance-service:
+    build:
+      context: ./microservices
+      dockerfile: Dockerfile
+    container_name: aksespangan-governance-service
+    command: ["node", "governance.js"]
+    ports:
+      - "3005:3005"
+    environment:
+      - PORT=3005
+    networks:
+      - aksespangan-network
+    restart: unless-stopped
+
+networks:
+  aksespangan-network:
+    driver: bridge

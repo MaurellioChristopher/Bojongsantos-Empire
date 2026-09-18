@@ -1,0 +1,5 @@
+FROM node:20-alpine
+WORKDIR /app
+COPY . .
+EXPOSE 3001 3002 3003 3004 3005
+CMD ["node", "auth.js"]

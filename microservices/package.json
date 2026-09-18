@@ -1,0 +1,7 @@
+{
+  "name": "aksespangan-microservices",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Autonomous Microservices for AksesPangan Ecosystem",
+  "main": "auth.js"
+}

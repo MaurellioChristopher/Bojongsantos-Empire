@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Receipt, BarChart3, Trash2, Search, Shield, Server, CheckCircle2, RefreshCw, Activity, MessageSquare, BookOpen, Target, CheckCircle } from 'lucide-react';
+import { Users, Receipt, BarChart3, Trash2, Search, Shield, Server, CheckCircle2, RefreshCw, Activity, MessageSquare, BookOpen, Target, CheckCircle, AlertCircle, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { adminService } from '@/services/adminService';
@@ -51,6 +51,20 @@ export function AdminDashboard() {
   useEffect(() => {
     refresh();
   }, []);
+
+  // Real-time polling for microservices observability
+  useEffect(() => {
+    if (activeTab !== 'microservices') return;
+    const interval = setInterval(async () => {
+      try {
+        const s = await adminService.getServicesHealth();
+        setServices(s);
+      } catch {
+        // silent polling catch
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [activeTab]);
 
   const handleDeleteUser = async (userId: string, name: string) => {
     if (userId === user?.id) return;
@@ -409,26 +423,80 @@ export function AdminDashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {services.map((svc) => (
-                <div key={svc.service} className="card-apple-utility bg-[#FFFFFF] border border-[#DCE5DB] p-5 flex items-start justify-between">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-10 h-10 rounded-full bg-[#EBF7EE] text-[#2E7D32] flex items-center justify-center flex-shrink-0 border border-[#C8E6C9]">
-                      <CheckCircle2 size={20} />
-                    </div>
-                    <div>
-                      <div className="text-body-strong text-[#143628] mb-0.5">{svc.service}</div>
-                      <div className="flex items-center gap-2 text-xs text-[#2E7D32] font-medium">
-                        <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-pulse" />
-                        100% Operasional
+              {services.map((svc) => {
+                const isDown = svc.status === 'down';
+                const isDegraded = svc.status === 'degraded';
+
+                return (
+                  <div
+                    key={svc.service}
+                    className={`card-apple-utility bg-[#FFFFFF] border p-5 flex items-start justify-between transition-all duration-300 ${
+                      isDown
+                        ? 'border-red-300 bg-red-50/20 shadow-xs'
+                        : isDegraded
+                        ? 'border-amber-300 bg-amber-50/20'
+                        : 'border-[#DCE5DB]'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3.5">
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border ${
+                          isDown
+                            ? 'bg-red-100 text-red-600 border-red-200'
+                            : isDegraded
+                            ? 'bg-amber-100 text-amber-700 border-amber-200'
+                            : 'bg-[#EBF7EE] text-[#2E7D32] border-[#C8E6C9]'
+                        }`}
+                      >
+                        {isDown ? (
+                          <AlertCircle size={20} />
+                        ) : isDegraded ? (
+                          <AlertTriangle size={20} />
+                        ) : (
+                          <CheckCircle2 size={20} />
+                        )}
                       </div>
-                      <div className="text-fine-print text-[#597367] mt-1.5">
-                        Uptime: {Math.floor(svc.uptimeSeconds / 60)} menit • Sinkron: {new Date(svc.timestamp).toLocaleTimeString('id-ID')}
+                      <div>
+                        <div className="text-body-strong text-[#143628] mb-0.5">{svc.service}</div>
+                        <div
+                          className={`flex items-center gap-2 text-xs font-medium ${
+                            isDown ? 'text-red-600' : isDegraded ? 'text-amber-700' : 'text-[#2E7D32]'
+                          }`}
+                        >
+                          <span
+                            className={`w-2 h-2 rounded-full ${
+                              isDown
+                                ? 'bg-red-500'
+                                : isDegraded
+                                ? 'bg-amber-500 animate-pulse'
+                                : 'bg-[#2E7D32] animate-pulse'
+                            }`}
+                          />
+                          {isDown ? 'Layanan Terputus (Offline)' : isDegraded ? 'Kinerja Terganggu' : '100% Operasional'}
+                        </div>
+                        <div className="text-fine-print text-[#597367] mt-1.5">
+                          {isDown ? (
+                            <span className="text-red-600/90 font-medium">Container Offline • Dicek: {new Date(svc.timestamp).toLocaleTimeString('id-ID')}</span>
+                          ) : (
+                            `Uptime: ${Math.floor(svc.uptimeSeconds / 60)} menit • Sinkron: ${new Date(svc.timestamp).toLocaleTimeString('id-ID')}`
+                          )}
+                        </div>
                       </div>
                     </div>
+                    <span
+                      className={`text-xs font-mono px-2.5 py-1 rounded-full font-semibold border ${
+                        isDown
+                          ? 'bg-red-100 text-red-700 border-red-200'
+                          : isDegraded
+                          ? 'bg-amber-100 text-amber-800 border-amber-200'
+                          : 'badge-apple badge-apple-success'
+                      }`}
+                    >
+                      {isDown ? '503 DOWN' : isDegraded ? 'DEGRADED' : '200 OK'}
+                    </span>
                   </div>
-                  <span className="badge-apple badge-apple-success text-xs font-mono">200 OK</span>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Microservice Endpoints Registry */}
