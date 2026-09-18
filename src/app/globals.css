@@ -31,16 +31,16 @@
   --color-on-primary: #ffffff;
   --color-on-dark: #FAF6F0;
 
-  /* Calibrated Warm Artisanal Sunset Accents */
+  /* Calibrated Warm Artisanal Terracotta Vermilion Accents ("Kayak Merah Tapi Ga Merah") */
   --color-brand-vermilion: #D95327;
-  --color-brand-amber: #E67E22;
-  --color-brand-coral: #C8451B;
-  --color-brand-glow: rgba(217, 83, 39, 0.16);
-  --color-brand-border: rgba(217, 83, 39, 0.28);
-  --gradient-sunset: linear-gradient(135deg, #F39C12 0%, #D95327 100%);
-  --gradient-sunset-hover: linear-gradient(135deg, #F5B041 0%, #C8451B 100%);
-  --gradient-sunset-subtle: linear-gradient(135deg, rgba(243, 156, 18, 0.08) 0%, rgba(217, 83, 39, 0.08) 100%);
-  --shadow-sunset: 0 8px 20px -3px rgba(217, 83, 39, 0.24);
+  --color-brand-amber: #D95327;
+  --color-brand-coral: #C8461E;
+  --color-brand-glow: rgba(217, 83, 39, 0.18);
+  --color-brand-border: rgba(217, 83, 39, 0.32);
+  --gradient-sunset: linear-gradient(135deg, #E05C32 0%, #D95327 50%, #C8461E 100%);
+  --gradient-sunset-hover: linear-gradient(135deg, #E6653A 0%, #CB4921 100%);
+  --gradient-sunset-subtle: linear-gradient(135deg, rgba(217, 83, 39, 0.08) 0%, rgba(200, 70, 30, 0.08) 100%);
+  --shadow-sunset: 0 8px 24px -4px rgba(217, 83, 39, 0.32);
 
   /* Botanical Earth & Semantic Status Colors */
   --color-success: #2D6A4F;
@@ -743,7 +743,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 12px 32px -4px rgba(0,0,0,0.5);
 }
 
-/* Hero primary CTA — Full Sunset Gradient */
+/* Hero primary CTA — Signature Terracotta Vermilion Pill */
 .btn-garda-pill-gold {
   background: var(--gradient-sunset);
   color: #ffffff;
@@ -758,13 +758,13 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  box-shadow: var(--shadow-sunset);
+  box-shadow: 0 8px 24px -4px rgba(217, 83, 39, 0.40);
   border: none;
 }
 
 .btn-garda-pill-gold:hover {
   background: var(--gradient-sunset-hover);
   transform: translateY(-2px);
-  box-shadow: 0 14px 36px -4px rgba(255, 89, 31, 0.55);
+  box-shadow: 0 14px 36px -4px rgba(217, 83, 39, 0.50);
   filter: brightness(1.04);
 }

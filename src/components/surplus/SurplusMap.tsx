@@ -61,13 +61,13 @@ function createInteractivePin(item: SurplusItem, isSelected: boolean) {
         <div style="
           width: ${isSelected ? '40px' : '32px'};
           height: ${isSelected ? '40px' : '32px'};
-          background: linear-gradient(135deg, #F59E0B, #E8592A);
+          background: #D95327;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           border: 2px solid #ffffff;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.18)${isSelected ? `, 0 0 0 4px rgba(232, 89, 42, 0.3)` : ''};
+          box-shadow: 0 4px 12px rgba(0,0,0,0.18)${isSelected ? `, 0 0 0 4px rgba(217, 83, 39, 0.35)` : ''};
           transition: all 0.2s ease-out;
         ">
           <svg width="${isSelected ? '20' : '16'}" height="${isSelected ? '20' : '16'}" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

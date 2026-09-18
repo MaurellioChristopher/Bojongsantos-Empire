@@ -140,7 +140,7 @@ function AppRouter() {
         >
           <div
             className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center shadow-lg shadow-orange-500/15"
-            style={{ background: 'linear-gradient(135deg, #E67E22 0%, #D95327 100%)' }}
+            style={{ background: '#D95327' }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
               <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />

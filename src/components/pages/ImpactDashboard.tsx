@@ -250,7 +250,7 @@ export function ImpactDashboard() {
               className="h-full transition-all duration-1000 rounded-full"
               style={{
                 width: `${kgProgress}%`,
-                background: 'linear-gradient(90deg, #E67E22, #D95327)',
+                background: 'linear-gradient(90deg, #D95327, #C8461E)',
               }}
             />
           </div>

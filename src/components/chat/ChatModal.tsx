@@ -171,7 +171,7 @@ export function ChatModal(props: ChatModalProps) {
             <div className="flex items-center gap-3 min-w-0">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold shadow-xs"
-                style={{ background: 'linear-gradient(135deg, #E67E22 0%, #D95327 100%)' }}
+                style={{ background: '#D95327' }}
               >
                 {isOrderMode ? <Store size={18} /> : <Shield size={18} />}
               </div>
@@ -292,7 +292,7 @@ export function ChatModal(props: ChatModalProps) {
                           }`}
                           style={
                             isMe
-                              ? { background: 'linear-gradient(135deg, #E67E22 0%, #D95327 100%)' }
+                              ? { background: '#D95327' }
                               : {}
                           }
                         >
@@ -349,7 +349,7 @@ export function ChatModal(props: ChatModalProps) {
                   type="submit"
                   disabled={!newMessage.trim()}
                   className="w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer flex-shrink-0 shadow-xs hover:opacity-90"
-                  style={{ background: 'linear-gradient(135deg, #E67E22 0%, #D95327 100%)' }}
+                  style={{ background: '#D95327' }}
                 >
                   <Send size={15} />
                 </button>

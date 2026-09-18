@@ -99,7 +99,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <div className={`w-8 h-8 flex items-center justify-center rounded-[4px] transition-transform duration-300 group-hover:scale-105 shadow-2xs ${
                 isDark ? 'bg-[#FAF6F0] text-[#1F1713]' : ''
               }`}
-              style={!isDark ? { background: 'linear-gradient(135deg, #F39C12 0%, #D95327 100%)', color: '#ffffff' } : {}}
+              style={!isDark ? { background: '#D95327', color: '#ffffff' } : {}}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
@@ -373,7 +373,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 <ShoppingBag size={17} />
                 {activeBookingsCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center text-white shadow-2xs"
-                    style={{ background: isDark ? '#FAF6F0' : 'linear-gradient(135deg, #F39C12, #D95327)', color: isDark ? '#1F1713' : '#ffffff' }}
+                    style={{ background: isDark ? '#FAF6F0' : '#D95327', color: isDark ? '#1F1713' : '#ffffff' }}
                   >
                     {activeBookingsCount}
                   </span>

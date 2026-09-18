@@ -320,8 +320,8 @@ export function LandingPage() {
                       scale: portalScale,
                       x: portalX,
                       borderWidth: portalBorderWidth,
-                      borderColor: '#F59E0B',
-                      boxShadow: '0 0 35px rgba(245,158,11,0.5), 0 0 70px rgba(232,89,42,0.3)',
+                      borderColor: '#D95327',
+                      boxShadow: '0 0 35px rgba(217,83,39,0.55), 0 0 70px rgba(200,70,30,0.35)',
                       opacity: portalOpacity,
                     }}
                     className="relative size-[0.80em] rounded-full overflow-hidden border cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform bg-black z-20 group"
@@ -526,7 +526,7 @@ export function LandingPage() {
                     Makanan Diselamatkan
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[88%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
+                    <div className="h-full rounded-full w-[88%]" style={{ background: 'linear-gradient(90deg, #D95327, #C8461E)' }} />
                   </div>
                 </div>
 
@@ -545,7 +545,7 @@ export function LandingPage() {
                     Penerima Manfaat
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[74%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
+                    <div className="h-full rounded-full w-[74%]" style={{ background: 'linear-gradient(90deg, #D95327, #C8461E)' }} />
                   </div>
                 </div>
 
@@ -564,7 +564,7 @@ export function LandingPage() {
                     Pangan Tercegah TPA
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[82%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
+                    <div className="h-full rounded-full w-[82%]" style={{ background: 'linear-gradient(90deg, #D95327, #C8461E)' }} />
                   </div>
                 </div>
 
@@ -583,7 +583,7 @@ export function LandingPage() {
                     Emisi Gas Dicegah
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[95%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
+                    <div className="h-full rounded-full w-[95%]" style={{ background: 'linear-gradient(90deg, #D95327, #C8461E)' }} />
                   </div>
                 </div>
               </div>

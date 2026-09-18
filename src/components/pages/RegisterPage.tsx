@@ -114,15 +114,15 @@ export function RegisterPage() {
 
                 <div className="space-y-3 text-xs text-[#D4C3AF]">
                   <div className="flex items-center gap-3 py-2 border-b border-[#FAF6F0]/10">
-                    <span className="font-mono text-[#E67E22] text-xs font-bold">01</span>
+                    <span className="font-mono text-[#D95327] text-xs font-bold">01</span>
                     <span>Proses pendaftaran instan tanpa biaya platform</span>
                   </div>
                   <div className="flex items-center gap-3 py-2 border-b border-[#FAF6F0]/10">
-                    <span className="font-mono text-[#E67E22] text-xs font-bold">02</span>
+                    <span className="font-mono text-[#D95327] text-xs font-bold">02</span>
                     <span>Verifikasi tiket QR digital untuk serah terima higienis</span>
                   </div>
                   <div className="flex items-center gap-3 py-2 border-b border-[#FAF6F0]/10">
-                    <span className="font-mono text-[#E67E22] text-xs font-bold">03</span>
+                    <span className="font-mono text-[#D95327] text-xs font-bold">03</span>
                     <span>Laporan metrik ESG dan pengurangan limbah terukur</span>
                   </div>
                 </div>
