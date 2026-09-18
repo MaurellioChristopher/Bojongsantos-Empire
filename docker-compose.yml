@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${NEXT_PUBLIC_SUPABASE_ANON_KEY}
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
+        SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+    container_name: aksespangan-app
+    ports:
+      # Port mapping: [Port di Laptop Host] : [Port di dalam Container]
+      - "3000:3000"
+    env_file:
+      - .env.local
+    environment:
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    restart: unless-stopped
