@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getServerStore } from '@/lib/serverStore';
+import { getSupabaseServerClient } from '@/lib/supabase/server';
 import type { ApiResponse, CreateBookingRequest } from '@/types/api';
 import type { Booking } from '@/types';
 
@@ -7,6 +8,47 @@ export async function GET(request: Request): Promise<NextResponse<ApiResponse<Bo
   const { searchParams } = new URL(request.url);
   const recipientId = searchParams.get('recipientId');
   const providerId = searchParams.get('providerId');
+
+  const supabaseServer = getSupabaseServerClient();
+  if (supabaseServer) {
+    try {
+      let query = supabaseServer.from('bookings').select('*').order('created_at', { ascending: false });
+      if (recipientId) query = query.eq('recipient_id', recipientId);
+      if (providerId) query = query.eq('provider_id', providerId);
+
+      const { data, error } = await query;
+      if (!error && data && data.length > 0) {
+        const bookings: Booking[] = data.map((b: any) => ({
+          id: b.id,
+          surplusId: b.surplus_id,
+          surplusName: b.surplus_name,
+          surplusPhoto: b.surplus_photo || '/images/surplus-nasi-padang.jpg',
+          providerId: b.provider_id,
+          providerBusinessName: b.provider_business_name,
+          recipientId: b.recipient_id,
+          recipientName: b.recipient_name,
+          recipientPhone: b.recipient_phone || '',
+          quantity: Number(b.quantity),
+          status: b.status,
+          bookedAt: b.created_at,
+          pickupDeadline: b.pickup_deadline,
+          pickupAddress: b.pickup_address,
+          pickupLocation: b.pickup_location || { lat: -6.9530, lng: 107.6320 },
+          confirmedAt: b.confirmed_at,
+          pickedUpAt: b.completed_at,
+          cancelledAt: b.cancelled_at,
+        }));
+
+        return NextResponse.json({
+          success: true,
+          data: bookings,
+          timestamp: new Date().toISOString(),
+        });
+      }
+    } catch {
+      // Fallback to memory store
+    }
+  }
 
   const store = getServerStore();
   let bookings = store.bookings;
@@ -73,7 +115,36 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<B
       pickupAddress: surplus.address,
     };
 
-    // Update surplus item status
+    // 1. Sync with Supabase
+    const supabaseServer = getSupabaseServerClient();
+    if (supabaseServer) {
+      try {
+        await supabaseServer.from('bookings').insert({
+          id: newBooking.id,
+          surplus_id: newBooking.surplusId,
+          surplus_name: newBooking.surplusName,
+          provider_id: newBooking.providerId,
+          provider_business_name: newBooking.providerBusinessName,
+          recipient_id: newBooking.recipientId,
+          recipient_name: newBooking.recipientName,
+          recipient_phone: newBooking.recipientPhone,
+          quantity: newBooking.quantity,
+          pickup_address: newBooking.pickupAddress,
+          pickup_deadline: newBooking.pickupDeadline,
+          status: newBooking.status,
+          created_at: newBooking.bookedAt,
+        });
+
+        await supabaseServer
+          .from('surplus_items')
+          .update({ status: 'booked' })
+          .eq('id', surplus.id);
+      } catch {
+        // Continue with memory store
+      }
+    }
+
+    // Update surplus item status in memory
     surplus.status = 'booked';
     store.bookings.unshift(newBooking);
 

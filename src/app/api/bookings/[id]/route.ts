@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getServerStore } from '@/lib/serverStore';
+import { getSupabaseServerClient } from '@/lib/supabase/server';
 import type { ApiResponse, UpdateBookingStatusRequest } from '@/types/api';
 import type { Booking } from '@/types';
 
@@ -56,6 +57,25 @@ export async function PATCH(
   else if (body.status === 'diambil') booking.pickedUpAt = now;
   else if (body.status === 'dibatalkan') booking.cancelledAt = now;
   else if (body.status === 'kedaluwarsa') booking.expiredAt = now;
+
+  // Sync to Supabase
+  const supabaseServer = getSupabaseServerClient();
+  if (supabaseServer) {
+    try {
+      const updates: any = { status: body.status };
+      if (body.status === 'dikonfirmasi') updates.confirmed_at = now;
+      if (body.status === 'diambil') updates.completed_at = now;
+      if (body.status === 'dibatalkan') updates.cancelled_at = now;
+
+      await supabaseServer.from('bookings').update(updates).eq('id', id);
+
+      if (body.status === 'dibatalkan') {
+        await supabaseServer.from('surplus_items').update({ status: 'active' }).eq('id', booking.surplusId);
+      }
+    } catch {
+      // Continue
+    }
+  }
 
   return NextResponse.json({
     success: true,

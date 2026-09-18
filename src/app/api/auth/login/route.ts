@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getServerStore } from '@/lib/serverStore';
+import { getSupabaseServerClient } from '@/lib/supabase/server';
 import type { LoginRequest, ApiResponse, LoginResponse } from '@/types/api';
+import type { User } from '@/types';
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponse<LoginResponse>>> {
   try {
@@ -16,8 +18,44 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<L
       );
     }
 
-    const store = getServerStore();
-    const user = store.users.find((u) => u.email.toLowerCase() === body.email.toLowerCase());
+    let user: User | null = null;
+
+    // 1. Try Supabase first if available
+    const supabaseServer = getSupabaseServerClient();
+    if (supabaseServer) {
+      try {
+        const { data, error } = await supabaseServer
+          .from('users')
+          .select('*')
+          .ilike('email', body.email)
+          .maybeSingle();
+
+        if (data && !error) {
+          user = {
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            role: data.role,
+            phone: data.phone,
+            businessName: data.business_name,
+            businessType: data.business_type,
+            businessAddress: data.business_address,
+            location: data.location,
+            createdAt: data.created_at,
+          };
+        }
+      } catch {
+        // Fallback to store
+      }
+    }
+
+    // 2. Fallback to server store if not found in Supabase
+    if (!user) {
+      const store = getServerStore();
+      const localFound = store.users.find((u) => u.email.toLowerCase() === body.email.toLowerCase());
+      if (localFound) user = localFound;
+    }
 
     if (!user) {
       return NextResponse.json(

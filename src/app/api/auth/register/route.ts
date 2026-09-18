@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getServerStore } from '@/lib/serverStore';
+import { getSupabaseServerClient } from '@/lib/supabase/server';
 import type { RegisterRequest, ApiResponse, LoginResponse } from '@/types/api';
 import type { User } from '@/types';
 
@@ -47,6 +48,28 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<L
       createdAt: new Date().toISOString(),
     };
 
+    // 1. Sync to Supabase if available
+    const supabaseServer = getSupabaseServerClient();
+    if (supabaseServer) {
+      try {
+        await supabaseServer.from('users').insert({
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+          password: newUser.password,
+          role: newUser.role,
+          phone: newUser.phone,
+          business_name: newUser.businessName,
+          business_address: newUser.businessAddress,
+          location: newUser.location,
+          created_at: newUser.createdAt,
+        });
+      } catch {
+        // Fallback continues
+      }
+    }
+
+    // 2. Always persist in server store for resilience
     store.users.push(newUser);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
