@@ -52,6 +52,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 ];
 
 const QUICK_PROMPTS = [
+  '👥 Siapa Pembuat Web Ini?',
   '🍲 Cari Makanan Gratis Terdekat',
   '📍 Cek Makanan di Bojongsoang & Bandung',
   '🌡️ Panduan Mutu & Cara Reheating',
@@ -80,13 +81,15 @@ export function AIChatbotWidget() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Load API Key from localStorage on mount
+  // Load API Key from localStorage or environment on mount
   useEffect(() => {
     try {
       const stored = localStorage.getItem('aksespangan_gemini_key') || '';
-      if (stored) {
-        setGeminiApiKey(stored);
-        setTempApiKey(stored);
+      const defaultKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
+      const activeKey = stored || defaultKey;
+      if (activeKey) {
+        setGeminiApiKey(activeKey);
+        setTempApiKey(activeKey);
       }
     } catch (e) {
       console.warn('Cannot read localStorage key:', e);
@@ -239,18 +242,23 @@ export function AIChatbotWidget() {
       };
     }
 
-    // 5. General Platform / Team FAQ
+    // 5. Creator & Team Profile FAQ
     if (
       q.includes('siapa') ||
+      q.includes('pembuat') ||
+      q.includes('cipta') ||
+      q.includes('bikin') ||
+      q.includes('kembang') ||
       q.includes('tim') ||
-      q.includes('aksespangan') ||
-      q.includes('aplikasi') ||
-      q.includes('visi')
+      q.includes('anggota') ||
+      q.includes('author') ||
+      q.includes('developer') ||
+      q.includes('bojongsantos')
     ) {
       return {
         id: `bot-${Date.now()}`,
         sender: 'bot',
-        text: `🌾 **Tentang AksesPangan:**\n\nAksesPangan dikembangkan oleh **Tim Bojongsantos Empire** sebagai ekosistem sirkular digital untuk memecahkan paradoks *Food Waste* dan *Food Insecurity* di Indonesia.\n\nSistem ini dirancang dengan **arsitektur 6 microservices mandiri terisolasi** dan mendukung tujuan pembangunan berkelanjutan (SDGs 2, 12, dan 13).`,
+        text: `👑 **Pencipta & Pengembang AksesPangan:**\n\nWebsite dan platform inovatif **AksesPangan** diciptakan serta dikembangkan dengan penuh dedikasi oleh **Tim Bojongsantos Empire**!\n\nBerikut adalah 4 anggota inovator hebat di balik proyek ini:\n\n1. 🌟 **Maurellio Christopher Yonathan**\n2. 🌸 **Alya Salma Khoerunnisaa**\n3. ⚡ **Rakean Ahmad Zayyid Ardhi**\n4. 🚀 **Jazzkord Cmajor Dahring**\n\nSistem ini dirancang dengan **arsitektur 6 microservices mandiri terisolasi** dan kecerdasan buatan terpadu untuk memecahkan krisis *Food Waste* serta mewujudkan ketahanan pangan inklusif di Indonesia (SDGs 2, 12, dan 13).`,
         timestamp: nowTime,
       };
     }
