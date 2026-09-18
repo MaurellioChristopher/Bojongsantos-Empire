@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Clock, ArrowRight, X, Sparkles, Navigation, CheckCircle2 } from 'lucide-react';
+import { MapPin, Clock, ArrowRight, X, Navigation, CheckCircle2 } from 'lucide-react';
 import { MAP_CONFIG } from '@/lib/constants';
 import { formatPrice, formatCountdown, getSurplusPhoto } from '@/lib/utils';
 import { FOOD_CATEGORY_EMOJI, FOOD_CATEGORY_LABELS } from '@/types';
@@ -59,15 +59,15 @@ function createInteractivePin(item: SurplusItem, isSelected: boolean) {
 
         <!-- Pin Head Circle with Minimalist Icon -->
         <div style="
-          width: ${isSelected ? '42px' : '34px'};
-          height: ${isSelected ? '42px' : '34px'};
-          background: linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913);
+          width: ${isSelected ? '40px' : '32px'};
+          height: ${isSelected ? '40px' : '32px'};
+          background: linear-gradient(135deg, #F59E0B, #E8592A);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 2.5px solid #ffffff;
-          box-shadow: 0 4px 14px rgba(0,0,0,0.3)${isSelected ? `, 0 0 0 4px rgba(255, 90, 31, 0.35)` : ''};
+          border: 2px solid #ffffff;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.18)${isSelected ? `, 0 0 0 4px rgba(232, 89, 42, 0.3)` : ''};
           transition: all 0.2s ease-out;
         ">
           <svg width="${isSelected ? '20' : '16'}" height="${isSelected ? '20' : '16'}" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

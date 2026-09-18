@@ -15,7 +15,6 @@ import {
   ChevronRight,
   ShieldCheck,
   PackageCheck,
-  Sparkles,
   X,
   MessageSquare,
   AlertCircle,
@@ -164,7 +163,7 @@ export function PenerimaBooking() {
                 onClick={() => setIsComplaintModalOpen(true)}
                 className="btn-apple-secondary text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-700 hover:text-black border-neutral-300 shadow-2xs"
               >
-                <AlertCircle size={14} style={{ color: '#FF5A1F' }} />
+                <AlertCircle size={14} className="text-[#E8592A]" />
                 <span>Bantuan Admin</span>
               </button>
 
@@ -416,9 +415,9 @@ export function PenerimaBooking() {
                       {['menunggu', 'dikonfirmasi'].includes(b.status) && (
                         <button
                           onClick={() => setSelectedChatBooking(b)}
-                          className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-800 border-neutral-300 shadow-2xs hover:border-[#FF5A1F]"
+                          className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-800 border-neutral-300 shadow-2xs hover:border-[#E8592A]"
                         >
-                          <MessageSquare size={14} style={{ color: '#FF5A1F' }} />
+                          <MessageSquare size={14} className="text-[#E8592A]" />
                           <span>{b.status === 'menunggu' ? 'Chat Konfirmasi' : 'Chat Koordinasi'}</span>
                         </button>
                       )}

@@ -167,11 +167,11 @@ export function ChatModal(props: ChatModalProps) {
           className="w-full max-w-xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-black/10 max-h-[90vh]"
         >
           {/* Header */}
-          <div className="px-5 py-4 bg-[#18181b] text-white flex items-center justify-between border-b border-white/10">
+          <div className="px-5 py-4 bg-[#111215] text-white flex items-center justify-between border-b border-white/10">
             <div className="flex items-center gap-3 min-w-0">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+                style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #E8592A 100%)' }}
               >
                 {isOrderMode ? <Store size={18} /> : <Shield size={18} />}
               </div>
@@ -191,8 +191,8 @@ export function ChatModal(props: ChatModalProps) {
           {/* Body: New Complaint Form OR Chat Thread */}
           {isNewComplaint ? (
             <form onSubmit={handleCreateNewComplaint} className="p-6 flex flex-col gap-4 overflow-y-auto">
-              <div className="p-3.5 bg-amber-50 rounded-xl border border-amber-200 flex items-start gap-2.5 text-xs text-amber-900">
-                <AlertCircle size={16} className="text-[#FF5A1F] flex-shrink-0 mt-0.5" />
+              <div className="p-3.5 bg-[#FFF7ED] rounded-xl border border-[#FFEDD5] flex items-start gap-2.5 text-xs text-[#9A3412]">
+                <AlertCircle size={16} className="text-[#E8592A] flex-shrink-0 mt-0.5" />
                 <span>
                   Admin AksesPangan memantau keluhan pengguna 24/7 untuk memastikan keadilan, keselamatan mutu pangan, dan kelancaran transaksi.
                 </span>
@@ -208,7 +208,7 @@ export function ChatModal(props: ChatModalProps) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="Contoh: Kendala pengambilan pesanan / Lokasi penyedia tutup"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm"
                 />
               </div>
 
@@ -222,7 +222,7 @@ export function ChatModal(props: ChatModalProps) {
                   value={complaintText}
                   onChange={(e) => setComplaintText(e.target.value)}
                   placeholder="Jelaskan kendala secara rinci, cantumkan nama penyedia/penerima atau nomor pesanan terkait jika ada..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 focus:outline-none focus:border-[#FF5A1F] text-sm resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-200 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm resize-none"
                 />
               </div>
 
@@ -292,7 +292,7 @@ export function ChatModal(props: ChatModalProps) {
                           }`}
                           style={
                             isMe
-                              ? { background: 'linear-gradient(135deg, #FFB200, #FF5A1F 60%, #FF3913)' }
+                              ? { background: 'linear-gradient(135deg, #F59E0B 0%, #E8592A 100%)' }
                               : {}
                           }
                         >
@@ -343,13 +343,13 @@ export function ChatModal(props: ChatModalProps) {
                       ? 'Ketik pesan koordinasi...'
                       : 'Ketik balasan untuk keluhan ini...'
                   }
-                  className="flex-1 px-4 py-2.5 rounded-full border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-xs sm:text-sm"
+                  className="flex-1 px-4 py-2.5 rounded-full border border-neutral-300 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-xs sm:text-sm"
                 />
                 <button
                   type="submit"
                   disabled={!newMessage.trim()}
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer flex-shrink-0 shadow-sm hover:opacity-90"
+                  style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #E8592A 100%)' }}
                 >
                   <Send size={15} />
                 </button>

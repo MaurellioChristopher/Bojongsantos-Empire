@@ -205,13 +205,13 @@ export function RegisterPage() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Nama lengkap Anda"
-                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                        className="w-full bg-white text-[#111215] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#111215] mb-1">
                       Alamat Email
                     </label>
                     <div className="relative">
@@ -224,13 +224,13 @@ export function RegisterPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="nama@email.com"
-                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                        className="w-full bg-white text-[#111215] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#111215] mb-1">
                       Nomor Telepon / WhatsApp
                     </label>
                     <div className="relative">
@@ -243,7 +243,7 @@ export function RegisterPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="0812xxxxxxxx"
-                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                        className="w-full bg-white text-[#111215] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -262,7 +262,7 @@ export function RegisterPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Minimal 6 karakter"
-                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                        className="w-full bg-white text-[#111215] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -272,7 +272,7 @@ export function RegisterPage() {
                       type="button"
                       onClick={nextStep}
                       disabled={!name || !email || !password || !phone}
-                      className="w-full bg-[#0071e3] hover:bg-[#0077ed] active:bg-[#0062c4] text-white font-medium text-sm h-11 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:opacity-50"
+                      className="w-full bg-[#111215] hover:bg-[#23252a] active:bg-black text-white font-medium text-sm h-11 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
                     >
                       {role === 'penyedia' ? 'Lanjut: Data Usaha Mitra' : isLoading ? 'Mendaftarkan...' : 'Selesaikan Pendaftaran'}
                     </button>
@@ -284,11 +284,11 @@ export function RegisterPage() {
               {step === 2 && role === 'penyedia' && (
                 <div className="space-y-3.5">
                   <div>
-                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#111215] mb-1">
                       Nama Usaha Kuliner
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
+                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6b7280] pointer-events-none">
                         <Building2 size={15} />
                       </div>
                       <input
@@ -297,19 +297,19 @@ export function RegisterPage() {
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
                         placeholder="Contoh: Dapur Rasa Buahbatu"
-                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                        className="w-full bg-white text-[#111215] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#111215] mb-1">
                       Jenis Usaha
                     </label>
                     <select
                       value={businessType}
                       onChange={(e) => setBusinessType(e.target.value as BusinessType)}
-                      className="w-full bg-white text-[#1d1d1f] text-sm h-11 px-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                      className="w-full bg-white text-[#111215] text-sm h-11 px-3.5 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                     >
                       <option value="restoran">Restoran / Rumah Makan</option>
                       <option value="hotel">Hotel</option>
@@ -321,11 +321,11 @@ export function RegisterPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#111215] mb-1">
                       Alamat Usaha (Lokasi Penjemputan)
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-3 text-[#86868b] pointer-events-none">
+                      <div className="absolute left-3.5 top-3 text-[#6b7280] pointer-events-none">
                         <MapPin size={15} />
                       </div>
                       <textarea
@@ -334,7 +334,7 @@ export function RegisterPage() {
                         value={businessAddress}
                         onChange={(e) => setBusinessAddress(e.target.value)}
                         placeholder="Jl. Raya Buahbatu No. 120, Bandung..."
-                        className="w-full bg-white text-[#1d1d1f] text-sm p-3 pl-10 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                        className="w-full bg-white text-[#111215] text-sm p-3 pl-10 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -343,7 +343,7 @@ export function RegisterPage() {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="flex-1 bg-[#f5f5f7] hover:bg-[#e8e8ed] text-[#1d1d1f] font-medium text-sm h-11 rounded-xl transition-colors cursor-pointer"
+                      className="flex-1 bg-[#f5f5f7] hover:bg-[#e8e8ed] text-[#111215] font-medium text-sm h-11 rounded-xl transition-colors cursor-pointer"
                     >
                       Kembali
                     </button>
@@ -351,7 +351,7 @@ export function RegisterPage() {
                       type="button"
                       onClick={handleSubmit}
                       disabled={isLoading || !businessName || !businessAddress}
-                      className="flex-1 bg-[#0071e3] hover:bg-[#0077ed] active:bg-[#0062c4] text-white font-medium text-sm h-11 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:opacity-50"
+                      className="flex-1 bg-[#111215] hover:bg-[#23252a] active:bg-black text-white font-medium text-sm h-11 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50"
                     >
                       {isLoading ? 'Memproses...' : 'Selesai'}
                     </button>
@@ -360,11 +360,11 @@ export function RegisterPage() {
               )}
 
               {/* Login Link */}
-              <div className="mt-6 pt-5 border-t border-[rgba(0,0,0,0.08)] text-center text-xs text-[#86868b]">
+              <div className="mt-6 pt-5 border-t border-[#f3f4f6] text-center text-xs text-[#6b7280]">
                 Sudah memiliki akun?{' '}
                 <a
                   href="#/login"
-                  className="font-medium text-[#0066cc] hover:underline transition-colors"
+                  className="font-semibold text-[#E8592A] hover:text-[#D44719] hover:underline transition-colors"
                 >
                   Masuk di sini
                 </a>

@@ -367,9 +367,7 @@ export function AdminDashboard() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="card-apple-utility bg-white p-6 border border-neutral-200 flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white mb-3"
-                    style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-                  >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] mb-3">
                     <BookOpen size={20} />
                   </div>
                   <h4 className="text-base font-semibold text-neutral-900 mb-1">Standar Mutu &amp; Regulasi</h4>
@@ -384,9 +382,7 @@ export function AdminDashboard() {
 
               <div className="card-apple-utility bg-white p-6 border border-neutral-200 flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white mb-3"
-                    style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-                  >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] mb-3">
                     <Target size={20} />
                   </div>
                   <h4 className="text-base font-semibold text-neutral-900 mb-1">Laporan &amp; Target Dampak ESG</h4>

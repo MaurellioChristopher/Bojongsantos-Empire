@@ -135,7 +135,7 @@ export function TermsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-[rgba(0,0,0,0.08)]">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 text-[#555555] text-xs font-semibold uppercase tracking-wider mb-3">
-              <Shield size={14} style={{ color: '#FF5A1F' }} />
+              <Shield size={14} className="text-[#E8592A]" />
               <span>Standar Keamanan Pangan &amp; Syarat Layanan</span>
             </div>
             <h1 className="text-display-lg text-[#1d1d1f] mb-2 font-serif">
@@ -163,11 +163,8 @@ export function TermsPage() {
             4 Pilar Jaminan Mutu AksesPangan
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-5 rounded-[14px] bg-[#f5f5f7] flex items-start gap-3.5">
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+            <div className="p-5 rounded-[14px] bg-[#f8f8f9] border border-[rgba(0,0,0,0.05)] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] flex items-center justify-center flex-shrink-0">
                 <ThermometerSun size={18} />
               </div>
               <div>
@@ -178,11 +175,8 @@ export function TermsPage() {
               </div>
             </div>
 
-            <div className="p-5 rounded-[14px] bg-[#f5f5f7] flex items-start gap-3.5">
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+            <div className="p-5 rounded-[14px] bg-[#f8f8f9] border border-[rgba(0,0,0,0.05)] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] flex items-center justify-center flex-shrink-0">
                 <Clock size={18} />
               </div>
               <div>
@@ -193,11 +187,8 @@ export function TermsPage() {
               </div>
             </div>
 
-            <div className="p-5 rounded-[14px] bg-[#f5f5f7] flex items-start gap-3.5">
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+            <div className="p-5 rounded-[14px] bg-[#f8f8f9] border border-[rgba(0,0,0,0.05)] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] flex items-center justify-center flex-shrink-0">
                 <Clock size={18} />
               </div>
               <div>
@@ -208,11 +199,8 @@ export function TermsPage() {
               </div>
             </div>
 
-            <div className="p-5 rounded-[14px] bg-[#f5f5f7] flex items-start gap-3.5">
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+            <div className="p-5 rounded-[14px] bg-[#f8f8f9] border border-[rgba(0,0,0,0.05)] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] flex items-center justify-center flex-shrink-0">
                 <CheckCircle size={18} />
               </div>
               <div>
@@ -226,14 +214,8 @@ export function TermsPage() {
         </div>
 
         {/* Warning Callout Box */}
-        <div
-          className="p-5 rounded-[14px] flex items-start gap-3.5 mb-8 border"
-          style={{
-            background: 'linear-gradient(135deg, rgba(255,178,0,0.07), rgba(255,57,19,0.07))',
-            borderColor: 'rgba(255,100,30,0.25)',
-          }}
-        >
-          <AlertTriangle size={18} className="flex-shrink-0 mt-0.5" style={{ color: '#FF5A1F' }} />
+        <div className="p-5 rounded-[14px] flex items-start gap-3.5 mb-8 bg-[#FFFBF6] border border-[#FED7AA]">
+          <AlertTriangle size={18} className="flex-shrink-0 mt-0.5 text-[#E8592A]" />
           <div>
             <div className="text-body-strong text-[#1d1d1f] mb-0.5">Catatan Penting Konsumsi</div>
             <div className="text-caption-apple text-[#86868b] leading-relaxed">
@@ -246,12 +228,12 @@ export function TermsPage() {
         <div className="card-apple-utility bg-white p-6 sm:p-8">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-tagline text-[#1d1d1f] flex items-center gap-2 m-0">
-              <BookOpen size={20} style={{ color: '#FF5A1F' }} />
+              <BookOpen size={20} className="text-[#E8592A]" />
               Pasal Ketentuan &amp; Standar Mutu Platform
             </h2>
             {isAdmin && (
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 font-semibold inline-flex items-center gap-1">
-                <ShieldCheck size={13} className="text-[#FF5A1F]" /> Mode Admin Aktif
+              <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 font-semibold inline-flex items-center gap-1">
+                <ShieldCheck size={13} className="text-[#E8592A]" /> Mode Admin Aktif
               </span>
             )}
           </div>
@@ -265,9 +247,8 @@ export function TermsPage() {
                     <button
                       onClick={() => toggleSection(index)}
                       className={`flex-1 text-left flex items-center justify-between gap-4 font-semibold text-[16px] sm:text-[17px] transition-colors ${
-                        isOpen ? '' : 'text-[#1d1d1f] hover:opacity-75'
+                        isOpen ? 'text-[#E8592A]' : 'text-[#1d1d1f] hover:opacity-75'
                       }`}
-                      style={isOpen ? { color: '#FF5A1F' } : {}}
                     >
                       <span>{item.title}</span>
                       <motion.div
@@ -350,7 +331,7 @@ export function TermsPage() {
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
                   placeholder="Contoh: 6. Kebijakan Kemasan Ramah Lingkungan"
-                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm"
                 />
               </div>
 
@@ -364,7 +345,7 @@ export function TermsPage() {
                   value={formContent}
                   onChange={(e) => setFormContent(e.target.value)}
                   placeholder="Rincian ketentuan standar mutu dan kewajiban pengguna..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm resize-none"
                 />
               </div>
 

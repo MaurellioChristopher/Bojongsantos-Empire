@@ -92,19 +92,17 @@ export function PenyediaDashboard() {
           </a>
         </div>
 
-        {/* Subtle sunset divider accent bar below header */}
-        <div className="h-[2px] rounded-full mb-8 w-24" style={{ background: 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+        {/* Subtle warm accent bar below header */}
+        <div className="h-[3px] rounded-full mb-8 w-16 bg-[#E8592A]" />
 
         {/* 4 Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {stats.map((st) => (
             <div key={st.label} className="card-apple-utility bg-white p-5 text-center">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+              <div className="w-10 h-10 rounded-xl bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] flex items-center justify-center mx-auto mb-3">
                 <st.icon size={18} />
               </div>
-              <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
+              <div className="text-display-md font-semibold text-[#111215] mb-0.5">
                 {st.value} <span className="text-xs font-normal text-[#86868b]">{st.unit}</span>
               </div>
               <div className="text-caption-apple text-[#86868b]">{st.label}</div>
@@ -135,7 +133,7 @@ export function PenyediaDashboard() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {activeItems.map((item) => (
-                <div key={item.id} className="p-4 rounded-[14px] bg-[#f5f5f7] flex flex-col justify-between">
+                <div key={item.id} className="p-4 rounded-[14px] bg-[#f8f8f9] border border-[rgba(0,0,0,0.05)] flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between mb-2">
                       <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-white text-neutral-600 font-semibold uppercase border border-black/5">
@@ -148,7 +146,7 @@ export function PenyediaDashboard() {
                     <div className="text-body-strong text-[#1d1d1f] line-clamp-1 mb-1">{item.name}</div>
                     <div className="text-caption-apple text-[#86868b] mb-2">{item.quantity} kg • {item.portionCount} porsi</div>
                   </div>
-                  <div className="text-fine-print font-medium pt-2 border-t border-[rgba(0,0,0,0.06)] flex items-center gap-1.5" style={{ color: '#FF5A1F' }}>
+                  <div className="text-fine-print font-medium pt-2 border-t border-[rgba(0,0,0,0.06)] flex items-center gap-1.5 text-[#E8592A]">
                     <Clock size={12} />
                     <span>Sisa waktu: {formatCountdown(item.expiryTime)}</span>
                   </div>

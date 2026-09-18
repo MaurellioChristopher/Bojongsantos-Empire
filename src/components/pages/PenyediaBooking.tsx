@@ -112,7 +112,7 @@ export function PenyediaBooking() {
             onClick={() => setIsComplaintModalOpen(true)}
             className="btn-apple-secondary text-xs py-2.5 px-4 flex items-center gap-2 self-start sm:self-center text-neutral-700 hover:text-black border-neutral-300 shadow-2xs"
           >
-            <AlertCircle size={15} style={{ color: '#FF5A1F' }} />
+            <AlertCircle size={15} className="text-[#E8592A]" />
             <span>Sampaikan Keluhan ke Admin</span>
           </button>
         </div>
@@ -150,9 +150,9 @@ export function PenyediaBooking() {
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => setSelectedChatBooking(b)}
-                      className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-800 border-neutral-300 hover:border-[#FF5A1F]"
+                      className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-800 border-neutral-300 hover:border-[#E8592A]"
                     >
-                      <MessageSquare size={13} style={{ color: '#FF5A1F' }} />
+                      <MessageSquare size={13} className="text-[#E8592A]" />
                       <span>Chat Penerima</span>
                     </button>
                     <button

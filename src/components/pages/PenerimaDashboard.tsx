@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, List, Map, Filter, Clock, Search, X, CheckCircle2, ChevronRight, AlertTriangle, Lock, Sparkles } from 'lucide-react';
+import { MapPin, List, Map, Filter, Clock, Search, X, CheckCircle2, ChevronRight, AlertTriangle, Lock } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { getActiveSurplus, getBookingBySurplus } from '@/lib/data';
@@ -174,7 +174,7 @@ export function PenerimaDashboard() {
           <h1 className="text-display-lg text-[#1d1d1f] mb-1">
             Katalog Makanan Surplus
           </h1>
-          <div className="h-[2px] rounded-full mb-2 w-20" style={{ background: 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+          <div className="h-[2px] rounded-full mb-2 w-16 bg-[#E8592A]" />
           <p className="text-body-apple text-[#86868b]">
             Makanan layak konsumsi siap diselamatkan dari restoran dan toko terdekat.
           </p>
@@ -198,24 +198,26 @@ export function PenerimaDashboard() {
           </div>
 
           {/* Segmented View Switcher */}
-          <div className="flex items-center bg-white border border-[rgba(0,0,0,0.08)] rounded-full p-1 self-start sm:self-auto">
+          <div className="flex items-center bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)] rounded-full p-1 self-start sm:self-auto">
             <button
               onClick={() => setViewMode('list')}
-              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all text-white ${
-                viewMode === 'list' ? 'text-white' : 'text-[#1d1d1f] hover:text-[#86868b] !bg-transparent'
+              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                viewMode === 'list'
+                  ? 'bg-[#111215] text-white shadow-xs font-semibold'
+                  : 'text-[#6e6e73] hover:text-[#111215]'
               }`}
-              style={viewMode === 'list' ? { background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' } : {}}
             >
-              <List size={16} /> Daftar ({filteredItems.length})
+              <List size={15} /> Daftar ({filteredItems.length})
             </button>
             <button
               onClick={() => setViewMode('map')}
-              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                viewMode === 'map' ? 'text-white' : 'text-[#1d1d1f] hover:text-[#86868b]'
+              className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
+                viewMode === 'map'
+                  ? 'bg-[#111215] text-white shadow-xs font-semibold'
+                  : 'text-[#6e6e73] hover:text-[#111215]'
               }`}
-              style={viewMode === 'map' ? { background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' } : {}}
             >
-              <Map size={16} /> Peta
+              <Map size={15} /> Peta
             </button>
           </div>
         </div>
@@ -239,12 +241,11 @@ export function PenerimaDashboard() {
           {/* Price Quick Filter */}
           <button
             onClick={() => setPriceFilter(priceFilter === 'free' ? 'all' : 'free')}
-            className={`apple-chip flex items-center gap-1.5 ${
+            className={`apple-chip ${
               priceFilter === 'free' ? 'apple-chip-active' : ''
             }`}
           >
-            <Sparkles size={13} className="text-amber-500" />
-            <span>Hanya Gratis</span>
+            Hanya Gratis
           </button>
         </div>
 
@@ -344,7 +345,7 @@ export function PenerimaDashboard() {
                             {item.name}
                           </h3>
                           <div className="text-caption-apple text-[#86868b] mb-2.5 flex items-center gap-1.5">
-                            <MapPin size={13} className="shrink-0" style={{ color: '#FF5A1F' }} />
+                            <MapPin size={13} className="shrink-0" style={{ color: '#E8592A' }} />
                             <span className="line-clamp-1">
                               {item.providerBusinessName} • {Math.round(item.distance * 10) / 10} km
                             </span>
@@ -360,7 +361,7 @@ export function PenerimaDashboard() {
                       <div className="px-5 pb-5 pt-3 border-t border-[rgba(0,0,0,0.06)] bg-[#fafafc] flex items-center justify-between">
                         <div className="flex flex-col">
                           <span className="text-[10px] uppercase font-mono tracking-wider text-[#86868b]">Sisa Waktu</span>
-                          <div className="text-caption-strong flex items-center gap-1.5 font-mono" style={{ color: '#FF5A1F' }}>
+                          <div className="text-caption-strong flex items-center gap-1.5 font-mono" style={{ color: '#E8592A' }}>
                             <Clock size={12} />
                             <span>{formatCountdown(item.expiryTime)}</span>
                           </div>

@@ -118,12 +118,11 @@ export function ImpactDashboard() {
         {/* Apple Environment Style Header */}
         <div className="text-center max-w-[760px] mx-auto mb-12">
           <div
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 text-white"
-            style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold mb-4 bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5] shadow-2xs"
           >
-            <Leaf size={14} /> Laporan Lingkungan &amp; Emisi Net-Zero
+            <Leaf size={14} className="text-[#E8592A]" /> Laporan Lingkungan &amp; Emisi Net-Zero
           </div>
-          <h1 className="text-hero-display text-[#1d1d1f] mb-3">
+          <h1 className="text-hero-display text-[#111215] mb-3">
             Dampak Terukur. Transparan.
           </h1>
           <p className="text-lead text-[#86868b] font-normal mb-4">
@@ -135,7 +134,7 @@ export function ImpactDashboard() {
               onClick={() => setIsEditing(!isEditing)}
               className="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full border border-neutral-300 bg-white hover:bg-neutral-50 text-neutral-800 transition-colors shadow-2xs cursor-pointer"
             >
-              <Edit2 size={13} style={{ color: '#FF5A1F' }} />
+              <Edit2 size={13} className="text-[#E8592A]" />
               <span>{isEditing ? 'Tutup Pengaturan' : 'Kelola Target ESG (Admin)'}</span>
             </button>
           )}
@@ -146,14 +145,14 @@ export function ImpactDashboard() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card-apple-utility bg-white p-6 mb-8 border-2 border-amber-300 shadow-md"
+            className="card-apple-utility bg-white p-6 mb-8 border border-[#FFEDD5] shadow-md"
           >
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-neutral-100">
               <h3 className="text-base font-semibold text-neutral-900 m-0 flex items-center gap-2">
-                <Target size={18} style={{ color: '#FF5A1F' }} />
+                <Target size={18} className="text-[#E8592A]" />
                 <span>Pengaturan Target &amp; Komitmen ESG Nasional</span>
               </h3>
-              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold">
+              <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[#FFF7ED] text-[#E8592A] font-bold border border-[#FFEDD5]">
                 ADMIN ACCESS
               </span>
             </div>
@@ -168,7 +167,7 @@ export function ImpactDashboard() {
                   min="100"
                   value={targetKg}
                   onChange={(e) => setTargetKg(Number(e.target.value))}
-                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm"
                 />
               </div>
 
@@ -181,7 +180,7 @@ export function ImpactDashboard() {
                   min="100"
                   value={targetCO2}
                   onChange={(e) => setTargetCO2(Number(e.target.value))}
-                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm"
                 />
               </div>
 
@@ -194,7 +193,7 @@ export function ImpactDashboard() {
                   min="100"
                   value={targetPortions}
                   onChange={(e) => setTargetPortions(Number(e.target.value))}
-                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm"
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm"
                 />
               </div>
 
@@ -206,7 +205,7 @@ export function ImpactDashboard() {
                   rows={2}
                   value={missionStatement}
                   onChange={(e) => setMissionStatement(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#FF5A1F] text-sm resize-none"
+                  className="w-full px-3.5 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 text-sm resize-none"
                 />
               </div>
 
@@ -251,7 +250,7 @@ export function ImpactDashboard() {
               className="h-full transition-all duration-1000 rounded-full"
               style={{
                 width: `${kgProgress}%`,
-                background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)',
+                background: 'linear-gradient(90deg, #F59E0B, #E8592A)',
               }}
             />
           </div>
@@ -260,52 +259,40 @@ export function ImpactDashboard() {
         {/* 4 Core Metric Cards (Apple Store Utility Cards style) */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
-              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-            >
+            <div className="w-11 h-11 rounded-2xl flex items-center justify-center mx-auto mb-3 bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5]">
               <Package size={20} />
             </div>
-            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
+            <div className="text-display-md font-semibold mb-0.5 text-[#111215]">
               {impact.totalKgSaved.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">kg</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Makanan Terselamatkan</div>
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
-              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-            >
+            <div className="w-11 h-11 rounded-2xl flex items-center justify-center mx-auto mb-3 bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5]">
               <Heart size={20} />
             </div>
-            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
+            <div className="text-display-md font-semibold mb-0.5 text-[#111215]">
               {impact.totalPortions.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">porsi</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Porsi Terdistribusi</div>
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
-              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-            >
+            <div className="w-11 h-11 rounded-2xl flex items-center justify-center mx-auto mb-3 bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5]">
               <Leaf size={20} />
             </div>
-            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
+            <div className="text-display-md font-semibold mb-0.5 text-[#111215]">
               {impact.totalCO2eSaved.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">kg</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Emisi CO₂e Dihindari</div>
           </div>
 
           <div className="card-apple-utility text-center p-6 bg-white">
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3 text-white"
-              style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-            >
+            <div className="w-11 h-11 rounded-2xl flex items-center justify-center mx-auto mb-3 bg-[#FFF7ED] text-[#E8592A] border border-[#FFEDD5]">
               <TreePine size={20} />
             </div>
-            <div className="text-display-md font-semibold mb-0.5" style={{ color: '#FF5A1F' }}>
+            <div className="text-display-md font-semibold mb-0.5 text-[#111215]">
               {impact.treeEquivalent.toLocaleString('id-ID')} <span className="text-sm font-normal text-[#86868b]">pohon</span>
             </div>
             <div className="text-caption-apple text-[#86868b]">Setara Serapan Pohon</div>
@@ -314,21 +301,18 @@ export function ImpactDashboard() {
 
         {/* Environmental Equivalencies (Apple Environment Tile) */}
         <div className="card-apple-utility bg-white p-8 mb-8">
-          <h3 className="text-tagline text-[#1d1d1f] mb-2">Konversi Dampak Ekologis Nyata</h3>
+          <h3 className="text-tagline text-[#111215] mb-2">Konversi Dampak Ekologis Nyata</h3>
           <p className="text-caption-apple text-[#86868b] mb-6">
             Berdasarkan metodologi Food and Agriculture Organization (FAO) dan IPCC emission factor.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white text-[#E8592A] border border-black/5 shadow-2xs flex-shrink-0">
                 <TreePine size={20} />
               </div>
               <div>
-                <div className="text-tagline font-semibold text-[#1d1d1f]">{impact.treeEquivalent} Pohon</div>
+                <div className="text-tagline font-semibold text-[#111215]">{impact.treeEquivalent} Pohon</div>
                 <div className="text-caption-apple text-[#86868b]">
                   Setara kapasitas penyerapan karbon oleh pohon dewasa selama satu tahun penuh.
                 </div>
@@ -336,14 +320,11 @@ export function ImpactDashboard() {
             </div>
 
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white text-[#E8592A] border border-black/5 shadow-2xs flex-shrink-0">
                 <Car size={20} />
               </div>
               <div>
-                <div className="text-tagline font-semibold text-[#1d1d1f]">
+                <div className="text-tagline font-semibold text-[#111215]">
                   {Math.round(impact.totalCO2eSaved * 4.7)} km
                 </div>
                 <div className="text-caption-apple text-[#86868b]">
@@ -353,14 +334,11 @@ export function ImpactDashboard() {
             </div>
 
             <div className="flex items-start gap-4 p-5 rounded-[14px] bg-[#f5f5f7]">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-              >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-white text-[#E8592A] border border-black/5 shadow-2xs flex-shrink-0">
                 <Droplets size={20} />
               </div>
               <div>
-                <div className="text-tagline font-semibold text-[#1d1d1f]">
+                <div className="text-tagline font-semibold text-[#111215]">
                   {(impact.totalKgSaved * 850).toLocaleString('id-ID')} Liter
                 </div>
                 <div className="text-caption-apple text-[#86868b]">
@@ -375,7 +353,7 @@ export function ImpactDashboard() {
         <div className="card-apple-utility bg-white p-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
             <div>
-              <h3 className="text-tagline text-[#1d1d1f] mb-1">Tren Penyelamatan 7 Hari Terakhir</h3>
+              <h3 className="text-tagline text-[#111215] mb-1">Tren Penyelamatan 7 Hari Terakhir</h3>
               <p className="text-caption-apple text-[#86868b]">Kilogram makanan yang berhasil dialirkan setiap harinya</p>
             </div>
             <span className="badge-apple badge-apple-neutral text-xs mt-2 sm:mt-0">
@@ -410,7 +388,7 @@ export function ImpactDashboard() {
                   }}
                   formatter={(value: any) => [`${value} kg diselamatkan`, 'Makanan']}
                 />
-                <Bar dataKey="kgSaved" fill="#FFB200" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="kgSaved" fill="#E8592A" radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

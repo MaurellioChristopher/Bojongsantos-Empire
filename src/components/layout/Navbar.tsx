@@ -99,7 +99,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <div className={`w-8 h-8 flex items-center justify-center rounded-[3px] transition-transform duration-300 group-hover:scale-105 ${
                 isDark ? 'bg-white text-black' : ''
               }`}
-              style={!isDark ? { background: 'linear-gradient(135deg, #FFB200 0%, #FF5A1F 55%, #FF3913 100%)', color: '#ffffff' } : {}}
+              style={!isDark ? { background: 'linear-gradient(135deg, #F59E0B 0%, #E8592A 100%)', color: '#ffffff' } : {}}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
@@ -135,7 +135,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Beranda
                     {activeRoute === '/' && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -148,7 +148,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Dampak ESG
                     {activeRoute.startsWith('/dashboard') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -161,7 +161,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Standar Mutu
                     {activeRoute.startsWith('/terms') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                 </>
@@ -180,7 +180,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Katalog Surplus
                     {activeRoute === '/penerima' && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -193,7 +193,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Pesanan Saya
                     {activeRoute.startsWith('/penerima/booking') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -206,7 +206,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Riwayat
                     {activeRoute.startsWith('/penerima/history') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                 </>
@@ -225,7 +225,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Dashboard
                     {activeRoute === '/penyedia' && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -238,7 +238,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Surplus Saya
                     {activeRoute.startsWith('/penyedia/surplus') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -251,7 +251,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Pesanan Masuk
                     {activeRoute.startsWith('/penyedia/booking') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -264,7 +264,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Riwayat
                     {activeRoute.startsWith('/penyedia/history') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                 </>
@@ -292,7 +292,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Kelola Standar Mutu
                     {activeRoute.startsWith('/terms') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                   <a
@@ -305,7 +305,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Kelola Dampak ESG
                     {activeRoute.startsWith('/dashboard') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : 'linear-gradient(90deg, #FFB200, #FF3913)' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#ffffff' : '#E8592A' }} />
                     )}
                   </a>
                 </>
@@ -353,9 +353,8 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <a
                 href="#/login"
                 className={`flex items-center gap-1.5 transition-opacity no-underline font-semibold ${
-                  isDark ? 'text-white hover:text-white/80' : 'hover:opacity-80'
+                  isDark ? 'text-white hover:text-white/80' : 'text-[#E8592A] hover:opacity-80'
                 }`}
-                style={!isDark ? { color: '#FF5A1F' } : {}}
               >
                 <User size={15} />
                 <span className="hidden sm:inline">Masuk</span>
@@ -373,8 +372,8 @@ export function Navbar({ currentRoute }: NavbarProps) {
               >
                 <ShoppingBag size={17} />
                 {activeBookingsCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center text-white"
-                    style={{ background: isDark ? '#ffffff' : 'linear-gradient(135deg, #FFB200, #FF3913)', color: isDark ? '#000000' : '#ffffff' }}
+                  <span className="absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center text-white shadow-2xs"
+                    style={{ background: isDark ? '#ffffff' : 'linear-gradient(135deg, #F59E0B, #E8592A)', color: isDark ? '#000000' : '#ffffff' }}
                   >
                     {activeBookingsCount}
                   </span>

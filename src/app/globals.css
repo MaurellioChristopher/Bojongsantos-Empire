@@ -8,58 +8,49 @@
 
 @theme inline {
   /* Colors */
-  --color-primary: #000000;
-  --color-primary-focus: #1d1d1f;
+  --color-primary: #111215;
+  --color-primary-focus: #23252a;
   --color-primary-on-dark: #ffffff;
-  --color-ink: #1d1d1f;
-  --color-body: #1d1d1f;
+  --color-ink: #111215;
+  --color-body: #2a2d34;
   --color-body-on-dark: #ffffff;
-  --color-body-muted: #86868b;
-  --color-ink-muted-80: #333333;
-  --color-ink-muted-48: #7a7a7a;
-  --color-divider-soft: #f0f0f0;
-  --color-hairline: rgba(0, 0, 0, 0.08);
-  --color-hairline-opaque: #d2d2d7;
+  --color-body-muted: #6b7280;
+  --color-ink-muted-80: #374151;
+  --color-ink-muted-48: #6b7280;
+  --color-divider-soft: #f3f4f6;
+  --color-hairline: rgba(0, 0, 0, 0.07);
+  --color-hairline-opaque: #e5e7eb;
   --color-canvas: #ffffff;
-  --color-canvas-parchment: #f5f5f7;
-  --color-surface-pearl: #fafafc;
-  --color-surface-tile-1: #272729;
-  --color-surface-tile-2: #2a2a2c;
-  --color-surface-tile-3: #252527;
-  --color-surface-black: #000000;
-  --color-surface-chip-translucent: rgba(210, 210, 215, 0.64);
+  --color-canvas-parchment: #f6f7f9;
+  --color-surface-pearl: #fafbfd;
+  --color-surface-tile-1: #16171a;
+  --color-surface-tile-2: #1c1d22;
+  --color-surface-tile-3: #121316;
+  --color-surface-black: #0c0d0f;
+  --color-surface-chip-translucent: rgba(229, 231, 235, 0.7);
   --color-on-primary: #ffffff;
   --color-on-dark: #ffffff;
 
-  /* Sunset Amber-Coral Signature Gradient System */
-  --color-sunset-amber: #FFB200;
-  --color-sunset-coral: #FF3913;
-  --color-sunset-flame: #FF5A1F;
-  --color-sunset-glow: rgba(255, 178, 0, 0.18);
-  --color-sunset-border: rgba(255, 100, 30, 0.35);
-  --gradient-sunset: linear-gradient(135deg, #FFB200 0%, #FF5A1F 55%, #FF3913 100%);
-  --gradient-sunset-hover: linear-gradient(135deg, #FFC533 0%, #FF6E35 55%, #FF4D2B 100%);
-  --gradient-sunset-subtle: linear-gradient(135deg, rgba(255,178,0,0.12) 0%, rgba(255,57,19,0.12) 100%);
+  /* Calibrated Harvard Gourmet Sunset Color Harmony */
+  --color-brand-vermilion: #E8592A;
+  --color-brand-amber: #F59E0B;
+  --color-brand-coral: #E14920;
+  --color-brand-glow: rgba(232, 89, 42, 0.14);
+  --color-brand-border: rgba(232, 89, 42, 0.28);
+  --gradient-sunset: linear-gradient(135deg, #F59E0B 0%, #E8592A 100%);
+  --gradient-sunset-hover: linear-gradient(135deg, #FBBF24 0%, #DC4C1D 100%);
+  --gradient-sunset-subtle: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(232, 89, 42, 0.08) 100%);
+  --shadow-sunset: 0 8px 20px -3px rgba(232, 89, 42, 0.24);
 
-  /* Semantic status colors (quiet, high-contrast & accessible) */
-  --color-success: #16a34a;
-  --color-success-bg: rgba(22, 163, 74, 0.10);
-  --color-warning: #ea580c;
-  --color-warning-bg: rgba(234, 88, 12, 0.10);
-  --color-error: #dc2626;
-  --color-error-bg: rgba(220, 38, 38, 0.10);
+  /* Semantic Status Colors (Calibrated High Contrast) */
+  --color-success: #15803d;
+  --color-success-bg: rgba(21, 128, 61, 0.08);
+  --color-warning: #c2410c;
+  --color-warning-bg: rgba(194, 65, 12, 0.08);
+  --color-error: #b91c1c;
+  --color-error-bg: rgba(185, 28, 28, 0.08);
 
-  /* Official Environmental & High-Contrast Color System */
-  --color-garda-forest-deep: #0a1f13;
-  --color-garda-forest: #15803d;
-  --color-garda-forest-hover: #166534;
-  --color-garda-forest-card: #0d2b14;
-  --color-garda-sun: #ffffff;
-  --color-garda-sun-hover: #f0f0f0;
-  --color-garda-cream: #fafaf9;
-  --color-garda-mint: #f0fdf4;
-
-  /* Fonts (Refined Modern Neo-Grotesque & Apple Hierarchy) */
+  /* Fonts */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
   --font-sf-pro: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
   --font-sf-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
@@ -67,12 +58,12 @@
 
   /* Radii */
   --radius-sm: 8px;
-  --radius-md: 11px;
-  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
   --radius-pill: 9999px;
 
-  /* Shadows (Exactly one shadow in the entire system, reserved for product renders) */
-  --shadow-product: 3px 5px 30px 0 rgba(0, 0, 0, 0.22);
+  /* Shadows */
+  --shadow-product: 0 10px 30px -5px rgba(0, 0, 0, 0.12);
 }
 
 :root {
@@ -218,15 +209,15 @@ h1, h2, h3, h4, h5, h6 {
    Component Styles — Buttons
    ============================================================ */
 
-/* Primary Sunset Gradient Pill Button — Signature CTA */
+/* Primary Sunset Gradient Pill Button — Calibrated Signature CTA */
 .btn-apple-primary {
   background: var(--gradient-sunset);
   color: #ffffff;
   font-family: var(--font-sf-pro);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.2px;
-  padding: 11px 22px;
+  letter-spacing: -0.01em;
+  padding: 10px 22px;
   border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
@@ -235,56 +226,57 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   cursor: pointer;
   border: none;
-  box-shadow: var(--shadow-sunset);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  box-shadow: 0 4px 14px -2px rgba(232, 89, 42, 0.28);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
 
 .btn-apple-primary:hover {
   background: var(--gradient-sunset-hover);
   transform: translateY(-1px);
-  box-shadow: 0 12px 32px -4px rgba(255, 89, 31, 0.48);
-  filter: brightness(1.04);
+  box-shadow: 0 8px 22px -3px rgba(232, 89, 42, 0.36);
+  filter: brightness(1.02);
 }
 
 .btn-apple-primary:active {
-  transform: scale(0.96);
-  box-shadow: var(--shadow-sunset);
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px -2px rgba(232, 89, 42, 0.24);
 }
 
 /* Secondary Ghost Pill Button — Neutral contrast to sunset primary */
 .btn-apple-secondary {
-  background-color: transparent;
+  background-color: #ffffff;
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.2px;
-  padding: 10px 21px;
+  letter-spacing: -0.01em;
+  padding: 9px 20px;
   border-radius: var(--radius-pill);
-  border: 1.5px solid rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--color-hairline-opaque);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  transition: all 0.15s ease;
   white-space: nowrap;
 }
 
 .btn-apple-secondary:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.30);
+  background-color: var(--color-canvas-parchment);
+  border-color: rgba(0, 0, 0, 0.25);
+  color: #000000;
 }
 
 .btn-apple-secondary:active {
-  transform: scale(0.96);
+  transform: scale(0.97);
 }
 
 /* Small Primary Pill (for Nav / Cards) */
 .btn-apple-sm {
-  font-size: 14px;
+  font-size: 13px;
   padding: 7px 16px;
   border-radius: var(--radius-pill);
   gap: 6px;
@@ -296,20 +288,20 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-on-dark);
   font-family: var(--font-sf-pro);
   font-size: 14px;
-  font-weight: 400;
-  letter-spacing: -0.224px;
-  padding: 8px 15px;
-  border-radius: var(--radius-sm);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
   cursor: pointer;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .btn-apple-dark:hover {
-  opacity: 0.9;
+  background-color: #23252a;
 }
 
 .btn-apple-dark:active {
@@ -334,27 +326,29 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(0.95);
 }
 
-/* Links — Sunset accent */
+/* Apple Text Links */
 .link-apple {
-  color: var(--color-sunset-flame);
-  text-decoration: none;
+  color: var(--color-brand-vermilion);
   font-family: var(--font-sf-pro);
+  font-size: 14px;
+  letter-spacing: -0.01em;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  transition: opacity 0.15s ease;
+  transition: color 0.15s ease;
+  text-decoration: none;
   font-weight: 500;
 }
 
 .link-apple:hover {
-  opacity: 0.75;
+  color: var(--color-brand-coral);
   text-decoration: underline;
 }
 
 .link-apple-dark {
-  color: var(--color-sunset-amber);
-  text-decoration: none;
+  color: #ffffff;
   font-family: var(--font-sf-pro);
+  font-size: 14px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -400,18 +394,18 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-body-on-dark);
 }
 
-/* Apple Store Utility Card — Subtle sunset hover glow */
+/* Apple Store Utility Card — Clean Hairline Elevation */
 .card-apple-utility {
   background-color: var(--color-canvas);
-  border: 1px solid var(--color-hairline);
+  border: 1px solid var(--color-hairline-opaque);
   border-radius: var(--radius-lg);
   padding: 24px;
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card-apple-utility:hover {
-  border-color: var(--color-sunset-border);
-  box-shadow: 0 4px 24px -4px rgba(255, 100, 30, 0.1);
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.05);
 }
 
 /* Product Image Shadow (Only shadow in system) */
@@ -424,11 +418,11 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
-  font-size: 17px;
-  letter-spacing: -0.374px;
-  height: 44px;
+  font-size: 15px;
+  letter-spacing: -0.2px;
+  height: 42px;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--color-hairline);
+  border: 1px solid var(--color-hairline-opaque);
   padding: 10px 20px 10px 44px;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -436,8 +430,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .apple-search-pill:focus {
-  border-color: var(--color-sunset-flame);
-  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.15);
+  border-color: var(--color-brand-vermilion);
+  box-shadow: 0 0 0 3px var(--color-brand-glow);
 }
 
 /* Apple Input Field */
@@ -445,8 +439,8 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
-  font-size: 17px;
-  letter-spacing: -0.374px;
+  font-size: 15px;
+  letter-spacing: -0.2px;
   height: 44px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-hairline-opaque);
@@ -457,18 +451,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .apple-input:focus {
-  border-color: var(--color-sunset-flame);
-  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.15);
+  border-color: var(--color-brand-vermilion);
+  box-shadow: 0 0 0 3px var(--color-brand-glow);
 }
 
-/* Option Chips (Configurator pill style) */
+/* Option Chips (Configurator pill style — Harvard Restrained Luxury) */
 .apple-chip {
   background-color: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
-  font-size: 14px;
-  letter-spacing: -0.224px;
-  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 7px 16px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--color-hairline-opaque);
   cursor: pointer;
@@ -481,21 +476,23 @@ h1, h2, h3, h4, h5, h6 {
 
 .apple-chip:hover {
   border-color: var(--color-ink);
+  background-color: var(--color-canvas-parchment);
 }
 
+/* Active Chip: Sophisticated Obsidian Pill */
 .apple-chip-active {
-  background: var(--gradient-sunset);
+  background-color: #111215;
   color: #ffffff;
-  border-color: transparent;
-  box-shadow: 0 3px 12px -2px rgba(255, 89, 31, 0.32);
+  border-color: #111215;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .apple-chip-active:hover {
-  filter: brightness(1.05);
-  box-shadow: 0 4px 16px -2px rgba(255, 89, 31, 0.42);
+  background-color: #23252a;
+  border-color: #23252a;
 }
 
-/* Status Badges */
+/* Status Badges — High-Contrast Accessible Hierarchy */
 .badge-apple {
   display: inline-flex;
   align-items: center;
@@ -504,35 +501,38 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-pill);
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: -0.12px;
+  letter-spacing: -0.01em;
 }
 
 .badge-apple-neutral {
   background-color: var(--color-canvas-parchment);
   color: var(--color-ink);
-  border: 1px solid var(--color-hairline);
+  border: 1px solid var(--color-hairline-opaque);
 }
 
 .badge-apple-success {
   background-color: var(--color-success-bg);
   color: var(--color-success);
+  border: 1px solid rgba(21, 128, 61, 0.2);
 }
 
 .badge-apple-warning {
   background-color: var(--color-warning-bg);
   color: var(--color-warning);
+  border: 1px solid rgba(194, 65, 12, 0.2);
 }
 
 .badge-apple-info {
-  background-color: rgba(0, 0, 0, 0.06);
-  color: var(--color-ink-muted-80);
+  background-color: rgba(30, 58, 138, 0.06);
+  color: #1e3a8a;
+  border: 1px solid rgba(30, 58, 138, 0.18);
 }
 
-/* Sunset accent badge */
+/* Brand Warm Accent Badge */
 .badge-apple-sunset {
   background: var(--gradient-sunset-subtle);
-  color: var(--color-sunset-coral);
-  border: 1px solid var(--color-sunset-border);
+  color: var(--color-brand-vermilion);
+  border: 1px solid var(--color-brand-border);
 }
 
 /* Sunset gradient text utility */
@@ -543,11 +543,11 @@ h1, h2, h3, h4, h5, h6 {
   background-clip: text;
 }
 
-/* Sunset icon circle — replaces jarring colored icon circles */
+/* Subtle brand icon circle */
 .sunset-icon-circle {
   background: var(--gradient-sunset-subtle);
-  color: var(--color-sunset-flame);
-  border: 1px solid var(--color-sunset-border);
+  color: var(--color-brand-vermilion);
+  border: 1px solid var(--color-brand-border);
   border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;

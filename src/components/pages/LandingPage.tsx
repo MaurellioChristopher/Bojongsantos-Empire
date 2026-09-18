@@ -11,7 +11,6 @@ import {
   ChevronRight,
   ChevronLeft,
   ChevronDown,
-  Sparkles,
   CheckCircle2,
   Building2,
   Flame,
@@ -321,8 +320,8 @@ export function LandingPage() {
                       scale: portalScale,
                       x: portalX,
                       borderWidth: portalBorderWidth,
-                      borderColor: '#FFB200',
-                      boxShadow: '0 0 35px rgba(255,178,0,0.65), 0 0 75px rgba(255,57,19,0.35)',
+                      borderColor: '#F59E0B',
+                      boxShadow: '0 0 35px rgba(245,158,11,0.5), 0 0 70px rgba(232,89,42,0.3)',
                       opacity: portalOpacity,
                     }}
                     className="relative size-[0.80em] rounded-full overflow-hidden border cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform bg-black z-20 group"
@@ -527,7 +526,7 @@ export function LandingPage() {
                     Makanan Diselamatkan
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[88%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
+                    <div className="h-full rounded-full w-[88%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
                   </div>
                 </div>
 
@@ -546,7 +545,7 @@ export function LandingPage() {
                     Penerima Manfaat
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[74%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
+                    <div className="h-full rounded-full w-[74%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
                   </div>
                 </div>
 
@@ -565,7 +564,7 @@ export function LandingPage() {
                     Pangan Tercegah TPA
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[82%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
+                    <div className="h-full rounded-full w-[82%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
                   </div>
                 </div>
 
@@ -584,7 +583,7 @@ export function LandingPage() {
                     Emisi Gas Dicegah
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
-                    <div className="h-full rounded-full w-[95%]" style={{ background: 'linear-gradient(90deg, #FFB200, #FF5A1F, #FF3913)' }} />
+                    <div className="h-full rounded-full w-[95%]" style={{ background: 'linear-gradient(90deg, #F59E0B, #E8592A)' }} />
                   </div>
                 </div>
               </div>
@@ -860,8 +859,7 @@ export function LandingPage() {
 
             <a
               href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] hover:opacity-75 transition-opacity mt-4 sm:mt-0"
-              style={{ color: '#FF5A1F' }}
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#E8592A] hover:opacity-75 transition-opacity mt-4 sm:mt-0"
             >
               <span>BUKA PETA GEOLOCATION</span>
               <ArrowRight size={14} />
@@ -876,10 +874,9 @@ export function LandingPage() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`relative px-4 py-2 text-xs font-semibold tracking-wider rounded-full transition-all cursor-pointer whitespace-nowrap uppercase ${
                   selectedCategory === cat.id
-                    ? 'text-white shadow-md'
+                    ? 'bg-[#111215] text-white shadow-sm'
                     : 'bg-white text-[#666666] border border-[rgba(0,0,0,0.12)] hover:border-[rgba(0,0,0,0.25)]'
                 }`}
-                style={selectedCategory === cat.id ? { background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)', boxShadow: '0 4px 16px -2px rgba(255,89,31,0.35)' } : {}}
               >
                 {cat.label}
               </button>

@@ -195,26 +195,26 @@ export function LoginPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="nama@email.com"
-                      className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                      className="w-full bg-white text-[#111215] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-medium text-[#1d1d1f]">
+                    <label className="block text-xs font-medium text-[#111215]">
                       Kata Sandi
                     </label>
                     <button
                       type="button"
                       onClick={() => alert('Kata sandi demo: "demo123"')}
-                      className="text-xs text-[#0066cc] hover:underline"
+                      className="text-xs text-[#E8592A] hover:underline"
                     >
                       Bantuan Sandi
                     </button>
                   </div>
                   <div className="relative">
-                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
+                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6b7280] pointer-events-none">
                       <Lock size={15} />
                     </div>
                     <input
@@ -223,12 +223,12 @@ export function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-10 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
+                      className="w-full bg-white text-[#111215] text-sm h-11 pl-10 pr-10 rounded-xl border border-[#e5e7eb] focus:border-[#E8592A] focus:ring-2 focus:ring-[#E8592A]/15 outline-none transition-all"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#86868b] hover:text-[#1d1d1f] p-1"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#6b7280] hover:text-[#111215] p-1"
                       aria-label="Toggle password visibility"
                     >
                       {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
@@ -238,23 +238,23 @@ export function LoginPage() {
 
                 {/* Remember Me */}
                 <div className="pt-1">
-                  <label className="flex items-center gap-2 cursor-pointer text-xs text-[#6e6e73]">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs text-[#4b5563]">
                     <input
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="rounded border-[#d2d2d7] text-[#0071e3] focus:ring-[#0071e3]"
+                      className="rounded border-[#d1d5db] text-[#E8592A] focus:ring-[#E8592A]"
                     />
                     <span>Ingat sesi masuk di perangkat ini</span>
                   </label>
                 </div>
 
-                {/* Primary Action Button (Sleek High-Contrast Apple Action Blue) */}
+                {/* Primary Action Button (Calibrated Master Pitch Charcoal) */}
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-[#0071e3] hover:bg-[#0077ed] active:bg-[#0062c4] text-white font-medium text-sm h-11 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:opacity-50"
+                    className="w-full bg-[#111215] hover:bg-[#23252a] active:bg-black text-white font-medium text-sm h-11 rounded-xl transition-all flex items-center justify-center cursor-pointer shadow-sm hover:shadow-md disabled:opacity-50"
                   >
                     {isLoading ? 'Memverifikasi...' : 'Lanjutkan ke Platform'}
                   </button>
@@ -262,11 +262,11 @@ export function LoginPage() {
               </form>
 
               {/* Registration Link */}
-              <div className="mt-6 pt-5 border-t border-[rgba(0,0,0,0.08)] text-center text-xs text-[#86868b]">
+              <div className="mt-6 pt-5 border-t border-[#f3f4f6] text-center text-xs text-[#6b7280]">
                 Belum memiliki akun?{' '}
                 <a
                   href="#/register"
-                  className="font-medium text-[#0066cc] hover:underline transition-colors"
+                  className="font-semibold text-[#E8592A] hover:text-[#D44719] hover:underline transition-colors"
                 >
                   Daftar akun baru
                 </a>
