@@ -43,6 +43,7 @@ export interface CreateSurplusRequest {
   quantity: number;
   portionCount: number;
   foodCategory: FoodCategory;
+  itemType?: 'siap_santap' | 'bahan_baku';
   price: number;
   isFree: boolean;
   productionTime: string;
@@ -58,6 +59,7 @@ export interface CreateSurplusRequest {
 
 export interface SurplusFilterQuery {
   category?: FoodCategory | 'all';
+  itemType?: 'all' | 'siap_santap' | 'bahan_baku';
   maxDistance?: number;
   userLat?: number;
   userLng?: number;

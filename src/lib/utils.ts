@@ -168,7 +168,7 @@ export function co2eToTrees(co2eKg: number): number {
 export function getStatusColor(status: BookingStatus): string {
   switch (status) {
     case 'menunggu':
-      return 'bg-orange-50 text-orange-800 border border-orange-200/60';
+      return 'bg-amber-50 text-amber-800 border border-amber-200/60';
     case 'dikonfirmasi':
       return 'bg-emerald-50 text-emerald-800 border border-emerald-200/60';
     case 'diambil':

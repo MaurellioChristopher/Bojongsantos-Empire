@@ -51,6 +51,7 @@ export async function GET(request: Request): Promise<NextResponse<ApiResponse<Su
             price: Number(item.price),
             isFree: Boolean(item.is_free),
             foodCategory: item.food_category,
+            itemType: item.item_type || (item.food_category === 'sayur' || item.food_category === 'buah' ? 'bahan_baku' : 'siap_santap'),
             location: item.location,
             address: item.address,
             createdAt: item.created_at,

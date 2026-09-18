@@ -7,48 +7,48 @@
    ============================================================ */
 
 @theme inline {
-  /* Warm Artisanal Culinary Base Tokens */
-  --color-primary: #2C221D;
-  --color-primary-focus: #3F322B;
-  --color-primary-on-dark: #FAF6F0;
-  --color-ink: #2C221D;
-  --color-body: #4A3E37;
-  --color-body-on-dark: #FAF6F0;
-  --color-body-muted: #7D6F64;
-  --color-ink-muted-80: #4A3E37;
-  --color-ink-muted-48: #7D6F64;
-  --color-divider-soft: #EFE6DA;
-  --color-hairline: rgba(74, 50, 30, 0.08);
-  --color-hairline-opaque: #EADECF;
-  --color-canvas: #FBF7F0;
-  --color-canvas-parchment: #F5EFEB;
-  --color-surface-pearl: #FFFDF9;
-  --color-surface-tile-1: #1F1713;
-  --color-surface-tile-2: #261C17;
-  --color-surface-tile-3: #18110D;
-  --color-surface-black: #140E0A;
-  --color-surface-chip-translucent: rgba(234, 222, 207, 0.7);
+  /* Eco-Appetite Harmony Base Tokens (Option 1) */
+  --color-primary: #143628;
+  --color-primary-focus: #1C4736;
+  --color-primary-on-dark: #F3F8F5;
+  --color-ink: #143628;
+  --color-body: #2C463A;
+  --color-body-on-dark: #F3F8F5;
+  --color-body-muted: #597367;
+  --color-ink-muted-80: #2C463A;
+  --color-ink-muted-48: #597367;
+  --color-divider-soft: #E5ECE4;
+  --color-hairline: rgba(20, 54, 40, 0.08);
+  --color-hairline-opaque: #DCE5DB;
+  --color-canvas: #F7F9F6;
+  --color-canvas-parchment: #EDF2EC;
+  --color-surface-pearl: #FFFFFF;
+  --color-surface-tile-1: #10271D;
+  --color-surface-tile-2: #153225;
+  --color-surface-tile-3: #0C2017;
+  --color-surface-black: #081710;
+  --color-surface-chip-translucent: rgba(220, 229, 219, 0.75);
   --color-on-primary: #ffffff;
-  --color-on-dark: #FAF6F0;
+  --color-on-dark: #F3F8F5;
 
-  /* Calibrated Warm Artisanal Terracotta Vermilion Accents ("Kayak Merah Tapi Ga Merah") */
-  --color-brand-vermilion: #D95327;
-  --color-brand-amber: #D95327;
-  --color-brand-coral: #C8461E;
-  --color-brand-glow: rgba(217, 83, 39, 0.18);
-  --color-brand-border: rgba(217, 83, 39, 0.32);
-  --gradient-sunset: linear-gradient(135deg, #E05C32 0%, #D95327 50%, #C8461E 100%);
-  --gradient-sunset-hover: linear-gradient(135deg, #E6653A 0%, #CB4921 100%);
-  --gradient-sunset-subtle: linear-gradient(135deg, rgba(217, 83, 39, 0.08) 0%, rgba(200, 70, 30, 0.08) 100%);
-  --shadow-sunset: 0 8px 24px -4px rgba(217, 83, 39, 0.32);
+  /* Calibrated Pure Eco Emerald Accents (No Orange) */
+  --color-brand-vermilion: #2D6A4F;
+  --color-brand-amber: #2D6A4F;
+  --color-brand-coral: #1E5E41;
+  --color-brand-glow: rgba(45, 106, 79, 0.20);
+  --color-brand-border: rgba(45, 106, 79, 0.35);
+  --gradient-sunset: linear-gradient(135deg, #388E68 0%, #2D6A4F 50%, #1E533C 100%);
+  --gradient-sunset-hover: linear-gradient(135deg, #409C73 0%, #235841 100%);
+  --gradient-sunset-subtle: linear-gradient(135deg, rgba(45, 106, 79, 0.09) 0%, rgba(30, 83, 60, 0.09) 100%);
+  --shadow-sunset: 0 8px 24px -4px rgba(45, 106, 79, 0.35);
 
   /* Botanical Earth & Semantic Status Colors */
   --color-success: #2D6A4F;
-  --color-success-bg: rgba(45, 106, 79, 0.08);
-  --color-warning: #B45309;
-  --color-warning-bg: rgba(180, 83, 9, 0.08);
-  --color-error: #B91C1C;
-  --color-error-bg: rgba(185, 28, 28, 0.08);
+  --color-success-bg: rgba(45, 106, 79, 0.10);
+  --color-warning: #D97706;
+  --color-warning-bg: rgba(217, 119, 6, 0.10);
+  --color-error: #DC2626;
+  --color-error-bg: rgba(220, 38, 38, 0.10);
 
   /* Fonts */
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
@@ -63,7 +63,7 @@
   --radius-pill: 9999px;
 
   /* Warm Atmospheric Shadows */
-  --shadow-product: 0 10px 30px -5px rgba(60, 40, 20, 0.10);
+  --shadow-product: 0 10px 30px -5px rgba(20, 54, 40, 0.10);
 }
 
 :root {
@@ -226,7 +226,7 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   cursor: pointer;
   border: none;
-  box-shadow: 0 4px 14px -2px rgba(232, 89, 42, 0.28);
+  box-shadow: 0 4px 14px -2px rgba(45, 106, 79, 0.28);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
@@ -234,13 +234,13 @@ h1, h2, h3, h4, h5, h6 {
 .btn-apple-primary:hover {
   background: var(--gradient-sunset-hover);
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px -3px rgba(232, 89, 42, 0.36);
+  box-shadow: 0 8px 22px -3px rgba(45, 106, 79, 0.36);
   filter: brightness(1.02);
 }
 
 .btn-apple-primary:active {
   transform: scale(0.97);
-  box-shadow: 0 2px 8px -2px rgba(232, 89, 42, 0.24);
+  box-shadow: 0 2px 8px -2px rgba(45, 106, 79, 0.24);
 }
 
 /* Secondary Ghost Pill Button — Warm cream contrast to sunset primary */
@@ -266,8 +266,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-apple-secondary:hover {
   background-color: var(--color-canvas-parchment);
-  border-color: #D4C3AF;
-  color: #1F1713;
+  border-color: #CAD6C8;
+  color: #10271D;
 }
 
 .btn-apple-secondary:active {
@@ -405,8 +405,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-apple-utility:hover {
-  border-color: #D4C3AF;
-  box-shadow: 0 8px 24px -4px rgba(60, 40, 20, 0.08);
+  border-color: #CAD6C8;
+  box-shadow: 0 8px 24px -4px rgba(20, 54, 40, 0.08);
 }
 
 /* Product Image Shadow (Only shadow in system) */
@@ -480,12 +480,12 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--color-canvas-parchment);
 }
 
-/* Active Chip: Sophisticated Espresso Pill */
+/* Active Chip: Sophisticated Evergreen Pill */
 .apple-chip-active {
   background-color: var(--color-primary);
   color: var(--color-primary-on-dark);
   border-color: var(--color-primary);
-  box-shadow: 0 2px 8px rgba(44, 34, 29, 0.20);
+  box-shadow: 0 2px 8px rgba(20, 54, 40, 0.20);
 }
 
 .apple-chip-active:hover {
@@ -514,13 +514,13 @@ h1, h2, h3, h4, h5, h6 {
 .badge-apple-success {
   background-color: var(--color-success-bg);
   color: var(--color-success);
-  border: 1px solid rgba(21, 128, 61, 0.2);
+  border: 1px solid rgba(45, 106, 79, 0.25);
 }
 
 .badge-apple-warning {
   background-color: var(--color-warning-bg);
   color: var(--color-warning);
-  border: 1px solid rgba(194, 65, 12, 0.2);
+  border: 1px solid rgba(217, 119, 6, 0.25);
 }
 
 .badge-apple-info {
@@ -556,19 +556,19 @@ h1, h2, h3, h4, h5, h6 {
   flex-shrink: 0;
 }
 
-/* Frosted Glass Bars — Warm Artisanal Glass */
+/* Frosted Glass Bars — Botanical Eco Glass */
 .frosted-glass-light {
-  background-color: rgba(251, 247, 240, 0.88);
+  background-color: rgba(247, 249, 246, 0.88);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--color-hairline-opaque);
 }
 
 .frosted-glass-dark {
-  background-color: rgba(31, 23, 19, 0.90);
+  background-color: rgba(12, 32, 23, 0.90);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(255, 230, 200, 0.12);
+  border-bottom: 1px solid rgba(220, 245, 230, 0.12);
 }
 
 /* Content Width Standards */
@@ -758,13 +758,13 @@ h1, h2, h3, h4, h5, h6 {
   gap: 16px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  box-shadow: 0 8px 24px -4px rgba(217, 83, 39, 0.40);
+  box-shadow: 0 8px 24px -4px rgba(45, 106, 79, 0.40);
   border: none;
 }
 
 .btn-garda-pill-gold:hover {
   background: var(--gradient-sunset-hover);
   transform: translateY(-2px);
-  box-shadow: 0 14px 36px -4px rgba(217, 83, 39, 0.50);
+  box-shadow: 0 14px 36px -4px rgba(45, 106, 79, 0.50);
   filter: brightness(1.04);
 }

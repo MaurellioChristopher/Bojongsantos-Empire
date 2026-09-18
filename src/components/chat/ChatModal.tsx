@@ -164,25 +164,25 @@ export function ChatModal(props: ChatModalProps) {
           initial={{ opacity: 0, scale: 0.96, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
-          className="w-full max-w-xl bg-[#FFFDF9] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-[#EADECF] max-h-[90vh]"
+          className="w-full max-w-xl bg-[#FFFFFF] rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-[#DCE5DB] max-h-[90vh]"
         >
           {/* Header */}
-          <div className="px-5 py-4 bg-[#18110D] text-[#FAF6F0] flex items-center justify-between border-b border-[#3A2920]">
+          <div className="px-5 py-4 bg-[#0C2017] text-[#F3F8F5] flex items-center justify-between border-b border-[#3A2920]">
             <div className="flex items-center gap-3 min-w-0">
               <div
                 className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold shadow-xs"
-                style={{ background: '#D95327' }}
+                style={{ background: '#2D6A4F' }}
               >
                 {isOrderMode ? <Store size={18} /> : <Shield size={18} />}
               </div>
               <div className="min-w-0">
-                <h3 className="font-semibold text-sm sm:text-base text-[#FAF6F0] truncate m-0">{title}</h3>
-                <p className="text-[11px] text-[#FAF6F0]/70 truncate m-0">{subtitle}</p>
+                <h3 className="font-semibold text-sm sm:text-base text-[#F3F8F5] truncate m-0">{title}</h3>
+                <p className="text-[11px] text-[#F3F8F5]/70 truncate m-0">{subtitle}</p>
               </div>
             </div>
             <button
               onClick={props.onClose}
-              className="p-1.5 text-[#FAF6F0]/70 hover:text-white rounded-full hover:bg-white/10 transition-colors cursor-pointer"
+              className="p-1.5 text-[#F3F8F5]/70 hover:text-white rounded-full hover:bg-white/10 transition-colors cursor-pointer"
             >
               <X size={18} />
             </button>
@@ -192,7 +192,7 @@ export function ChatModal(props: ChatModalProps) {
           {isNewComplaint ? (
             <form onSubmit={handleCreateNewComplaint} className="p-6 flex flex-col gap-4 overflow-y-auto">
               <div className="p-3.5 bg-[#FBEFEA] rounded-xl border border-[#F2D7CD] flex items-start gap-2.5 text-xs text-[#9A3412]">
-                <AlertCircle size={16} className="text-[#D95327] flex-shrink-0 mt-0.5" />
+                <AlertCircle size={16} className="text-[#2D6A4F] flex-shrink-0 mt-0.5" />
                 <span>
                   Admin AksesPangan memantau keluhan pengguna 24/7 untuk memastikan keadilan, keselamatan mutu pangan, dan kelancaran transaksi.
                 </span>
@@ -208,7 +208,7 @@ export function ChatModal(props: ChatModalProps) {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="Contoh: Kendala pengambilan pesanan / Lokasi penyedia tutup"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#EADECF] bg-[#FAF7F2] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#D95327] focus:ring-2 focus:ring-[#D95327]/15 text-sm text-[#2C221D]"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm text-[#143628]"
                 />
               </div>
 
@@ -222,7 +222,7 @@ export function ChatModal(props: ChatModalProps) {
                   value={complaintText}
                   onChange={(e) => setComplaintText(e.target.value)}
                   placeholder="Jelaskan kendala secara rinci, cantumkan nama penyedia/penerima atau nomor pesanan terkait jika ada..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#EADECF] bg-[#FAF7F2] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#D95327] focus:ring-2 focus:ring-[#D95327]/15 text-sm text-[#2C221D] resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm text-[#143628] resize-none"
                 />
               </div>
 
@@ -230,7 +230,7 @@ export function ChatModal(props: ChatModalProps) {
                 <button
                   type="button"
                   onClick={props.onClose}
-                  className="px-4 py-2.5 text-sm font-medium text-[#7D6F64] hover:text-[#2C221D]"
+                  className="px-4 py-2.5 text-sm font-medium text-[#597367] hover:text-[#143628]"
                 >
                   Batal
                 </button>
@@ -249,20 +249,20 @@ export function ChatModal(props: ChatModalProps) {
               <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5 bg-[#FAF7F2] min-h-[300px] max-h-[420px]">
                 {/* Initial Info Card for Complaints */}
                 {isExistingComplaint && (
-                  <div className="p-3.5 bg-[#FFFDF9] rounded-xl border border-[#EADECF] shadow-2xs mb-4">
-                    <div className="flex items-center justify-between text-[11px] text-[#7D6F64] mb-1">
-                      <span className="font-semibold text-[#2C221D]">{props.complaint?.userName}</span>
+                  <div className="p-3.5 bg-[#FFFFFF] rounded-xl border border-[#DCE5DB] shadow-2xs mb-4">
+                    <div className="flex items-center justify-between text-[11px] text-[#597367] mb-1">
+                      <span className="font-semibold text-[#143628]">{props.complaint?.userName}</span>
                       <span>{new Date(props.complaint?.createdAt || '').toLocaleString('id-ID')}</span>
                     </div>
-                    <p className="text-xs text-[#2C221D] font-medium m-0">{props.complaint?.message}</p>
+                    <p className="text-xs text-[#143628] font-medium m-0">{props.complaint?.message}</p>
                   </div>
                 )}
 
                 {messages.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-48 text-center text-[#7D6F64]">
+                  <div className="flex flex-col items-center justify-center h-48 text-center text-[#597367]">
                     <MessageSquare size={36} className="mb-2 text-[#C4B3A3]" />
                     <p className="text-xs">Belum ada percakapan.</p>
-                    <p className="text-[11px] text-[#7D6F64] max-w-xs mt-1">
+                    <p className="text-[11px] text-[#597367] max-w-xs mt-1">
                       {isOrderMode
                         ? 'Gunakan obrolan ini untuk koordinasi penjemputan dan verifikasi kondisi makanan.'
                         : 'Balasan dari admin akan tampil di sini.'}
@@ -277,10 +277,10 @@ export function ChatModal(props: ChatModalProps) {
                         className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}
                       >
                         <div className="flex items-center gap-1.5 mb-1 px-1">
-                          <span className="text-[10px] font-semibold text-[#7D6F64]">
+                          <span className="text-[10px] font-semibold text-[#597367]">
                             {isMe ? 'Anda' : msg.senderName}
                           </span>
-                          <span className="text-[9px] px-1.5 py-0.2 rounded-full uppercase bg-[#EFE8DD] text-[#5A4D43] font-mono border border-[#EADECF]/60">
+                          <span className="text-[9px] px-1.5 py-0.2 rounded-full uppercase bg-[#EFE8DD] text-[#5A4D43] font-mono border border-[#DCE5DB]/60">
                             {msg.senderRole}
                           </span>
                         </div>
@@ -288,17 +288,17 @@ export function ChatModal(props: ChatModalProps) {
                           className={`max-w-[82%] px-4 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-xs ${
                             isMe
                               ? 'text-white rounded-tr-xs'
-                              : 'bg-[#FFFDF9] text-[#2C221D] border border-[#EADECF] rounded-tl-xs'
+                              : 'bg-[#FFFFFF] text-[#143628] border border-[#DCE5DB] rounded-tl-xs'
                           }`}
                           style={
                             isMe
-                              ? { background: '#D95327' }
+                              ? { background: '#2D6A4F' }
                               : {}
                           }
                         >
                           <p className="m-0 break-words">{msg.message}</p>
                         </div>
-                        <span className="text-[9px] text-[#7D6F64] mt-1 px-1">
+                        <span className="text-[9px] text-[#597367] mt-1 px-1">
                           {new Date(msg.createdAt).toLocaleTimeString('id-ID', {
                             hour: '2-digit',
                             minute: '2-digit',
@@ -313,7 +313,7 @@ export function ChatModal(props: ChatModalProps) {
 
               {/* Quick Replies for Orders */}
               {isOrderMode && quickReplies.length > 0 && (
-                <div className="px-4 py-2 bg-[#FFFDF9] border-t border-[#EADECF]/60 flex items-center gap-2 overflow-x-auto no-scrollbar">
+                <div className="px-4 py-2 bg-[#FFFFFF] border-t border-[#DCE5DB]/60 flex items-center gap-2 overflow-x-auto no-scrollbar">
                   {quickReplies.map((reply, idx) => (
                     <button
                       key={idx}
@@ -321,7 +321,7 @@ export function ChatModal(props: ChatModalProps) {
                       onClick={() => {
                         setNewMessage(reply);
                       }}
-                      className="text-[11px] whitespace-nowrap px-3 py-1 rounded-full bg-[#FAF7F2] hover:bg-[#F0EAE1] text-[#5A4D43] transition-colors cursor-pointer border border-[#EADECF]"
+                      className="text-[11px] whitespace-nowrap px-3 py-1 rounded-full bg-[#FAF7F2] hover:bg-[#F0EAE1] text-[#5A4D43] transition-colors cursor-pointer border border-[#DCE5DB]"
                     >
                       {reply}
                     </button>
@@ -332,7 +332,7 @@ export function ChatModal(props: ChatModalProps) {
               {/* Message Input Form */}
               <form
                 onSubmit={isOrderMode ? handleSendOrderMessage : handleSendComplaintReply}
-                className="p-3 bg-[#FFFDF9] border-t border-[#EADECF] flex items-center gap-2"
+                className="p-3 bg-[#FFFFFF] border-t border-[#DCE5DB] flex items-center gap-2"
               >
                 <input
                   type="text"
@@ -343,13 +343,13 @@ export function ChatModal(props: ChatModalProps) {
                       ? 'Ketik pesan koordinasi...'
                       : 'Ketik balasan untuk keluhan ini...'
                   }
-                  className="flex-1 px-4 py-2.5 rounded-full border border-[#EADECF] bg-[#FAF7F2] focus:bg-[#FFFDF9] focus:outline-none focus:border-[#D95327] focus:ring-2 focus:ring-[#D95327]/15 text-xs sm:text-sm text-[#2C221D]"
+                  className="flex-1 px-4 py-2.5 rounded-full border border-[#DCE5DB] bg-[#FAF7F2] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-xs sm:text-sm text-[#143628]"
                 />
                 <button
                   type="submit"
                   disabled={!newMessage.trim()}
                   className="w-10 h-10 rounded-full flex items-center justify-center text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all cursor-pointer flex-shrink-0 shadow-xs hover:opacity-90"
-                  style={{ background: '#D95327' }}
+                  style={{ background: '#2D6A4F' }}
                 >
                   <Send size={15} />
                 </button>

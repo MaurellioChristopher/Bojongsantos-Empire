@@ -56,19 +56,19 @@ export function TermsPage() {
   if (user?.role === 'penyedia' || user?.role === 'penerima') {
     const isPenyedia = user.role === 'penyedia';
     return (
-      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#FBF7F0]">
-        <div className="w-16 h-16 rounded-full bg-[#FFFDF9] flex items-center justify-center text-[#D95327] mb-4 border border-[#EADECF] shadow-sm">
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#F7F9F6]">
+        <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#2D6A4F] mb-4 border border-[#DCE5DB] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#2C221D] mb-2">
+        <h2 className="text-display-md text-[#143628] mb-2">
           Akses Dibatasi untuk {isPenyedia ? 'Penyedia' : 'Penerima'}
         </h2>
-        <p className="text-body-apple text-[#7D6F64] max-w-md mb-6">
+        <p className="text-body-apple text-[#597367] max-w-md mb-6">
           Sesuai aturan hak akses platform AksesPangan, akun {isPenyedia ? 'Mitra Penyedia' : 'Penerima Manfaat'} tidak memiliki izin untuk melihat maupun mengelola informasi pada fitur Standar Mutu dan Regulasi Konsumsi.
         </p>
         <a
           href={isPenyedia ? '#/penyedia' : '#/penerima'}
-          className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all"
+          className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all"
         >
           Kembali ke {isPenyedia ? 'Dashboard Penyedia' : 'Katalog Surplus'}
         </a>
@@ -132,19 +132,19 @@ export function TermsPage() {
   const isAdmin = user?.role === 'admin';
 
   return (
-    <div className="min-h-screen bg-[#FBF7F0] py-12 px-4 sm:px-6">
+    <div className="min-h-screen bg-[#F7F9F6] py-12 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         {/* Page Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-[#EADECF]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-[#DCE5DB]">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF2EB] text-[#D95327] border border-[#F2DACB] text-xs font-semibold uppercase tracking-wider mb-3">
-              <Shield size={14} className="text-[#D95327]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] text-xs font-semibold uppercase tracking-wider mb-3">
+              <Shield size={14} className="text-[#2D6A4F]" />
               <span>Standar Keamanan Pangan &amp; Syarat Layanan</span>
             </div>
-            <h1 className="text-display-lg text-[#2C221D] mb-2 font-serif">
+            <h1 className="text-display-lg text-[#143628] mb-2 font-serif">
               Standar Mutu &amp; Regulasi Konsumsi
             </h1>
-            <p className="text-body-apple text-[#7D6F64] max-w-2xl m-0">
+            <p className="text-body-apple text-[#597367] max-w-2xl m-0">
               Protokol ketat penanganan surplus makanan untuk memastikan seluruh hidangan yang diselamatkan layak, aman, dan higienis dikonsumsi masyarakat.
             </p>
           </div>
@@ -152,7 +152,7 @@ export function TermsPage() {
           {isAdmin && (
             <button
               onClick={handleOpenAdd}
-              className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-xs py-2.5 px-4 rounded-xl flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-sm transition-all"
+              className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2.5 px-4 rounded-xl flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-sm transition-all"
             >
               <Plus size={15} />
               <span>Tambah Standar Mutu</span>
@@ -161,54 +161,54 @@ export function TermsPage() {
         </div>
 
         {/* 4 Core Pillars */}
-        <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 sm:p-8 mb-8 shadow-xs">
-          <h2 className="text-tagline text-[#2C221D] mb-4">
+        <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 mb-8 shadow-xs">
+          <h2 className="text-tagline text-[#143628] mb-4">
             4 Pilar Jaminan Mutu AksesPangan
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#EADECF] flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#D95327] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
+            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
                 <ThermometerSun size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#2C221D] mb-1">Kontrol Suhu Penyimpanan</h4>
-                <p className="text-caption-apple text-[#7D6F64] m-0">
+                <h4 className="text-body-strong text-[#143628] mb-1">Kontrol Suhu Penyimpanan</h4>
+                <p className="text-caption-apple text-[#597367] m-0">
                   Makanan panas dijaga di atas 60°C dan makanan dingin di bawah 5°C sebelum diambil oleh penerima.
                 </p>
               </div>
             </div>
 
-            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#EADECF] flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#D95327] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
+            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
                 <Clock size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#2C221D] mb-1">Batas Waktu Konsumsi (4 Jam)</h4>
-                <p className="text-caption-apple text-[#7D6F64] m-0">
+                <h4 className="text-body-strong text-[#143628] mb-1">Batas Waktu Konsumsi (4 Jam)</h4>
+                <p className="text-caption-apple text-[#597367] m-0">
                   Makanan siap saji tidak boleh dibiarkan lebih dari 4 jam pada rentang suhu bahaya (5°C - 60°C).
                 </p>
               </div>
             </div>
 
-            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#EADECF] flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#D95327] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
+            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
                 <Clock size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#2C221D] mb-1">Batas Waktu Pengambilan</h4>
-                <p className="text-caption-apple text-[#7D6F64] m-0">
+                <h4 className="text-body-strong text-[#143628] mb-1">Batas Waktu Pengambilan</h4>
+                <p className="text-caption-apple text-[#597367] m-0">
                   Ambil makanan sesuai jadwal pickup deadline untuk memastikan kesegaran tetap prima.
                 </p>
               </div>
             </div>
 
-            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#EADECF] flex items-start gap-3.5">
-              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#D95327] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
+            <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB] flex items-start gap-3.5">
+              <div className="w-9 h-9 rounded-xl bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] flex items-center justify-center flex-shrink-0">
                 <CheckCircle size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#2C221D] mb-1">Verifikasi Fisik di Tempat</h4>
-                <p className="text-caption-apple text-[#7D6F64] m-0">
+                <h4 className="text-body-strong text-[#143628] mb-1">Verifikasi Fisik di Tempat</h4>
+                <p className="text-caption-apple text-[#597367] m-0">
                   Periksa kemasan tertutup rapat dan pastikan tidak ada perubahan warna atau aroma yang tidak wajar.
                 </p>
               </div>
@@ -218,30 +218,30 @@ export function TermsPage() {
 
         {/* Warning Callout Box */}
         <div className="p-5 rounded-[14px] flex items-start gap-3.5 mb-8 bg-[#FFF2EB] border border-[#FAD7C8]">
-          <AlertTriangle size={18} className="flex-shrink-0 mt-0.5 text-[#D95327]" />
+          <AlertTriangle size={18} className="flex-shrink-0 mt-0.5 text-[#2D6A4F]" />
           <div>
-            <div className="text-body-strong text-[#2C221D] mb-0.5">Catatan Penting Konsumsi</div>
-            <div className="text-caption-apple text-[#7D6F64] leading-relaxed">
+            <div className="text-body-strong text-[#143628] mb-0.5">Catatan Penting Konsumsi</div>
+            <div className="text-caption-apple text-[#597367] leading-relaxed">
               Jika setelah dibuka makanan mengeluarkan aroma masam, berlendir, atau kemasan rusak, segera buang dan laporkan melalui platform. Keselamatan Anda selalu menjadi prioritas utama.
             </div>
           </div>
         </div>
 
         {/* Terms Accordion (Dynamic from Database) */}
-        <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 sm:p-8 shadow-xs">
+        <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 shadow-xs">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-tagline text-[#2C221D] flex items-center gap-2 m-0 font-bold">
-              <BookOpen size={20} className="text-[#D95327]" />
+            <h2 className="text-tagline text-[#143628] flex items-center gap-2 m-0 font-bold">
+              <BookOpen size={20} className="text-[#2D6A4F]" />
               Pasal Ketentuan &amp; Standar Mutu Platform
             </h2>
             {isAdmin && (
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-[#FAF2EB] text-[#D95327] border border-[#F2DACB] font-semibold inline-flex items-center gap-1">
-                <ShieldCheck size={13} className="text-[#D95327]" /> Mode Admin Aktif
+              <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] font-semibold inline-flex items-center gap-1">
+                <ShieldCheck size={13} className="text-[#2D6A4F]" /> Mode Admin Aktif
               </span>
             )}
           </div>
 
-          <div className="divide-y divide-[#EADECF]">
+          <div className="divide-y divide-[#DCE5DB]">
             {standards.map((item, index) => {
               const isOpen = openSection === index;
               return (
@@ -250,14 +250,14 @@ export function TermsPage() {
                     <button
                       onClick={() => toggleSection(index)}
                       className={`flex-1 text-left flex items-center justify-between gap-4 font-semibold text-[16px] sm:text-[17px] transition-colors cursor-pointer ${
-                        isOpen ? 'text-[#D95327]' : 'text-[#2C221D] hover:opacity-75'
+                        isOpen ? 'text-[#2D6A4F]' : 'text-[#143628] hover:opacity-75'
                       }`}
                     >
                       <span>{item.title}</span>
                       <motion.div
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.2 }}
-                        className="text-[#7D6F64] flex-shrink-0"
+                        className="text-[#597367] flex-shrink-0"
                       >
                         <ChevronDown size={18} />
                       </motion.div>
@@ -267,7 +267,7 @@ export function TermsPage() {
                       <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
                         <button
                           onClick={(e) => handleOpenEdit(item, e)}
-                          className="p-1.5 rounded-md hover:bg-[#F5EFEB] text-[#7D6F64] hover:text-[#2C221D] transition-colors"
+                          className="p-1.5 rounded-md hover:bg-[#EDF2EC] text-[#597367] hover:text-[#143628] transition-colors"
                           title="Ubah pasal"
                         >
                           <Edit2 size={14} />
@@ -290,7 +290,7 @@ export function TermsPage() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.25 }}
-                        className="overflow-hidden pt-3 text-body-apple text-[#7D6F64]"
+                        className="overflow-hidden pt-3 text-body-apple text-[#597367]"
                       >
                         <p className="m-0 leading-relaxed whitespace-pre-line">{item.content}</p>
                       </motion.div>
@@ -305,19 +305,19 @@ export function TermsPage() {
 
       {/* Admin CRUD Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#18110D]/60 backdrop-blur-xs">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0C2017]/60 backdrop-blur-xs">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-lg bg-[#FFFDF9] rounded-2xl shadow-2xl p-6 border border-[#EADECF] text-[#2C221D]"
+            className="w-full max-w-lg bg-[#FFFFFF] rounded-2xl shadow-2xl p-6 border border-[#DCE5DB] text-[#143628]"
           >
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#EADECF]">
-              <h3 className="font-semibold text-lg text-[#2C221D] m-0">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#DCE5DB]">
+              <h3 className="font-semibold text-lg text-[#143628] m-0">
                 {editingItem ? 'Ubah Standar Mutu' : 'Tambah Standar Mutu Baru'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 text-[#7D6F64] hover:text-[#2C221D] rounded-full"
+                className="p-1 text-[#597367] hover:text-[#143628] rounded-full"
               >
                 <X size={18} />
               </button>
@@ -325,7 +325,7 @@ export function TermsPage() {
 
             <form onSubmit={handleSaveForm} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#2C221D] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#143628] uppercase tracking-wider mb-1">
                   Judul Pasal / Standar Mutu
                 </label>
                 <input
@@ -334,12 +334,12 @@ export function TermsPage() {
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
                   placeholder="Contoh: 6. Kebijakan Kemasan Ramah Lingkungan"
-                  className="w-full px-3.5 py-2 rounded-xl border border-[#EADECF] bg-[#FAF7F2] text-[#2C221D] focus:outline-none focus:border-[#D95327] focus:ring-2 focus:ring-[#D95327]/15 text-sm"
+                  className="w-full px-3.5 py-2 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] text-[#143628] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#2C221D] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-semibold text-[#143628] uppercase tracking-wider mb-1">
                   Isi Ketentuan &amp; Regulasi
                 </label>
                 <textarea
@@ -348,7 +348,7 @@ export function TermsPage() {
                   value={formContent}
                   onChange={(e) => setFormContent(e.target.value)}
                   placeholder="Rincian ketentuan standar mutu dan kewajiban pengguna..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#EADECF] bg-[#FAF7F2] text-[#2C221D] focus:outline-none focus:border-[#D95327] focus:ring-2 focus:ring-[#D95327]/15 text-sm resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] text-[#143628] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm resize-none"
                 />
               </div>
 
@@ -356,13 +356,13 @@ export function TermsPage() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-sm font-medium text-[#7D6F64] hover:text-[#2C221D]"
+                  className="px-4 py-2 text-sm font-medium text-[#597367] hover:text-[#143628]"
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-sm py-2 px-5 rounded-xl font-medium flex items-center gap-2 shadow-sm transition-all"
+                  className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2 px-5 rounded-xl font-medium flex items-center gap-2 shadow-sm transition-all"
                 >
                   <Save size={15} />
                   <span>{editingItem ? 'Simpan Perubahan' : 'Terbitkan Pasal'}</span>

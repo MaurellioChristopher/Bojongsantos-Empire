@@ -51,25 +51,25 @@ export function CheckoutModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#18110D]/60 backdrop-blur-md overflow-y-auto">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#0C2017]/60 backdrop-blur-md overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="bg-[#FFFDF9] rounded-[24px] max-w-2xl w-full p-6 sm:p-8 border border-[#EADECF] shadow-2xl relative my-auto max-h-[92vh] flex flex-col justify-between overflow-hidden text-[#2C221D]"
+          className="bg-[#FFFFFF] rounded-[24px] max-w-2xl w-full p-6 sm:p-8 border border-[#DCE5DB] shadow-2xl relative my-auto max-h-[92vh] flex flex-col justify-between overflow-hidden text-[#143628]"
         >
           {/* Header Bar */}
-          <div className="flex items-center justify-between pb-4 border-b border-[#EADECF]">
+          <div className="flex items-center justify-between pb-4 border-b border-[#DCE5DB]">
             <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-full bg-[#2C221D] text-[#FAF6F0] flex items-center justify-center text-lg shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-[#143628] text-[#F3F8F5] flex items-center justify-center text-lg shadow-sm">
                 <ShoppingBag size={20} />
               </div>
               <div>
-                <h2 className="text-tagline font-bold text-[#2C221D] tracking-tight leading-none mb-1">
+                <h2 className="text-tagline font-bold text-[#143628] tracking-tight leading-none mb-1">
                   Checkout & Konfirmasi Pesanan
                 </h2>
-                <p className="text-fine-print text-[#7D6F64] m-0">
+                <p className="text-fine-print text-[#597367] m-0">
                   Langkah 2 dari 2: Tinjau rincian biaya & panduan mutu makanan
                 </p>
               </div>
@@ -77,21 +77,21 @@ export function CheckoutModal({
 
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-[#F5EFEB] flex items-center justify-center text-[#7D6F64] hover:text-[#2C221D] transition-colors"
+              className="w-8 h-8 rounded-full bg-[#EDF2EC] flex items-center justify-center text-[#597367] hover:text-[#143628] transition-colors"
             >
               <X size={16} />
             </button>
           </div>
 
           {/* Tab Switcher for Quick Navigation */}
-          <div className="flex items-center bg-[#F5EFEB] p-1 rounded-full my-4 self-center sm:self-start text-xs font-semibold border border-[#EADECF]">
+          <div className="flex items-center bg-[#EDF2EC] p-1 rounded-full my-4 self-center sm:self-start text-xs font-semibold border border-[#DCE5DB]">
             <button
               type="button"
               onClick={() => setActiveTab('rincian')}
               className={`px-4 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
                 activeTab === 'rincian'
-                  ? 'bg-[#FFFDF9] text-[#2C221D] shadow-sm font-bold border border-[#EADECF]'
-                  : 'text-[#7D6F64] hover:text-[#2C221D]'
+                  ? 'bg-[#FFFFFF] text-[#143628] shadow-sm font-bold border border-[#DCE5DB]'
+                  : 'text-[#597367] hover:text-[#143628]'
               }`}
             >
               <ShoppingBag size={14} /> Ringkasan Pesanan & Biaya
@@ -101,8 +101,8 @@ export function CheckoutModal({
               onClick={() => setActiveTab('keamanan')}
               className={`px-4 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
                 activeTab === 'keamanan'
-                  ? 'bg-[#FFFDF9] text-[#2C221D] shadow-sm font-bold border border-[#EADECF]'
-                  : 'text-[#7D6F64] hover:text-[#2C221D]'
+                  ? 'bg-[#FFFFFF] text-[#143628] shadow-sm font-bold border border-[#DCE5DB]'
+                  : 'text-[#597367] hover:text-[#143628]'
               }`}
             >
               <ShieldCheck size={14} className="text-[#16a34a]" /> Panduan Mutu ({guideline.categoryName})
@@ -112,9 +112,9 @@ export function CheckoutModal({
           {/* Scrollable Content Container */}
           <div className="overflow-y-auto pr-1 space-y-5 my-2 max-h-[52vh]">
             {/* 1. Item Header Card */}
-            <div className="p-4 sm:p-5 rounded-[18px] bg-[#FAF7F2] border border-[#EADECF] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="p-4 sm:p-5 rounded-[18px] bg-[#FAF7F2] border border-[#DCE5DB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-start sm:items-center gap-3.5">
-                <div className="w-16 h-16 rounded-[14px] overflow-hidden bg-[#F5EFEB] shadow-sm border border-[#EADECF] flex-shrink-0 relative">
+                <div className="w-16 h-16 rounded-[14px] overflow-hidden bg-[#EDF2EC] shadow-sm border border-[#DCE5DB] flex-shrink-0 relative">
                   <img
                     src={getSurplusPhoto(item)}
                     alt={item.name}
@@ -123,7 +123,7 @@ export function CheckoutModal({
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#2C221D] text-[#FAF6F0]">
+                    <span className="text-[11px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#143628] text-[#F3F8F5]">
                       {FOOD_CATEGORY_LABELS[item.foodCategory] || item.foodCategory}
                     </span>
                     {item.isFree && (
@@ -132,19 +132,19 @@ export function CheckoutModal({
                       </span>
                     )}
                   </div>
-                  <h3 className="text-body-strong text-[#2C221D] line-clamp-1 mb-0.5">
+                  <h3 className="text-body-strong text-[#143628] line-clamp-1 mb-0.5">
                     {item.name}
                   </h3>
-                  <p className="text-caption-apple text-[#7D6F64] m-0 flex items-center gap-1">
-                    <Store size={13} className="text-[#D95327]" />
+                  <p className="text-caption-apple text-[#597367] m-0 flex items-center gap-1">
+                    <Store size={13} className="text-[#2D6A4F]" />
                     <span>{item.providerBusinessName}</span>
                   </p>
                 </div>
               </div>
 
-              <div className="text-left sm:text-right self-stretch sm:self-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-[#EADECF] flex sm:flex-col justify-between sm:justify-center items-center sm:items-end">
-                <span className="text-fine-print text-[#7D6F64]">Jumlah Porsi</span>
-                <span className="text-body-strong text-[#2C221D]">
+              <div className="text-left sm:text-right self-stretch sm:self-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-[#DCE5DB] flex sm:flex-col justify-between sm:justify-center items-center sm:items-end">
+                <span className="text-fine-print text-[#597367]">Jumlah Porsi</span>
+                <span className="text-body-strong text-[#143628]">
                   {item.quantity} kg ({item.portionCount} porsi)
                 </span>
               </div>
@@ -154,70 +154,70 @@ export function CheckoutModal({
               <>
                 {/* 2. Pickup Location & Deadline Info */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="p-4 rounded-[16px] bg-[#FFFDF9] border border-[#EADECF]">
-                    <div className="text-fine-print uppercase font-semibold text-[#7D6F64] tracking-wider mb-1 flex items-center gap-1">
-                      <MapPin size={13} className="text-[#D95327]" /> Lokasi Penjemputan
+                  <div className="p-4 rounded-[16px] bg-[#FFFFFF] border border-[#DCE5DB]">
+                    <div className="text-fine-print uppercase font-semibold text-[#597367] tracking-wider mb-1 flex items-center gap-1">
+                      <MapPin size={13} className="text-[#2D6A4F]" /> Lokasi Penjemputan
                     </div>
-                    <div className="text-caption-strong text-[#2C221D] line-clamp-1">
+                    <div className="text-caption-strong text-[#143628] line-clamp-1">
                       {item.address}
                     </div>
-                    <div className="text-fine-print text-[#7D6F64] mt-0.5">
+                    <div className="text-fine-print text-[#597367] mt-0.5">
                       Mitra: {item.providerBusinessName}
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-[16px] bg-[#FFFDF9] border border-[#EADECF]">
-                    <div className="text-fine-print uppercase font-semibold text-[#7D6F64] tracking-wider mb-1 flex items-center gap-1">
-                      <Clock size={13} className="text-[#D95327]" /> Batas Waktu Ambil
+                  <div className="p-4 rounded-[16px] bg-[#FFFFFF] border border-[#DCE5DB]">
+                    <div className="text-fine-print uppercase font-semibold text-[#597367] tracking-wider mb-1 flex items-center gap-1">
+                      <Clock size={13} className="text-[#2D6A4F]" /> Batas Waktu Ambil
                     </div>
-                    <div className="text-caption-strong text-[#2C221D] font-bold">
+                    <div className="text-caption-strong text-[#143628] font-bold">
                       {formatCountdown(item.expiryTime)} lagi
                     </div>
-                    <div className="text-fine-print text-[#7D6F64] mt-0.5">
+                    <div className="text-fine-print text-[#597367] mt-0.5">
                       Segera ambil sebelum stok kedaluwarsa
                     </div>
                   </div>
                 </div>
 
                 {/* 3. Pricing Breakdown */}
-                <div className="p-5 rounded-[18px] bg-[#FFFDF9] border border-[#EADECF] space-y-3">
-                  <h4 className="text-caption-strong text-[#2C221D] border-b border-[#EADECF] pb-2 flex items-center justify-between">
+                <div className="p-5 rounded-[18px] bg-[#FFFFFF] border border-[#DCE5DB] space-y-3">
+                  <h4 className="text-caption-strong text-[#143628] border-b border-[#DCE5DB] pb-2 flex items-center justify-between">
                     <span>Rincian Pembayaran</span>
-                    <span className="text-fine-print font-normal text-[#7D6F64]">Bebas Biaya Admin</span>
+                    <span className="text-fine-print font-normal text-[#597367]">Bebas Biaya Admin</span>
                   </h4>
 
-                  <div className="flex justify-between text-caption-apple text-[#7D6F64]">
+                  <div className="flex justify-between text-caption-apple text-[#597367]">
                     <span>Harga Makanan ({item.portionCount} porsi)</span>
-                    <span className="text-[#2C221D] font-medium">
+                    <span className="text-[#143628] font-medium">
                       {item.isFree ? 'Rp 0 (Gratis)' : formatPrice(item.price)}
                     </span>
                   </div>
 
-                  <div className="flex justify-between text-caption-apple text-[#7D6F64]">
+                  <div className="flex justify-between text-caption-apple text-[#597367]">
                     <span>Biaya Penyelamatan Pangan (ESG)</span>
                     <span className="text-[#16a34a] font-medium">Rp 0 (Subsidi AksesPangan)</span>
                   </div>
 
-                  <div className="pt-2 border-t border-[#EADECF] flex justify-between items-center">
+                  <div className="pt-2 border-t border-[#DCE5DB] flex justify-between items-center">
                     <div>
-                      <span className="text-body-strong text-[#2C221D]">Total Bayar</span>
-                      <p className="text-fine-print text-[#7D6F64] m-0">Bayar langsung di tempat jika berbayar</p>
+                      <span className="text-body-strong text-[#143628]">Total Bayar</span>
+                      <p className="text-fine-print text-[#597367] m-0">Bayar langsung di tempat jika berbayar</p>
                     </div>
-                    <span className="text-display-md text-[#2C221D] font-bold">
+                    <span className="text-display-md text-[#143628] font-bold">
                       {item.isFree ? 'GRATIS' : formatPrice(item.price)}
                     </span>
                   </div>
                 </div>
 
                 {/* Quick Quality Teaser Card */}
-                <div className="p-4 rounded-[16px] bg-[#FAF7F2] border border-[#EADECF] flex items-start gap-3">
-                  <ShieldCheck size={18} className="text-[#D95327] flex-shrink-0 mt-0.5" />
-                  <div className="text-xs text-[#7D6F64]">
-                    <span className="font-semibold text-[#2C221D]">Penjaminan Mutu Pangan:</span> {guideline.reheatingInstructions}
+                <div className="p-4 rounded-[16px] bg-[#FAF7F2] border border-[#DCE5DB] flex items-start gap-3">
+                  <ShieldCheck size={18} className="text-[#2D6A4F] flex-shrink-0 mt-0.5" />
+                  <div className="text-xs text-[#597367]">
+                    <span className="font-semibold text-[#143628]">Penjaminan Mutu Pangan:</span> {guideline.reheatingInstructions}
                     <button
                       type="button"
                       onClick={() => setActiveTab('keamanan')}
-                      className="block mt-1 font-semibold text-[#D95327] underline hover:opacity-75"
+                      className="block mt-1 font-semibold text-[#2D6A4F] underline hover:opacity-75"
                     >
                       Lihat instruksi penyimpanan & Do's/Don'ts lengkap →
                     </button>
@@ -229,29 +229,29 @@ export function CheckoutModal({
               <div className="space-y-4">
                 {/* Temperature & Storage Badges */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#EADECF]">
-                    <div className="text-fine-print text-[#7D6F64] mb-1 flex items-center gap-1">
-                      <ThermometerSun size={13} className="text-[#D95327]" /> Suhu Penyimpanan
+                  <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB]">
+                    <div className="text-fine-print text-[#597367] mb-1 flex items-center gap-1">
+                      <ThermometerSun size={13} className="text-[#2D6A4F]" /> Suhu Penyimpanan
                     </div>
-                    <div className="text-caption-strong text-[#2C221D]">
+                    <div className="text-caption-strong text-[#143628]">
                       {guideline.storageTemp}
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#EADECF]">
-                    <div className="text-fine-print text-[#7D6F64] mb-1 flex items-center gap-1">
-                      <Clock size={13} className="text-[#D95327]" /> Maks. Suhu Ruang
+                  <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB]">
+                    <div className="text-fine-print text-[#597367] mb-1 flex items-center gap-1">
+                      <Clock size={13} className="text-[#2D6A4F]" /> Maks. Suhu Ruang
                     </div>
-                    <div className="text-caption-strong text-[#2C221D]">
+                    <div className="text-caption-strong text-[#143628]">
                       {guideline.maxSafeHours} Jam sejak diambil
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#EADECF]">
-                    <div className="text-fine-print text-[#7D6F64] mb-1 flex items-center gap-1">
+                  <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB]">
+                    <div className="text-fine-print text-[#597367] mb-1 flex items-center gap-1">
                       <ShieldCheck size={13} className="text-[#16a34a]" /> Maks. Kulkas (&lt;4°C)
                     </div>
-                    <div className="text-caption-strong text-[#2C221D]">
+                    <div className="text-caption-strong text-[#143628]">
                       {guideline.maxRefrigeratedHours} Jam
                     </div>
                   </div>
@@ -259,7 +259,7 @@ export function CheckoutModal({
 
                 {/* Reheating Guide Box */}
                 <div className="p-4 rounded-[16px] bg-[#FFF2EB] border border-[#FAD7C8]">
-                  <div className="text-caption-strong text-[#D95327] mb-1 flex items-center gap-1.5 font-bold">
+                  <div className="text-caption-strong text-[#2D6A4F] mb-1 flex items-center gap-1.5 font-bold">
                     <Flame size={16} /> Tata Cara Pemanasan Ulang (Reheating)
                   </div>
                   <p className="text-caption-apple text-[#933719] m-0 leading-relaxed">
@@ -304,15 +304,15 @@ export function CheckoutModal({
           </div>
 
           {/* Terms Agreement Checkbox & Footer Controls */}
-          <div className="pt-4 border-t border-[#EADECF] space-y-4">
-            <label className="flex items-start gap-3 cursor-pointer select-none bg-[#FAF7F2] p-3 rounded-[12px] border border-[#EADECF]">
+          <div className="pt-4 border-t border-[#DCE5DB] space-y-4">
+            <label className="flex items-start gap-3 cursor-pointer select-none bg-[#FAF7F2] p-3 rounded-[12px] border border-[#DCE5DB]">
               <input
                 type="checkbox"
                 checked={agreedToTerms}
                 onChange={(e) => setAgreedToTerms(e.target.checked)}
-                className="mt-0.5 w-4 h-4 rounded accent-[#2C221D] cursor-pointer"
+                className="mt-0.5 w-4 h-4 rounded accent-[#143628] cursor-pointer"
               />
-              <span className="text-xs text-[#2C221D] leading-snug">
+              <span className="text-xs text-[#143628] leading-snug">
                 Saya menyetujui panduan keselamatan mutu makanan di atas dan berkomitmen untuk mengambil makanan di lokasi sebelum batas waktu habis.
               </span>
             </label>
@@ -321,7 +321,7 @@ export function CheckoutModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 bg-[#F5EFEB] hover:bg-[#EADECF] text-[#2C221D] font-medium text-sm py-3 rounded-xl border border-[#EADECF] transition-colors"
+                className="flex-1 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] font-medium text-sm py-3 rounded-xl border border-[#DCE5DB] transition-colors"
               >
                 Batal
               </button>
@@ -329,7 +329,7 @@ export function CheckoutModal({
                 type="button"
                 onClick={handleSubmit}
                 disabled={!agreedToTerms || isLoading}
-                className="flex-1 bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] font-medium text-sm py-3 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                className="flex-1 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] font-medium text-sm py-3 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 {isLoading ? 'Memproses Checkout...' : 'Konfirmasi & Buat Pesanan Sekarang'}
               </button>

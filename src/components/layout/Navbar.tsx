@@ -74,8 +74,8 @@ export function Navbar({ currentRoute }: NavbarProps) {
     <header
       className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md transition-all duration-300 ${
         isDark
-          ? 'bg-[#18110D]/90 border-b border-[#382A22] text-[#FAF6F0]'
-          : 'bg-[#FBF7F0]/92 border-b border-[#EADECF] text-[#2C221D] shadow-xs'
+          ? 'bg-[#0C2017]/90 border-b border-[#1D3E30] text-[#F3F8F5]'
+          : 'bg-[#F7F9F6]/92 border-b border-[#DCE5DB] text-[#143628] shadow-xs'
       }`}
     >
       {/* SINGLE LUXURY EDITORIAL NAVIGATION BAR (68px) */}
@@ -94,12 +94,12 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   ? '#/admin'
                   : '#/penerima'
               }
-              className={`flex items-center gap-3 no-underline group ${isDark ? 'text-[#FAF6F0]' : 'text-[#2C221D]'}`}
+              className={`flex items-center gap-3 no-underline group ${isDark ? 'text-[#F3F8F5]' : 'text-[#143628]'}`}
             >
               <div className={`w-8 h-8 flex items-center justify-center rounded-[4px] transition-transform duration-300 group-hover:scale-105 shadow-2xs ${
-                isDark ? 'bg-[#FAF6F0] text-[#1F1713]' : ''
+                isDark ? 'bg-[#F3F8F5] text-[#10271D]' : ''
               }`}
-              style={!isDark ? { background: '#D95327', color: '#ffffff' } : {}}
+              style={!isDark ? { background: '#2D6A4F', color: '#ffffff' } : {}}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
@@ -108,10 +108,10 @@ export function Navbar({ currentRoute }: NavbarProps) {
               </div>
               <div className="flex flex-col">
                 <span className="font-semibold text-[13px] tracking-[0.2em] uppercase leading-none">
-                  Akses<span className={isDark ? 'font-light text-[#FAF6F0]/80' : 'font-light text-[#7D6F64]'}>Pangan</span>
+                  Akses<span className={isDark ? 'font-light text-[#F3F8F5]/80' : 'font-light text-[#597367]'}>Pangan</span>
                 </span>
                 <span className={`text-[9px] tracking-[0.25em] uppercase font-mono mt-0.5 ${
-                  isDark ? 'text-[#FAF6F0]/60' : 'text-[#9C8E82]'
+                  isDark ? 'text-[#F3F8F5]/60' : 'text-[#7A9386]'
                 }`}>
                   Surplus Network
                 </span>
@@ -120,7 +120,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
 
             {/* Desktop Navigation Links - Dynamically filtered by Role */}
             <div className={`hidden lg:flex items-center gap-7 text-[12px] font-medium tracking-[0.08em] uppercase ${
-              isDark ? 'text-[#FAF6F0]/80' : 'text-[#7D6F64]'
+              isDark ? 'text-[#F3F8F5]/80' : 'text-[#597367]'
             }`}>
               {/* Guest links */}
               {!isAuthenticated && (
@@ -129,13 +129,13 @@ export function Navbar({ currentRoute }: NavbarProps) {
                     href="#/"
                     className={`transition-colors no-underline py-1 relative ${
                       isDark
-                        ? activeRoute === '/' ? 'text-[#FAF6F0] font-semibold' : 'hover:text-[#FAF6F0]'
-                        : activeRoute === '/' ? 'text-[#2C221D] font-semibold' : 'hover:text-[#D95327]'
+                        ? activeRoute === '/' ? 'text-[#F3F8F5] font-semibold' : 'hover:text-[#F3F8F5]'
+                        : activeRoute === '/' ? 'text-[#143628] font-semibold' : 'hover:text-[#2D6A4F]'
                     }`}
                   >
                     Beranda
                     {activeRoute === '/' && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -148,7 +148,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Dampak ESG
                     {activeRoute.startsWith('/dashboard') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -161,7 +161,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Standar Mutu
                     {activeRoute.startsWith('/terms') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                 </>
@@ -180,7 +180,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Katalog Surplus
                     {activeRoute === '/penerima' && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -193,7 +193,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Pesanan Saya
                     {activeRoute.startsWith('/penerima/booking') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -206,7 +206,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Riwayat
                     {activeRoute.startsWith('/penerima/history') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                 </>
@@ -225,7 +225,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Dashboard
                     {activeRoute === '/penyedia' && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -238,7 +238,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Surplus Saya
                     {activeRoute.startsWith('/penyedia/surplus') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -251,7 +251,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Pesanan Masuk
                     {activeRoute.startsWith('/penyedia/booking') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -264,7 +264,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Riwayat
                     {activeRoute.startsWith('/penyedia/history') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                 </>
@@ -292,7 +292,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Kelola Standar Mutu
                     {activeRoute.startsWith('/terms') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                   <a
@@ -305,7 +305,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   >
                     Kelola Dampak ESG
                     {activeRoute.startsWith('/dashboard') && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#FAF6F0' : '#D95327' }} />
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
                   </a>
                 </>
@@ -333,7 +333,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 <a
                   href={user.role === 'penyedia' ? '#/penyedia' : user.role === 'admin' ? '#/admin' : '#/penerima'}
                   className={`flex items-center gap-1.5 no-underline font-semibold ${
-                    isDark ? 'text-[#FAF6F0]' : 'text-[#2C221D]'
+                    isDark ? 'text-[#F3F8F5]' : 'text-[#143628]'
                   }`}
                 >
                   <User size={15} />
@@ -342,7 +342,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 <button
                   onClick={handleLogout}
                   className={`text-xs transition-colors p-1 cursor-pointer ${
-                    isDark ? 'text-[#FAF6F0]/70 hover:text-[#FAF6F0]' : 'text-[#7D6F64] hover:text-[#2C221D]'
+                    isDark ? 'text-[#F3F8F5]/70 hover:text-[#F3F8F5]' : 'text-[#597367] hover:text-[#143628]'
                   }`}
                   title="Keluar"
                 >
@@ -353,7 +353,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <a
                 href="#/login"
                 className={`flex items-center gap-1.5 transition-opacity no-underline font-semibold ${
-                  isDark ? 'text-[#FAF6F0] hover:text-[#FAF6F0]/80' : 'text-[#D95327] hover:opacity-80'
+                  isDark ? 'text-[#F3F8F5] hover:text-[#F3F8F5]/80' : 'text-[#2D6A4F] hover:opacity-80'
                 }`}
               >
                 <User size={15} />
@@ -366,14 +366,14 @@ export function Navbar({ currentRoute }: NavbarProps) {
               <a
                 href={user.role === 'penyedia' ? '#/penyedia/booking' : '#/penerima/booking'}
                 className={`relative p-1.5 transition-opacity no-underline ${
-                  isDark ? 'text-[#FAF6F0]' : 'text-[#2C221D]'
+                  isDark ? 'text-[#F3F8F5]' : 'text-[#143628]'
                 }`}
                 title={user.role === 'penyedia' ? 'Pesanan Masuk' : 'Pesanan Saya'}
               >
                 <ShoppingBag size={17} />
                 {activeBookingsCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center text-white shadow-2xs"
-                    style={{ background: isDark ? '#FAF6F0' : '#D95327', color: isDark ? '#1F1713' : '#ffffff' }}
+                    style={{ background: isDark ? '#F3F8F5' : '#2D6A4F', color: isDark ? '#10271D' : '#ffffff' }}
                   >
                     {activeBookingsCount}
                   </span>
@@ -384,7 +384,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMenuOpen(!mobileMenuOpen)}
-              className={`lg:hidden p-1 hover:opacity-75 focus:outline-none ${isDark ? 'text-[#FAF6F0]' : 'text-[#2C221D]'}`}
+              className={`lg:hidden p-1 hover:opacity-75 focus:outline-none ${isDark ? 'text-[#F3F8F5]' : 'text-[#143628]'}`}
               aria-label="Menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -400,7 +400,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#FBF7F0] text-[#2C221D] px-6 py-6 border-b border-[#EADECF] shadow-xl"
+            className="lg:hidden bg-[#F7F9F6] text-[#143628] px-6 py-6 border-b border-[#DCE5DB] shadow-xl"
           >
             <div className="flex flex-col gap-4 text-[14px] font-medium tracking-[0.06em] uppercase">
               {/* Guest links */}

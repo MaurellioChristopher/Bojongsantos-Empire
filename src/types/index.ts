@@ -38,6 +38,8 @@ export interface Coordinates {
 }
 
 // --- Surplus ---
+export type SurplusItemType = 'siap_santap' | 'bahan_baku';
+
 export type FoodCategory =
   | 'nasi'
   | 'lauk'
@@ -66,9 +68,18 @@ export interface SurplusItem {
   price: number; // 0 = gratis
   isFree: boolean;
   foodCategory: FoodCategory;
+  itemType?: SurplusItemType; // 'siap_santap' (makanan matang) | 'bahan_baku' (mentah/segar)
   location: Coordinates;
   address: string;
   createdAt: string;
+}
+
+export function getSurplusItemType(item: { itemType?: SurplusItemType; foodCategory?: string }): SurplusItemType {
+  if (item.itemType) return item.itemType;
+  if (item.foodCategory === 'sayur' || item.foodCategory === 'buah') {
+    return 'bahan_baku';
+  }
+  return 'siap_santap';
 }
 
 // --- Booking ---
