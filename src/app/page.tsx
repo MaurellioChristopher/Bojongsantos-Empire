@@ -21,6 +21,7 @@ import { ImpactDashboard } from '@/components/pages/ImpactDashboard';
 import { AdminDashboard } from '@/components/pages/AdminDashboard';
 import { TermsPage } from '@/components/pages/TermsPage';
 import { checkAndExpireItems } from '@/lib/data';
+import { AIChatbotWidget } from '@/components/ai/AIChatbotWidget';
 
 function AppRouter() {
   const [route, setRoute] = useState('/');
@@ -209,6 +210,7 @@ function AppRouter() {
         </motion.main>
       </AnimatePresence>
       {showMobileDock && <BottomNav />}
+      <AIChatbotWidget />
       <ToastContainer />
     </div>
   );
