@@ -1,24 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  Mail,
-  Lock,
-  Eye,
-  EyeOff,
-  ArrowRight,
-  ShieldCheck,
-  Sparkles,
-  User,
-  UtensilsCrossed,
-  Shield,
-  Leaf,
-  CheckCircle2,
-  Clock,
-  MapPin,
-  TrendingUp,
-} from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import type { UserRole } from '@/types';
@@ -66,228 +49,132 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafc] flex flex-col justify-between">
-      {/* Top Ambient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-orange-100/40 via-amber-50/20 to-transparent pointer-events-none blur-3xl -z-10" />
-
+    <div className="min-h-screen bg-[#f5f5f7] flex flex-col justify-between text-[#1d1d1f]">
       {/* Main Container */}
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-10">
-        <div className="w-full max-w-6xl bg-white rounded-[28px] border border-[rgba(0,0,0,0.07)] shadow-2xl shadow-neutral-900/5 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12">
+        <div className="w-full max-w-5xl bg-white rounded-2xl border border-[rgba(0,0,0,0.08)] shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
           
-          {/* LEFT COLUMN: Visual Showcase & Mission Hero (lg: 7 cols) */}
-          <div className="relative lg:col-span-7 bg-[#121216] text-white p-8 sm:p-12 flex flex-col justify-between overflow-hidden">
-            {/* Background Texture & Image Overlay */}
+          {/* LEFT COLUMN: Editorial Photography & Authentic Narrative (lg: 6 cols) */}
+          <div className="relative lg:col-span-6 bg-[#161617] text-white p-8 sm:p-12 flex flex-col justify-between overflow-hidden">
+            {/* Real Photography Background with Natural Dark Vignette */}
             <div
-              className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity pointer-events-none scale-105 transition-transform duration-1000"
+              className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity scale-100"
               style={{ backgroundImage: 'url(/images/hero-food-kitchen.jpg)' }}
             />
-            {/* Gradient Overlays */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#121216]/95 via-[#18181f]/90 to-[#121216]/98 pointer-events-none" />
-            <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#FF5A1F]/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#FFB200]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#161617] via-[#161617]/85 to-[#161617]/95" />
 
-            {/* Content Top: Brand Mark & Mission */}
+            {/* Top Brand Identity */}
             <div className="relative z-10">
-              <a href="#/" className="inline-flex items-center gap-3 no-underline group mb-8">
-                <div
-                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/25 transition-transform group-hover:scale-105"
-                  style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-white">
-                    <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
-                    <path
-                      d="M3.5 13.5L12 19.5L20.5 13.5"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+              <a href="#/" className="inline-flex items-center gap-3 no-underline group mb-10">
+                <div className="w-8 h-8 rounded-md bg-white text-[#161617] flex items-center justify-center font-bold text-xs tracking-wider">
+                  AP
                 </div>
-                <div>
-                  <span className="text-lg font-bold tracking-tight text-white block leading-none">
+                <div className="flex flex-col">
+                  <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white leading-none">
                     AksesPangan
                   </span>
-                  <span className="text-[11px] font-mono tracking-wider text-neutral-400 uppercase">
-                    Ekosistem Surplus Pangan
+                  <span className="text-[10px] tracking-[0.18em] uppercase font-mono text-[#86868b] mt-1">
+                    Surplus Network
                   </span>
                 </div>
               </a>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs text-orange-200 mb-4 font-medium">
-                <Sparkles size={12} className="text-amber-400" />
-                <span>Gerakan Nol Limbah Pangan Indonesia</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-[1.2] mb-3">
-                Dari Surplus Menjadi Solusi Kebaikan Nyata.
-              </h2>
-              <p className="text-neutral-300 text-sm sm:text-base leading-relaxed max-w-lg mb-8">
-                Platform terintegrasi yang menghubungkan restoran, supermarket, dan bakery untuk mendistribusikan makanan berlebih berkualitas prima kepada masyarakat secara bermartabat.
-              </p>
-
-              {/* Floating Live Card Preview */}
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-4 border border-white/15 max-w-md shadow-xl mb-8">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-neutral-800 relative">
-                    <img
-                      src="/images/surplus-bakery.jpg"
-                      alt="Preview Surplus"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute bottom-1 left-1 bg-black/70 text-[9px] font-mono text-white px-1.5 py-0.5 rounded">
-                      Gratis
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-1 mb-0.5">
-                      <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
-                        Artisan Croissant & Brioche
-                      </h4>
-                      <span className="text-[10px] text-emerald-400 font-mono font-medium flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        Siap Diambil
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-neutral-300 truncate mb-1">
-                      Toko Roti Aroma Buahbatu • 1,2 km
-                    </p>
-                    <div className="flex items-center gap-3 text-[10px] text-neutral-400">
-                      <span className="flex items-center gap-1">
-                        <Clock size={11} className="text-amber-400" /> Sisa 3 jam
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Leaf size={11} className="text-emerald-400" /> 4,2 kg CO₂ dicegah
-                      </span>
-                    </div>
-                  </div>
-                </div>
+              <div className="max-w-md">
+                <p className="text-xs font-mono uppercase tracking-widest text-[#86868b] mb-3">
+                  Inisiatif Ketahanan Pangan
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white leading-snug mb-4">
+                  Menghubungkan surplus makanan dengan kebutuhan nyata masyarakat.
+                </h2>
+                <p className="text-sm text-[#a1a1a6] leading-relaxed mb-8">
+                  Sistem distribusi terpadu yang membantu industri kuliner mendokumentasikan dampak lingkungan sekaligus memperluas akses pangan berkualitas secara bermartabat.
+                </p>
               </div>
             </div>
 
-            {/* Content Bottom: Impact Stats & Trust */}
-            <div className="relative z-10 pt-6 border-t border-white/10">
-              <div className="grid grid-cols-3 gap-3 text-center sm:text-left">
+            {/* Bottom Minimalist Metric Data */}
+            <div className="relative z-10 pt-8 border-t border-white/10">
+              <div className="grid grid-cols-3 gap-6">
                 <div>
-                  <div className="text-xl sm:text-2xl font-bold font-mono text-white tracking-tight">
-                    12.450+
+                  <div className="text-xl sm:text-2xl font-semibold font-mono text-white tracking-tight">
+                    12.450 kg
                   </div>
-                  <div className="text-[11px] text-neutral-400 leading-tight mt-0.5">
-                    kg Pangan Diselamatkan
+                  <div className="text-[11px] text-[#86868b] mt-1">
+                    Pangan Terselamatkan
                   </div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-bold font-mono text-orange-400 tracking-tight">
-                    31.200+
+                  <div className="text-xl sm:text-2xl font-semibold font-mono text-white tracking-tight">
+                    31.200
                   </div>
-                  <div className="text-[11px] text-neutral-400 leading-tight mt-0.5">
+                  <div className="text-[11px] text-[#86868b] mt-1">
                     Porsi Tersalurkan
                   </div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-bold font-mono text-emerald-400 tracking-tight">
+                  <div className="text-xl sm:text-2xl font-semibold font-mono text-white tracking-tight">
                     100%
                   </div>
-                  <div className="text-[11px] text-neutral-400 leading-tight mt-0.5">
-                    Standar Mutu Higienis
+                  <div className="text-[11px] text-[#86868b] mt-1">
+                    Standar Mutu Uji
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Interactive Login Form (lg: 5 cols) */}
-          <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-center bg-white">
+          {/* RIGHT COLUMN: Clean, Restrained Apple-Style Auth Form (lg: 6 cols) */}
+          <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-center bg-white">
             <div className="max-w-sm w-full mx-auto">
               
               {/* Form Header */}
-              <div className="mb-6">
-                <span className="text-xs uppercase font-mono font-semibold tracking-wider text-[#FF5A1F] block mb-1">
-                  Autentikasi Aman
-                </span>
-                <h2 className="text-display-md text-[#1d1d1f] font-bold tracking-tight">
-                  Masuk ke Platform
+              <div className="mb-7">
+                <h2 className="text-2xl font-semibold tracking-tight text-[#1d1d1f] mb-1.5">
+                  Masuk ke Akun
                 </h2>
-                <p className="text-body-apple text-[#86868b] text-xs sm:text-sm mt-1">
-                  Pilih demo 1-klik atau masukkan email Anda untuk melanjutkan.
+                <p className="text-sm text-[#86868b]">
+                  Gunakan akun Anda atau pilih akun demo pengujian di bawah ini.
                 </p>
               </div>
 
-              {/* Interactive 1-Click Demo Accounts Selector */}
-              <div className="mb-6 bg-[#f7f7f9] p-3.5 rounded-2xl border border-neutral-200/80">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-semibold text-[#1d1d1f] uppercase tracking-wider font-mono flex items-center gap-1.5">
-                    <Sparkles size={12} className="text-[#FF5A1F]" />
-                    Pilih Akun Demo (1-Klik):
-                  </span>
-                  <span className="text-[10px] text-neutral-500 font-mono">Auto-fill instant</span>
-                </div>
-
-                <div className="grid grid-cols-3 gap-2">
-                  {/* Penerima Demo Button */}
+              {/* Clean 1-Click Demo Accounts Segmented Control */}
+              <div className="mb-6">
+                <label className="block text-[11px] font-mono uppercase tracking-wider text-[#86868b] mb-2">
+                  Akun Demo Pengujian (1-Klik)
+                </label>
+                <div className="grid grid-cols-3 gap-2 p-1 bg-[#f5f5f7] rounded-xl border border-[rgba(0,0,0,0.06)]">
                   <button
                     type="button"
                     onClick={() => fillDemo('penerima')}
-                    className={`py-2 px-2.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
+                    className={`py-2 px-2 rounded-lg text-xs font-medium transition-all ${
                       role === 'penerima' && email === DEMO_CREDENTIALS.penerima.email
-                        ? 'bg-white border-[#FF5A1F] shadow-sm ring-2 ring-[#FF5A1F]/15'
-                        : 'bg-white/80 border-neutral-200 hover:border-neutral-300 text-neutral-700'
+                        ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold border border-[rgba(0,0,0,0.08)]'
+                        : 'text-[#6e6e73] hover:text-[#1d1d1f]'
                     }`}
                   >
-                    <User
-                      size={14}
-                      className={
-                        role === 'penerima' && email === DEMO_CREDENTIALS.penerima.email
-                          ? 'text-[#FF5A1F]'
-                          : 'text-neutral-500'
-                      }
-                    />
-                    <span className="text-[11px] font-semibold block leading-tight">Penerima</span>
-                    <span className="text-[9px] text-neutral-400 leading-none">Masyarakat</span>
+                    Penerima
                   </button>
-
-                  {/* Penyedia Demo Button */}
                   <button
                     type="button"
                     onClick={() => fillDemo('penyedia')}
-                    className={`py-2 px-2.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
+                    className={`py-2 px-2 rounded-lg text-xs font-medium transition-all ${
                       role === 'penyedia' && email === DEMO_CREDENTIALS.penyedia.email
-                        ? 'bg-white border-[#FF5A1F] shadow-sm ring-2 ring-[#FF5A1F]/15'
-                        : 'bg-white/80 border-neutral-200 hover:border-neutral-300 text-neutral-700'
+                        ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold border border-[rgba(0,0,0,0.08)]'
+                        : 'text-[#6e6e73] hover:text-[#1d1d1f]'
                     }`}
                   >
-                    <UtensilsCrossed
-                      size={14}
-                      className={
-                        role === 'penyedia' && email === DEMO_CREDENTIALS.penyedia.email
-                          ? 'text-[#FF5A1F]'
-                          : 'text-neutral-500'
-                      }
-                    />
-                    <span className="text-[11px] font-semibold block leading-tight">Penyedia</span>
-                    <span className="text-[9px] text-neutral-400 leading-none">Restoran</span>
+                    Penyedia
                   </button>
-
-                  {/* Admin Demo Button */}
                   <button
                     type="button"
                     onClick={() => fillDemo('admin')}
-                    className={`py-2 px-2.5 rounded-xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
+                    className={`py-2 px-2 rounded-lg text-xs font-medium transition-all ${
                       role === 'admin' && email === DEMO_CREDENTIALS.admin.email
-                        ? 'bg-white border-[#FF5A1F] shadow-sm ring-2 ring-[#FF5A1F]/15'
-                        : 'bg-white/80 border-neutral-200 hover:border-neutral-300 text-neutral-700'
+                        ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold border border-[rgba(0,0,0,0.08)]'
+                        : 'text-[#6e6e73] hover:text-[#1d1d1f]'
                     }`}
                   >
-                    <ShieldCheck
-                      size={14}
-                      className={
-                        role === 'admin' && email === DEMO_CREDENTIALS.admin.email
-                          ? 'text-[#FF5A1F]'
-                          : 'text-neutral-500'
-                      }
-                    />
-                    <span className="text-[11px] font-semibold block leading-tight">Admin</span>
-                    <span className="text-[9px] text-neutral-400 leading-none">Supervisi</span>
+                    Admin
                   </button>
                 </div>
               </div>
@@ -295,11 +182,11 @@ export function LoginPage() {
               {/* Login Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-[#1d1d1f] mb-1.5">
+                  <label className="block text-xs font-medium text-[#1d1d1f] mb-1.5">
                     Alamat Email
                   </label>
                   <div className="relative">
-                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
                       <Mail size={15} />
                     </div>
                     <input
@@ -308,26 +195,26 @@ export function LoginPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="nama@email.com"
-                      className="apple-input pl-10 text-sm"
+                      className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                     />
                   </div>
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-semibold text-[#1d1d1f]">
+                    <label className="block text-xs font-medium text-[#1d1d1f]">
                       Kata Sandi
                     </label>
                     <button
                       type="button"
-                      onClick={() => alert('Untuk akun demo gunakan password: "demo123", atau klik tombol demo di atas.')}
-                      className="text-[11px] text-[#FF5A1F] hover:underline"
+                      onClick={() => alert('Kata sandi demo: "demo123"')}
+                      className="text-xs text-[#0066cc] hover:underline"
                     >
-                      Bantuan Sandi?
+                      Bantuan Sandi
                     </button>
                   </div>
                   <div className="relative">
-                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
                       <Lock size={15} />
                     </div>
                     <input
@@ -336,75 +223,53 @@ export function LoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="apple-input pl-10 pr-10 text-sm"
+                      className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-10 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-[#86868b] hover:text-[#1d1d1f] p-1"
+                      aria-label="Toggle password visibility"
                     >
                       {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                     </button>
                   </div>
                 </div>
 
-                {/* Remember Me Checkbox */}
-                <div className="flex items-center justify-between pt-1">
-                  <label className="flex items-center gap-2 cursor-pointer text-xs text-neutral-600">
+                {/* Remember Me */}
+                <div className="pt-1">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs text-[#6e6e73]">
                     <input
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="rounded border-neutral-300 text-[#FF5A1F] focus:ring-[#FF5A1F]"
+                      className="rounded border-[#d2d2d7] text-[#0071e3] focus:ring-[#0071e3]"
                     />
-                    <span>Ingat saya di perangkat ini</span>
+                    <span>Ingat sesi masuk di perangkat ini</span>
                   </label>
                 </div>
 
-                {/* Submit Button */}
+                {/* Primary Action Button (Sleek High-Contrast Apple Action Blue) */}
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="btn-apple-primary w-full text-sm font-semibold py-3 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 active:scale-[0.99] transition-all"
+                    className="w-full bg-[#0071e3] hover:bg-[#0077ed] active:bg-[#0062c4] text-white font-medium text-sm h-11 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:opacity-50"
                   >
-                    {isLoading ? (
-                      <span className="flex items-center gap-2">
-                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Memverifikasi...
-                      </span>
-                    ) : (
-                      <>
-                        <span>Lanjutkan ke Platform</span>
-                        <ArrowRight size={15} />
-                      </>
-                    )}
+                    {isLoading ? 'Memverifikasi...' : 'Lanjutkan ke Platform'}
                   </button>
                 </div>
               </form>
 
               {/* Registration Link */}
-              <div className="mt-6 pt-5 border-t border-neutral-100 text-center text-xs text-[#86868b]">
+              <div className="mt-6 pt-5 border-t border-[rgba(0,0,0,0.08)] text-center text-xs text-[#86868b]">
                 Belum memiliki akun?{' '}
                 <a
                   href="#/register"
-                  className="font-semibold text-[#FF5A1F] hover:underline transition-colors inline-flex items-center gap-0.5"
+                  className="font-medium text-[#0066cc] hover:underline transition-colors"
                 >
-                  Buat akun baru sekarang
+                  Daftar akun baru
                 </a>
-              </div>
-
-              {/* Security & Privacy Badges */}
-              <div className="mt-6 flex items-center justify-center gap-4 text-[11px] text-neutral-400">
-                <div className="flex items-center gap-1">
-                  <ShieldCheck size={12} className="text-emerald-500" />
-                  <span>Enkripsi 256-Bit</span>
-                </div>
-                <span>•</span>
-                <div className="flex items-center gap-1">
-                  <CheckCircle2 size={12} className="text-neutral-400" />
-                  <span>Data Terlindungi</span>
-                </div>
               </div>
             </div>
           </div>
@@ -412,10 +277,10 @@ export function LoginPage() {
         </div>
       </div>
 
-      {/* Footer Brand Info */}
-      <footer className="py-4 text-center text-fine-print text-neutral-400 border-t border-neutral-200/60 bg-white/50 backdrop-blur-sm">
+      {/* Clean Minimalist Footer */}
+      <footer className="py-4 text-center text-xs text-[#86868b] border-t border-[rgba(0,0,0,0.06)] bg-white">
         <p className="m-0">
-          AksesPangan &copy; 2026 • Platform Berkelanjutan Penyelamatan Surplus Makanan & Ketahanan Pangan
+          AksesPangan &copy; 2026 • Platform Kolaborasi Penyelamatan Surplus Pangan
         </p>
       </footer>
     </div>

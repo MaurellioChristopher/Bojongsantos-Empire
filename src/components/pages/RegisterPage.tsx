@@ -1,24 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  ArrowRight,
-  ArrowLeft,
-  Check,
-  Sparkles,
-  User,
-  UtensilsCrossed,
-  Mail,
-  Lock,
-  Phone,
-  Building2,
-  MapPin,
-  ShieldCheck,
-  CheckCircle2,
-  Leaf,
-  HeartHandshake,
-} from 'lucide-react';
+import { Mail, Lock, Phone, User, Building2, MapPin } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import type { UserRole, BusinessType } from '@/types';
@@ -88,143 +71,106 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafc] flex flex-col justify-between">
-      {/* Top Ambient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-b from-orange-100/40 via-amber-50/20 to-transparent pointer-events-none blur-3xl -z-10" />
-
+    <div className="min-h-screen bg-[#f5f5f7] flex flex-col justify-between text-[#1d1d1f]">
       {/* Main Container */}
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-10">
-        <div className="w-full max-w-6xl bg-white rounded-[28px] border border-[rgba(0,0,0,0.07)] shadow-2xl shadow-neutral-900/5 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[660px]">
+      <div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12">
+        <div className="w-full max-w-5xl bg-white rounded-2xl border border-[rgba(0,0,0,0.08)] shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden grid grid-cols-1 lg:grid-cols-12">
           
-          {/* LEFT COLUMN: Visual Showcase & Benefits (lg: 6 cols) */}
-          <div className="relative lg:col-span-6 bg-[#121216] text-white p-8 sm:p-12 flex flex-col justify-between overflow-hidden">
-            {/* Background Image & Texture Overlay */}
+          {/* LEFT COLUMN: Editorial Showcase (lg: 6 cols) */}
+          <div className="relative lg:col-span-6 bg-[#161617] text-white p-8 sm:p-12 flex flex-col justify-between overflow-hidden">
+            {/* Real Photography Background with Natural Dark Vignette */}
             <div
-              className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity pointer-events-none scale-105"
+              className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-luminosity scale-100"
               style={{ backgroundImage: 'url(/images/hero-food-delivery.jpg)' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-[#121216]/95 via-[#18181f]/90 to-[#121216]/98 pointer-events-none" />
-            <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#FF5A1F]/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-[#FFB200]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#161617] via-[#161617]/85 to-[#161617]/95" />
 
             {/* Content Top */}
             <div className="relative z-10">
-              <a href="#/" className="inline-flex items-center gap-3 no-underline group mb-8">
-                <div
-                  className="w-11 h-11 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/25 transition-transform group-hover:scale-105"
-                  style={{ background: 'linear-gradient(135deg, #FFB200, #FF5A1F, #FF3913)' }}
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-white">
-                    <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
-                    <path
-                      d="M3.5 13.5L12 19.5L20.5 13.5"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+              <a href="#/" className="inline-flex items-center gap-3 no-underline group mb-10">
+                <div className="w-8 h-8 rounded-md bg-white text-[#161617] flex items-center justify-center font-bold text-xs tracking-wider">
+                  AP
                 </div>
-                <div>
-                  <span className="text-lg font-bold tracking-tight text-white block leading-none">
+                <div className="flex flex-col">
+                  <span className="text-xs font-semibold tracking-[0.2em] uppercase text-white leading-none">
                     AksesPangan
                   </span>
-                  <span className="text-[11px] font-mono tracking-wider text-neutral-400 uppercase">
-                    Pendaftaran Pengguna
+                  <span className="text-[10px] tracking-[0.18em] uppercase font-mono text-[#86868b] mt-1">
+                    Registrasi Pengguna
                   </span>
                 </div>
               </a>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-xs text-orange-200 mb-4 font-medium">
-                <Sparkles size={12} className="text-amber-400" />
-                <span>Bergabunglah Bersama 450+ Relawan & Mitra</span>
-              </div>
+              <div className="max-w-md">
+                <p className="text-xs font-mono uppercase tracking-widest text-[#86868b] mb-3">
+                  Gerakan Kolaborasi
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white leading-snug mb-4">
+                  Bergabung dalam ekosistem penyelamatan pangan berkelanjutan.
+                </h2>
+                <p className="text-sm text-[#a1a1a6] leading-relaxed mb-8">
+                  Pilih peran Anda untuk mendistribusikan makanan berlebih atau mengklaim pangan berkualitas dengan verifikasi digital yang aman dan bermartabat.
+                </p>
 
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-[1.2] mb-3">
-                Wujudkan Ekosistem Pangan Inklusif & Berkelanjutan.
-              </h2>
-              <p className="text-neutral-300 text-sm leading-relaxed mb-8">
-                Pilih peran Anda untuk mulai menyelamatkan makanan surplus dari restoran, kafe, dan hotel di sekitar Anda.
-              </p>
-
-              {/* 3 Value Propositions */}
-              <div className="space-y-4 max-w-md mb-8">
-                <div className="flex items-start gap-3.5 bg-white/5 backdrop-blur-md p-3.5 rounded-2xl border border-white/10">
-                  <div className="w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <UtensilsCrossed size={16} />
+                <div className="space-y-3 text-xs text-[#a1a1a6]">
+                  <div className="flex items-center gap-3 py-2 border-b border-white/10">
+                    <span className="font-mono text-white text-xs">01</span>
+                    <span>Proses pendaftaran instan tanpa biaya platform</span>
                   </div>
-                  <div>
-                    <h4 className="text-xs font-semibold text-white mb-0.5">Bagi Mitra Penyedia</h4>
-                    <p className="text-[11px] text-neutral-400 m-0 leading-normal">
-                      Kurangi biaya limbah, catat kontribusi ESG riil, dan bantu warga sekitar secara terukur.
-                    </p>
+                  <div className="flex items-center gap-3 py-2 border-b border-white/10">
+                    <span className="font-mono text-white text-xs">02</span>
+                    <span>Verifikasi tiket QR digital untuk serah terima higienis</span>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 bg-white/5 backdrop-blur-md p-3.5 rounded-2xl border border-white/10">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <HeartHandshake size={16} />
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-semibold text-white mb-0.5">Bagi Penerima Manfaat</h4>
-                    <p className="text-[11px] text-neutral-400 m-0 leading-normal">
-                      Akses makanan lezat dan higienis gratis atau bersubsidi dengan tiket QR digital bermartabat.
-                    </p>
+                  <div className="flex items-center gap-3 py-2 border-b border-white/10">
+                    <span className="font-mono text-white text-xs">03</span>
+                    <span>Laporan metrik ESG dan pengurangan limbah terukur</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Trust Guarantee */}
-            <div className="relative z-10 pt-5 border-t border-white/10 flex items-center justify-between text-[11px] text-neutral-400">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck size={14} className="text-emerald-400" />
-                Data & Kontak Terenkripsi Aman
-              </span>
-              <span className="font-mono">100% Gratis</span>
+            {/* Bottom Note */}
+            <div className="relative z-10 pt-6 border-t border-white/10 text-xs text-[#86868b]">
+              Standar Keamanan Pangan & Privasi Data Terjamin
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Interactive Multi-Step Register Form (lg: 6 cols) */}
+          {/* RIGHT COLUMN: Clean Apple-Grade Form (lg: 6 cols) */}
           <div className="lg:col-span-6 p-8 sm:p-12 flex flex-col justify-center bg-white">
-            <div className="max-w-md w-full mx-auto">
+            <div className="max-w-sm w-full mx-auto">
               
               {/* Form Header */}
               <div className="mb-6">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase font-mono font-semibold tracking-wider text-[#FF5A1F]">
-                    Langkah Pendaftaran
-                  </span>
+                  <h2 className="text-2xl font-semibold tracking-tight text-[#1d1d1f]">
+                    Daftar Akun
+                  </h2>
                   {role === 'penyedia' && (
-                    <span className="text-xs font-mono font-semibold text-neutral-400">
+                    <span className="text-xs font-mono text-[#86868b]">
                       Langkah {step} dari {totalSteps}
                     </span>
                   )}
                 </div>
-                <h2 className="text-display-md text-[#1d1d1f] font-bold tracking-tight mt-1">
-                  Buat Akun Baru
-                </h2>
-                <p className="text-body-apple text-[#86868b] text-xs sm:text-sm mt-1">
-                  Pilih peran Anda dalam ekosistem penyelamatan makanan.
+                <p className="text-sm text-[#86868b] mt-1">
+                  Pilih peran Anda dalam ekosistem pangan.
                 </p>
               </div>
 
-              {/* Role Selection Toggle */}
-              <div className="grid grid-cols-2 gap-2 mb-6 p-1.5 bg-[#f7f7f9] rounded-2xl border border-neutral-200/80">
+              {/* Segmented Control for Role */}
+              <div className="grid grid-cols-2 gap-1 p-1 bg-[#f5f5f7] rounded-xl border border-[rgba(0,0,0,0.06)] mb-6">
                 <button
                   type="button"
                   onClick={() => {
                     setRole('penerima');
                     setStep(1);
                   }}
-                  className={`py-2.5 px-3 rounded-xl text-xs font-semibold tracking-tight transition-all flex items-center justify-center gap-2 ${
+                  className={`py-2 px-3 rounded-lg text-xs font-medium transition-all ${
                     role === 'penerima'
-                      ? 'bg-white text-[#1d1d1f] shadow-sm border border-neutral-200 ring-2 ring-[#FF5A1F]/15'
-                      : 'text-neutral-500 hover:text-neutral-800'
+                      ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold border border-[rgba(0,0,0,0.08)]'
+                      : 'text-[#6e6e73] hover:text-[#1d1d1f]'
                   }`}
                 >
-                  <User size={14} className={role === 'penerima' ? 'text-[#FF5A1F]' : ''} />
-                  <span>Penerima (Warga)</span>
+                  Penerima (Warga)
                 </button>
                 <button
                   type="button"
@@ -232,26 +178,25 @@ export function RegisterPage() {
                     setRole('penyedia');
                     setStep(1);
                   }}
-                  className={`py-2.5 px-3 rounded-xl text-xs font-semibold tracking-tight transition-all flex items-center justify-center gap-2 ${
+                  className={`py-2 px-3 rounded-lg text-xs font-medium transition-all ${
                     role === 'penyedia'
-                      ? 'bg-white text-[#1d1d1f] shadow-sm border border-neutral-200 ring-2 ring-[#FF5A1F]/15'
-                      : 'text-neutral-500 hover:text-neutral-800'
+                      ? 'bg-white text-[#1d1d1f] shadow-xs font-semibold border border-[rgba(0,0,0,0.08)]'
+                      : 'text-[#6e6e73] hover:text-[#1d1d1f]'
                   }`}
                 >
-                  <UtensilsCrossed size={14} className={role === 'penyedia' ? 'text-[#FF5A1F]' : ''} />
-                  <span>Penyedia (Mitra)</span>
+                  Penyedia (Mitra)
                 </button>
               </div>
 
-              {/* STEP 1: Personal Account Info */}
+              {/* STEP 1: Personal Info */}
               {step === 1 && (
-                <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="space-y-3.5">
+                <div className="space-y-3.5">
                   <div>
-                    <label className="block text-xs font-semibold text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
                       Nama Lengkap
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
                         <User size={15} />
                       </div>
                       <input
@@ -260,17 +205,17 @@ export function RegisterPage() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Nama lengkap Anda"
-                        className="apple-input pl-10 text-sm"
+                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
                       Alamat Email
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
                         <Mail size={15} />
                       </div>
                       <input
@@ -279,17 +224,17 @@ export function RegisterPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="nama@email.com"
-                        className="apple-input pl-10 text-sm"
+                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
                       Nomor Telepon / WhatsApp
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
                         <Phone size={15} />
                       </div>
                       <input
@@ -298,17 +243,17 @@ export function RegisterPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="0812xxxxxxxx"
-                        className="apple-input pl-10 text-sm"
+                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1d1d1f] mb-1">
+                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
                       Kata Sandi
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
                         <Lock size={15} />
                       </div>
                       <input
@@ -317,7 +262,7 @@ export function RegisterPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Minimal 6 karakter"
-                        className="apple-input pl-10 text-sm"
+                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -327,38 +272,23 @@ export function RegisterPage() {
                       type="button"
                       onClick={nextStep}
                       disabled={!name || !email || !password || !phone}
-                      className="btn-apple-primary w-full text-sm font-semibold py-3 flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 active:scale-[0.99] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-[#0071e3] hover:bg-[#0077ed] active:bg-[#0062c4] text-white font-medium text-sm h-11 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:opacity-50"
                     >
-                      {role === 'penyedia' ? (
-                        <>
-                          <span>Lanjut: Info Usaha Mitra</span>
-                          <ArrowRight size={15} />
-                        </>
-                      ) : isLoading ? (
-                        <span className="flex items-center gap-2">
-                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          Mendaftarkan Akun...
-                        </span>
-                      ) : (
-                        <>
-                          <span>Selesaikan Pendaftaran</span>
-                          <ArrowRight size={15} />
-                        </>
-                      )}
+                      {role === 'penyedia' ? 'Lanjut: Data Usaha Mitra' : isLoading ? 'Mendaftarkan...' : 'Selesaikan Pendaftaran'}
                     </button>
                   </div>
-                </motion.div>
+                </div>
               )}
 
               {/* STEP 2: Business Info (Only for Penyedia) */}
               {step === 2 && role === 'penyedia' && (
-                <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} className="space-y-3.5">
+                <div className="space-y-3.5">
                   <div>
-                    <label className="block text-xs font-semibold text-[#1d1d1f] mb-1">
-                      Nama Usaha / Restoran / Toko
+                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                      Nama Usaha Kuliner
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#86868b] pointer-events-none">
                         <Building2 size={15} />
                       </div>
                       <input
@@ -366,36 +296,36 @@ export function RegisterPage() {
                         required
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
-                        placeholder="Contoh: Dapur Sedap Buahbatu"
-                        className="apple-input pl-10 text-sm"
+                        placeholder="Contoh: Dapur Rasa Buahbatu"
+                        className="w-full bg-white text-[#1d1d1f] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1d1d1f] mb-1">
-                      Kategori Usaha Kuliner
+                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                      Jenis Usaha
                     </label>
                     <select
                       value={businessType}
                       onChange={(e) => setBusinessType(e.target.value as BusinessType)}
-                      className="apple-input text-sm"
+                      className="w-full bg-white text-[#1d1d1f] text-sm h-11 px-3.5 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                     >
                       <option value="restoran">Restoran / Rumah Makan</option>
-                      <option value="hotel">Hotel & Convention</option>
-                      <option value="kafe">Kafe / Coffee Shop</option>
-                      <option value="katering">Jasa Katering / Event</option>
+                      <option value="hotel">Hotel</option>
+                      <option value="kafe">Kafe / Kedai Kopi</option>
+                      <option value="katering">Jasa Katering</option>
                       <option value="supermarket">Bakery / Supermarket</option>
-                      <option value="lainnya">Usaha Makanan Lainnya</option>
+                      <option value="lainnya">Lainnya</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#1d1d1f] mb-1">
-                      Alamat Usaha (Lokasi Penjemputan Makanan)
+                    <label className="block text-xs font-medium text-[#1d1d1f] mb-1">
+                      Alamat Usaha (Lokasi Penjemputan)
                     </label>
                     <div className="relative">
-                      <div className="absolute left-3.5 top-3 text-neutral-400 pointer-events-none">
+                      <div className="absolute left-3.5 top-3 text-[#86868b] pointer-events-none">
                         <MapPin size={15} />
                       </div>
                       <textarea
@@ -403,8 +333,8 @@ export function RegisterPage() {
                         required
                         value={businessAddress}
                         onChange={(e) => setBusinessAddress(e.target.value)}
-                        placeholder="Jl. Raya Buahbatu No. 120, Kota Bandung..."
-                        className="apple-input pl-10 text-sm h-auto py-2.5"
+                        placeholder="Jl. Raya Buahbatu No. 120, Bandung..."
+                        className="w-full bg-white text-[#1d1d1f] text-sm p-3 pl-10 rounded-xl border border-[#d2d2d7] focus:border-[#0071e3] focus:ring-2 focus:ring-[#0071e3]/15 outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -413,39 +343,28 @@ export function RegisterPage() {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="btn-apple-secondary flex-1 py-3 text-sm flex items-center justify-center gap-1.5"
+                      className="flex-1 bg-[#f5f5f7] hover:bg-[#e8e8ed] text-[#1d1d1f] font-medium text-sm h-11 rounded-xl transition-colors cursor-pointer"
                     >
-                      <ArrowLeft size={14} />
-                      <span>Kembali</span>
+                      Kembali
                     </button>
                     <button
                       type="button"
                       onClick={handleSubmit}
                       disabled={isLoading || !businessName || !businessAddress}
-                      className="btn-apple-primary flex-1 py-3 text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-orange-500/20 active:scale-[0.99] transition-all disabled:opacity-50"
+                      className="flex-1 bg-[#0071e3] hover:bg-[#0077ed] active:bg-[#0062c4] text-white font-medium text-sm h-11 rounded-xl transition-colors flex items-center justify-center cursor-pointer disabled:opacity-50"
                     >
-                      {isLoading ? (
-                        <span className="flex items-center gap-2">
-                          <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          Memproses...
-                        </span>
-                      ) : (
-                        <>
-                          <span>Mulai Jadi Mitra</span>
-                          <Check size={15} />
-                        </>
-                      )}
+                      {isLoading ? 'Memproses...' : 'Selesai'}
                     </button>
                   </div>
-                </motion.div>
+                </div>
               )}
 
               {/* Login Link */}
-              <div className="mt-6 pt-5 border-t border-neutral-100 text-center text-xs text-[#86868b]">
-                Sudah memiliki akun terdaftar?{' '}
+              <div className="mt-6 pt-5 border-t border-[rgba(0,0,0,0.08)] text-center text-xs text-[#86868b]">
+                Sudah memiliki akun?{' '}
                 <a
                   href="#/login"
-                  className="font-semibold text-[#FF5A1F] hover:underline transition-colors inline-flex items-center gap-0.5"
+                  className="font-medium text-[#0066cc] hover:underline transition-colors"
                 >
                   Masuk di sini
                 </a>
@@ -456,10 +375,10 @@ export function RegisterPage() {
         </div>
       </div>
 
-      {/* Footer Brand Info */}
-      <footer className="py-4 text-center text-fine-print text-neutral-400 border-t border-neutral-200/60 bg-white/50 backdrop-blur-sm">
+      {/* Clean Footer */}
+      <footer className="py-4 text-center text-xs text-[#86868b] border-t border-[rgba(0,0,0,0.06)] bg-white">
         <p className="m-0">
-          AksesPangan &copy; 2026 • Platform Berkelanjutan Penyelamatan Surplus Makanan & Ketahanan Pangan
+          AksesPangan &copy; 2026 • Platform Kolaborasi Penyelamatan Surplus Pangan
         </p>
       </footer>
     </div>
