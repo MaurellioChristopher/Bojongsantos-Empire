@@ -96,6 +96,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(res.user);
       return { success: true };
     } catch (err: any) {
+      if (err?.statusCode === 503 || err?.message?.includes('Offline')) {
+        return { success: false, error: err.message };
+      }
       const result = db.login(email, password);
       if (result.success && result.user) {
         setUser(result.user);
@@ -196,6 +199,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(res.user);
       return { success: true, user: res.user };
     } catch (err: any) {
+      if (err?.statusCode === 503 || err?.message?.includes('Offline')) {
+        return { success: false, error: err.message };
+      }
       const existing = db.getUserByEmail(userData.email);
       if (existing) {
         return { success: false, error: 'Email sudah terdaftar' };

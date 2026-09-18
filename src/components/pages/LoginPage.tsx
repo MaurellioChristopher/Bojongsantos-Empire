@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import type { UserRole } from '@/types';
@@ -17,10 +17,12 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setErrorMessage(null);
 
     try {
       const result = await login(email, password);
@@ -32,9 +34,11 @@ export function LoginPage() {
         else if (finalRole === 'admin') window.location.hash = '#/admin';
         else window.location.hash = '#/penerima';
       } else {
+        setErrorMessage(result.error || 'Email atau kata sandi tidak sesuai');
         error('Gagal Masuk', result.error || 'Email atau kata sandi tidak sesuai');
       }
     } catch (err: any) {
+      setErrorMessage(err.message || 'Terjadi kesalahan sistem');
       error('Gagal Masuk', err.message || 'Terjadi kesalahan sistem');
     } finally {
       setIsLoading(false);
@@ -136,6 +140,17 @@ export function LoginPage() {
                   Gunakan akun Anda atau pilih akun demo pengujian di bawah ini.
                 </p>
               </div>
+
+              {/* Microservice Offline Alert Banner */}
+              {errorMessage && (
+                <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5 animate-in fade-in slide-in-from-top-2">
+                  <AlertTriangle size={18} className="shrink-0 mt-0.5 text-red-600" />
+                  <div className="flex-1">
+                    <p className="font-bold mb-0.5 text-red-800">Layanan Microservice Terputus</p>
+                    <p className="leading-relaxed m-0 text-red-700">{errorMessage}</p>
+                  </div>
+                </div>
+              )}
 
               {/* Clean 1-Click Demo Accounts Segmented Control */}
               <div className="mb-6">
