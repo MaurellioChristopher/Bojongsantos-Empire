@@ -1941,6 +1941,18 @@ export function sendOrderChatMessage(data: {
   return newMsg;
 }
 
+export function saveChatMessage(msg: ChatMessage): ChatMessage {
+  const messages = getStore<ChatMessage>(STORAGE_KEYS.chatMessages);
+  const idx = messages.findIndex((m) => m.id === msg.id);
+  if (idx >= 0) {
+    messages[idx] = msg;
+  } else {
+    messages.push(msg);
+  }
+  setStore(STORAGE_KEYS.chatMessages, messages);
+  return msg;
+}
+
 export function getAdminComplaints(): AdminComplaint[] {
   const complaints = getStore<AdminComplaint>(STORAGE_KEYS.complaints);
   return complaints.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());

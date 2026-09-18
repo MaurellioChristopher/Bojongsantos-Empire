@@ -11,6 +11,7 @@ import {
   replyAdminComplaint,
   sendAdminComplaint,
 } from '@/lib/data';
+import { chatService } from '@/services/chatService';
 import type { Booking, ChatMessage, AdminComplaint } from '@/types';
 
 interface OrderChatProps {
@@ -47,12 +48,31 @@ export function ChatModal(props: ChatModalProps) {
   useEffect(() => {
     if (!props.isOpen) return;
 
-    if (props.type === 'order') {
-      const msgs = getOrderChatMessages(props.booking.id);
-      setMessages(msgs);
-    } else if (props.type === 'complaint' && props.complaint) {
-      setMessages(props.complaint.replies || []);
-    }
+    let isMounted = true;
+
+    const loadMessages = async () => {
+      if (props.type === 'order') {
+        try {
+          const msgs = await chatService.getMessages(props.booking.id);
+          if (isMounted) setMessages(msgs);
+        } catch {
+          const msgs = getOrderChatMessages(props.booking.id);
+          if (isMounted) setMessages(msgs);
+        }
+      } else if (props.type === 'complaint' && props.complaint) {
+        setMessages(props.complaint.replies || []);
+      }
+    };
+
+    loadMessages();
+
+    // Cross-device continuous synchronization poll every 1.5s while chat window is active
+    const interval = setInterval(loadMessages, 1500);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, [props.isOpen, props]);
 
   useEffect(() => {
@@ -61,24 +81,41 @@ export function ChatModal(props: ChatModalProps) {
 
   if (!props.isOpen || !user) return null;
 
-  const handleSendOrderMessage = (e?: React.FormEvent) => {
+  const handleSendOrderMessage = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!newMessage.trim() || props.type !== 'order') return;
+
+    const text = newMessage.trim();
+    setNewMessage('');
 
     const isPenyedia = user.role === 'penyedia';
     const recipientId = isPenyedia ? props.booking.recipientId : props.booking.providerId;
 
-    const sent = sendOrderChatMessage({
-      bookingId: props.booking.id,
-      senderId: user.id,
-      senderName: user.name,
-      senderRole: user.role,
-      recipientId,
-      message: newMessage.trim(),
-    });
+    try {
+      const sent = await chatService.sendMessage({
+        bookingId: props.booking.id,
+        senderId: user.id,
+        senderName: user.name,
+        senderRole: user.role,
+        recipientId,
+        message: text,
+      });
 
-    setMessages((prev) => [...prev, sent]);
-    setNewMessage('');
+      setMessages((prev) => {
+        if (prev.some((m) => m.id === sent.id)) return prev;
+        return [...prev, sent];
+      });
+    } catch {
+      const fallback = sendOrderChatMessage({
+        bookingId: props.booking.id,
+        senderId: user.id,
+        senderName: user.name,
+        senderRole: user.role,
+        recipientId,
+        message: text,
+      });
+      setMessages((prev) => [...prev, fallback]);
+    }
   };
 
   const handleSendComplaintReply = (e: React.FormEvent) => {

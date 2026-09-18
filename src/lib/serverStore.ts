@@ -2,7 +2,7 @@
 // AksesPangan — Server Memory Data Store for Microservices
 // ============================================================
 
-import type { User, SurplusItem, Booking, Notification, ImpactData, ImpactTimeline } from '@/types';
+import type { User, SurplusItem, Booking, Notification, ImpactData, ImpactTimeline, ChatMessage } from '@/types';
 import { CO2E_FACTOR, TREE_CO2_ABSORPTION } from './constants';
 
 interface ServerState {
@@ -10,6 +10,7 @@ interface ServerState {
   surplusItems: SurplusItem[];
   bookings: Booking[];
   notifications: Notification[];
+  chatMessages: ChatMessage[];
   initialized: boolean;
 }
 
@@ -727,6 +728,7 @@ function getInitialServerState(): ServerState {
     surplusItems,
     bookings,
     notifications: [],
+    chatMessages: [],
     initialized: true,
   };
 }
