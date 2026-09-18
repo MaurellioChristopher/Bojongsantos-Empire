@@ -33,14 +33,14 @@ function getInitialServerState(): ServerState {
     {
       id: 'penyedia-1',
       name: 'Ahmad Fauzi',
-      email: 'ahmad@restoran.com',
-      password: 'password123',
+      email: 'restoran@demo.com',
+      password: 'demo123',
       role: 'penyedia',
       phone: '081298765432',
-      businessName: 'Restoran Minang Jaya',
-      businessAddress: 'Jl. Sudirman No. 45, Jakarta Pusat',
+      businessName: 'Dapur Sunda Bojongsoang',
+      businessAddress: 'Jl. Raya Bojongsoang No. 65, Bojongsoang',
       businessType: 'restoran',
-      location: { lat: -6.2088, lng: 106.8456 },
+      location: { lat: -6.9712, lng: 107.6335 },
       createdAt: '2025-01-10T00:00:00.000Z',
     },
     {
@@ -59,8 +59,8 @@ function getInitialServerState(): ServerState {
     {
       id: 'penerima-1',
       name: 'Rina Wulandari',
-      email: 'rina@gmail.com',
-      password: 'password123',
+      email: 'penerima@demo.com',
+      password: 'demo123',
       role: 'penerima',
       phone: '082112345678',
       location: { lat: -6.21, lng: 106.84 },
@@ -82,8 +82,8 @@ function getInitialServerState(): ServerState {
     // --- Bandung & Bojongsoang Area (User Neighborhood) ---
     {
       id: 'surplus-bdg-1',
-      providerId: 'penyedia-bdg-1',
-      providerName: 'Siti Rohani',
+      providerId: 'penyedia-1',
+      providerName: 'Ahmad Fauzi',
       providerBusinessName: 'Dapur Sunda Bojongsoang',
       name: 'Nasi Liwet Komplit Ayam Bakar',
       description: 'Nasi liwet wangi kasturi, ayam bakar bumbu rujak, tahu tempe goreng, lalapan segar dan sambal terasi khas priangan.',
@@ -734,8 +734,7 @@ function getInitialServerState(): ServerState {
 export function getServerStore(): ServerState {
   const needsUpdate =
     !global.__aksespangan_server_store__ ||
-    !global.__aksespangan_server_store__.surplusItems.some((i) => i.id.startsWith('surplus-bdg')) ||
-    !global.__aksespangan_server_store__.surplusItems.some((i) => i.id === 'surplus-bdg-2' && i.photo === '/images/surplus-nasi-padang.jpg') ||
+    !global.__aksespangan_server_store__.surplusItems.some((i) => i.id === 'surplus-bdg-1' && i.providerId === 'penyedia-1') ||
     global.__aksespangan_server_store__.surplusItems.length < 30;
 
   if (needsUpdate) {

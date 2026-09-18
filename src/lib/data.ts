@@ -122,8 +122,8 @@ export function getBandungSeedItems(): SurplusItem[] {
   return [
     {
       id: 'surplus-bdg-1',
-      providerId: 'penyedia-bdg-1',
-      providerName: 'Siti Rohani',
+      providerId: 'penyedia-1',
+      providerName: 'Ahmad Fauzi',
       providerBusinessName: 'Dapur Sunda Bojongsoang',
       name: 'Nasi Liwet Komplit Ayam Bakar',
       description: 'Nasi liwet wangi kasturi, ayam bakar bumbu rujak, tahu tempe goreng, lalapan segar dan sambal terasi khas priangan.',
@@ -893,9 +893,10 @@ export function getSurplusItems(): SurplusItem[] {
     (i.id === 'surplus-bdg-8' && i.photo !== '/images/surplus-capcay.jpg') ||
     (i.id === 'surplus-bdg-10' && i.photo !== '/images/surplus-buah-potong.jpg')
   );
-  // Check if new items (surplus-map-30) are present
+  // Check if new items (surplus-map-30) and provider link are present
   const hasExpandedMapItems = items.some((i) => i.id === 'surplus-map-30');
-  if (!items.some((i) => i.id.startsWith('surplus-bdg')) || !hasActiveBdg || needsPhotoUpdate || !hasExpandedMapItems) {
+  const hasProviderUpdated = items.some((i) => i.id === 'surplus-bdg-1' && i.providerId === 'penyedia-1');
+  if (!items.some((i) => i.id.startsWith('surplus-bdg')) || !hasActiveBdg || needsPhotoUpdate || !hasExpandedMapItems || !hasProviderUpdated) {
     const bdgItems = getBandungSeedItems();
     items = [...bdgItems, ...items.filter((i) => !i.id.startsWith('surplus-bdg') && !i.id.startsWith('surplus-map'))];
     setStore(STORAGE_KEYS.surplusItems, items);
@@ -966,11 +967,46 @@ export function getBookingById(id: string): Booking | undefined {
 }
 
 export function getBookingsByRecipient(recipientId: string): Booking[] {
-  return getBookings().filter((b) => b.recipientId === recipientId);
+  return getBookings().filter(
+    (b) =>
+      b.recipientId === recipientId ||
+      (recipientId.includes('penerima') && (b.recipientId === 'penerima-1' || b.recipientId === 'penerima-demo'))
+  );
 }
 
 export function getBookingsByProvider(providerId: string): Booking[] {
+  const isDemoProvider =
+    providerId === 'penyedia-1' ||
+    providerId === 'penyedia-demo' ||
+    providerId === 'penyedia-bdg-1' ||
+    providerId.startsWith('penyedia-');
+
+  if (isDemoProvider) {
+    return getBookings().filter(
+      (b) =>
+        b.providerId === 'penyedia-1' ||
+        b.providerId === 'penyedia-demo' ||
+        b.providerId === 'penyedia-bdg-1' ||
+        b.providerId === providerId ||
+        b.providerId.startsWith('penyedia-bdg') ||
+        b.providerId.startsWith('penyedia-jbr') ||
+        b.providerBusinessName === 'Dapur Sunda Bojongsoang'
+    );
+  }
   return getBookings().filter((b) => b.providerId === providerId);
+}
+
+export function saveBooking(booking: Booking): Booking {
+  const bookings = getBookings();
+  const idx = bookings.findIndex((b) => b.id === booking.id);
+  if (idx >= 0) {
+    bookings[idx] = booking;
+  } else {
+    bookings.unshift(booking);
+  }
+  setStore(STORAGE_KEYS.bookings, bookings);
+  updateSurplus(booking.surplusId, { status: 'booked' });
+  return booking;
 }
 
 export function getBookingBySurplus(surplusId: string): Booking | undefined {

@@ -9,18 +9,44 @@ import * as localData from '@/lib/data';
 
 export const bookingService = {
   async getByRecipient(recipientId: string): Promise<Booking[]> {
+    const local = localData.getBookingsByRecipient(recipientId);
     try {
-      return await requestApi<Booking[]>(`/api/bookings?recipientId=${encodeURIComponent(recipientId)}`);
+      const remote = await requestApi<Booking[]>(`/api/bookings?recipientId=${encodeURIComponent(recipientId)}`);
+      const map = new Map<string, Booking>();
+      remote.forEach((b) => map.set(b.id, b));
+      local.forEach((b) => {
+        if (!map.has(b.id)) {
+          map.set(b.id, b);
+        }
+      });
+      const merged = Array.from(map.values()).sort(
+        (a, b) => new Date(b.bookedAt).getTime() - new Date(a.bookedAt).getTime()
+      );
+      merged.forEach((b) => localData.saveBooking(b));
+      return merged;
     } catch {
-      return localData.getBookingsByRecipient(recipientId);
+      return local;
     }
   },
 
   async getByProvider(providerId: string): Promise<Booking[]> {
+    const local = localData.getBookingsByProvider(providerId);
     try {
-      return await requestApi<Booking[]>(`/api/bookings?providerId=${encodeURIComponent(providerId)}`);
+      const remote = await requestApi<Booking[]>(`/api/bookings?providerId=${encodeURIComponent(providerId)}`);
+      const map = new Map<string, Booking>();
+      remote.forEach((b) => map.set(b.id, b));
+      local.forEach((b) => {
+        if (!map.has(b.id)) {
+          map.set(b.id, b);
+        }
+      });
+      const merged = Array.from(map.values()).sort(
+        (a, b) => new Date(b.bookedAt).getTime() - new Date(a.bookedAt).getTime()
+      );
+      merged.forEach((b) => localData.saveBooking(b));
+      return merged;
     } catch {
-      return localData.getBookingsByProvider(providerId);
+      return local;
     }
   },
 
@@ -30,6 +56,8 @@ export const bookingService = {
         method: 'POST',
         body: JSON.stringify(data),
       });
+      // Save locally as well for offline and instant tab sync
+      localData.saveBooking(booking);
       return booking;
     } catch {
       const surplus = localData.getSurplusById(data.surplusId);

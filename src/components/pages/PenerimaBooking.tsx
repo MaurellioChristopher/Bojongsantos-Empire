@@ -55,6 +55,15 @@ export function PenerimaBooking() {
 
   useEffect(() => {
     refresh();
+    const interval = setInterval(refresh, 2500);
+    const handleSync = () => refresh();
+    window.addEventListener('focus', handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('focus', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
   }, [user]);
 
   const handleConfirmPickup = async (booking: Booking) => {

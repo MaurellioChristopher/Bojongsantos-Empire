@@ -54,9 +54,32 @@ export async function GET(request: Request): Promise<NextResponse<ApiResponse<Bo
   let bookings = store.bookings;
 
   if (recipientId) {
-    bookings = bookings.filter((b) => b.recipientId === recipientId);
+    bookings = bookings.filter(
+      (b) =>
+        b.recipientId === recipientId ||
+        (recipientId.includes('penerima') && (b.recipientId === 'penerima-1' || b.recipientId === 'penerima-demo'))
+    );
   } else if (providerId) {
-    bookings = bookings.filter((b) => b.providerId === providerId);
+    const isDemoProvider =
+      providerId === 'penyedia-1' ||
+      providerId === 'penyedia-demo' ||
+      providerId === 'penyedia-bdg-1' ||
+      providerId.startsWith('penyedia-');
+
+    if (isDemoProvider) {
+      bookings = bookings.filter(
+        (b) =>
+          b.providerId === 'penyedia-1' ||
+          b.providerId === 'penyedia-demo' ||
+          b.providerId === 'penyedia-bdg-1' ||
+          b.providerId === providerId ||
+          b.providerId.startsWith('penyedia-bdg') ||
+          b.providerId.startsWith('penyedia-jbr') ||
+          b.providerBusinessName === 'Dapur Sunda Bojongsoang'
+      );
+    } else {
+      bookings = bookings.filter((b) => b.providerId === providerId);
+    }
   }
 
   return NextResponse.json({
@@ -96,6 +119,7 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<B
 
     const bookingQty = body.quantity || surplus.quantity;
     const deadline = new Date(Math.min(Date.now() + 2 * 3600000, new Date(surplus.expiryTime).getTime())).toISOString();
+    const randomPin = Math.floor(1000 + Math.random() * 9000).toString();
 
     const newBooking: Booking = {
       id: `booking-${Date.now()}`,
@@ -109,6 +133,7 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<B
       recipientPhone: body.recipientPhone || '08123456789',
       quantity: bookingQty,
       status: 'menunggu',
+      pickupPin: randomPin,
       bookedAt: new Date().toISOString(),
       pickupDeadline: deadline,
       pickupLocation: surplus.location,
