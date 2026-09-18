@@ -110,12 +110,12 @@ export function PenerimaDashboard() {
   // Access Control: Guests must log in to view and order from Katalog Surplus
   if (!user) {
     return (
-      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
-        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-neutral-800 mb-4 border border-black/10 shadow-sm">
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#FBF7F0]">
+        <div className="w-16 h-16 rounded-full bg-[#FFFDF9] flex items-center justify-center text-[#2C221D] mb-4 border border-[#EADECF] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Katalog Terkunci</h2>
-        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+        <h2 className="text-display-md text-[#2C221D] mb-2">Akses Katalog Terkunci</h2>
+        <p className="text-body-apple text-[#7D6F64] max-w-md mb-6">
           Sesuai ketentuan platform, pengguna harus masuk sebagai <strong>Penerima Manfaat</strong> untuk menjelajahi Katalog Surplus dan melakukan pemesanan makanan.
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3">
@@ -133,12 +133,12 @@ export function PenerimaDashboard() {
   // Access Control: Penyedia cannot order as Penerima
   if (user.role === 'penyedia') {
     return (
-      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
-        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-amber-500 mb-4 border border-black/10 shadow-sm">
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#FBF7F0]">
+        <div className="w-16 h-16 rounded-full bg-[#FFFDF9] flex items-center justify-center text-[#D95327] mb-4 border border-[#EADECF] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Dibatasi untuk Penyedia</h2>
-        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+        <h2 className="text-display-md text-[#2C221D] mb-2">Akses Dibatasi untuk Penyedia</h2>
+        <p className="text-body-apple text-[#7D6F64] max-w-md mb-6">
           Mitra Penyedia tidak dapat mengakses Katalog Surplus untuk memesan makanan sebagai Penerima. Silakan gunakan dashboard penyedia untuk mengelola stok surplus Anda.
         </p>
         <a href="#/penyedia" className="btn-apple-primary text-sm py-2.5 px-6">
@@ -151,12 +151,12 @@ export function PenerimaDashboard() {
   // Access Control: Admin cannot order as Penerima
   if (user.role === 'admin') {
     return (
-      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
-        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-neutral-700 mb-4 border border-black/10 shadow-sm">
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#FBF7F0]">
+        <div className="w-16 h-16 rounded-full bg-[#FFFDF9] flex items-center justify-center text-[#2C221D] mb-4 border border-[#EADECF] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Administrator</h2>
-        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+        <h2 className="text-display-md text-[#2C221D] mb-2">Akses Administrator</h2>
+        <p className="text-body-apple text-[#7D6F64] max-w-md mb-6">
           Akun Administrator tidak dapat melakukan pemesanan surplus sebagai Penerima.
         </p>
         <a href="#/admin" className="btn-apple-primary text-sm py-2.5 px-6">
@@ -167,15 +167,15 @@ export function PenerimaDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7] py-8 px-4 sm:px-8">
+    <div className="min-h-screen bg-[#FBF7F0] py-8 px-4 sm:px-8">
       <div className="apple-container-wide">
         {/* Header Section */}
         <div className="mb-6">
-          <h1 className="text-display-lg text-[#1d1d1f] mb-1">
+          <h1 className="text-display-lg text-[#2C221D] mb-1">
             Katalog Makanan Surplus
           </h1>
-          <div className="h-[2px] rounded-full mb-2 w-16 bg-[#E8592A]" />
-          <p className="text-body-apple text-[#86868b]">
+          <div className="h-[2px] rounded-full mb-2 w-16 bg-[#D95327]" />
+          <p className="text-body-apple text-[#7D6F64]">
             Makanan layak konsumsi siap diselamatkan dari restoran dan toko terdekat.
           </p>
         </div>
@@ -186,7 +186,7 @@ export function PenerimaDashboard() {
           <div className="relative flex-1">
             <Search
               size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-[#86868b]"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-[#7D6F64]"
             />
             <input
               type="text"
@@ -198,13 +198,13 @@ export function PenerimaDashboard() {
           </div>
 
           {/* Segmented View Switcher */}
-          <div className="flex items-center bg-[#f5f5f7] border border-[rgba(0,0,0,0.06)] rounded-full p-1 self-start sm:self-auto">
+          <div className="flex items-center bg-[#F5EFEB] border border-[#EADECF] rounded-full p-1 self-start sm:self-auto">
             <button
               onClick={() => setViewMode('list')}
               className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
                 viewMode === 'list'
-                  ? 'bg-[#111215] text-white shadow-xs font-semibold'
-                  : 'text-[#6e6e73] hover:text-[#111215]'
+                  ? 'bg-[#2C221D] text-[#FAF6F0] shadow-xs font-semibold'
+                  : 'text-[#7D6F64] hover:text-[#2C221D]'
               }`}
             >
               <List size={15} /> Daftar ({filteredItems.length})
@@ -213,8 +213,8 @@ export function PenerimaDashboard() {
               onClick={() => setViewMode('map')}
               className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
                 viewMode === 'map'
-                  ? 'bg-[#111215] text-white shadow-xs font-semibold'
-                  : 'text-[#6e6e73] hover:text-[#111215]'
+                  ? 'bg-[#2C221D] text-[#FAF6F0] shadow-xs font-semibold'
+                  : 'text-[#7D6F64] hover:text-[#2C221D]'
               }`}
             >
               <Map size={15} /> Peta
@@ -236,7 +236,7 @@ export function PenerimaDashboard() {
             </button>
           ))}
 
-          <div className="h-5 w-[1px] bg-[rgba(0,0,0,0.12)] mx-1" />
+          <div className="h-5 w-[1px] bg-[#EADECF] mx-1" />
 
           {/* Price Quick Filter */}
           <button
@@ -251,7 +251,7 @@ export function PenerimaDashboard() {
 
         {/* Content View: List or Map */}
         {viewMode === 'map' ? (
-          <div className="w-full h-[580px] rounded-[18px] overflow-hidden border border-[rgba(0,0,0,0.08)] bg-white product-hero-shadow relative">
+          <div className="w-full h-[580px] rounded-[18px] overflow-hidden border border-[#EADECF] bg-[#FFFDF9] product-hero-shadow relative">
             <MapComponent
               items={filteredItems}
               center={userLocation}
@@ -262,12 +262,12 @@ export function PenerimaDashboard() {
         ) : (
           <div>
             {filteredItems.length === 0 ? (
-              <div className="bg-white rounded-[18px] p-12 text-center border border-[rgba(0,0,0,0.08)] max-w-md mx-auto">
-                <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-3 text-neutral-400">
+              <div className="bg-[#FFFDF9] rounded-[18px] p-12 text-center border border-[#EADECF] max-w-md mx-auto">
+                <div className="w-12 h-12 rounded-full bg-[#F5EFEB] flex items-center justify-center mx-auto mb-3 text-[#7D6F64]">
                   <Search size={22} />
                 </div>
-                <h3 className="text-body-strong mb-1">Tidak Ada Makanan Ditemukan</h3>
-                <p className="text-caption-apple text-[#86868b] mb-4">
+                <h3 className="text-body-strong text-[#2C221D] mb-1">Tidak Ada Makanan Ditemukan</h3>
+                <p className="text-caption-apple text-[#7D6F64] mb-4">
                   Coba ubah kata kunci atau ganti filter kategori.
                 </p>
                 <button
@@ -295,13 +295,13 @@ export function PenerimaDashboard() {
                       transition={{ duration: 0.3 }}
                       whileHover={{
                         y: -6,
-                        boxShadow: '0 20px 30px -10px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08)',
+                        boxShadow: '0 20px 30px -10px rgba(44, 34, 29, 0.12), 0 8px 10px -6px rgba(44, 34, 29, 0.08)',
                       }}
-                      className="bg-white rounded-[18px] border border-[rgba(0,0,0,0.08)] overflow-hidden flex flex-col justify-between hover:border-black/30 transition-all duration-300 group shadow-sm"
+                      className="bg-[#FFFDF9] rounded-[18px] border border-[#EADECF] overflow-hidden flex flex-col justify-between hover:border-[#D4C3AF] transition-all duration-300 group shadow-sm"
                     >
                       <div>
                         {/* Rich Food Image Banner / Background */}
-                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#f0f0f0]">
+                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F5EFEB]">
                           <img
                             src={foodPhoto}
                             alt={item.name}
@@ -309,11 +309,11 @@ export function PenerimaDashboard() {
                           />
 
                           {/* Vignette Gradient Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#18110D]/70 via-transparent to-[#18110D]/20 pointer-events-none" />
 
                           {/* Top Left: Category Badge */}
                           <div className="absolute top-3 left-3 z-10">
-                            <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 flex items-center shadow-sm">
+                            <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#18110D]/70 backdrop-blur-md text-[#FAF6F0] border border-[#FAF6F0]/20 flex items-center shadow-sm">
                               <span>{FOOD_CATEGORY_LABELS[item.foodCategory] || item.foodCategory}</span>
                             </span>
                           </div>
@@ -324,7 +324,7 @@ export function PenerimaDashboard() {
                               className={`text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full shadow-sm backdrop-blur-md ${
                                 item.isFree
                                   ? 'bg-[#1b8a36] text-white border border-emerald-400/40'
-                                  : 'bg-black text-white border border-white/20'
+                                  : 'bg-[#18110D] text-[#FAF6F0] border border-[#FAF6F0]/20'
                               }`}
                             >
                               {item.isFree ? 'GRATIS' : formatPrice(item.price)}
@@ -333,7 +333,7 @@ export function PenerimaDashboard() {
 
                           {/* Bottom Left: Portions Tag */}
                           <div className="absolute bottom-3 left-3 z-10">
-                            <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded-[3px] bg-black/70 backdrop-blur-md text-white border border-white/15">
+                            <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded-[3px] bg-[#18110D]/75 backdrop-blur-md text-[#FAF6F0] border border-[#FAF6F0]/15">
                               {item.quantity} kg · {item.portionCount} porsi
                             </span>
                           </div>
@@ -341,27 +341,27 @@ export function PenerimaDashboard() {
 
                         {/* Content Area */}
                         <div className="p-5">
-                          <h3 className="text-body-strong text-[#1d1d1f] mb-1.5 line-clamp-1 group-hover:text-black transition-colors">
+                          <h3 className="text-body-strong text-[#2C221D] mb-1.5 line-clamp-1 group-hover:text-[#D95327] transition-colors">
                             {item.name}
                           </h3>
-                          <div className="text-caption-apple text-[#86868b] mb-2.5 flex items-center gap-1.5">
-                            <MapPin size={13} className="shrink-0" style={{ color: '#E8592A' }} />
+                          <div className="text-caption-apple text-[#7D6F64] mb-2.5 flex items-center gap-1.5">
+                            <MapPin size={13} className="shrink-0 text-[#D95327]" />
                             <span className="line-clamp-1">
                               {item.providerBusinessName} • {Math.round(item.distance * 10) / 10} km
                             </span>
                           </div>
 
-                          <p className="text-caption-apple text-[#555555] mb-2 line-clamp-2 leading-relaxed">
+                          <p className="text-caption-apple text-[#5A4D44] mb-2 line-clamp-2 leading-relaxed">
                             {item.description}
                           </p>
                         </div>
                       </div>
 
                       {/* Bottom Action Area */}
-                      <div className="px-5 pb-5 pt-3 border-t border-[rgba(0,0,0,0.06)] bg-[#fafafc] flex items-center justify-between">
+                      <div className="px-5 pb-5 pt-3 border-t border-[#EADECF] bg-[#FAF7F2] flex items-center justify-between">
                         <div className="flex flex-col">
-                          <span className="text-[10px] uppercase font-mono tracking-wider text-[#86868b]">Sisa Waktu</span>
-                          <div className="text-caption-strong flex items-center gap-1.5 font-mono" style={{ color: '#E8592A' }}>
+                          <span className="text-[10px] uppercase font-mono tracking-wider text-[#7D6F64]">Sisa Waktu</span>
+                          <div className="text-caption-strong flex items-center gap-1.5 font-mono text-[#D95327]">
                             <Clock size={12} />
                             <span>{formatCountdown(item.expiryTime)}</span>
                           </div>
@@ -371,7 +371,7 @@ export function PenerimaDashboard() {
                           onClick={() => setSelectedItem(item)}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="btn-apple-primary btn-apple-sm text-xs font-semibold shadow-sm cursor-pointer"
+                          className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-sm cursor-pointer transition-all"
                         >
                           Detail & Pesan
                         </motion.button>

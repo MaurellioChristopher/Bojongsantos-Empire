@@ -131,7 +131,7 @@ function AppRouter() {
   if (isLoading) {
     return (
       <div
-        className="min-h-screen flex items-center justify-center bg-white"
+        className="min-h-screen flex items-center justify-center bg-[#FBF7F0]"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -140,15 +140,15 @@ function AppRouter() {
         >
           <div
             className="w-12 h-12 rounded-2xl mb-4 flex items-center justify-center shadow-lg shadow-orange-500/15"
-            style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #E8592A 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #E67E22 0%, #D95327 100%)' }}
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
               <path d="M12 2.5L3.5 8.5L12 14.5L20.5 8.5L12 2.5Z" fill="currentColor" />
               <path d="M3.5 13.5L12 19.5L20.5 13.5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
-          <div className="text-display-md font-semibold text-[#1d1d1f] tracking-tight">AksesPangan</div>
-          <div className="mt-2 text-caption-apple text-[#86868b]">Memuat ekosistem penyelamatan pangan...</div>
+          <div className="text-display-md font-semibold text-[#2C221D] tracking-tight">AksesPangan</div>
+          <div className="mt-2 text-caption-apple text-[#7D6F64]">Memuat ekosistem penyelamatan pangan...</div>
         </motion.div>
       </div>
     );
@@ -193,7 +193,7 @@ function AppRouter() {
   };
 
   return (
-    <div className="min-h-screen text-[#1d1d1f] antialiased bg-white selection:bg-[#1d1d1f] selection:text-white">
+    <div className="min-h-screen text-[#2C221D] antialiased bg-[#FBF7F0] selection:bg-[#D95327] selection:text-white">
       {showNav && <Navbar currentRoute={route} />}
       <AnimatePresence mode="wait">
         <motion.main

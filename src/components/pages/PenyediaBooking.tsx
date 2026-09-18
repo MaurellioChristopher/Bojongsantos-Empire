@@ -67,22 +67,22 @@ export function PenyediaBooking() {
 
   if (!user || user.role !== 'penyedia') {
     return (
-      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
-        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#1d1d1f] mb-4 border border-[rgba(0,0,0,0.08)] shadow-sm">
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#FBF7F0]">
+        <div className="w-16 h-16 rounded-full bg-[#FFFDF9] flex items-center justify-center text-[#2C221D] mb-4 border border-[#EADECF] shadow-sm">
           <Clock size={32} />
         </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Akses Khusus Mitra Penyedia</h2>
-        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+        <h2 className="text-display-md text-[#2C221D] mb-2">Akses Khusus Mitra Penyedia</h2>
+        <p className="text-body-apple text-[#7D6F64] max-w-md mb-6">
           Halaman ini hanya dapat diakses oleh akun Mitra Penyedia untuk mengelola permintaan klaim makanan.
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <button
             onClick={() => login('penyedia@aksespangan.id', 'penyedia123')}
-            className="btn-apple-primary text-sm py-2.5 px-5"
+            className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-sm py-2.5 px-5 rounded-xl font-medium shadow-sm transition-all"
           >
             Masuk Akun Demo Penyedia (1-Klik)
           </button>
-          <a href="#/login" className="btn-apple-secondary text-sm py-2.5 px-5">
+          <a href="#/login" className="bg-[#F5EFEB] hover:bg-[#EADECF] text-[#2C221D] text-sm py-2.5 px-5 rounded-xl font-medium border border-[#EADECF] transition-colors">
             Masuk dengan Akun Lain
           </a>
         </div>
@@ -94,54 +94,54 @@ export function PenyediaBooking() {
   const past = bookings.filter((b) => b.status !== 'menunggu');
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7] py-8 px-4 sm:px-8">
+    <div className="min-h-screen bg-[#FBF7F0] py-8 px-4 sm:px-8">
       <div className="apple-container">
         {/* Top Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <a href="#/penyedia" className="link-apple text-xs mb-2 inline-flex items-center gap-1">
+            <a href="#/penyedia" className="text-[#D95327] hover:text-[#B8401A] text-xs mb-2 inline-flex items-center gap-1 font-semibold">
               <ArrowLeft size={14} /> Kembali ke Dashboard
             </a>
-            <h1 className="text-display-lg text-[#1d1d1f]">Daftar Pesanan &amp; Pengambilan</h1>
-            <p className="text-body-apple text-[#86868b] m-0">
+            <h1 className="text-display-lg text-[#2C221D]">Daftar Pesanan &amp; Pengambilan</h1>
+            <p className="text-body-apple text-[#7D6F64] m-0">
               Kelola permintaan makanan dari masyarakat, konfirmasi serah terima, dan koordinasi via chat.
             </p>
           </div>
 
           <button
             onClick={() => setIsComplaintModalOpen(true)}
-            className="btn-apple-secondary text-xs py-2.5 px-4 flex items-center gap-2 self-start sm:self-center text-neutral-700 hover:text-black border-neutral-300 shadow-2xs"
+            className="bg-[#FFFDF9] hover:bg-[#F5EFEB] text-xs py-2.5 px-4 flex items-center gap-2 self-start sm:self-center text-[#2C221D] border border-[#EADECF] rounded-xl shadow-xs transition-colors"
           >
-            <AlertCircle size={15} className="text-[#E8592A]" />
+            <AlertCircle size={15} className="text-[#D95327]" />
             <span>Sampaikan Keluhan ke Admin</span>
           </button>
         </div>
 
         {/* Pending Requests */}
-        <div className="card-apple-utility bg-white p-6 sm:p-8 mb-8">
-          <h2 className="text-tagline text-[#1d1d1f] mb-4 flex items-center gap-2">
+        <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 sm:p-8 mb-8 shadow-xs">
+          <h2 className="text-tagline text-[#2C221D] mb-4 flex items-center gap-2">
             <span>Perlu Konfirmasi Segera</span>
-            <span className="badge-apple badge-apple-warning text-xs">{pending.length}</span>
+            <span className="bg-[#FFF2EB] text-[#D95327] border border-[#FAD7C8] text-xs px-2.5 py-0.5 rounded-full font-mono font-bold">{pending.length}</span>
           </h2>
 
           {pending.length === 0 ? (
-            <div className="text-center py-10 text-[#86868b]">
-              <Inbox size={32} className="text-neutral-400 mx-auto mb-2" />
+            <div className="text-center py-10 text-[#7D6F64]">
+              <Inbox size={32} className="text-[#A8988B] mx-auto mb-2" />
               <p className="text-body-apple m-0">Semua pesanan telah diproses.</p>
             </div>
           ) : (
             <div className="space-y-4">
               {pending.map((b) => (
-                <div key={b.id} className="p-5 rounded-[16px] bg-[#f5f5f7] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div key={b.id} className="p-5 rounded-[16px] bg-[#FAF7F2] border border-[#EADECF] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
-                    <h3 className="text-body-strong text-[#1d1d1f] mb-1">{b.surplusName}</h3>
-                    <div className="text-caption-apple text-[#86868b] space-y-0.5">
+                    <h3 className="text-body-strong text-[#2C221D] mb-1">{b.surplusName}</h3>
+                    <div className="text-caption-apple text-[#7D6F64] space-y-0.5">
                       <div className="flex items-center gap-1">
-                        <User size={13} className="text-neutral-500" />
-                        <span>Penerima: <span className="text-[#1d1d1f] font-medium">{b.recipientName}</span> ({b.recipientPhone})</span>
+                        <User size={13} className="text-[#A8988B]" />
+                        <span>Penerima: <span className="text-[#2C221D] font-medium">{b.recipientName}</span> ({b.recipientPhone})</span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <Scale size={13} className="text-neutral-500" />
+                        <Scale size={13} className="text-[#A8988B]" />
                         <span>Jumlah: {b.quantity} kg • Dipesan: {getRelativeTime(b.bookedAt)}</span>
                       </div>
                     </div>
@@ -150,20 +150,20 @@ export function PenyediaBooking() {
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => setSelectedChatBooking(b)}
-                      className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3.5 flex items-center gap-1.5 text-neutral-800 border-neutral-300 hover:border-[#E8592A]"
+                      className="bg-[#FFFDF9] hover:bg-[#F5EFEB] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#2C221D] border border-[#EADECF] shadow-xs transition-colors"
                     >
-                      <MessageSquare size={13} className="text-[#E8592A]" />
+                      <MessageSquare size={13} className="text-[#D95327]" />
                       <span>Chat Penerima</span>
                     </button>
                     <button
                       onClick={() => handleReject(b)}
-                      className="btn-apple-secondary btn-apple-sm text-xs py-2 px-3 border-[#ff3b30] text-[#ff3b30] hover:bg-[#ff3b30]/10"
+                      className="bg-[#FFFDF9] text-xs py-2 px-3 rounded-xl border border-red-300 text-red-600 hover:bg-red-50 transition-colors"
                     >
                       Tolak
                     </button>
                     <button
                       onClick={() => handleConfirm(b)}
-                      className="btn-apple-primary btn-apple-sm text-xs py-2 px-4"
+                      className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-xs py-2 px-4 rounded-xl font-medium shadow-sm transition-all"
                     >
                       Konfirmasi
                     </button>
@@ -175,21 +175,21 @@ export function PenyediaBooking() {
         </div>
 
         {/* Confirmed / Active & Past History */}
-        <div className="card-apple-utility bg-white p-6 sm:p-8">
-          <h2 className="text-tagline text-[#1d1d1f] mb-4">Pesanan Aktif &amp; Riwayat</h2>
+        <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 sm:p-8 shadow-xs">
+          <h2 className="text-tagline text-[#2C221D] mb-4">Pesanan Aktif &amp; Riwayat</h2>
 
           {past.length === 0 ? (
-            <p className="text-caption-apple text-[#86868b] text-center py-8">Belum ada riwayat transaksi sebelumnya.</p>
+            <p className="text-caption-apple text-[#7D6F64] text-center py-8">Belum ada riwayat transaksi sebelumnya.</p>
           ) : (
-            <div className="divide-y divide-[rgba(0,0,0,0.06)]">
+            <div className="divide-y divide-[#EADECF]">
               {past.map((b) => {
                 const isConfirmed = b.status === 'dikonfirmasi';
                 return (
                   <div key={b.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
-                      <div className="text-body-strong text-[#1d1d1f] mb-0.5 font-medium">{b.surplusName}</div>
-                      <div className="text-caption-apple text-[#86868b]">
-                        Penerima: <span className="text-neutral-800 font-medium">{b.recipientName}</span> • {b.quantity} kg • {formatDateTime(b.bookedAt)}
+                      <div className="text-body-strong text-[#2C221D] mb-0.5 font-medium">{b.surplusName}</div>
+                      <div className="text-caption-apple text-[#7D6F64]">
+                        Penerima: <span className="text-[#2C221D] font-medium">{b.recipientName}</span> • {b.quantity} kg • {formatDateTime(b.bookedAt)}
                       </div>
                     </div>
 
@@ -197,7 +197,7 @@ export function PenyediaBooking() {
                       {isConfirmed && (
                         <button
                           onClick={() => setSelectedChatBooking(b)}
-                          className="btn-apple-primary text-xs py-1.5 px-3.5 flex items-center gap-1.5 shadow-2xs"
+                          className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-xs py-1.5 px-3.5 rounded-xl flex items-center gap-1.5 shadow-sm transition-all"
                         >
                           <MessageSquare size={13} />
                           <span>Chat Koordinasi</span>

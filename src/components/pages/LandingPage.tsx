@@ -245,16 +245,16 @@ export function LandingPage() {
       : activeItems.filter((i) => i.foodCategory === selectedCategory);
 
   return (
-    <div className="w-full bg-[#0a0a0c] text-[#1d1d1f] selection:bg-black selection:text-white">
+    <div className="w-full bg-[#18110D] text-[#2C221D] selection:bg-[#2C221D] selection:text-[#FAF6F0]">
       {/* ============================================================
           SECTION 1: HERO SCROLL-DRIVEN CAMERA ZOOM WITH VIDEO BACKGROUND
           - Background: Real Looping Video (/videos/hero-food.webm)
           - Letter 'O': Holds high-res food rescue photo, integrated inline into 'F[O]OD'
           - Zoom transition: Soft camera dive directly through the 'O' portal
-          - Color: Obsidian black & warm gold accents (Zero annoying green!)
+          - Color: Deep roasted cacao & warm artisanal honey accents
           ============================================================ */}
-      <section ref={heroSequenceRef} className="relative w-full h-[260vh] bg-black">
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-black flex items-center justify-center">
+      <section ref={heroSequenceRef} className="relative w-full h-[260vh] bg-[#140E0A]">
+        <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#140E0A] flex items-center justify-center">
           {/* Static Background Image at Rest (Scroll = 0) */}
           <motion.div
             style={{ opacity: heroBgImageOpacity }}
@@ -284,9 +284,9 @@ export function LandingPage() {
             </video>
           </motion.div>
 
-          {/* Deep Cinematic Black Gradients for Pure Elegance */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/80 pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#000000_85%)] pointer-events-none" />
+          {/* Deep Cinematic Warm Cacao Gradients */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#140E0A] via-[#140E0A]/45 to-[#140E0A]/85 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#140E0A_85%)] pointer-events-none" />
 
           {/* Hero Content - Clean, Bold, Impactful Centered Title with Zero Clutter */}
           <motion.div
@@ -509,7 +509,7 @@ export function LandingPage() {
             </div>
 
             {/* Bottom 4-Counter Metrics Strip with Glassmorphism & Icons */}
-            <div className="relative bg-[#0f0f13]/85 backdrop-blur-3xl border border-white/20 rounded-[2.2rem] p-5 sm:p-6 shadow-[0_25px_70px_rgba(0,0,0,0.8)] overflow-hidden">
+            <div className="relative bg-[#1C1510]/90 backdrop-blur-3xl border border-[#FAF6F0]/15 rounded-[2.2rem] p-5 sm:p-6 shadow-[0_25px_70px_rgba(20,14,10,0.8)] overflow-hidden">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Metric 1 */}
                 <div className="group p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-white/40 hover:bg-white/[0.08] transition-all duration-300">
@@ -599,20 +599,20 @@ export function LandingPage() {
       </section>
 
       {/* ============================================================
-          SECTION 2: INFINITE SMOOTH MARQUEE TICKER (Seamless Dark Charcoal)
-          Zero white blank spots: seamlessly connects from #000000 to #0f0f11
+          SECTION 2: INFINITE SMOOTH MARQUEE TICKER (Seamless Warm Cacao)
+          Zero white blank spots: seamlessly connects from #140E0A to #18110D
           ============================================================ */}
-      <section className="w-full py-12 bg-[#0f0f12] border-y border-white/10 overflow-hidden">
+      <section className="w-full py-12 bg-[#18110D] border-y border-[#382A22] overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 mb-5 text-center">
-          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/70 font-semibold">
+          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#FAF6F0]/70 font-semibold">
             DILIPUT OLEH MEDIA &amp; TERHUBUNG DENGAN EKOSISTEM KULINER
           </span>
         </div>
 
         {/* Row 1 (Forward) */}
         <div className="relative overflow-hidden py-1.5">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#0f0f12] to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#0f0f12] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#18110D] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#18110D] to-transparent" />
 
           <div className="animate-marquee gap-5">
             {[...mediaCoverage, ...mediaCoverage].map((item, idx) => (
@@ -632,8 +632,8 @@ export function LandingPage() {
 
         {/* Row 2 (Reverse) */}
         <div className="relative overflow-hidden py-1.5 mt-2.5">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#0f0f12] to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#0f0f12] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 sm:w-36 bg-gradient-to-r from-[#18110D] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 sm:w-36 bg-gradient-to-l from-[#18110D] to-transparent" />
 
           <div className="animate-marquee-reverse gap-5">
             {[...ecosystemPartners, ...ecosystemPartners].map((item, idx) => (
@@ -654,16 +654,16 @@ export function LandingPage() {
 
       {/* ============================================================
           SECTION 3: "AYO JADI AGEN PERUBAHAN!" (4 Clean Action Cards)
-          Background: Refined Soft Neutral Ivory #f8f8f9 with pure white cards
+          Background: Warm Toasted Oat Linen #FBF7F0 with Silky Cream cards
           ============================================================ */}
-      <section className="w-full py-24 px-4 sm:px-8 bg-[#f8f8f9] border-b border-[rgba(0,0,0,0.06)]">
+      <section className="w-full py-24 px-4 sm:px-8 bg-[#FBF7F0] border-b border-[#EADECF]">
         <div className="max-w-6xl mx-auto">
           {/* Heading */}
           <div className="flex flex-col items-center text-center mb-16">
-            <h2 className="font-serif text-[clamp(2.2rem,5vw,3.5rem)] font-bold text-black leading-tight mb-3">
+            <h2 className="font-serif text-[clamp(2.2rem,5vw,3.5rem)] font-bold text-[#2C221D] leading-tight mb-3">
               Ayo jadi agen perubahan!
             </h2>
-            <p className="max-w-xl text-base sm:text-lg text-[#555555] leading-relaxed">
+            <p className="max-w-xl text-base sm:text-lg text-[#7D6F64] leading-relaxed">
               Mari bergabung dalam gerakan untuk menyelamatkan pangan yang berpotensi terbuang!
             </p>
           </div>
@@ -674,27 +674,27 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
+              className="group bg-[#FFFDF9] rounded-[2rem] border border-[#EADECF] p-6 flex flex-col justify-between shadow-[0_10px_30px_rgba(60,40,20,0.04)] hover:shadow-[0_16px_36px_rgba(60,40,20,0.08)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#F5EFEB]">
                   <img
                     src="/images/surplus-nasi-liwet.jpg"
                     alt="Donasi Makanan"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-[#2C221D] mb-2 text-center">
                   Donasi Makanan
                 </h3>
-                <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
+                <p className="text-xs text-[#7D6F64] leading-relaxed text-center mb-6">
                   Donasikan makanan berlebih dari rumah, event, atau bisnismu; ketimbang dibuang dan merugikan lingkungan sekitarmu.
                 </p>
               </div>
 
-              <a href="#/penyedia/surplus" className="btn-garda-pill w-full">
-                <span className="text-white text-xs">Mulai Donasi</span>
-                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+              <a href="#/penyedia/surplus" className="w-full py-2.5 px-4 rounded-full bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
+                <span>Mulai Donasi</span>
+                <span className="w-7 h-7 rounded-full bg-[#FAF6F0]/15 text-[#FAF6F0] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -704,27 +704,27 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
+              className="group bg-[#FFFDF9] rounded-[2rem] border border-[#EADECF] p-6 flex flex-col justify-between shadow-[0_10px_30px_rgba(60,40,20,0.04)] hover:shadow-[0_16px_36px_rgba(60,40,20,0.08)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#F5EFEB]">
                   <img
                     src="/images/surplus-bakery.jpg"
                     alt="Ambil Surplus"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-[#2C221D] mb-2 text-center">
                   Ambil Surplus
                 </h3>
-                <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
+                <p className="text-xs text-[#7D6F64] leading-relaxed text-center mb-6">
                   Selamatkan aneka hidangan hangat bergizi gratis atau harga terjangkau dari dapur mitra restoran sebelum batas waktu habis.
                 </p>
               </div>
 
-              <a href="#/penerima" className="btn-garda-pill w-full">
-                <span className="text-white text-xs">Ambil Makanan</span>
-                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+              <a href="#/penerima" className="w-full py-2.5 px-4 rounded-full bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
+                <span>Ambil Makanan</span>
+                <span className="w-7 h-7 rounded-full bg-[#FAF6F0]/15 text-[#FAF6F0] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -734,27 +734,27 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
+              className="group bg-[#FFFDF9] rounded-[2rem] border border-[#EADECF] p-6 flex flex-col justify-between shadow-[0_10px_30px_rgba(60,40,20,0.04)] hover:shadow-[0_16px_36px_rgba(60,40,20,0.08)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#F5EFEB]">
                   <img
                     src="/images/hero-food-delivery.jpg"
                     alt="Usul Penerima"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-[#2C221D] mb-2 text-center">
                   Usul Penerima
                 </h3>
-                <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
+                <p className="text-xs text-[#7D6F64] leading-relaxed text-center mb-6">
                   Rekomendasikan masyarakat pra-sejahtera atau panti asuhan di sekitarmu, agar donasi semakin merata dan tepat sasaran.
                 </p>
               </div>
 
-              <a href="#/terms" className="btn-garda-pill w-full">
-                <span className="text-white text-xs">Rekomendasikan</span>
-                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+              <a href="#/terms" className="w-full py-2.5 px-4 rounded-full bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
+                <span>Rekomendasikan</span>
+                <span className="w-7 h-7 rounded-full bg-[#FAF6F0]/15 text-[#FAF6F0] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -764,27 +764,27 @@ export function LandingPage() {
             <motion.div
               whileHover={{ y: -8 }}
               transition={{ duration: 0.3 }}
-              className="group bg-white rounded-[2rem] border border-[rgba(0,0,0,0.08)] p-6 flex flex-col justify-between shadow-[0_15px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all"
+              className="group bg-[#FFFDF9] rounded-[2rem] border border-[#EADECF] p-6 flex flex-col justify-between shadow-[0_10px_30px_rgba(60,40,20,0.04)] hover:shadow-[0_16px_36px_rgba(60,40,20,0.08)] transition-all"
             >
               <div>
-                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#f0f0f2]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#F5EFEB]">
                   <img
                     src="/images/hero-food-kitchen.jpg"
                     alt="Jadi Relawan"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="font-serif text-xl font-bold text-black mb-2 text-center">
+                <h3 className="font-serif text-xl font-bold text-[#2C221D] mb-2 text-center">
                   Jadi Relawan
                 </h3>
-                <p className="text-xs text-[#6b7280] leading-relaxed text-center mb-6">
+                <p className="text-xs text-[#7D6F64] leading-relaxed text-center mb-6">
                   Ayo ikut turun tangan langsung dan menjadi relawan Food Squad AksesPangan, apapun minat dan keahlian yang kamu miliki!
                 </p>
               </div>
 
-              <a href="#/register" className="btn-garda-pill w-full">
-                <span className="text-white text-xs">Daftar Relawan</span>
-                <span className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
+              <a href="#/register" className="w-full py-2.5 px-4 rounded-full bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
+                <span>Daftar Relawan</span>
+                <span className="w-7 h-7 rounded-full bg-[#FAF6F0]/15 text-[#FAF6F0] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
               </a>
@@ -798,7 +798,7 @@ export function LandingPage() {
           Left: Chef / Kitchen Photo
           Right: Sleek Charcoal Card with White Highlights (Apple Luxury Style)
           ============================================================ */}
-      <section className="w-full overflow-hidden bg-[#111114]">
+      <section className="w-full overflow-hidden bg-[#18110D]">
         <div className="flex flex-col lg:flex-row min-h-[400px]">
           {/* Left Photo */}
           <div className="relative w-full lg:w-1/2 min-h-[280px] lg:min-h-[400px]">
@@ -807,20 +807,20 @@ export function LandingPage() {
               alt="Dapur Mitra Kuliner"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#111114]/80 to-transparent lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#18110D]/80 to-transparent lg:hidden" />
           </div>
 
-          {/* Right Sleek Dark Box */}
-          <div className="relative flex w-full lg:w-1/2 flex-col items-start justify-center gap-6 bg-[#111114] px-8 py-12 sm:px-12 sm:py-16 lg:px-16 text-white">
+          {/* Right Sleek Warm Cacao Box */}
+          <div className="relative flex w-full lg:w-1/2 flex-col items-start justify-center gap-6 bg-[#18110D] px-8 py-12 sm:px-12 sm:py-16 lg:px-16 text-[#FAF6F0]">
             <div className="flex flex-col items-start gap-3">
-              <span className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-white/80">
+              <span className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-[#FAF6F0]/80">
                 <Building2 size={13} />
                 <span>KOLABORASI HOTEL &amp; RESTORAN</span>
               </span>
-              <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] font-bold leading-tight tracking-tight text-white">
+              <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] font-bold leading-tight tracking-tight text-[#FAF6F0]">
                 Anda pemilik bisnis makanan?
               </h2>
-              <p className="max-w-md text-sm sm:text-base leading-relaxed text-white/85">
+              <p className="max-w-md text-sm sm:text-base leading-relaxed text-[#FAF6F0]/85">
                 Makanan berlebih Anda bisa memberi makan saudara-saudara kita yang membutuhkan, sementara sisa bahan makanan yang tidak dapat dikonsumsi dapat dimanfaatkan kembali menjadi pakan ternak.
                 <br /><br />
                 Tanpa repot, tim kami akan mengambilnya langsung dari lokasi Anda dan memberikan laporan dampak emisi ESG setiap bulannya. Jadilah mitra kami!
@@ -839,27 +839,27 @@ export function LandingPage() {
 
       {/* ============================================================
           SECTION 5: CURATED SURPLUS CATALOGUE (Interactive Real-Time Items)
-          Pure crisp white surface with modern borders
+          Warm Toasted Oat Linen #FBF7F0 with Silky Cream cards
           ============================================================ */}
-      <section className="w-full py-20 px-6 sm:px-12 bg-white border-b border-[rgba(0,0,0,0.06)]">
+      <section className="w-full py-20 px-6 sm:px-12 bg-[#FBF7F0] border-b border-[#EADECF]">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-[rgba(0,0,0,0.08)]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-[#EADECF]">
             <div>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#86868b] font-semibold block mb-1.5 font-mono">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-[#7D6F64] font-semibold block mb-1.5 font-mono">
                 INVENTARIS SURPLUS AKTIF HARI INI
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-black">
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#2C221D]">
                 Katalog Makanan Tersedia
               </h2>
-              <p className="text-[14px] text-[#555555] m-0 mt-1">
+              <p className="text-[14px] text-[#7D6F64] m-0 mt-1">
                 Hidangan siap santap pilihan dari restoran terakreditasi, siap diselamatkan sebelum batas waktu berakhir.
               </p>
             </div>
 
             <a
               href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#E8592A] hover:opacity-75 transition-opacity mt-4 sm:mt-0"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#D95327] hover:opacity-75 transition-opacity mt-4 sm:mt-0"
             >
               <span>BUKA PETA GEOLOCATION</span>
               <ArrowRight size={14} />
@@ -874,8 +874,8 @@ export function LandingPage() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`relative px-4 py-2 text-xs font-semibold tracking-wider rounded-full transition-all cursor-pointer whitespace-nowrap uppercase ${
                   selectedCategory === cat.id
-                    ? 'bg-[#111215] text-white shadow-sm'
-                    : 'bg-white text-[#666666] border border-[rgba(0,0,0,0.12)] hover:border-[rgba(0,0,0,0.25)]'
+                    ? 'bg-[#2C221D] text-[#FAF6F0] shadow-sm'
+                    : 'bg-[#FFFDF9] text-[#7D6F64] border border-[#EADECF] hover:border-[#D4C3AF]'
                 }`}
               >
                 {cat.label}
@@ -895,11 +895,11 @@ export function LandingPage() {
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.3 }}
                   whileHover={{ y: -6 }}
-                  className="bg-white rounded-3xl border border-[rgba(0,0,0,0.08)] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] flex flex-col justify-between group transition-all"
+                  className="bg-[#FFFDF9] rounded-3xl border border-[#EADECF] overflow-hidden shadow-[0_8px_24px_rgba(60,40,20,0.04)] hover:shadow-[0_16px_36px_rgba(60,40,20,0.08)] flex flex-col justify-between group transition-all"
                 >
                   <div>
                     {/* Image Header */}
-                    <div className="relative h-48 w-full overflow-hidden bg-[#f0f0f0]">
+                    <div className="relative h-48 w-full overflow-hidden bg-[#F5EFEB]">
                       <img
                         src={getSurplusPhoto(item)}
                         alt={item.name}
@@ -907,17 +907,17 @@ export function LandingPage() {
                       />
                       <div className="absolute top-3 right-3 z-10">
                         {item.isFree ? (
-                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#16a34a] text-white shadow-md">
+                          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#2D6A4F] text-white shadow-md">
                             GRATIS
                           </span>
                         ) : (
-                          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-black/90 backdrop-blur-md text-white border border-white/20 shadow-md">
+                          <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-[#18110D]/90 backdrop-blur-md text-[#FAF6F0] border border-[#FAF6F0]/20 shadow-md">
                             {formatPrice(item.price)}
                           </span>
                         )}
                       </div>
                       <div className="absolute bottom-3 left-3 z-10">
-                        <span className="text-[11px] font-mono tracking-wider uppercase px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20">
+                        <span className="text-[11px] font-mono tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#18110D]/75 backdrop-blur-md text-[#FAF6F0] border border-[#FAF6F0]/20">
                           {item.quantity} kg · {item.portionCount} porsi
                         </span>
                       </div>
@@ -925,29 +925,29 @@ export function LandingPage() {
 
                     {/* Body */}
                     <div className="p-6">
-                      <div className="text-xs font-medium uppercase text-[#86868b] mb-1.5 flex items-center gap-1">
-                        <MapPin size={12} className="text-black shrink-0" />
+                      <div className="text-xs font-medium uppercase text-[#7D6F64] mb-1.5 flex items-center gap-1">
+                        <MapPin size={12} className="text-[#D95327] shrink-0" />
                         <span className="truncate">{item.providerBusinessName} • {item.address}</span>
                       </div>
-                      <h3 className="font-serif text-xl font-bold text-black mb-2 line-clamp-1">
+                      <h3 className="font-serif text-xl font-bold text-[#2C221D] mb-2 line-clamp-1">
                         {item.name}
                       </h3>
-                      <p className="text-xs text-[#555555] leading-relaxed line-clamp-2 m-0">
+                      <p className="text-xs text-[#7D6F64] leading-relaxed line-clamp-2 m-0">
                         {item.description}
                       </p>
                     </div>
                   </div>
 
                   {/* Card Footer */}
-                  <div className="px-6 py-4 bg-[#fafafc] border-t border-[rgba(0,0,0,0.06)] flex items-center justify-between">
-                    <div className="text-xs text-[#1d1d1f] font-medium flex items-center gap-1.5 font-mono">
-                      <Clock size={13} className="text-[#86868b]" />
+                  <div className="px-6 py-4 bg-[#F5EFEB] border-t border-[#EADECF] flex items-center justify-between">
+                    <div className="text-xs text-[#2C221D] font-medium flex items-center gap-1.5 font-mono">
+                      <Clock size={13} className="text-[#7D6F64]" />
                       <span>Sisa {formatCountdown(item.expiryTime)}</span>
                     </div>
 
                     <a
                       href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
-                      className="text-xs font-bold uppercase tracking-wider py-2 px-4 bg-black text-white hover:bg-[#222222] rounded-full transition-colors no-underline shadow-sm"
+                      className="text-xs font-bold uppercase tracking-wider py-2 px-4 bg-[#2C221D] text-[#FAF6F0] hover:bg-[#3F322B] rounded-full transition-colors no-underline shadow-2xs"
                     >
                       {isAuthenticated && user?.role === 'penerima' ? 'Klaim Porsi →' : 'Masuk untuk Klaim →'}
                     </a>
@@ -958,11 +958,11 @@ export function LandingPage() {
           </div>
 
           {filteredItems.length === 0 && (
-            <div className="w-full py-16 text-center bg-white rounded-2xl border border-[rgba(0,0,0,0.08)]">
-              <p className="text-[#666666] text-sm mb-3">Tidak ada surplus aktif di kategori ini saat ini.</p>
+            <div className="w-full py-16 text-center bg-[#FFFDF9] rounded-2xl border border-[#EADECF]">
+              <p className="text-[#7D6F64] text-sm mb-3">Tidak ada surplus aktif di kategori ini saat ini.</p>
               <button
                 onClick={() => setSelectedCategory('all')}
-                className="text-xs font-bold uppercase tracking-wider text-black underline cursor-pointer"
+                className="text-xs font-bold uppercase tracking-wider text-[#D95327] underline cursor-pointer"
               >
                 Lihat Semua Kategori
               </button>
@@ -973,59 +973,60 @@ export function LandingPage() {
 
       {/* ============================================================
           SECTION 6: PROTOKOL KEAMANAN (3 Pillars of Food Rescue)
+          Deep Roasted Cacao Atmosphere #18110D
           ============================================================ */}
-      <section className="w-full py-24 px-6 sm:px-12 bg-[#0d0d0f] text-white">
+      <section className="w-full py-24 px-6 sm:px-12 bg-[#18110D] text-[#FAF6F0]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/80 block mb-2.5 font-mono">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#FAF6F0]/80 block mb-2.5 font-mono">
               PROTOKOL KEAMANAN &amp; INTEGRITAS
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#FAF6F0] mb-4">
               Cepat. Higienis. Tepat Sasaran.
             </h2>
-            <p className="text-white/70 text-sm leading-relaxed m-0">
+            <p className="text-[#FAF6F0]/70 text-sm leading-relaxed m-0">
               Sistem penyelamatan makanan terotomatisasi yang menjaga kehormatan hidangan dan menjamin keamanan konsumsi.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/30 transition-colors flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-[#241B15] border border-[#3D2D23] hover:border-[#D95327]/50 transition-colors flex flex-col justify-between shadow-sm">
               <div>
-                <span className="font-serif text-3xl font-bold text-white block mb-4">01</span>
-                <h3 className="text-lg font-bold text-white mb-2">Unggah Surplus 60 Detik</h3>
-                <p className="text-xs text-white/70 leading-relaxed mb-6">
+                <span className="font-serif text-3xl font-bold text-[#D95327] block mb-4">01</span>
+                <h3 className="text-lg font-bold text-[#FAF6F0] mb-2">Unggah Surplus 60 Detik</h3>
+                <p className="text-xs text-[#FAF6F0]/70 leading-relaxed mb-6">
                   Restoran dan bakery terverifikasi mengunggah hidangan berlebih, porsi aman, dan batas kadaluwarsa melalui antarmuka khusus tanpa hambatan birokrasi.
                 </p>
               </div>
-              <a href="#/penyedia" className="text-xs font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 hover:underline">
+              <a href="#/penyedia" className="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] inline-flex items-center gap-1.5 hover:text-[#D95327] transition-colors">
                 <span>Alur Mitra Penyedia</span>
                 <ChevronRight size={14} />
               </a>
             </div>
 
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/30 transition-colors flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-[#241B15] border border-[#3D2D23] hover:border-[#D95327]/50 transition-colors flex flex-col justify-between shadow-sm">
               <div>
-                <span className="font-serif text-3xl font-bold text-white block mb-4">02</span>
-                <h3 className="text-lg font-bold text-white mb-2">SOP Countdown 4 Jam</h3>
-                <p className="text-xs text-white/70 leading-relaxed mb-6">
+                <span className="font-serif text-3xl font-bold text-[#D95327] block mb-4">02</span>
+                <h3 className="text-lg font-bold text-[#FAF6F0] mb-2">SOP Countdown 4 Jam</h3>
+                <p className="text-xs text-[#FAF6F0]/70 leading-relaxed mb-6">
                   Algoritma ketat menjaga rentang waktu konsumsi makanan. Setiap item yang melewati batas aman secara otomatis ditarik dari katalog publik.
                 </p>
               </div>
-              <a href="#/terms" className="text-xs font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 hover:underline">
+              <a href="#/terms" className="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] inline-flex items-center gap-1.5 hover:text-[#D95327] transition-colors">
                 <span>Panduan Keamanan Pangan</span>
                 <ChevronRight size={14} />
               </a>
             </div>
 
-            <div className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-white/30 transition-colors flex flex-col justify-between">
+            <div className="p-8 rounded-3xl bg-[#241B15] border border-[#3D2D23] hover:border-[#D95327]/50 transition-colors flex flex-col justify-between shadow-sm">
               <div>
-                <span className="font-serif text-3xl font-bold text-white block mb-4">03</span>
-                <h3 className="text-lg font-bold text-white mb-2">Reduksi Emisi Metana Nyata</h3>
-                <p className="text-xs text-white/70 leading-relaxed mb-6">
+                <span className="font-serif text-3xl font-bold text-[#D95327] block mb-4">03</span>
+                <h3 className="text-lg font-bold text-[#FAF6F0] mb-2">Reduksi Emisi Metana Nyata</h3>
+                <p className="text-xs text-[#FAF6F0]/70 leading-relaxed mb-6">
                   Setiap kilogram makanan yang terselamatkan diverifikasi dalam laporan iklim ESG: 1 kg pangan setara pencegahan 2.5 kg gas rumah kaca CO₂e.
                 </p>
               </div>
-              <a href="#/dashboard" className="text-xs font-bold uppercase tracking-wider text-white inline-flex items-center gap-1.5 hover:underline">
+              <a href="#/dashboard" className="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] inline-flex items-center gap-1.5 hover:text-[#D95327] transition-colors">
                 <span>Telemetri Karbon</span>
                 <ChevronRight size={14} />
               </a>
@@ -1037,66 +1038,66 @@ export function LandingPage() {
       {/* ============================================================
           SECTION 7: FOOTER
           ============================================================ */}
-      <footer className="w-full bg-black text-white py-16 px-6 sm:px-12 border-t border-white/10">
+      <footer className="w-full bg-[#140E0A] text-[#FAF6F0] py-16 px-6 sm:px-12 border-t border-[#2C2018]">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] mb-4 font-mono">
                 Katalog &amp; Pangan
               </h4>
-              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
-                <li><a href="#/penerima" className="hover:text-white transition-colors">Cari Surplus Terdekat</a></li>
-                <li><a href="#/penerima" className="hover:text-white transition-colors">Peta Geolocation GPS</a></li>
-                <li><a href="#/penerima" className="hover:text-white transition-colors">Kategori Makanan</a></li>
-                <li><a href="#/terms" className="hover:text-white transition-colors">SOP Higiene 4 Jam</a></li>
+              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#FAF6F0]/70">
+                <li><a href="#/penerima" className="hover:text-[#FAF6F0] transition-colors">Cari Surplus Terdekat</a></li>
+                <li><a href="#/penerima" className="hover:text-[#FAF6F0] transition-colors">Peta Geolocation GPS</a></li>
+                <li><a href="#/penerima" className="hover:text-[#FAF6F0] transition-colors">Kategori Makanan</a></li>
+                <li><a href="#/terms" className="hover:text-[#FAF6F0] transition-colors">SOP Higiene 4 Jam</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] mb-4 font-mono">
                 Mitra Penyedia
               </h4>
-              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
-                <li><a href="#/register" className="hover:text-white transition-colors">Daftarkan Usaha Kuliner</a></li>
-                <li><a href="#/penyedia" className="hover:text-white transition-colors">Dashboard Manajemen Stok</a></li>
-                <li><a href="#/penyedia/surplus" className="hover:text-white transition-colors">Unggah Makanan Berlebih</a></li>
-                <li><a href="#/penyedia/booking" className="hover:text-white transition-colors">Konfirmasi Penjemputan</a></li>
+              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#FAF6F0]/70">
+                <li><a href="#/register" className="hover:text-[#FAF6F0] transition-colors">Daftarkan Usaha Kuliner</a></li>
+                <li><a href="#/penyedia" className="hover:text-[#FAF6F0] transition-colors">Dashboard Manajemen Stok</a></li>
+                <li><a href="#/penyedia/surplus" className="hover:text-[#FAF6F0] transition-colors">Unggah Makanan Berlebih</a></li>
+                <li><a href="#/penyedia/booking" className="hover:text-[#FAF6F0] transition-colors">Konfirmasi Penjemputan</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] mb-4 font-mono">
                 Dampak Lingkungan
               </h4>
-              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
-                <li><a href="#/dashboard" className="hover:text-white transition-colors">Telemetri Karbon CO₂e</a></li>
-                <li><a href="#/dashboard" className="hover:text-white transition-colors">Ekuivalensi Serapan Pohon</a></li>
-                <li><a href="#/admin" className="hover:text-white transition-colors">Audit Microservices</a></li>
-                <li><a href="#/dashboard" className="hover:text-white transition-colors">Laporan ESG Transparan</a></li>
+              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#FAF6F0]/70">
+                <li><a href="#/dashboard" className="hover:text-[#FAF6F0] transition-colors">Telemetri Karbon CO₂e</a></li>
+                <li><a href="#/dashboard" className="hover:text-[#FAF6F0] transition-colors">Ekuivalensi Serapan Pohon</a></li>
+                <li><a href="#/admin" className="hover:text-[#FAF6F0] transition-colors">Audit Microservices</a></li>
+                <li><a href="#/dashboard" className="hover:text-[#FAF6F0] transition-colors">Laporan ESG Transparan</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-mono">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#FAF6F0] mb-4 font-mono">
                 Platform &amp; Legalitas
               </h4>
-              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-white/70">
-                <li><a href="#/terms" className="hover:text-white transition-colors">Syarat &amp; Ketentuan</a></li>
-                <li><a href="#/terms" className="hover:text-white transition-colors">Kebijakan Higiene Pangan</a></li>
-                <li><a href="#/login" className="hover:text-white transition-colors">Akses Masuk Akun</a></li>
-                <li><a href="#/register" className="hover:text-white transition-colors">Registrasi Akun Baru</a></li>
+              <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#FAF6F0]/70">
+                <li><a href="#/terms" className="hover:text-[#FAF6F0] transition-colors">Syarat &amp; Ketentuan</a></li>
+                <li><a href="#/terms" className="hover:text-[#FAF6F0] transition-colors">Kebijakan Higiene Pangan</a></li>
+                <li><a href="#/login" className="hover:text-[#FAF6F0] transition-colors">Akses Masuk Akun</a></li>
+                <li><a href="#/register" className="hover:text-[#FAF6F0] transition-colors">Registrasi Akun Baru</a></li>
               </ul>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50">
+          <div className="pt-8 border-t border-[#2C2018] flex flex-col sm:flex-row items-center justify-between text-xs text-[#FAF6F0]/50">
             <p className="m-0 mb-3 sm:mb-0">
               © 2026 AksesPangan. Gerakan Penyelamatan Makanan Indonesia.
             </p>
             <div className="flex gap-6">
-              <a href="#/terms" className="hover:text-white transition-colors">Privasi</a>
-              <a href="#/terms" className="hover:text-white transition-colors">Ketentuan</a>
-              <a href="#/terms" className="hover:text-white transition-colors">Standar Mutu</a>
+              <a href="#/terms" className="hover:text-[#FAF6F0] transition-colors">Privasi</a>
+              <a href="#/terms" className="hover:text-[#FAF6F0] transition-colors">Ketentuan</a>
+              <a href="#/terms" className="hover:text-[#FAF6F0] transition-colors">Standar Mutu</a>
             </div>
           </div>
         </div>

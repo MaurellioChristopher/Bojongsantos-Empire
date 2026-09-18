@@ -25,22 +25,22 @@ export function PenyediaHistory() {
 
   if (!user) {
     return (
-      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#f5f5f7]">
-        <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center text-[#1d1d1f] mb-4 border border-[rgba(0,0,0,0.08)] shadow-sm">
+      <div className="min-h-[75vh] flex flex-col items-center justify-center p-6 text-center bg-[#FBF7F0]">
+        <div className="w-16 h-16 rounded-full bg-[#FFFDF9] flex items-center justify-center text-[#2C221D] mb-4 border border-[#EADECF] shadow-sm">
           <Package size={32} />
         </div>
-        <h2 className="text-display-md text-[#1d1d1f] mb-2">Riwayat Penyaluran Surplus</h2>
-        <p className="text-body-apple text-[#86868b] max-w-md mb-6">
+        <h2 className="text-display-md text-[#2C221D] mb-2">Riwayat Penyaluran Surplus</h2>
+        <p className="text-body-apple text-[#7D6F64] max-w-md mb-6">
           Silakan masuk ke akun Mitra Penyedia Anda untuk melihat arsip lengkap stok surplus yang telah tersalurkan.
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <button
             onClick={() => login('penyedia@aksespangan.id', 'penyedia123')}
-            className="btn-apple-primary text-sm py-2.5 px-5"
+            className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] text-sm py-2.5 px-5 rounded-xl font-medium shadow-sm transition-all"
           >
             Masuk Akun Demo Penyedia (1-Klik)
           </button>
-          <a href="#/login" className="btn-apple-secondary text-sm py-2.5 px-5">
+          <a href="#/login" className="bg-[#F5EFEB] hover:bg-[#EADECF] text-[#2C221D] text-sm py-2.5 px-5 rounded-xl font-medium border border-[#EADECF] transition-colors">
             Masuk dengan Email
           </a>
         </div>
@@ -64,78 +64,78 @@ export function PenyediaHistory() {
   const totalDistributed = bookings.filter((b) => b.status === 'diambil').reduce((sum, b) => sum + b.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#f5f5f7] py-8 px-4 sm:px-8">
+    <div className="min-h-screen bg-[#FBF7F0] py-8 px-4 sm:px-8">
       <div className="apple-container">
         {/* Header */}
         <div className="mb-8">
-          <a href="#/penyedia" className="link-apple text-xs mb-2 inline-flex items-center gap-1">
+          <a href="#/penyedia" className="text-[#D95327] hover:text-[#B8401A] text-xs mb-2 inline-flex items-center gap-1 font-semibold">
             <ArrowLeft size={14} /> Kembali ke Dashboard Mitra Penyedia
           </a>
-          <h1 className="text-display-lg text-[#1d1d1f]">Riwayat Penyaluran</h1>
-          <p className="text-body-apple text-[#86868b] m-0">
+          <h1 className="text-display-lg text-[#2C221D]">Riwayat Penyaluran</h1>
+          <p className="text-body-apple text-[#7D6F64] m-0">
             Arsip lengkap stok surplus yang berhasil diselamatkan dan diambil oleh penerima manfaat.
           </p>
         </div>
 
         {/* Metrics Row */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <div className="card-apple-utility bg-white p-6">
-            <div className="text-[11px] uppercase font-semibold text-[#86868b] tracking-wider mb-1">
+          <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 shadow-xs">
+            <div className="text-[11px] uppercase font-semibold text-[#7D6F64] tracking-wider mb-1">
               Total Makanan Tersalurkan
             </div>
-            <div className="text-display-md text-[#1d1d1f] font-bold">
-              {totalDistributed} <span className="text-sm font-normal text-[#86868b]">kg</span>
+            <div className="text-display-md text-[#2C221D] font-bold">
+              {totalDistributed} <span className="text-sm font-normal text-[#7D6F64]">kg</span>
             </div>
-            <div className="text-caption-apple text-[#30d158] mt-1 flex items-center gap-1 font-medium">
+            <div className="text-caption-apple text-[#1b8a36] mt-1 flex items-center gap-1 font-medium">
               <CheckCircle2 size={13} /> Berhasil diselamatkan
             </div>
           </div>
 
-          <div className="card-apple-utility bg-white p-6">
-            <div className="text-[11px] uppercase font-semibold text-[#86868b] tracking-wider mb-1">
+          <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 shadow-xs">
+            <div className="text-[11px] uppercase font-semibold text-[#7D6F64] tracking-wider mb-1">
               Estimasi Emisi Dicegah
             </div>
-            <div className="text-display-md text-[#1d1d1f] font-bold">
-              {(totalDistributed * 2.5).toFixed(1)} <span className="text-sm font-normal text-[#86868b]">kg CO₂e</span>
+            <div className="text-display-md text-[#2C221D] font-bold">
+              {(totalDistributed * 2.5).toFixed(1)} <span className="text-sm font-normal text-[#7D6F64]">kg CO₂e</span>
             </div>
-            <div className="text-caption-apple text-[#86868b] mt-1">
+            <div className="text-caption-apple text-[#7D6F64] mt-1">
               Faktor emisi 2.5x bobot
             </div>
           </div>
 
-          <div className="card-apple-utility bg-white p-6">
-            <div className="text-[11px] uppercase font-semibold text-[#86868b] tracking-wider mb-1">
+          <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 shadow-xs">
+            <div className="text-[11px] uppercase font-semibold text-[#7D6F64] tracking-wider mb-1">
               Total Pesanan Selesai
             </div>
-            <div className="text-display-md text-[#1d1d1f] font-bold">
-              {bookings.filter((b) => b.status === 'diambil').length} <span className="text-sm font-normal text-[#86868b]">transaksi</span>
+            <div className="text-display-md text-[#2C221D] font-bold">
+              {bookings.filter((b) => b.status === 'diambil').length} <span className="text-sm font-normal text-[#7D6F64]">transaksi</span>
             </div>
-            <div className="text-caption-apple text-[#86868b] mt-1">
+            <div className="text-caption-apple text-[#7D6F64] mt-1">
               Dari {bookings.length} total klaim
             </div>
           </div>
         </div>
 
         {/* History Records List */}
-        <div className="card-apple-utility bg-white p-6 sm:p-8">
+        <div className="bg-[#FFFDF9] rounded-2xl border border-[#EADECF] p-6 sm:p-8 shadow-xs">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-tagline text-[#1d1d1f]">Daftar Penyaluran Selesai</h2>
-            <span className="text-caption-apple text-[#86868b]">{bookings.length} rekaman</span>
+            <h2 className="text-tagline text-[#2C221D] font-bold">Daftar Penyaluran Selesai</h2>
+            <span className="text-caption-apple text-[#7D6F64]">{bookings.length} rekaman</span>
           </div>
 
           {bookings.length === 0 ? (
-            <div className="text-center py-12 text-[#86868b]">
-              <Archive size={36} className="text-neutral-400 mx-auto mb-3" />
-              <p className="text-body-strong text-[#1d1d1f] mb-1">Belum ada riwayat penyaluran</p>
-              <p className="text-caption-apple text-[#86868b] max-w-xs mx-auto mb-4">
+            <div className="text-center py-12 text-[#7D6F64]">
+              <Archive size={36} className="text-[#A8988B] mx-auto mb-3" />
+              <p className="text-body-strong text-[#2C221D] mb-1">Belum ada riwayat penyaluran</p>
+              <p className="text-caption-apple text-[#7D6F64] max-w-xs mx-auto mb-4">
                 Surplus yang telah diambil atau diselesaikan akan muncul dalam arsip ini.
               </p>
-              <a href="#/penyedia/surplus" className="btn-apple-primary btn-apple-sm inline-flex">
+              <a href="#/penyedia/surplus" className="bg-[#2C221D] hover:bg-[#3F322B] text-[#FAF6F0] px-4 py-2 rounded-xl text-xs font-semibold inline-flex shadow-sm transition-all">
                 Kelola Stok Surplus
               </a>
             </div>
           ) : (
-            <div className="divide-y divide-[rgba(0,0,0,0.06)]">
+            <div className="divide-y divide-[#EADECF]">
               {bookings.map((b, i) => (
                 <motion.div
                   key={b.id}
@@ -146,14 +146,14 @@ export function PenyediaHistory() {
                 >
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-body-strong text-[#1d1d1f]">{b.surplusName}</h3>
+                      <h3 className="text-body-strong text-[#2C221D]">{b.surplusName}</h3>
                       {statusBadge(b.status)}
                     </div>
-                    <p className="text-caption-apple text-[#86868b] mb-1 flex items-center gap-1">
-                      <User size={13} /> Penerima: <span className="text-[#1d1d1f] font-medium">{b.recipientName}</span>
+                    <p className="text-caption-apple text-[#7D6F64] mb-1 flex items-center gap-1">
+                      <User size={13} /> Penerima: <span className="text-[#2C221D] font-medium">{b.recipientName}</span>
                     </p>
-                    <div className="flex items-center gap-4 text-xs text-[#86868b]">
-                      <span className="font-semibold text-[#1d1d1f] flex items-center gap-1">
+                    <div className="flex items-center gap-4 text-xs text-[#7D6F64]">
+                      <span className="font-semibold text-[#2C221D] flex items-center gap-1">
                         <Scale size={12} /> {b.quantity} kg
                       </span>
                       <span>•</span>
@@ -164,7 +164,7 @@ export function PenyediaHistory() {
                   </div>
 
                   <div className="text-right sm:self-center">
-                    <span className="text-xs text-[#86868b] font-mono">Klaim #{b.id.slice(0, 8)}</span>
+                    <span className="text-xs text-[#7D6F64] font-mono">Klaim #{b.id.slice(0, 8)}</span>
                   </div>
                 </motion.div>
               ))}

@@ -46,7 +46,7 @@ export function BottomNav() {
     <motion.div
       initial={{ y: 80 }}
       animate={{ y: 0 }}
-      className="fixed bottom-0 left-0 right-0 z-40 md:hidden frosted-glass-light border-t border-[rgba(0,0,0,0.08)] py-1.5 px-3"
+      className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-[#FBF7F0]/92 backdrop-blur-md border-t border-[#EADECF] py-1.5 px-3"
     >
       <div className="flex items-center justify-around max-w-md mx-auto">
         {visibleItems.map((item) => {
@@ -64,14 +64,14 @@ export function BottomNav() {
             >
               <div
                 className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
-                  isActive ? 'bg-[#1d1d1f] text-white' : 'text-[#86868b]'
+                  isActive ? 'bg-[#D95327] text-white shadow-xs' : 'text-[#7D6F64]'
                 }`}
               >
                 <Icon size={18} />
               </div>
               <span
                 className={`text-[11px] font-medium tracking-tight ${
-                  isActive ? 'text-[#1d1d1f] font-semibold' : 'text-[#86868b]'
+                  isActive ? 'text-[#D95327] font-semibold' : 'text-[#7D6F64]'
                 }`}
               >
                 {item.label}

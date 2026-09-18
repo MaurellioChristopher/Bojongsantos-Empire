@@ -7,47 +7,47 @@
    ============================================================ */
 
 @theme inline {
-  /* Colors */
-  --color-primary: #111215;
-  --color-primary-focus: #23252a;
-  --color-primary-on-dark: #ffffff;
-  --color-ink: #111215;
-  --color-body: #2a2d34;
-  --color-body-on-dark: #ffffff;
-  --color-body-muted: #6b7280;
-  --color-ink-muted-80: #374151;
-  --color-ink-muted-48: #6b7280;
-  --color-divider-soft: #f3f4f6;
-  --color-hairline: rgba(0, 0, 0, 0.07);
-  --color-hairline-opaque: #e5e7eb;
-  --color-canvas: #ffffff;
-  --color-canvas-parchment: #f6f7f9;
-  --color-surface-pearl: #fafbfd;
-  --color-surface-tile-1: #16171a;
-  --color-surface-tile-2: #1c1d22;
-  --color-surface-tile-3: #121316;
-  --color-surface-black: #0c0d0f;
-  --color-surface-chip-translucent: rgba(229, 231, 235, 0.7);
+  /* Warm Artisanal Culinary Base Tokens */
+  --color-primary: #2C221D;
+  --color-primary-focus: #3F322B;
+  --color-primary-on-dark: #FAF6F0;
+  --color-ink: #2C221D;
+  --color-body: #4A3E37;
+  --color-body-on-dark: #FAF6F0;
+  --color-body-muted: #7D6F64;
+  --color-ink-muted-80: #4A3E37;
+  --color-ink-muted-48: #7D6F64;
+  --color-divider-soft: #EFE6DA;
+  --color-hairline: rgba(74, 50, 30, 0.08);
+  --color-hairline-opaque: #EADECF;
+  --color-canvas: #FBF7F0;
+  --color-canvas-parchment: #F5EFEB;
+  --color-surface-pearl: #FFFDF9;
+  --color-surface-tile-1: #1F1713;
+  --color-surface-tile-2: #261C17;
+  --color-surface-tile-3: #18110D;
+  --color-surface-black: #140E0A;
+  --color-surface-chip-translucent: rgba(234, 222, 207, 0.7);
   --color-on-primary: #ffffff;
-  --color-on-dark: #ffffff;
+  --color-on-dark: #FAF6F0;
 
-  /* Calibrated Harvard Gourmet Sunset Color Harmony */
-  --color-brand-vermilion: #E8592A;
-  --color-brand-amber: #F59E0B;
-  --color-brand-coral: #E14920;
-  --color-brand-glow: rgba(232, 89, 42, 0.14);
-  --color-brand-border: rgba(232, 89, 42, 0.28);
-  --gradient-sunset: linear-gradient(135deg, #F59E0B 0%, #E8592A 100%);
-  --gradient-sunset-hover: linear-gradient(135deg, #FBBF24 0%, #DC4C1D 100%);
-  --gradient-sunset-subtle: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(232, 89, 42, 0.08) 100%);
-  --shadow-sunset: 0 8px 20px -3px rgba(232, 89, 42, 0.24);
+  /* Calibrated Warm Artisanal Sunset Accents */
+  --color-brand-vermilion: #D95327;
+  --color-brand-amber: #E67E22;
+  --color-brand-coral: #C8451B;
+  --color-brand-glow: rgba(217, 83, 39, 0.16);
+  --color-brand-border: rgba(217, 83, 39, 0.28);
+  --gradient-sunset: linear-gradient(135deg, #F39C12 0%, #D95327 100%);
+  --gradient-sunset-hover: linear-gradient(135deg, #F5B041 0%, #C8451B 100%);
+  --gradient-sunset-subtle: linear-gradient(135deg, rgba(243, 156, 18, 0.08) 0%, rgba(217, 83, 39, 0.08) 100%);
+  --shadow-sunset: 0 8px 20px -3px rgba(217, 83, 39, 0.24);
 
-  /* Semantic Status Colors (Calibrated High Contrast) */
-  --color-success: #15803d;
-  --color-success-bg: rgba(21, 128, 61, 0.08);
-  --color-warning: #c2410c;
-  --color-warning-bg: rgba(194, 65, 12, 0.08);
-  --color-error: #b91c1c;
+  /* Botanical Earth & Semantic Status Colors */
+  --color-success: #2D6A4F;
+  --color-success-bg: rgba(45, 106, 79, 0.08);
+  --color-warning: #B45309;
+  --color-warning-bg: rgba(180, 83, 9, 0.08);
+  --color-error: #B91C1C;
   --color-error-bg: rgba(185, 28, 28, 0.08);
 
   /* Fonts */
@@ -62,8 +62,8 @@
   --radius-lg: 20px;
   --radius-pill: 9999px;
 
-  /* Shadows */
-  --shadow-product: 0 10px 30px -5px rgba(0, 0, 0, 0.12);
+  /* Warm Atmospheric Shadows */
+  --shadow-product: 0 10px 30px -5px rgba(60, 40, 20, 0.10);
 }
 
 :root {
@@ -243,9 +243,9 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 2px 8px -2px rgba(232, 89, 42, 0.24);
 }
 
-/* Secondary Ghost Pill Button — Neutral contrast to sunset primary */
+/* Secondary Ghost Pill Button — Warm cream contrast to sunset primary */
 .btn-apple-secondary {
-  background-color: #ffffff;
+  background-color: var(--color-surface-pearl);
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
   font-size: 14px;
@@ -266,8 +266,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-apple-secondary:hover {
   background-color: var(--color-canvas-parchment);
-  border-color: rgba(0, 0, 0, 0.25);
-  color: #000000;
+  border-color: #D4C3AF;
+  color: #1F1713;
 }
 
 .btn-apple-secondary:active {
@@ -282,10 +282,10 @@ h1, h2, h3, h4, h5, h6 {
   gap: 6px;
 }
 
-/* Dark Utility Button */
+/* Dark Utility Button — Deep Roasted Cacao */
 .btn-apple-dark {
-  background-color: var(--color-ink);
-  color: var(--color-on-dark);
+  background-color: var(--color-primary);
+  color: var(--color-primary-on-dark);
   font-family: var(--font-sf-pro);
   font-size: 14px;
   font-weight: 500;
@@ -301,7 +301,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-apple-dark:hover {
-  background-color: #23252a;
+  background-color: var(--color-primary-focus);
 }
 
 .btn-apple-dark:active {
@@ -394,18 +394,19 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-body-on-dark);
 }
 
-/* Apple Store Utility Card — Clean Hairline Elevation */
+/* Apple Store Utility Card — Clean Warm Hairline Elevation */
 .card-apple-utility {
-  background-color: var(--color-canvas);
+  background-color: var(--color-surface-pearl);
   border: 1px solid var(--color-hairline-opaque);
   border-radius: var(--radius-lg);
   padding: 24px;
+  box-shadow: 0 4px 20px -4px rgba(60, 40, 20, 0.04);
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card-apple-utility:hover {
-  border-color: rgba(0, 0, 0, 0.16);
-  box-shadow: 0 6px 20px -4px rgba(0, 0, 0, 0.05);
+  border-color: #D4C3AF;
+  box-shadow: 0 8px 24px -4px rgba(60, 40, 20, 0.08);
 }
 
 /* Product Image Shadow (Only shadow in system) */
@@ -415,7 +416,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Apple Search Input */
 .apple-search-pill {
-  background-color: var(--color-canvas);
+  background-color: var(--color-surface-pearl);
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
   font-size: 15px;
@@ -436,7 +437,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Apple Input Field */
 .apple-input {
-  background-color: var(--color-canvas);
+  background-color: var(--color-surface-pearl);
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
   font-size: 15px;
@@ -457,7 +458,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Option Chips (Configurator pill style — Harvard Restrained Luxury) */
 .apple-chip {
-  background-color: var(--color-canvas);
+  background-color: var(--color-surface-pearl);
   color: var(--color-ink);
   font-family: var(--font-sf-pro);
   font-size: 13px;
@@ -475,21 +476,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .apple-chip:hover {
-  border-color: var(--color-ink);
+  border-color: var(--color-primary);
   background-color: var(--color-canvas-parchment);
 }
 
-/* Active Chip: Sophisticated Obsidian Pill */
+/* Active Chip: Sophisticated Espresso Pill */
 .apple-chip-active {
-  background-color: #111215;
-  color: #ffffff;
-  border-color: #111215;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  background-color: var(--color-primary);
+  color: var(--color-primary-on-dark);
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(44, 34, 29, 0.20);
 }
 
 .apple-chip-active:hover {
-  background-color: #23252a;
-  border-color: #23252a;
+  background-color: var(--color-primary-focus);
+  border-color: var(--color-primary-focus);
 }
 
 /* Status Badges — High-Contrast Accessible Hierarchy */
@@ -555,19 +556,19 @@ h1, h2, h3, h4, h5, h6 {
   flex-shrink: 0;
 }
 
-/* Frosted Glass Bars */
+/* Frosted Glass Bars — Warm Artisanal Glass */
 .frosted-glass-light {
-  background-color: rgba(245, 245, 247, 0.8);
+  background-color: rgba(251, 247, 240, 0.88);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--color-hairline);
+  border-bottom: 1px solid var(--color-hairline-opaque);
 }
 
 .frosted-glass-dark {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(31, 23, 19, 0.90);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 230, 200, 0.12);
 }
 
 /* Content Width Standards */
