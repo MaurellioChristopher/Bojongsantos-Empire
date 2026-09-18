@@ -7,11 +7,43 @@ import { useNotification } from '@/contexts/NotificationContext';
 import type { UserRole, BusinessType } from '@/types';
 
 export function RegisterPage() {
-  const { register } = useAuth();
+  const { register, loginWithGoogle, loginWithGoogleDemo } = useAuth();
   const { success, error } = useNotification();
   const [role, setRole] = useState<UserRole>('penerima');
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [showGoogleGuideModal, setShowGoogleGuideModal] = useState(false);
+
+  const handleGoogleSignup = async () => {
+    setIsGoogleLoading(true);
+    try {
+      const result = await loginWithGoogle(role);
+      if (!result.success) {
+        setShowGoogleGuideModal(true);
+      }
+    } catch {
+      setShowGoogleGuideModal(true);
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
+
+  const handleGoogleDemoSignup = async () => {
+    setIsGoogleLoading(true);
+    try {
+      const result = await loginWithGoogleDemo(role);
+      if (result.success) {
+        success(
+          'Pendaftaran Google Berhasil',
+          `Akun ${role === 'penyedia' ? 'Penyedia (Mitra Terverifikasi)' : 'Penerima'} Google siap digunakan`
+        );
+        setShowGoogleGuideModal(false);
+      }
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
 
   // Form states
   const [name, setName] = useState('');
@@ -191,6 +223,48 @@ export function RegisterPage() {
               {/* STEP 1: Personal Info */}
               {step === 1 && (
                 <div className="space-y-3.5">
+                  {/* Google Quick Registration */}
+                  <div className="mb-4">
+                    <button
+                      type="button"
+                      onClick={handleGoogleSignup}
+                      disabled={isGoogleLoading || isLoading}
+                      className="w-full h-11 px-4 bg-white hover:bg-[#F3F7F2] active:bg-[#EAEFE9] text-[#143628] font-medium text-sm rounded-xl border border-[#DCE5DB] shadow-xs hover:border-[#CAD6C8] transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-60"
+                    >
+                      {isGoogleLoading ? (
+                        <div className="w-4 h-4 border-2 border-[#143628] border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        <svg width="18" height="18" viewBox="0 0 24 24" className="shrink-0">
+                          <path
+                            fill="#4285F4"
+                            d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+                          />
+                          <path
+                            fill="#34A853"
+                            d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+                          />
+                          <path
+                            fill="#FBBC05"
+                            d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
+                          />
+                          <path
+                            fill="#EA4335"
+                            d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                          />
+                        </svg>
+                      )}
+                      <span>Daftar Cepat dengan Google</span>
+                    </button>
+
+                    <div className="relative my-4 flex items-center justify-center">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-[#E5ECE4]" />
+                      </div>
+                      <span className="relative bg-[#FFFFFF] px-3 text-[11px] font-mono uppercase tracking-wider text-[#597367]">
+                        atau isi form manual
+                      </span>
+                    </div>
+                  </div>
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
                       Nama Lengkap
@@ -381,6 +455,79 @@ export function RegisterPage() {
           AksesPangan &copy; 2026 • Platform Kolaborasi Penyelamatan Surplus Pangan
         </p>
       </footer>
+
+      {/* Google OAuth Help & Demo Modal */}
+      {showGoogleGuideModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0C2017]/60 backdrop-blur-xs">
+          <div className="bg-white rounded-2xl border border-[#DCE5DB] shadow-2xl max-w-md w-full p-6 text-[#143628] animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[#EDF2EC] flex items-center justify-center border border-[#DCE5DB] shadow-xs">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                  <path
+                    fill="#4285F4"
+                    d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-[#143628]">Daftar Cepat via Google</h3>
+                <p className="text-xs text-[#597367]">Supabase Authentication</p>
+              </div>
+            </div>
+
+            <div className="bg-[#F7F9F6] p-3.5 rounded-xl border border-[#DCE5DB] text-xs text-[#2E4A3B] space-y-2 mb-4 leading-relaxed">
+              <p className="font-medium text-[#143628]">
+                Kode otentikasi Google telah aktif terintegrasi dengan Supabase Client!
+              </p>
+              <p>
+                Jika Google Cloud Client ID belum diaktifkan di dashboard Supabase proyek Anda, Anda dapat langsung menguji alur pendaftaran menggunakan <strong>Akun Google Demo Terverifikasi</strong> di bawah ini.
+              </p>
+            </div>
+
+            <div className="space-y-2 mb-5">
+              <button
+                type="button"
+                onClick={handleGoogleDemoSignup}
+                disabled={isGoogleLoading}
+                className="w-full h-11 px-4 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] font-medium text-sm rounded-xl transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+              >
+                {isGoogleLoading ? 'Memproses...' : `Daftar sebagai Akun Google Demo (${role})`}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowGoogleGuideModal(false)}
+                className="w-full h-10 px-4 bg-white hover:bg-[#F3F7F2] text-[#597367] font-medium text-xs rounded-xl border border-[#DCE5DB] transition-all cursor-pointer"
+              >
+                Tutup & Isi Form Manual
+              </button>
+            </div>
+
+            <div className="pt-3 border-t border-[#E5ECE4]">
+              <p className="text-[11px] font-mono text-[#597367] uppercase tracking-wider mb-1.5">
+                Cara Mengaktifkan Google di Supabase:
+              </p>
+              <ol className="text-[11px] text-[#597367] space-y-1 list-decimal list-inside leading-snug">
+                <li>Buka Supabase Dashboard &rarr; Authentication &rarr; Providers</li>
+                <li>Pilih <strong>Google</strong> & toggle Enabled</li>
+                <li>Masukkan Client ID & Secret dari Google Cloud Console</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
