@@ -4,7 +4,7 @@
 
 import { requestApi } from './apiClient';
 import type { CreateBookingRequest, UpdateBookingStatusRequest } from '@/types/api';
-import type { Booking, BookingStatus } from '@/types';
+import type { Booking, BookingStatus, SurplusItem } from '@/types';
 import * as localData from '@/lib/data';
 
 export const bookingService = {
@@ -50,7 +50,7 @@ export const bookingService = {
     }
   },
 
-  async create(data: CreateBookingRequest): Promise<Booking> {
+  async create(data: CreateBookingRequest, fallbackItem?: SurplusItem): Promise<Booking> {
     try {
       const booking = await requestApi<Booking>('/api/bookings', {
         method: 'POST',
@@ -60,7 +60,7 @@ export const bookingService = {
       localData.saveBooking(booking);
       return booking;
     } catch {
-      const surplus = localData.getSurplusById(data.surplusId);
+      const surplus = fallbackItem || localData.getSurplusById(data.surplusId);
       if (!surplus) throw new Error('Item surplus tidak ditemukan');
 
       return localData.createBooking({

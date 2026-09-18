@@ -95,19 +95,23 @@ export function PenerimaDashboard() {
 
   const handleBook = async (item: SurplusItem) => {
     if (!user) {
+      warning('Masuk Diperlukan', 'Silakan masuk atau daftar terlebih dahulu untuk menyelesaikan pesanan.');
       window.location.hash = '#/login';
       return;
     }
 
     setIsBookingLoading(true);
     try {
-      await bookingService.create({
-        surplusId: item.id,
-        quantity: item.quantity,
-        recipientId: user.id,
-        recipientName: user.name,
-        recipientPhone: user.phone || '08123456789',
-      });
+      await bookingService.create(
+        {
+          surplusId: item.id,
+          quantity: item.quantity,
+          recipientId: user.id,
+          recipientName: user.name,
+          recipientPhone: user.phone || '08123456789',
+        },
+        item
+      );
 
       success('Pemesanan Berhasil', `${item.name} telah dipesan. Dialihkan ke tiket pesanan Anda...`);
       setSelectedItem(null);
@@ -535,7 +539,7 @@ export function PenerimaDashboard() {
 
         {/* Content View: List or Map */}
         {viewMode === 'map' ? (
-          <div className="w-full h-[580px] rounded-[18px] overflow-hidden border border-[#DCE5DB] bg-[#FFFFFF] product-hero-shadow relative">
+          <div className="w-full h-[580px] rounded-[18px] overflow-hidden border border-[#DCE5DB] bg-[#FFFFFF] product-hero-shadow relative isolate z-0">
             <MapComponent
               items={filteredItems}
               center={userLocation}

@@ -202,7 +202,7 @@ export default function SurplusMap({
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden select-none">
+    <div className="relative w-full h-full overflow-hidden select-none isolate">
       {/* Leaflet Map Container */}
       <MapContainer
         center={[center.lat, center.lng]}
@@ -241,7 +241,7 @@ export default function SurplusMap({
       </MapContainer>
 
       {/* TOP FLOATING CATEGORY BADGE */}
-      <div className="absolute top-4 left-4 z-[999] pointer-events-none">
+      <div className="absolute top-4 left-4 z-20 pointer-events-none">
         <div className="bg-[#FFFFFF]/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#DCE5DB] shadow-md flex items-center gap-2 text-xs font-semibold text-[#143628]">
           <span className="w-2 h-2 rounded-full bg-[#2D6A4F] animate-pulse" />
           <span>
@@ -259,7 +259,7 @@ export default function SurplusMap({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[999] bg-[#FFFFFF]/95 backdrop-blur-md rounded-[16px] border border-[#DCE5DB] p-5 shadow-2xl"
+            className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-30 bg-[#FFFFFF]/95 backdrop-blur-md rounded-[16px] border border-[#DCE5DB] p-5 shadow-2xl"
           >
             {/* Header with Close Button */}
             <div className="flex items-start justify-between gap-3 mb-2">
@@ -322,7 +322,10 @@ export default function SurplusMap({
             {/* Action Buttons */}
             <div className="flex items-center gap-2">
               <button
-                onClick={() => onItemClick(activeItem)}
+                onClick={() => {
+                  onItemClick(activeItem);
+                  setActiveItem(null);
+                }}
                 className="flex-1 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] rounded-xl text-xs font-semibold py-2.5 px-4 flex items-center justify-center gap-1.5 transition-all shadow-sm"
               >
                 <span>Klaim Makanan Ini Sekarang</span>
@@ -334,7 +337,7 @@ export default function SurplusMap({
       </AnimatePresence>
 
       {/* BOTTOM CAROUSEL STRIP: Click any spot to jump map */}
-      <div className="absolute bottom-2 left-4 right-4 z-[998] hidden md:flex items-center gap-2 overflow-x-auto pb-1 pointer-events-auto">
+      <div className="absolute bottom-2 left-4 right-4 z-20 hidden md:flex items-center gap-2 overflow-x-auto pb-1 pointer-events-auto">
         {items.map((item) => {
           const isSelected = activeItem?.id === item.id;
           return (
@@ -356,5 +359,6 @@ export default function SurplusMap({
         })}
       </div>
     </div>
+
   );
 }

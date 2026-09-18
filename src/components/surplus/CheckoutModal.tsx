@@ -36,7 +36,7 @@ export function CheckoutModal({
   onConfirmCheckout,
   isLoading = false,
 }: CheckoutModalProps) {
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(true);
   const [activeTab, setActiveTab] = useState<'rincian' | 'keamanan'>('rincian');
 
   if (!isOpen || !item) return null;
@@ -45,13 +45,16 @@ export function CheckoutModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!agreedToTerms || isLoading) return;
+    if (isLoading) return;
+    if (!agreedToTerms) {
+      setAgreedToTerms(true);
+    }
     await onConfirmCheckout(item);
   };
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#0C2017]/60 backdrop-blur-md overflow-y-auto">
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-[#0C2017]/60 backdrop-blur-md overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -328,7 +331,7 @@ export function CheckoutModal({
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={!agreedToTerms || isLoading}
+                disabled={isLoading}
                 className="flex-1 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] font-medium text-sm py-3 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 {isLoading ? 'Memproses Checkout...' : 'Konfirmasi & Buat Pesanan Sekarang'}
