@@ -146,6 +146,8 @@ export function formatCountdown(expiryTime: string): string {
   return `${seconds}d`;
 }
 
+export const formatTimeRemaining = formatCountdown;
+
 /**
  * Estimate CO₂e saved from food rescued
  * Average: 1 kg food waste ≈ 2.5 kg CO₂e

@@ -110,6 +110,7 @@ export interface Booking {
   pickupDeadline: string;
   pickupLocation: Coordinates;
   pickupAddress: string;
+  pickupPin?: string; // 4-digit verification PIN
 }
 
 // --- Notification ---
@@ -251,4 +252,35 @@ export interface EsgConfig {
   verificationProtocol: string;
   updatedAt: string;
 }
+
+// --- Gamifikasi: Pahlawan Pangan (Food Hero Badges) ---
+export interface FoodHeroBadge {
+  id: string;
+  title: string;
+  description: string;
+  icon: string; // emoji or icon key
+  category: 'rescue' | 'carbon' | 'consistency' | 'community';
+  isUnlocked: boolean;
+  unlockedAt?: string;
+  progress: number; // 0 - 100 percentage
+  currentCount: number;
+  targetCount: number;
+  unit: string;
+}
+
+// --- Ide Olah Bahan Baku (Smart Culinary Ideas) ---
+export interface CulinaryRecipe {
+  id: string;
+  ingredientKeywords: string[]; // matches against ingredient name
+  title: string;
+  difficulty: 'Mudah' | 'Sedang';
+  prepTime: string; // e.g. "15 Menit"
+  portion: string; // e.g. "3-4 Porsi"
+  description: string;
+  ingredients: string[];
+  steps: string[];
+  nutritionNote: string;
+  zeroWasteTip: string;
+}
+
 

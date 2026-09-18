@@ -29,6 +29,7 @@ import { formatCountdown, getRelativeTime, formatDateTime } from '@/lib/utils';
 import { BOOKING_STATUS_LABELS } from '@/types';
 import type { Booking, BookingStatus } from '@/types';
 import { ChatModal } from '@/components/chat/ChatModal';
+import { PickupTicketModal } from '@/components/booking/PickupTicketModal';
 
 type OrderFilter = 'semua' | 'menunggu' | 'siap' | 'selesai' | 'dibatalkan';
 
@@ -461,103 +462,12 @@ export function PenerimaBooking() {
           </div>
         )}
 
-        {/* Digital Pickup Ticket & QR Code Simulator Modal */}
-        <AnimatePresence>
-          {selectedTicket && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0C2017]/60 backdrop-blur-md">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                className="bg-[#FFFFFF] rounded-[24px] max-w-md w-full p-6 sm:p-8 border border-[#DCE5DB] shadow-2xl relative text-center text-[#143628]"
-              >
-                <button
-                  onClick={() => setSelectedTicket(null)}
-                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#EDF2EC] flex items-center justify-center text-[#597367] hover:text-[#143628]"
-                >
-                  <X size={16} />
-                </button>
-
-                <div className="w-12 h-12 rounded-full bg-[#143628] text-[#F3F8F5] flex items-center justify-center mx-auto mb-3 shadow-md">
-                  <QrCode size={24} />
-                </div>
-
-                <h3 className="text-tagline font-bold text-[#143628] mb-1">
-                  Tiket Digital Penjemputan
-                </h3>
-                <p className="text-fine-print text-[#597367] mb-4">
-                  Tunjukkan kode QR / ID tiket ini kepada staf restoran saat serah terima.
-                </p>
-
-                {/* Simulated High-Res QR Code Card */}
-                <div className="p-6 bg-[#FAF7F2] rounded-[20px] border border-[#DCE5DB] mb-5 inline-block w-full">
-                  <div className="w-44 h-44 bg-[#FFFFFF] p-3 rounded-[16px] mx-auto mb-3 border border-[#DCE5DB] shadow-inner flex flex-col items-center justify-center relative overflow-hidden">
-                    {/* Simulated Barcode / Matrix Pattern */}
-                    <div className="grid grid-cols-6 gap-1 w-full h-full opacity-90">
-                      {Array.from({ length: 36 }).map((_, i) => (
-                        <div
-                          key={i}
-                          className={`rounded-[2px] ${
-                            (i * 7) % 3 === 0 ? 'bg-[#143628]' : 'bg-[#DCE5DB]'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="text-xs font-mono font-bold text-[#143628] uppercase tracking-widest bg-[#FFFFFF] py-1.5 px-3 rounded-full border border-[#DCE5DB] inline-block">
-                    KODE: #{selectedTicket.id.slice(0, 8)}
-                  </div>
-                </div>
-
-                {/* Ticket Details */}
-                <div className="text-left bg-[#FAF7F2] border border-[#DCE5DB] p-4 rounded-[14px] space-y-2 text-xs mb-6">
-                  <div className="flex justify-between">
-                    <span className="text-[#597367]">Makanan:</span>
-                    <span className="font-semibold text-[#143628] truncate max-w-[200px]">
-                      {selectedTicket.surplusName}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#597367]">Penyedia:</span>
-                    <span className="font-semibold text-[#143628]">
-                      {selectedTicket.providerBusinessName}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#597367]">Alamat Ambil:</span>
-                    <span className="font-semibold text-[#143628] truncate max-w-[200px]">
-                      {selectedTicket.pickupAddress}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#597367]">Sisa Batas Waktu:</span>
-                    <span className="font-semibold text-[#143628]">
-                      {formatCountdown(selectedTicket.pickupDeadline)} lagi
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setSelectedTicket(null)}
-                    className="bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] flex-1 text-xs py-2.5 rounded-xl border border-[#DCE5DB] transition-colors"
-                  >
-                    Tutup
-                  </button>
-                  {selectedTicket.status === 'dikonfirmasi' && (
-                    <button
-                      onClick={() => handleConfirmPickup(selectedTicket)}
-                      className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] flex-1 text-xs py-2.5 rounded-xl font-medium shadow-sm transition-all"
-                    >
-                      Konfirmasi Selesai
-                    </button>
-                  )}
-                </div>
-              </motion.div>
-            </div>
-          )}
-        </AnimatePresence>
+        {/* Digital Pickup Ticket & QR Pass Modal */}
+        <PickupTicketModal
+          isOpen={!!selectedTicket}
+          onClose={() => setSelectedTicket(null)}
+          booking={selectedTicket}
+        />
 
         {/* Modal Konfirmasi Pembatalan Pesanan */}
         <AnimatePresence>

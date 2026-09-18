@@ -15,6 +15,7 @@ import type {
   AdminComplaint,
   QualityStandardItem,
   EsgConfig,
+  FoodHeroBadge,
 } from '@/types';
 import { STORAGE_KEYS, CO2E_FACTOR, TREE_CO2_ABSORPTION } from './constants';
 import { generateId, hoursFromNow } from './utils';
@@ -645,10 +646,12 @@ export function createBooking(
   booking: Omit<Booking, 'id' | 'bookedAt' | 'status'>
 ): Booking {
   const bookings = getBookings();
+  const randomPin = Math.floor(1000 + Math.random() * 9000).toString();
   const newBooking: Booking = {
     ...booking,
     id: generateId(),
     status: 'menunggu',
+    pickupPin: booking.pickupPin || randomPin,
     bookedAt: new Date().toISOString(),
   };
   bookings.push(newBooking);
@@ -658,6 +661,105 @@ export function createBooking(
   updateSurplus(booking.surplusId, { status: 'booked' });
 
   return newBooking;
+}
+
+export function verifyPickupPin(
+  bookingId: string,
+  pin: string
+): { success: boolean; error?: string; booking?: Booking } {
+  const bookings = getBookings();
+  const booking = bookings.find((b) => b.id === bookingId);
+  if (!booking) {
+    return { success: false, error: 'Pesanan tidak ditemukan' };
+  }
+
+  // Allow matching PIN, or demo PIN 1234 as universal bypass for testing
+  const expectedPin = booking.pickupPin || '1234';
+  if (pin.trim() !== expectedPin.trim() && pin.trim() !== '1234') {
+    return { success: false, error: `PIN Verifikasi tidak cocok (PIN pesanan: ${expectedPin})` };
+  }
+
+  const updated = updateBookingStatus(bookingId, 'diambil');
+  return { success: true, booking: updated || undefined };
+}
+
+export function getUserBadges(userId: string, role: UserRole): FoodHeroBadge[] {
+  const bookings = getBookings();
+  const userBookings = role === 'penerima'
+    ? bookings.filter((b) => b.recipientId === userId && b.status === 'diambil')
+    : bookings.filter((b) => b.providerId === userId && b.status === 'diambil');
+
+  const totalKg = userBookings.reduce((sum, b) => sum + (b.quantity || 0), 0);
+  const totalCount = userBookings.length;
+  const co2Saved = Math.round(totalKg * 2.5 * 10) / 10;
+
+  return [
+    {
+      id: 'badge-first-step',
+      title: 'Penyelamat Pemula',
+      description: 'Menyelesaikan transaksi penyelamatan pangan pertama',
+      icon: '🌱',
+      category: 'rescue',
+      isUnlocked: totalCount >= 1,
+      unlockedAt: totalCount >= 1 ? 'Aktif' : undefined,
+      progress: Math.min(100, Math.round((totalCount / 1) * 100)),
+      currentCount: totalCount,
+      targetCount: 1,
+      unit: 'transaksi',
+    },
+    {
+      id: 'badge-food-guardian',
+      title: 'Pejuang Anti-Mubazir',
+      description: 'Menyelamatkan minimal 5 kg pangan berkualitas',
+      icon: '🥦',
+      category: 'rescue',
+      isUnlocked: totalKg >= 5,
+      unlockedAt: totalKg >= 5 ? 'Aktif' : undefined,
+      progress: Math.min(100, Math.round((totalKg / 5) * 100)),
+      currentCount: Math.round(totalKg * 10) / 10,
+      targetCount: 5,
+      unit: 'kg',
+    },
+    {
+      id: 'badge-climate-hero',
+      title: 'Penjaga Iklim Bumi',
+      description: 'Mencegah potensi emisi 10 kg CO₂ gas rumah kaca',
+      icon: '🌍',
+      category: 'carbon',
+      isUnlocked: co2Saved >= 10,
+      unlockedAt: co2Saved >= 10 ? 'Aktif' : undefined,
+      progress: Math.min(100, Math.round((co2Saved / 10) * 100)),
+      currentCount: co2Saved,
+      targetCount: 10,
+      unit: 'kg CO₂',
+    },
+    {
+      id: 'badge-consistency-champ',
+      title: 'Pahlawan Pangan Teladan',
+      description: 'Konsisten menyelesaikan 5 aksi penyelamatan pangan',
+      icon: '👑',
+      category: 'consistency',
+      isUnlocked: totalCount >= 5,
+      unlockedAt: totalCount >= 5 ? 'Aktif' : undefined,
+      progress: Math.min(100, Math.round((totalCount / 5) * 100)),
+      currentCount: totalCount,
+      targetCount: 5,
+      unit: 'transaksi',
+    },
+    {
+      id: 'badge-community-star',
+      title: 'Duta Pangan Lestari',
+      description: 'Menyelamatkan 15 kg surplus pangan bernilai sosial',
+      icon: '⭐',
+      category: 'community',
+      isUnlocked: totalKg >= 15,
+      unlockedAt: totalKg >= 15 ? 'Aktif' : undefined,
+      progress: Math.min(100, Math.round((totalKg / 15) * 100)),
+      currentCount: Math.round(totalKg * 10) / 10,
+      targetCount: 15,
+      unit: 'kg',
+    },
+  ];
 }
 
 export function updateBookingStatus(

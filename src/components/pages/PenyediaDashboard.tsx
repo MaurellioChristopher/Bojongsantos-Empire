@@ -2,19 +2,21 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, ClipboardList, CheckCircle, Plus, TrendingUp, ArrowRight, Store, Clock } from 'lucide-react';
+import { Package, ClipboardList, CheckCircle, Plus, TrendingUp, ArrowRight, Store, Clock, Award, ShieldCheck, FileCheck, Sparkles, Leaf } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { getSurplusByProvider, getBookingsByProvider } from '@/lib/data';
+import { getSurplusByProvider, getBookingsByProvider, getUserBadges } from '@/lib/data';
 import { surplusService } from '@/services/surplusService';
 import { bookingService } from '@/services/bookingService';
 import { formatCountdown, formatPrice } from '@/lib/utils';
 import { FOOD_CATEGORY_EMOJI } from '@/types';
 import type { SurplusItem, Booking } from '@/types';
+import { EsgCertificateModal } from '@/components/certificates/EsgCertificateModal';
 
 export function PenyediaDashboard() {
   const { user, login } = useAuth();
   const [surplus, setSurplus] = useState<SurplusItem[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [showEsgModal, setShowEsgModal] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -62,6 +64,9 @@ export function PenyediaDashboard() {
   const pendingBookings = bookings.filter((b) => b.status === 'menunggu');
   const completedBookings = bookings.filter((b) => b.status === 'diambil');
   const totalKg = completedBookings.reduce((sum, b) => sum + b.quantity, 0);
+  const co2Saved = Math.round(totalKg * 2.5 * 10) / 10;
+  const badges = getUserBadges(user.id, 'penyedia');
+  const unlockedBadges = badges.filter((b) => b.isUnlocked).length;
 
   const stats = [
     { label: 'Surplus Aktif', value: activeItems.length, unit: 'item', icon: Package },
@@ -87,13 +92,55 @@ export function PenyediaDashboard() {
             </p>
           </div>
 
-          <a href="#/penyedia/surplus" className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] px-4 py-2.5 rounded-xl text-sm font-medium flex items-center gap-2 self-start sm:self-auto transition-all shadow-sm">
-            <Plus size={16} /> Unggah Surplus Baru
-          </a>
+          <div className="flex items-center gap-2.5 self-start sm:self-auto flex-wrap">
+            <button
+              onClick={() => setShowEsgModal(true)}
+              className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-[#143628] border border-[#DCE5DB] px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all shadow-2xs cursor-pointer"
+            >
+              <Award size={16} className="text-[#2D6A4F]" />
+              <span>Sertifikat Hijau ESG</span>
+            </button>
+
+            <a href="#/penyedia/surplus" className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] px-4 py-2.5 rounded-xl text-sm font-medium flex items-center gap-2 transition-all shadow-sm">
+              <Plus size={16} /> Unggah Surplus Baru
+            </a>
+          </div>
         </div>
 
         {/* Subtle warm accent bar below header */}
         <div className="h-[3px] rounded-full mb-8 w-16 bg-[#2D6A4F]" />
+
+        {/* ESG Impact Hero Banner */}
+        <div className="bg-[#143628] text-white rounded-2xl p-6 sm:p-7 mb-8 shadow-sm relative overflow-hidden">
+          <div className="absolute -right-8 -bottom-8 w-48 h-48 rounded-full bg-white/5 pointer-events-none" />
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="max-w-xl">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-mono uppercase tracking-widest bg-white/15 px-2.5 py-0.5 rounded-full font-bold text-[#E5ECE4]">
+                  Tanggung Jawab Berkelanjutan
+                </span>
+                <span className="text-[10px] font-mono text-[#DCE5DB]">• SDGs 2 & 12</span>
+              </div>
+              <h2 className="text-lg sm:text-xl font-bold mb-1.5 flex items-center gap-2">
+                <span>Mitra Hijau Ramah Lingkungan</span>
+                <ShieldCheck size={20} className="text-[#8FB397]" />
+              </h2>
+              <p className="text-xs sm:text-sm text-[#DCE5DB] leading-relaxed">
+                Unit usaha Anda telah menyalurkan <strong>{totalKg} kg</strong> pangan berkualitas dan berhasil mencegah potensi emisi sebesar <strong>{co2Saved} kg CO₂e</strong> ke atmosfer bumi.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <button
+                onClick={() => setShowEsgModal(true)}
+                className="bg-[#FAF7F2] hover:bg-white text-[#143628] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all shadow-sm cursor-pointer"
+              >
+                <FileCheck size={16} className="text-[#2D6A4F]" />
+                <span>Unduh / Cetak Sertifikat ESG</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* 4 Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -108,6 +155,71 @@ export function PenyediaDashboard() {
               <div className="text-caption-apple text-[#597367]">{st.label}</div>
             </div>
           ))}
+        </div>
+
+        {/* Gamifikasi Pahlawan Pangan Mitra */}
+        <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 mb-8 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#DCE5DB]">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-[#EDF2EC] flex items-center justify-center text-lg border border-[#DCE5DB]">
+                🎖️
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-[#143628] flex items-center gap-2">
+                  <span>Pencapaian Pahlawan Pangan Mitra</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#2D6A4F] text-white font-bold">
+                    {unlockedBadges}/{badges.length} Terbuka
+                  </span>
+                </h3>
+                <p className="text-[11px] text-[#597367] m-0">
+                  Apresiasi atas kontribusi nyata bisnis Anda dalam mencegah food waste
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {badges.map((b) => (
+              <div
+                key={b.id}
+                className={`p-3 rounded-xl border transition-all flex flex-col justify-between ${
+                  b.isUnlocked
+                    ? 'bg-[#FBFDFB] border-[#2D6A4F]/40 shadow-xs ring-1 ring-[#2D6A4F]/20'
+                    : 'bg-[#FAF7F2]/60 border-[#DCE5DB] opacity-75'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-2xl">{b.icon}</span>
+                    {b.isUnlocked ? (
+                      <span className="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded bg-[#2D6A4F] text-white">
+                        Diraih
+                      </span>
+                    ) : (
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#DCE5DB] text-[#597367]">
+                        {b.currentCount}/{b.targetCount}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-xs font-bold text-[#143628] line-clamp-1">{b.title}</div>
+                  <div className="text-[10px] text-[#597367] line-clamp-2 mt-0.5 leading-snug">
+                    {b.description}
+                  </div>
+                </div>
+
+                <div className="mt-2.5 pt-2 border-t border-[#DCE5DB]/70">
+                  <div className="w-full bg-[#E5ECE4] rounded-full h-1.5 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        b.isUnlocked ? 'bg-[#2D6A4F]' : 'bg-[#B8401A]'
+                      }`}
+                      style={{ width: `${b.progress}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Active Surplus Items Section */}
@@ -192,6 +304,15 @@ export function PenyediaDashboard() {
           )}
         </div>
       </div>
+
+      {/* ESG Green Certificate Modal */}
+      <EsgCertificateModal
+        isOpen={showEsgModal}
+        onClose={() => setShowEsgModal(false)}
+        user={user}
+        totalKgSaved={totalKg}
+        totalCompletedCount={completedBookings.length}
+      />
     </div>
   );
 }
