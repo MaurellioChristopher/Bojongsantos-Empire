@@ -1,10 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getServerStore } from '@/lib/serverStore';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
+import { assertMicroserviceAvailable } from '@/lib/microserviceGate';
 import type { RegisterRequest, ApiResponse, LoginResponse } from '@/types/api';
 import type { User } from '@/types';
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponse<LoginResponse>>> {
+  const gate = await assertMicroserviceAvailable('auth');
+  if (!gate.ok && gate.errorResponse) {
+    return gate.errorResponse as NextResponse<ApiResponse<LoginResponse>>;
+  }
+
   try {
     const body: RegisterRequest = await request.json();
 

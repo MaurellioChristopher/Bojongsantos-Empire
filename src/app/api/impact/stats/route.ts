@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server';
 import { calculateServerImpact } from '@/lib/serverStore';
+import { assertMicroserviceAvailable } from '@/lib/microserviceGate';
 import type { ApiResponse } from '@/types/api';
 import type { ImpactData } from '@/types';
 
 export async function GET(): Promise<NextResponse<ApiResponse<ImpactData>>> {
+  const gate = await assertMicroserviceAvailable('analytics');
+  if (!gate.ok && gate.errorResponse) {
+    return gate.errorResponse as NextResponse<ApiResponse<ImpactData>>;
+  }
+
   try {
     const impact = calculateServerImpact();
     return NextResponse.json({

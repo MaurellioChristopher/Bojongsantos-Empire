@@ -1,10 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getServerStore } from '@/lib/serverStore';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
+import { assertMicroserviceAvailable } from '@/lib/microserviceGate';
 import type { ApiResponse, CreateBookingRequest } from '@/types/api';
 import type { Booking } from '@/types';
 
 export async function GET(request: Request): Promise<NextResponse<ApiResponse<Booking[]>>> {
+  const gate = await assertMicroserviceAvailable('booking');
+  if (!gate.ok && gate.errorResponse) {
+    return gate.errorResponse as NextResponse<ApiResponse<Booking[]>>;
+  }
+
   const { searchParams } = new URL(request.url);
   const recipientId = searchParams.get('recipientId');
   const providerId = searchParams.get('providerId');
@@ -90,6 +96,11 @@ export async function GET(request: Request): Promise<NextResponse<ApiResponse<Bo
 }
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponse<Booking>>> {
+  const gate = await assertMicroserviceAvailable('booking');
+  if (!gate.ok && gate.errorResponse) {
+    return gate.errorResponse as NextResponse<ApiResponse<Booking>>;
+  }
+
   try {
     const body: CreateBookingRequest = await request.json();
     const store = getServerStore();

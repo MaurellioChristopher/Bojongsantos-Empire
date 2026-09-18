@@ -59,7 +59,10 @@ export const bookingService = {
       // Save locally as well for offline and instant tab sync
       localData.saveBooking(booking);
       return booking;
-    } catch {
+    } catch (err: any) {
+      if (err?.statusCode === 503 || err?.message?.includes('Offline')) {
+        throw err;
+      }
       const surplus = fallbackItem || localData.getSurplusById(data.surplusId);
       if (!surplus) throw new Error('Item surplus tidak ditemukan');
 

@@ -65,7 +65,10 @@ export const surplusService = {
         address: data.address,
       });
       return item;
-    } catch {
+    } catch (err: any) {
+      if (err?.statusCode === 503 || err?.message?.includes('Offline')) {
+        throw err;
+      }
       return localData.createSurplus({
         providerId: data.providerId,
         providerName: data.providerName,

@@ -17,7 +17,10 @@ export const authService = {
       // Synchronize with local storage for offline resilience
       localData.setCurrentUser(res.user);
       return res;
-    } catch {
+    } catch (err: any) {
+      if (err?.statusCode === 503 || err?.message?.includes('Offline')) {
+        throw err;
+      }
       // Offline fallback
       const localRes = localData.login(credentials.email, credentials.password || '');
       if (!localRes.success || !localRes.user) {
@@ -38,7 +41,10 @@ export const authService = {
       });
       localData.setCurrentUser(res.user);
       return res;
-    } catch {
+    } catch (err: any) {
+      if (err?.statusCode === 503 || err?.message?.includes('Offline')) {
+        throw err;
+      }
       // Offline fallback
       const newUser = localData.createUser({
         name: data.name,

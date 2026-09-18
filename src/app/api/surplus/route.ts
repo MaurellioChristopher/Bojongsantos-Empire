@@ -1,10 +1,16 @@
 import { NextResponse } from 'next/server';
 import { getServerStore } from '@/lib/serverStore';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
+import { assertMicroserviceAvailable } from '@/lib/microserviceGate';
 import type { ApiResponse, CreateSurplusRequest } from '@/types/api';
 import type { SurplusItem } from '@/types';
 
 export async function GET(request: Request): Promise<NextResponse<ApiResponse<SurplusItem[]>>> {
+  const gate = await assertMicroserviceAvailable('inventory');
+  if (!gate.ok && gate.errorResponse) {
+    return gate.errorResponse as NextResponse<ApiResponse<SurplusItem[]>>;
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
@@ -117,6 +123,11 @@ export async function GET(request: Request): Promise<NextResponse<ApiResponse<Su
 }
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponse<SurplusItem>>> {
+  const gate = await assertMicroserviceAvailable('inventory');
+  if (!gate.ok && gate.errorResponse) {
+    return gate.errorResponse as NextResponse<ApiResponse<SurplusItem>>;
+  }
+
   try {
     const body: CreateSurplusRequest = await request.json();
 
