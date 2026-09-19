@@ -4,14 +4,11 @@ import { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
-import type { UserRole } from '@/types';
-import { DEMO_CREDENTIALS } from '@/lib/constants';
 import { getCurrentUser } from '@/lib/data';
 
 export function LoginPage() {
   const { login } = useAuth();
   const { success, error } = useNotification();
-  const [role, setRole] = useState<UserRole>('penerima');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +26,7 @@ export function LoginPage() {
       if (result.success) {
         success('Autentikasi Berhasil', 'Selamat datang kembali di AksesPangan');
         const currentUser = getCurrentUser();
-        const finalRole = currentUser?.role || role;
+        const finalRole = currentUser?.role || 'penerima';
         if (finalRole === 'penyedia') window.location.hash = '#/penyedia';
         else if (finalRole === 'admin') window.location.hash = '#/admin';
         else window.location.hash = '#/penerima';
@@ -43,13 +40,6 @@ export function LoginPage() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const fillDemo = (r: UserRole) => {
-    const cred = DEMO_CREDENTIALS[r];
-    setEmail(cred.email);
-    setPassword(cred.password);
-    setRole(r);
   };
 
   return (
@@ -137,7 +127,7 @@ export function LoginPage() {
                   Masuk ke Akun
                 </h2>
                 <p className="text-sm text-[#597367]">
-                  Gunakan akun Anda atau pilih akun demo pengujian di bawah ini.
+                  Masukkan alamat email dan kata sandi Anda untuk melanjutkan ke platform.
                 </p>
               </div>
 
@@ -151,48 +141,6 @@ export function LoginPage() {
                   </div>
                 </div>
               )}
-
-              {/* Clean 1-Click Demo Accounts Segmented Control */}
-              <div className="mb-6">
-                <label className="block text-[11px] font-mono uppercase tracking-wider text-[#597367] mb-2">
-                  Akun Demo Pengujian (1-Klik)
-                </label>
-                <div className="grid grid-cols-3 gap-2 p-1 bg-[#EDF2EC] rounded-xl border border-[#DCE5DB]">
-                  <button
-                    type="button"
-                    onClick={() => fillDemo('penerima')}
-                    className={`py-2 px-2 rounded-lg text-xs font-medium transition-all ${
-                      role === 'penerima' && email === DEMO_CREDENTIALS.penerima.email
-                        ? 'bg-[#FFFFFF] text-[#143628] shadow-xs font-semibold border border-[#DCE5DB]'
-                        : 'text-[#597367] hover:text-[#143628]'
-                    }`}
-                  >
-                    Penerima
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => fillDemo('penyedia')}
-                    className={`py-2 px-2 rounded-lg text-xs font-medium transition-all ${
-                      role === 'penyedia' && email === DEMO_CREDENTIALS.penyedia.email
-                        ? 'bg-[#FFFFFF] text-[#143628] shadow-xs font-semibold border border-[#DCE5DB]'
-                        : 'text-[#597367] hover:text-[#143628]'
-                    }`}
-                  >
-                    Penyedia
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => fillDemo('admin')}
-                    className={`py-2 px-2 rounded-lg text-xs font-medium transition-all ${
-                      role === 'admin' && email === DEMO_CREDENTIALS.admin.email
-                        ? 'bg-[#FFFFFF] text-[#143628] shadow-xs font-semibold border border-[#DCE5DB]'
-                        : 'text-[#597367] hover:text-[#143628]'
-                    }`}
-                  >
-                    Admin
-                  </button>
-                </div>
-              </div>
 
               {/* Login Form */}
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -222,8 +170,8 @@ export function LoginPage() {
                     </label>
                     <button
                       type="button"
-                      onClick={() => alert('Kata sandi demo: "demo123"')}
-                      className="text-xs text-[#2D6A4F] hover:underline"
+                      onClick={() => alert('Untuk bantuan kata sandi atau reset akun, silakan hubungi tim administrator di support@aksespangan.id')}
+                      className="text-xs text-[#2D6A4F] hover:underline cursor-pointer"
                     >
                       Bantuan Sandi
                     </button>

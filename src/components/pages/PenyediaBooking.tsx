@@ -181,15 +181,12 @@ export function PenyediaBooking() {
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
           Halaman ini hanya dapat diakses oleh akun Mitra Penyedia untuk mengelola permintaan klaim makanan.
         </p>
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <button
-            onClick={() => login('penyedia@aksespangan.id', 'penyedia123')}
-            className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-5 rounded-xl font-medium shadow-sm transition-all"
+        <div className="flex items-center justify-center">
+          <a
+            href="#/login"
+            className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all text-center"
           >
-            Masuk Akun Demo Penyedia (1-Klik)
-          </button>
-          <a href="#/login" className="bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] text-sm py-2.5 px-5 rounded-xl font-medium border border-[#DCE5DB] transition-colors">
-            Masuk dengan Akun Lain
+            Masuk ke Akun Anda
           </a>
         </div>
       </div>
