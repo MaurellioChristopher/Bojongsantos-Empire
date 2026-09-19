@@ -180,6 +180,18 @@ export function PenerimaBooking() {
 
             <div className="flex items-center gap-2 self-start sm:self-auto">
               <button
+                onClick={() => {
+                  const targetBooking = bookings.find((b) => ['menunggu', 'dikonfirmasi'].includes(b.status)) || bookings[0];
+                  if (targetBooking) setSelectedNavBooking(targetBooking);
+                }}
+                className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-3.5 flex items-center gap-1.5 rounded-xl shadow-xs transition-all font-semibold cursor-pointer active:scale-95 border border-[#2D6A4F]"
+                title="Buka Navigasi & Live Peta Kurir"
+              >
+                <Bike size={15} className="text-[#86EFAC] animate-pulse" />
+                <span>Live Tracking Kurir 🛵</span>
+              </button>
+
+              <button
                 onClick={() => setIsComplaintModalOpen(true)}
                 className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] rounded-xl shadow-xs transition-colors"
               >
@@ -433,40 +445,40 @@ export function PenerimaBooking() {
                           </div>
                         </div>
 
-                        {/* Courier Partner Badge Card if courier method */}
-                        {b.fulfillmentMethod === 'courier' && (
-                          <div className="mt-2.5 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#DCE5DB] flex items-center justify-between gap-3 text-xs">
-                            <div className="flex items-center gap-2">
-                              <div className="w-7 h-7 rounded-full bg-[#143628] text-white flex items-center justify-center shrink-0">
-                                <Bike size={14} />
-                              </div>
-                              <div>
-                                <span className="font-bold text-[#143628]">{b.courier?.name || 'Budi Prasetyo'}</span>
-                                <span className="text-[10px] text-[#597367] ml-1.5 font-mono">({b.courier?.plateNumber || 'D 4521 BOJ'})</span>
-                                <div className="text-[10px] text-[#2D6A4F] font-semibold">Tas Termal Higienis Aktif</div>
+                        {/* Courier Partner Badge Card */}
+                        <div className="mt-2.5 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#DCE5DB] flex items-center justify-between gap-3 text-xs">
+                          <div className="flex items-center gap-2">
+                            <div className="w-7 h-7 rounded-full bg-[#143628] text-white flex items-center justify-center shrink-0">
+                              <Bike size={14} />
+                            </div>
+                            <div>
+                              <span className="font-bold text-[#143628]">{b.courier?.name || 'Budi Prasetyo (Mitra Kurir)'}</span>
+                              <span className="text-[10px] text-[#597367] ml-1.5 font-mono">({b.courier?.plateNumber || 'D 4521 BOJ'})</span>
+                              <div className="text-[10px] text-[#2D6A4F] font-semibold">
+                                {b.fulfillmentMethod === 'courier' ? 'Pengantaran Tas Termal Higienis' : 'Mitra Kurir Terhubung & Siap Antar'}
                               </div>
                             </div>
-                            <button
-                              onClick={() => setSelectedNavBooking(b)}
-                              className="px-3 py-1.5 bg-[#2D6A4F] hover:bg-[#1C4736] text-white text-[11px] font-bold rounded-lg shadow-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95"
-                            >
-                              <Navigation size={12} />
-                              <span>Live Peta 🛵</span>
-                            </button>
                           </div>
-                        )}
+                          <button
+                            onClick={() => setSelectedNavBooking(b)}
+                            className="px-3 py-1.5 bg-[#2D6A4F] hover:bg-[#1C4736] text-white text-[11px] font-bold rounded-lg shadow-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                          >
+                            <Navigation size={12} />
+                            <span>Live Peta 🛵</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
 
                     {/* Actions */}
                     <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-[#DCE5DB] justify-end">
-                      {b.fulfillmentMethod === 'courier' && (
+                      {['menunggu', 'dikonfirmasi'].includes(b.status) && (
                         <button
                           onClick={() => setSelectedNavBooking(b)}
-                          className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs font-semibold transition-colors cursor-pointer"
+                          className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs font-semibold transition-all cursor-pointer hover:scale-102 active:scale-95"
                         >
                           <Bike size={14} className="text-[#86EFAC]" />
-                          <span>Lacak Kurir di Peta</span>
+                          <span>Lacak Kurir di Peta 🛵</span>
                         </button>
                       )}
 

@@ -309,15 +309,13 @@ export function PenyediaBooking() {
                             <QrCode size={13} />
                             <span>Verifikasi Pengambilan</span>
                           </button>
-                          {b.fulfillmentMethod === 'courier' && (
-                            <button
-                              onClick={() => setSelectedNavBooking(b)}
-                              className="bg-[#143628] hover:bg-[#1C4736] text-white text-xs py-1.5 px-3 rounded-xl flex items-center gap-1.5 shadow-sm transition-all font-medium cursor-pointer"
-                            >
-                              <Bike size={13} className="text-[#86EFAC]" />
-                              <span>Lacak Kurir 🛵</span>
-                            </button>
-                          )}
+                          <button
+                            onClick={() => setSelectedNavBooking(b)}
+                            className="bg-[#143628] hover:bg-[#1C4736] text-white text-xs py-1.5 px-3 rounded-xl flex items-center gap-1.5 shadow-sm transition-all font-medium cursor-pointer"
+                          >
+                            <Bike size={13} className="text-[#86EFAC]" />
+                            <span>Lacak Kurir 🛵</span>
+                          </button>
                           <button
                             onClick={() => setSelectedChatBooking(b)}
                             className="bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] text-xs py-1.5 px-3 rounded-xl flex items-center gap-1.5 border border-[#DCE5DB] transition-all cursor-pointer"
