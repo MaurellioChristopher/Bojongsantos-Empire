@@ -131,16 +131,14 @@ export function CheckoutModal({
   };
 
   return (
-    <>
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-[#0C2017]/60 backdrop-blur-md overflow-y-auto">
-        <motion.div
-          key="checkout-modal-card"
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="bg-[#FFFFFF] rounded-[24px] max-w-2xl w-full p-6 sm:p-8 border border-[#DCE5DB] shadow-2xl relative my-auto max-h-[92vh] flex flex-col justify-between overflow-hidden text-[#143628]"
-        >
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-[#0C2017]/60 backdrop-blur-md overflow-y-auto">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        className="bg-[#FFFFFF] rounded-[24px] max-w-2xl w-full p-6 sm:p-8 border border-[#DCE5DB] shadow-2xl relative my-auto max-h-[92vh] flex flex-col justify-between overflow-hidden text-[#143628]"
+      >
           {/* Header Bar */}
           <div className="flex items-center justify-between pb-4 border-b border-[#DCE5DB]">
             <div className="flex items-center gap-2.5">
@@ -554,18 +552,19 @@ export function CheckoutModal({
             </div>
           </div>
         </motion.div>
-      </div>
 
-      {/* Interactive Payment Gateway Sandbox Modal (Midtrans Snap Style) */}
-      <PaymentGatewayModal
-        isOpen={isPaymentGatewayOpen}
-        onClose={() => setIsPaymentGatewayOpen(false)}
-        orderId={`AP-${Date.now().toString().slice(-7)}`}
-        amount={totalPayment}
-        itemName={item.name}
-        deliveryFee={fulfillmentMethod === 'courier' ? deliveryFeeInfo.totalFee : 0}
-        onPaymentSuccess={handlePaymentSuccess}
-      />
-    </>
-  );
-}
+        {/* Interactive Payment Gateway Sandbox Modal (Midtrans Snap Style) */}
+        {isPaymentGatewayOpen && (
+          <PaymentGatewayModal
+            isOpen={isPaymentGatewayOpen}
+            onClose={() => setIsPaymentGatewayOpen(false)}
+            orderId={`AP-${Date.now().toString().slice(-7)}`}
+            amount={totalPayment}
+            itemName={item.name}
+            deliveryFee={fulfillmentMethod === 'courier' ? deliveryFeeInfo.totalFee : 0}
+            onPaymentSuccess={handlePaymentSuccess}
+          />
+        )}
+      </div>
+    );
+  }
