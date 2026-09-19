@@ -86,6 +86,10 @@ export const bookingService = {
         deliveryCoords: data.deliveryCoords,
         courier: data.courier,
         courierStatus: data.courierStatus,
+        paymentStatus: data.paymentStatus,
+        paymentMethod: data.paymentMethod as any,
+        paidAt: data.paidAt,
+        totalPaidAmount: data.totalPaidAmount,
       });
     }
   },

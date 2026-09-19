@@ -81,6 +81,10 @@ export interface CreateBookingRequest {
   deliveryCoords?: { lat: number; lng: number };
   courier?: any;
   courierStatus?: any;
+  paymentStatus?: 'pending' | 'paid' | 'free';
+  paymentMethod?: string;
+  paidAt?: string;
+  totalPaidAmount?: number;
 }
 
 export interface UpdateBookingStatusRequest {

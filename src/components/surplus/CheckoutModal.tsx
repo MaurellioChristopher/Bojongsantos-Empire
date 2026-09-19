@@ -24,6 +24,7 @@ import { formatPrice, formatCountdown, getSurplusPhoto } from '@/lib/utils';
 import { getSafetyGuideline } from '@/lib/safetyGuidelines';
 import { calculateDeliveryFee } from '@/services/navigationService';
 import { assignNearestCourier } from '@/services/courierService';
+import { PaymentGatewayModal, type PaymentMethodType } from '@/components/payment/PaymentGatewayModal';
 import type { SurplusItem, FulfillmentMethod, CourierDriver, Coordinates } from '@/types';
 
 export interface DeliveryOptionsPayload {
@@ -33,6 +34,10 @@ export interface DeliveryOptionsPayload {
   deliveryAddress?: string;
   deliveryCoords?: Coordinates;
   courier?: CourierDriver;
+  paymentStatus?: 'pending' | 'paid' | 'free';
+  paymentMethod?: PaymentMethodType;
+  paidAt?: string;
+  totalPaidAmount?: number;
 }
 
 interface CheckoutModalProps {
@@ -61,6 +66,10 @@ export function CheckoutModal({
   const [distanceKm, setDistanceKm] = useState(2.4);
   const [courier, setCourier] = useState<CourierDriver | null>(null);
 
+  // Payment Gateway states
+  const [isPaymentGatewayOpen, setIsPaymentGatewayOpen] = useState(false);
+  const [pendingPayload, setPendingPayload] = useState<DeliveryOptionsPayload | null>(null);
+
   useEffect(() => {
     if (item) {
       const assigned = assignNearestCourier(item.location);
@@ -88,9 +97,37 @@ export function CheckoutModal({
       deliveryDistanceKm: fulfillmentMethod === 'courier' ? deliveryFeeInfo.distanceKm : 0,
       deliveryAddress: fulfillmentMethod === 'courier' ? deliveryAddress : item.address,
       courier: fulfillmentMethod === 'courier' && courier ? courier : undefined,
+      totalPaidAmount: totalPayment,
     };
 
-    await onConfirmCheckout(item, payload);
+    // If there is an amount to pay (> Rp 0), open the interactive Payment Gateway first
+    if (totalPayment > 0) {
+      setPendingPayload(payload);
+      setIsPaymentGatewayOpen(true);
+      return;
+    }
+
+    // Otherwise 100% Free pickup order
+    await onConfirmCheckout(item, { ...payload, paymentStatus: 'free' });
+  };
+
+  const handlePaymentSuccess = async (method: PaymentMethodType, trxId: string) => {
+    setIsPaymentGatewayOpen(false);
+    const finalPayload: DeliveryOptionsPayload = {
+      ...(pendingPayload || {
+        fulfillmentMethod,
+        deliveryFee: fulfillmentMethod === 'courier' ? deliveryFeeInfo.totalFee : 0,
+        deliveryDistanceKm: fulfillmentMethod === 'courier' ? deliveryFeeInfo.distanceKm : 0,
+        deliveryAddress: fulfillmentMethod === 'courier' ? deliveryAddress : item.address,
+        courier: fulfillmentMethod === 'courier' && courier ? courier : undefined,
+      }),
+      paymentStatus: 'paid',
+      paymentMethod: method,
+      paidAt: new Date().toISOString(),
+      totalPaidAmount: totalPayment,
+    };
+
+    await onConfirmCheckout(item, finalPayload);
   };
 
   return (
@@ -517,6 +554,17 @@ export function CheckoutModal({
           </div>
         </motion.div>
       </div>
+
+      {/* Interactive Payment Gateway Sandbox Modal (Midtrans Snap Style) */}
+      <PaymentGatewayModal
+        isOpen={isPaymentGatewayOpen}
+        onClose={() => setIsPaymentGatewayOpen(false)}
+        orderId={`AP-${Date.now().toString().slice(-7)}`}
+        amount={totalPayment}
+        itemName={item.name}
+        deliveryFee={fulfillmentMethod === 'courier' ? deliveryFeeInfo.totalFee : 0}
+        onPaymentSuccess={handlePaymentSuccess}
+      />
     </AnimatePresence>
   );
 }

@@ -132,6 +132,10 @@ export function PenerimaDashboard() {
           deliveryAddress: deliveryOptions?.deliveryAddress || item.address,
           courier: deliveryOptions?.courier,
           courierStatus: deliveryOptions?.fulfillmentMethod === 'courier' ? 'assigned' : undefined,
+          paymentStatus: deliveryOptions?.paymentStatus || 'free',
+          paymentMethod: deliveryOptions?.paymentMethod,
+          paidAt: deliveryOptions?.paidAt,
+          totalPaidAmount: deliveryOptions?.totalPaidAmount,
         },
         item
       );

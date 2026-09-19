@@ -420,6 +420,16 @@ export function PenerimaBooking() {
                                 Ongkir: Rp {(b.deliveryFee || 9500).toLocaleString('id-ID')}
                               </span>
                             )}
+                            {b.paymentStatus === 'paid' && (
+                              <span className="ml-2 text-[10px] bg-[#EBF7EE] text-[#16a34a] px-2 py-0.5 rounded-full font-bold border border-[#C8E6C9]">
+                                ✓ LUNAS ({b.paymentMethod ? b.paymentMethod.replace('va_', 'VA ').toUpperCase() : 'QRIS'})
+                              </span>
+                            )}
+                            {b.paymentStatus === 'free' && (
+                              <span className="ml-2 text-[10px] bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full font-bold">
+                                100% Gratis
+                              </span>
+                            )}
                           </div>
                         </div>
 

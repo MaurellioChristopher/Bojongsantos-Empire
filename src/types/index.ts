@@ -171,6 +171,12 @@ export interface Booking {
   courier?: CourierDriver;
   courierStatus?: CourierStatus;
   courierRating?: CourierRating;
+
+  // Payment Gateway Details
+  paymentStatus?: 'pending' | 'paid' | 'free';
+  paymentMethod?: 'qris' | 'va_bca' | 'va_mandiri' | 'va_bri' | 'cash';
+  paidAt?: string;
+  totalPaidAmount?: number;
 }
 
 // --- Notification ---
