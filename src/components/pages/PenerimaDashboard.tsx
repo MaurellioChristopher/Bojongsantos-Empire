@@ -52,6 +52,23 @@ export function PenerimaDashboard() {
     refreshItems();
   }, [user]);
 
+  // Auto-open checkout modal for item deep-linked from landing page (#/penerima?item=<id>)
+  useEffect(() => {
+    if (items.length === 0) return;
+    const hash = window.location.hash; // e.g. "#/penerima?item=abc123"
+    const queryStart = hash.indexOf('?');
+    if (queryStart === -1) return;
+    const params = new URLSearchParams(hash.slice(queryStart));
+    const itemId = params.get('item');
+    if (!itemId) return;
+    const target = items.find((i) => i.id === itemId);
+    if (target) {
+      setSelectedItem(target);
+      // Clean the URL so navigating back doesn't re-open it
+      window.history.replaceState(null, '', window.location.pathname + '#/penerima');
+    }
+  }, [items]);
+
   // Count items by type
   const typeCounts = useMemo(() => {
     const siapSantap = items.filter((i) => getSurplusItemType(i) === 'siap_santap').length;

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Check, X, Clock, User, Phone, MapPin, ArrowLeft, MessageSquare, ShieldAlert, AlertCircle, Scale, Inbox, QrCode, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Check, X, Clock, User, Phone, MapPin, ArrowLeft, MessageSquare, ShieldAlert, AlertCircle, Scale, Inbox, QrCode, CheckCircle2, ShieldCheck, Camera } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { getBookingsByProvider, updateBookingStatus, addNotification, verifyPickupPin } from '@/lib/data';
@@ -11,6 +11,7 @@ import { getRelativeTime, formatCountdown, formatDateTime } from '@/lib/utils';
 import { BOOKING_STATUS_LABELS } from '@/types';
 import type { Booking } from '@/types';
 import { ChatModal } from '@/components/chat/ChatModal';
+import { QrScannerModal } from '@/components/booking/QrScannerModal';
 
 export function PenyediaBooking() {
   const { user, login } = useAuth();
@@ -22,6 +23,8 @@ export function PenyediaBooking() {
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [verifySuccess, setVerifySuccess] = useState(false);
 
   const refresh = async () => {
     if (!user) return;
@@ -29,8 +32,17 @@ export function PenyediaBooking() {
       const data = await bookingService.getByProvider(user.id);
       setBookings(data);
     } catch {
+      // Fallback always reads from localStorage which has the latest state
       setBookings(getBookingsByProvider(user.id));
     }
+  };
+
+  // Immediately update the booking status in local state (optimistic update)
+  // so the UI reflects "diambil" right after QR scan/PIN verify succeeds
+  const markBookingAsPickedUp = (bookingId: string) => {
+    setBookings((prev) =>
+      prev.map((b) => b.id === bookingId ? { ...b, status: 'diambil', pickedUpAt: new Date().toISOString() } : b)
+    );
   };
 
   useEffect(() => {
@@ -82,6 +94,7 @@ export function PenyediaBooking() {
     setVerifyingBooking(booking);
     setPinInput('');
     setPinError('');
+    setVerifySuccess(false);
   };
 
   const handleVerifySubmit = (e?: React.FormEvent) => {
@@ -93,9 +106,24 @@ export function PenyediaBooking() {
     try {
       const res = verifyPickupPin(verifyingBooking.id, pinInput);
       if (res.success) {
-        success('Verifikasi Berhasil!', `Pesanan ${verifyingBooking.quantity} kg makanan telah diserahterimakan.`);
-        setVerifyingBooking(null);
-        refresh();
+        setVerifySuccess(true);
+        // Immediately update UI — status flips to "diambil" right away
+        markBookingAsPickedUp(verifyingBooking.id);
+        success(
+          '✅ Verifikasi Berhasil!',
+          `Serah terima ${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) kepada ${verifyingBooking.recipientName} telah selesai.`
+        );
+        addNotification({
+          type: 'success',
+          title: 'Pesanan Berhasil Diambil',
+          message: `${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) telah berhasil diterima. Terima kasih sudah menyelamatkan makanan!`,
+          userId: verifyingBooking.recipientId,
+        });
+        setTimeout(() => {
+          setVerifyingBooking(null);
+          setVerifySuccess(false);
+          refresh();
+        }, 1800);
       } else {
         setPinError(res.error || 'PIN verifikasi tidak sesuai');
       }
@@ -106,18 +134,33 @@ export function PenyediaBooking() {
     }
   };
 
-  const handleSimulatedScan = () => {
-    if (!verifyingBooking) return;
-    const pin = verifyingBooking.pickupPin || '1234';
-    setPinInput(pin);
-    setTimeout(() => {
-      const res = verifyPickupPin(verifyingBooking.id, pin);
-      if (res.success) {
-        success('QR Code Berhasil Dipindai!', `Serah terima ${verifyingBooking.quantity} kg makanan sukses.`);
-        setVerifyingBooking(null);
-        refresh();
+  const handleQrScanned = ({ bookingId, pin }: { bookingId: string; pin: string }) => {
+    setIsScannerOpen(false);
+    const res = verifyPickupPin(bookingId, pin);
+    if (res.success) {
+      setVerifySuccess(true);
+      // Immediately flip status in UI — no need to wait for refresh()
+      markBookingAsPickedUp(bookingId);
+      success(
+        '✅ QR Code Berhasil Dipindai!',
+        `Serah terima ${verifyingBooking?.surplusName ?? ''} (${verifyingBooking?.quantity ?? ''} kg) kepada ${verifyingBooking?.recipientName ?? ''} telah selesai.`
+      );
+      if (verifyingBooking) {
+        addNotification({
+          type: 'success',
+          title: 'Pesanan Berhasil Diambil',
+          message: `${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) telah berhasil diterima. Terima kasih sudah menyelamatkan makanan!`,
+          userId: verifyingBooking.recipientId,
+        });
       }
-    }, 500);
+      setTimeout(() => {
+        setVerifyingBooking(null);
+        setVerifySuccess(false);
+        refresh();
+      }, 1800);
+    } else {
+      setPinError(res.error || 'QR Code tidak valid atau sudah digunakan.');
+    }
   };
 
   if (!user || user.role !== 'penyedia') {
@@ -307,6 +350,22 @@ export function PenyediaBooking() {
                 </div>
               </div>
 
+              {/* Success overlay — shown after QR scan or PIN verify succeeds */}
+              {verifySuccess ? (
+                <div className="flex flex-col items-center justify-center py-8 gap-4 text-center animate-in fade-in duration-300">
+                  <div className="w-16 h-16 rounded-full bg-[#EDF2EC] border-2 border-[#2D6A4F] flex items-center justify-center">
+                    <CheckCircle2 size={36} className="text-[#2D6A4F]" />
+                  </div>
+                  <div>
+                    <p className="text-base font-bold text-[#143628]">Serah Terima Berhasil!</p>
+                    <p className="text-xs text-[#597367] mt-1">
+                      {verifyingBooking.surplusName} ({verifyingBooking.quantity} kg) telah diterima oleh {verifyingBooking.recipientName}.
+                    </p>
+                  </div>
+                  <p className="text-[11px] text-[#597367] font-mono">Menutup otomatis...</p>
+                </div>
+              ) : (
+                <>
               {/* PIN Input Form */}
               <form onSubmit={handleVerifySubmit} className="space-y-3">
                 <label className="block text-xs font-medium text-[#143628]">
@@ -346,17 +405,29 @@ export function PenyediaBooking() {
 
                   <button
                     type="button"
-                    onClick={handleSimulatedScan}
+                    onClick={() => setIsScannerOpen(true)}
                     className="w-full h-10 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] font-medium text-xs rounded-xl border border-[#DCE5DB] transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
-                    <QrCode size={14} className="text-[#2D6A4F]" />
-                    <span>Pindai QR Code Tiket (Simulasi Cepat)</span>
+                    <Camera size={14} className="text-[#2D6A4F]" />
+                    <span>Pindai QR Code dengan Kamera</span>
                   </button>
                 </div>
               </form>
+                </>
+              )}
             </div>
           </div>
         </div>
+      )}
+
+      {/* QR Code Camera Scanner */}
+      {isScannerOpen && verifyingBooking && (
+        <QrScannerModal
+          isOpen={isScannerOpen}
+          onClose={() => setIsScannerOpen(false)}
+          onScan={handleQrScanned}
+          expectedBookingId={verifyingBooking.id}
+        />
       )}
 
       {/* Order Coordination Chat Modal */}

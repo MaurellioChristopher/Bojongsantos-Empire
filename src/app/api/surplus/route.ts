@@ -158,6 +158,11 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<S
       price: Number(body.price) || 0,
       isFree: body.isFree ?? (Number(body.price) === 0),
       foodCategory: body.foodCategory || 'lainnya',
+      itemType: body.itemType ?? (
+        (body.foodCategory === 'sayur' || body.foodCategory === 'buah')
+          ? 'bahan_baku'
+          : 'siap_santap'
+      ),
       location: { lat: Number(body.lat) || -6.2088, lng: Number(body.lng) || 106.8456 },
       address: body.address || 'Jakarta',
       createdAt: new Date().toISOString(),
@@ -183,6 +188,7 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<S
           price: newItem.price,
           is_free: newItem.isFree,
           food_category: newItem.foodCategory,
+          item_type: newItem.itemType,
           location: newItem.location,
           address: newItem.address,
           created_at: newItem.createdAt,

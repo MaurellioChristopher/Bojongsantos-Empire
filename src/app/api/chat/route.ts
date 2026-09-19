@@ -5,6 +5,7 @@ import type { ApiResponse } from '@/types/api';
 import type { ChatMessage, UserRole } from '@/types';
 
 interface SendChatMessageRequest {
+  id?: string;
   bookingId?: string;
   complaintId?: string;
   senderId: string;
@@ -125,7 +126,7 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponse<C
     }
 
     const newMsg: ChatMessage = {
-      id: `msg-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+      id: body.id || `msg-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
       bookingId: body.bookingId,
       complaintId: body.complaintId,
       senderId: body.senderId,

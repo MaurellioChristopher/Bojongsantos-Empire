@@ -181,10 +181,15 @@ export function LandingPage() {
   // Portal opacity: stays 100% visible while expanding, fades out once fully off-screen
   const portalOpacity = useTransform(scrollY, [460, 540], [1, 0]);
 
+  // Portal pointer events: disable when scaled up (> initial size) so buttons remain clickable
+  const portalPointerEvents = useTransform(scrollY, (y) => (y > 5 ? 'none' : 'auto'));
+
   // Stage 2 emerges pristine and crystal clear from inside the expanded 'O'
   const stage2Opacity = useTransform(scrollY, [420, 560, 1250, 1450], [0, 1, 1, 0]);
   const stage2Y = useTransform(scrollY, [420, 560, 1250, 1450], [30, 0, 0, -40]);
   const stage2Scale = useTransform(scrollY, [420, 560], [0.94, 1]);
+  // Disable pointer events on Stage 2 while invisible so hero buttons stay clickable
+  const stage2PointerEvents = useTransform(stage2Opacity, (o) => (o > 0.05 ? 'auto' : 'none'));
 
   // Soft smooth scroll trigger to dive into the next stage
   const handlePortalClick = () => {
@@ -323,8 +328,9 @@ export function LandingPage() {
                       borderColor: '#2D6A4F',
                       boxShadow: '0 0 35px rgba(217,83,39,0.55), 0 0 70px rgba(200,70,30,0.35)',
                       opacity: portalOpacity,
+                      pointerEvents: portalPointerEvents,
                     }}
-                    className="relative size-[0.80em] rounded-full overflow-hidden border cursor-pointer flex items-center justify-center pointer-events-auto will-change-transform bg-black z-20 group"
+                    className="relative size-[0.80em] rounded-full overflow-hidden border cursor-pointer flex items-center justify-center will-change-transform bg-black z-20 group"
                     title="Klik atau scroll untuk mengeksplorasi"
                   >
                     <motion.div
@@ -412,8 +418,9 @@ export function LandingPage() {
               opacity: stage2Opacity,
               y: stage2Y,
               scale: stage2Scale,
+              pointerEvents: stage2PointerEvents,
             }}
-            className="absolute z-30 top-1/2 -translate-y-1/2 inset-x-4 sm:inset-x-8 max-w-5xl mx-auto flex flex-col justify-center pointer-events-auto will-change-transform"
+            className="absolute z-30 top-1/2 -translate-y-1/2 inset-x-4 sm:inset-x-8 max-w-5xl mx-auto flex flex-col justify-center will-change-transform"
           >
             {/* Top Live Status Indicator Bar */}
             <div className="flex items-center justify-between mb-3 px-2">
@@ -752,7 +759,7 @@ export function LandingPage() {
                 </p>
               </div>
 
-              <a href="#/terms" className="w-full py-2.5 px-4 rounded-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
+              <a href="#/register" className="w-full py-2.5 px-4 rounded-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
                 <span>Rekomendasikan</span>
                 <span className="w-7 h-7 rounded-full bg-[#F3F8F5]/15 text-[#F3F8F5] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
@@ -861,7 +868,7 @@ export function LandingPage() {
               href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
               className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#2D6A4F] hover:opacity-75 transition-opacity mt-4 sm:mt-0"
             >
-              <span>BUKA PETA GEOLOCATION</span>
+              <span>LIHAT SEMUA DI KATALOG</span>
               <ArrowRight size={14} />
             </a>
           </div>
@@ -946,7 +953,7 @@ export function LandingPage() {
                     </div>
 
                     <a
-                      href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
+                      href={isAuthenticated && user?.role === 'penerima' ? `#/penerima?item=${item.id}` : '#/login'}
                       className="text-xs font-bold uppercase tracking-wider py-2 px-4 bg-[#143628] text-[#F3F8F5] hover:bg-[#1C4736] rounded-full transition-colors no-underline shadow-2xs"
                     >
                       {isAuthenticated && user?.role === 'penerima' ? 'Klaim Porsi →' : 'Masuk untuk Klaim →'}

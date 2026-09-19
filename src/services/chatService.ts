@@ -47,14 +47,18 @@ export const chatService = {
     recipientId?: string;
     message: string;
   }): Promise<ChatMessage> {
-    // 1. Save locally first (optimistic UI)
-    const localMsg = localData.sendOrderChatMessage(data);
+    // 1. Generate a single stable ID for this message up-front
+    const stableId = `msg-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`;
 
-    // 2. Transmit to Cloud API
+    // 2. Save locally first with the stable ID (optimistic UI)
+    const localMsg = localData.sendOrderChatMessage({ ...data, stableId });
+
+    // 3. Transmit to Cloud API – pass the stable ID so server echoes it back
     try {
       const cloudMsg = await requestApi<ChatMessage>('/api/chat', {
         method: 'POST',
         body: JSON.stringify({
+          id: stableId,
           bookingId: data.bookingId,
           senderId: data.senderId,
           senderName: data.senderName,
@@ -63,8 +67,9 @@ export const chatService = {
           message: data.message,
         }),
       });
-      localData.saveChatMessage(cloudMsg);
-      return cloudMsg;
+      // Update local store with whatever the server returned (same ID)
+      localData.saveChatMessage({ ...cloudMsg, id: stableId });
+      return { ...cloudMsg, id: stableId };
     } catch {
       return localMsg;
     }

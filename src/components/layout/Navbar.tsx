@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from '@/contexts/NotificationContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,9 +11,10 @@ import {
   Menu,
   X,
   Shield,
-  ArrowRight,
+  Bell,
 } from 'lucide-react';
-import { getBookingsByRecipient } from '@/lib/data';
+import { getBookingsByRecipient, getNotifications, markNotificationRead, getUnreadCount } from '@/lib/data';
+import type { Notification } from '@/types';
 
 interface NavbarProps {
   currentRoute?: string;
@@ -25,6 +26,10 @@ export function Navbar({ currentRoute }: NavbarProps) {
   const [mobileMenuOpen, setMenuOpen] = useState(false);
   const [activeRoute, setActiveRoute] = useState(currentRoute || '/');
   const [activeBookingsCount, setActiveBookingsCount] = useState(0);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [showNotifDropdown, setShowNotifDropdown] = useState(false);
+  const notifRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleHash = () => {
@@ -46,6 +51,30 @@ export function Navbar({ currentRoute }: NavbarProps) {
       setActiveBookingsCount(0);
     }
   }, [user, activeRoute]);
+
+  // Load and refresh notifications
+  useEffect(() => {
+    if (!user) { setNotifications([]); setUnreadCount(0); return; }
+    const load = () => {
+      const notifs = getNotifications(user.id);
+      setNotifications(notifs);
+      setUnreadCount(getUnreadCount(user.id));
+    };
+    load();
+    const interval = setInterval(load, 3000);
+    return () => clearInterval(interval);
+  }, [user]);
+
+  // Close notification dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setShowNotifDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -359,6 +388,104 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 <User size={15} />
                 <span className="hidden sm:inline">Masuk</span>
               </a>
+            )}
+
+            {/* Notification Bell (only for logged-in users) */}
+            {isAuthenticated && user && (
+              <div className="relative" ref={notifRef}>
+                <button
+                  onClick={() => {
+                    setShowNotifDropdown((prev) => !prev);
+                  }}
+                  className={`relative p-1.5 transition-opacity cursor-pointer ${
+                    isDark ? 'text-[#F3F8F5]' : 'text-[#143628]'
+                  }`}
+                  title="Notifikasi"
+                >
+                  <Bell size={17} />
+                  {unreadCount > 0 && (
+                    <span
+                      className="absolute -top-1 -right-1 w-4 h-4 text-[9px] font-bold rounded-full flex items-center justify-center text-white shadow-2xs"
+                      style={{ background: '#B8401A' }}
+                    >
+                      {unreadCount > 9 ? '9+' : unreadCount}
+                    </span>
+                  )}
+                </button>
+
+                {/* Notification Dropdown */}
+                <AnimatePresence>
+                  {showNotifDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8, scale: 0.97 }}
+                      transition={{ duration: 0.18 }}
+                      className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-[#DCE5DB] z-50 overflow-hidden"
+                    >
+                      <div className="px-4 py-3 border-b border-[#DCE5DB] flex items-center justify-between">
+                        <span className="text-xs font-bold text-[#143628] uppercase tracking-wider">Notifikasi</span>
+                        {unreadCount > 0 && (
+                          <button
+                            onClick={() => {
+                              notifications.forEach((n) => { if (!n.read) markNotificationRead(n.id); });
+                              setUnreadCount(0);
+                              setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+                            }}
+                            className="text-[10px] text-[#2D6A4F] font-semibold hover:underline cursor-pointer"
+                          >
+                            Tandai semua dibaca
+                          </button>
+                        )}
+                      </div>
+                      <div className="max-h-80 overflow-y-auto divide-y divide-[#F0EAE4]">
+                        {notifications.length === 0 ? (
+                          <div className="px-4 py-8 text-center text-[#597367]">
+                            <Bell size={24} className="mx-auto mb-2 text-[#C4B3A3]" />
+                            <p className="text-xs">Belum ada notifikasi.</p>
+                          </div>
+                        ) : (
+                          notifications.slice(0, 10).map((n) => (
+                            <div
+                              key={n.id}
+                              onClick={() => {
+                                markNotificationRead(n.id);
+                                setNotifications((prev) => prev.map((p) => p.id === n.id ? { ...p, read: true } : p));
+                                setUnreadCount((prev) => Math.max(0, prev - (n.read ? 0 : 1)));
+                                setShowNotifDropdown(false);
+                                // Navigate based on user role
+                                if (user.role === 'penerima') window.location.hash = '#/penerima/booking';
+                                else if (user.role === 'penyedia') window.location.hash = '#/penyedia/booking';
+                                else if (user.role === 'admin') window.location.hash = '#/admin';
+                              }}
+                              className={`px-4 py-3 cursor-pointer hover:bg-[#F7F9F6] transition-colors ${
+                                !n.read ? 'bg-[#EDF7F0]' : ''
+                              }`}
+                            >
+                              <div className="flex items-start gap-2.5">
+                                <div
+                                  className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
+                                    n.type === 'success' ? 'bg-green-500' :
+                                    n.type === 'info' ? 'bg-blue-500' :
+                                    n.type === 'warning' ? 'bg-yellow-500' : 'bg-red-500'
+                                  }`}
+                                />
+                                <div className="flex-1 min-w-0">
+                                  <div className={`text-xs font-semibold text-[#143628] ${!n.read ? 'font-bold' : ''}`}>{n.title}</div>
+                                  <div className="text-[11px] text-[#597367] mt-0.5 leading-relaxed line-clamp-2">{n.message}</div>
+                                  <div className="text-[10px] text-[#A8988B] mt-1">
+                                    {new Date(n.createdAt).toLocaleString('id-ID', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' })}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             )}
 
             {/* Claim Bag / Cart Icon (Only for logged-in Penerima or Penyedia) */}

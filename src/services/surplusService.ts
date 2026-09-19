@@ -41,51 +41,38 @@ export const surplusService = {
   },
 
   async create(data: CreateSurplusRequest): Promise<SurplusItem> {
+    const localPayload = {
+      providerId: data.providerId,
+      providerName: data.providerName,
+      providerBusinessName: data.providerBusinessName,
+      name: data.name,
+      description: data.description,
+      photo: data.photo || '',
+      quantity: data.quantity,
+      portionCount: data.portionCount,
+      productionTime: data.productionTime,
+      expiryTime: data.expiryTime,
+      price: data.price,
+      isFree: data.isFree,
+      foodCategory: data.foodCategory,
+      itemType: data.itemType,
+      location: { lat: data.lat, lng: data.lng },
+      address: data.address,
+    };
+
     try {
       const item = await requestApi<SurplusItem>('/api/surplus', {
         method: 'POST',
         body: JSON.stringify(data),
       });
-      // Also cache in local store
-      localData.createSurplus({
-        providerId: data.providerId,
-        providerName: data.providerName,
-        providerBusinessName: data.providerBusinessName,
-        name: data.name,
-        description: data.description,
-        photo: data.photo || '',
-        quantity: data.quantity,
-        portionCount: data.portionCount,
-        productionTime: data.productionTime,
-        expiryTime: data.expiryTime,
-        price: data.price,
-        isFree: data.isFree,
-        foodCategory: data.foodCategory,
-        location: { lat: data.lat, lng: data.lng },
-        address: data.address,
-      });
+      // Cache in local store with itemType
+      localData.createSurplus(localPayload);
       return item;
     } catch (err: any) {
       if (err?.statusCode === 503 || err?.message?.includes('Offline')) {
         throw err;
       }
-      return localData.createSurplus({
-        providerId: data.providerId,
-        providerName: data.providerName,
-        providerBusinessName: data.providerBusinessName,
-        name: data.name,
-        description: data.description,
-        photo: data.photo || '',
-        quantity: data.quantity,
-        portionCount: data.portionCount,
-        productionTime: data.productionTime,
-        expiryTime: data.expiryTime,
-        price: data.price,
-        isFree: data.isFree,
-        foodCategory: data.foodCategory,
-        location: { lat: data.lat, lng: data.lng },
-        address: data.address,
-      });
+      return localData.createSurplus(localPayload);
     }
   },
 

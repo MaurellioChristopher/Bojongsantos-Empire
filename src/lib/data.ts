@@ -1923,10 +1923,11 @@ export function sendOrderChatMessage(data: {
   senderRole: UserRole;
   recipientId?: string;
   message: string;
+  stableId?: string;
 }): ChatMessage {
   const messages = getStore<ChatMessage>(STORAGE_KEYS.chatMessages);
   const newMsg: ChatMessage = {
-    id: generateId(),
+    id: data.stableId || generateId(),
     bookingId: data.bookingId,
     senderId: data.senderId,
     senderName: data.senderName,
@@ -1936,8 +1937,11 @@ export function sendOrderChatMessage(data: {
     createdAt: new Date().toISOString(),
     isRead: false,
   };
-  messages.push(newMsg);
-  setStore(STORAGE_KEYS.chatMessages, messages);
+  // Prevent duplicate: only add if ID not already in store
+  if (!messages.some((m) => m.id === newMsg.id)) {
+    messages.push(newMsg);
+    setStore(STORAGE_KEYS.chatMessages, messages);
+  }
   return newMsg;
 }
 
@@ -2018,6 +2022,25 @@ export function replyAdminComplaint(
   }
 
   setStore(STORAGE_KEYS.complaints, complaints);
+
+  // Kirim notifikasi ke pengirim keluhan ketika admin membalas
+  if (senderRole === 'admin') {
+    addNotification({
+      type: 'info',
+      title: 'Admin Membalas Masukan Anda',
+      message: `Tim AksesPangan membalas tiket: "${complaints[idx].subject}" — ${message.substring(0, 80)}${message.length > 80 ? '...' : ''}`,
+      userId: complaints[idx].userId,
+    });
+  } else {
+    // Jika user (penyedia/penerima) balas, notifikasi ke admin-1
+    addNotification({
+      type: 'info',
+      title: `Balasan Tiket dari ${senderName}`,
+      message: `(${senderRole.toUpperCase()}) Tiket: "${complaints[idx].subject}" — ${message.substring(0, 80)}${message.length > 80 ? '...' : ''}`,
+      userId: 'admin-1',
+    });
+  }
+
   return replyMsg;
 }
 

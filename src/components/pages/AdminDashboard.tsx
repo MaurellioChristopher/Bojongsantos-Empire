@@ -136,22 +136,29 @@ export function AdminDashboard() {
           </button>
         </div>
 
-        {/* Apple Segmented Control Switcher */}
-        <div className="flex items-center bg-[#EFE8DD] p-1 rounded-full w-full max-w-md mb-8 overflow-x-auto border border-[#DCE5DB]/60">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 py-1.5 px-3 rounded-full text-xs font-semibold tracking-tight transition-all flex items-center justify-center gap-1.5 whitespace-nowrap ${
-                activeTab === tab.id
-                  ? 'bg-[#FFFFFF] text-[#143628] shadow-xs'
-                  : 'text-[#597367] hover:text-[#143628]'
-              }`}
-            >
-              <tab.icon size={14} />
-              {tab.label}
-            </button>
-          ))}
+        {/* Apple Segmented Control — scrollable pill row */}
+        <div className="mb-8">
+          <div
+            className="flex items-center gap-2 overflow-x-auto pb-1"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
+          >
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all shrink-0 cursor-pointer border ${
+                  activeTab === tab.id
+                    ? 'bg-[#143628] text-[#F3F8F5] border-[#143628] shadow-sm'
+                    : 'bg-[#FFFFFF] text-[#597367] border-[#DCE5DB] hover:text-[#143628] hover:border-[#CAD6C8]'
+                }`}
+              >
+                <tab.icon size={13} className={activeTab === tab.id ? 'text-[#84A98C]' : ''} />
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
+          {/* Active tab underline indicator */}
+          <div className="h-px bg-[#DCE5DB] mt-3" />
         </div>
 
         {/* 1. Overview Tab */}

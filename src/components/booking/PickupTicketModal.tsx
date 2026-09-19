@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { X, Clock, MapPin, QrCode, ShieldCheck, CheckCircle, Store, Hash } from 'lucide-react';
+import { X, Clock, MapPin, ShieldCheck, Store } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import type { Booking } from '@/types';
 import { formatCountdown } from '@/lib/utils';
 
@@ -17,14 +18,22 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
   const pin = booking.pickupPin || '1234';
   const remaining = formatCountdown(booking.pickupDeadline);
 
+  // QR payload encodes all data needed for penyedia scanner to auto-verify
+  const qrPayload = JSON.stringify({
+    bookingId: booking.id,
+    pin,
+    surplusId: booking.surplusId,
+    recipientId: booking.recipientId,
+  });
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0C2017]/70 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="relative w-full max-w-md bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-        
+
         {/* Ticket Top Header */}
         <div className="bg-[#143628] text-[#F3F8F5] px-6 py-5 flex items-center justify-between relative overflow-hidden">
           <div className="absolute right-0 top-0 translate-x-4 -translate-y-4 opacity-10 pointer-events-none">
-            <QrCode size={120} />
+            <ShieldCheck size={120} />
           </div>
           <div>
             <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-[#CAD6C8]">
@@ -45,7 +54,7 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
 
         {/* Ticket Content */}
         <div className="p-6 space-y-5 bg-white text-[#143628]">
-          
+
           {/* Surplus Item Overview */}
           <div className="flex items-start gap-3.5 pb-4 border-b border-[#E5ECE4]">
             <img
@@ -70,43 +79,19 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
           {/* QR Code & PIN Presentation */}
           <div className="bg-[#F7F9F6] p-5 rounded-2xl border border-[#DCE5DB] text-center space-y-3">
             <div className="text-[11px] font-mono uppercase tracking-wider text-[#597367]">
-              Tunjukkan QR Code / Sebutkan PIN:
+              Tunjukkan QR Code ke Penyedia / Sebutkan PIN:
             </div>
 
-            {/* Crisp Digital QR Pass Graphic */}
+            {/* Real scannable QR code */}
             <div className="inline-flex p-3.5 bg-white rounded-xl shadow-xs border border-[#DCE5DB]">
-              <svg width="140" height="140" viewBox="0 0 140 140" className="shape-rendering-crispEdges">
-                {/* Simulated High-Res Scannable QR Matrix Pattern */}
-                <rect width="140" height="140" fill="white" />
-                {/* Corner Finder Patterns */}
-                <rect x="10" y="10" width="35" height="35" fill="#143628" />
-                <rect x="15" y="15" width="25" height="25" fill="white" />
-                <rect x="20" y="20" width="15" height="15" fill="#143628" />
-
-                <rect x="95" y="10" width="35" height="35" fill="#143628" />
-                <rect x="100" y="15" width="25" height="25" fill="white" />
-                <rect x="105" y="20" width="15" height="15" fill="#143628" />
-
-                <rect x="10" y="95" width="35" height="35" fill="#143628" />
-                <rect x="15" y="100" width="25" height="25" fill="white" />
-                <rect x="20" y="105" width="15" height="15" fill="#143628" />
-
-                {/* Random Data Elements Based on Booking */}
-                <rect x="55" y="15" width="5" height="25" fill="#143628" />
-                <rect x="70" y="20" width="15" height="5" fill="#143628" />
-                <rect x="55" y="55" width="30" height="30" fill="#143628" />
-                <rect x="62" y="62" width="16" height="16" fill="white" />
-                <rect x="66" y="66" width="8" height="8" fill="#143628" />
-
-                <rect x="15" y="55" width="25" height="5" fill="#143628" />
-                <rect x="25" y="65" width="10" height="15" fill="#143628" />
-                <rect x="95" y="55" width="20" height="5" fill="#143628" />
-                <rect x="105" y="65" width="10" height="20" fill="#143628" />
-                <rect x="55" y="95" width="25" height="10" fill="#143628" />
-                <rect x="65" y="110" width="15" height="15" fill="#143628" />
-                <rect x="95" y="95" width="15" height="5" fill="#143628" />
-                <rect x="115" y="105" width="15" height="15" fill="#143628" />
-              </svg>
+              <QRCodeSVG
+                value={qrPayload}
+                size={148}
+                bgColor="#ffffff"
+                fgColor="#143628"
+                level="M"
+                includeMargin={false}
+              />
             </div>
 
             {/* 4-Digit Large PIN Box */}

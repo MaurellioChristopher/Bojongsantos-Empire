@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, MessageSquare, Shield, Clock, CheckCheck, User, Store, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -10,6 +10,7 @@ import {
   sendOrderChatMessage,
   replyAdminComplaint,
   sendAdminComplaint,
+  getAdminComplaints,
 } from '@/lib/data';
 import { chatService } from '@/services/chatService';
 import type { Booking, ChatMessage, AdminComplaint } from '@/types';
@@ -33,47 +34,76 @@ export type ChatModalProps = OrderChatProps | ComplaintChatProps;
 
 export function ChatModal(props: ChatModalProps) {
   const { user } = useAuth();
-  const { success, error } = useNotification();
+  const { success, error, info } = useNotification();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   // For new complaint form
   const [subject, setSubject] = useState('');
   const [complaintText, setComplaintText] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  // Track last known reply count for complaint to detect new admin replies
+  const lastReplyCountRef = useRef<number>(0);
+  // Stable refs so polling closure never captures stale props
+  const propsRef = useRef(props);
+  propsRef.current = props;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(() => {
-    if (!props.isOpen) return;
+  // Stable load function — does not depend on props directly, reads via ref
+  const loadMessages = useCallback(async () => {
+    const p = propsRef.current;
+    if (!p.isOpen) return;
 
-    let isMounted = true;
-
-    const loadMessages = async () => {
-      if (props.type === 'order') {
-        try {
-          const msgs = await chatService.getMessages(props.booking.id);
-          if (isMounted) setMessages(msgs);
-        } catch {
-          const msgs = getOrderChatMessages(props.booking.id);
-          if (isMounted) setMessages(msgs);
-        }
-      } else if (props.type === 'complaint' && props.complaint) {
-        setMessages(props.complaint.replies || []);
+    if (p.type === 'order') {
+      try {
+        const msgs = await chatService.getMessages(p.booking.id);
+        const unique = Array.from(new Map(msgs.map((m) => [m.id, m])).values());
+        setMessages(unique);
+      } catch {
+        const msgs = getOrderChatMessages(p.booking.id);
+        const unique = Array.from(new Map(msgs.map((m) => [m.id, m])).values());
+        setMessages(unique);
       }
-    };
+    } else if (p.type === 'complaint' && p.complaint) {
+      // Re-read complaint from store to get latest replies (admin may have replied)
+      const allComplaints = getAdminComplaints();
+      const fresh = allComplaints.find((c) => c.id === p.complaint!.id);
+      const replies = fresh?.replies || p.complaint.replies || [];
+      const unique = Array.from(new Map(replies.map((m) => [m.id, m])).values());
+
+      // Detect new admin replies and surface notification
+      const newAdminReplies = unique.filter(
+        (m) => m.senderRole === 'admin' && unique.indexOf(m) >= lastReplyCountRef.current
+      );
+      if (lastReplyCountRef.current > 0 && newAdminReplies.length > 0) {
+        newAdminReplies.forEach((m) => {
+          info('Admin Membalas', m.message.substring(0, 80) + (m.message.length > 80 ? '…' : ''));
+        });
+      }
+      lastReplyCountRef.current = unique.length;
+      setMessages(unique);
+    }
+  }, []); // empty deps — always reads latest via propsRef
+
+  // Set up polling — only re-start when isOpen changes, NOT on every render
+  useEffect(() => {
+    if (!props.isOpen) {
+      lastReplyCountRef.current = 0;
+      setMessages([]);
+      return;
+    }
 
     loadMessages();
-
-    // Cross-device continuous synchronization poll every 1.5s while chat window is active
-    const interval = setInterval(loadMessages, 1500);
+    // Poll every 1.5s for order chat; 2s for complaint (lighter)
+    const interval = setInterval(loadMessages, props.type === 'order' ? 1500 : 2000);
 
     return () => {
-      isMounted = false;
       clearInterval(interval);
     };
-  }, [props.isOpen, props]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isOpen, props.type === 'order' ? (props as OrderChatProps).booking?.id : (props as ComplaintChatProps).complaint?.id]);
 
   useEffect(() => {
     scrollToBottom();
@@ -102,6 +132,7 @@ export function ChatModal(props: ChatModalProps) {
       });
 
       setMessages((prev) => {
+        // Deduplicate: don't add if ID already exists
         if (prev.some((m) => m.id === sent.id)) return prev;
         return [...prev, sent];
       });
@@ -114,7 +145,10 @@ export function ChatModal(props: ChatModalProps) {
         recipientId,
         message: text,
       });
-      setMessages((prev) => [...prev, fallback]);
+      setMessages((prev) => {
+        if (prev.some((m) => m.id === fallback.id)) return prev;
+        return [...prev, fallback];
+      });
     }
   };
 

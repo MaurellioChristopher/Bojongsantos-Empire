@@ -381,61 +381,61 @@ export function PenyediaSurplus() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Skema Harga</label>
-                      <div className="flex gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setIsFree(true)}
-                          className={`flex-1 py-2 rounded-[11px] text-xs font-semibold border transition-all ${
-                            isFree ? 'bg-[#143628] text-[#F3F8F5] border-[#143628]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
-                          }`}
-                        >
-                          Gratis
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setIsFree(false)}
-                          className={`flex-1 py-2 rounded-[11px] text-xs font-semibold border transition-all ${
-                            !isFree ? 'bg-[#143628] text-[#F3F8F5] border-[#143628]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
-                          }`}
-                        >
-                          Berbayar
-                        </button>
-                      </div>
+                  {/* Skema Harga */}
+                  <div>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Skema Harga</label>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setIsFree(true)}
+                        className={`flex-1 py-2 rounded-[11px] text-xs font-semibold border transition-all ${
+                          isFree ? 'bg-[#143628] text-[#F3F8F5] border-[#143628]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
+                        }`}
+                      >
+                        Gratis
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsFree(false)}
+                        className={`flex-1 py-2 rounded-[11px] text-xs font-semibold border transition-all ${
+                          !isFree ? 'bg-[#143628] text-[#F3F8F5] border-[#143628]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
+                        }`}
+                      >
+                        Berbayar
+                      </button>
                     </div>
+                  </div>
 
-                    {!isFree && (
-                      <div>
-                        <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Harga per Porsi (Rp)</label>
-                        <input
-                          type="number"
-                          value={price}
-                          onChange={(e) => setPrice(e.target.value)}
-                          placeholder="5000"
-                          className="apple-input"
-                        />
-                      </div>
-                    )}
+                  {/* Harga — only when paid */}
+                  {!isFree && (
+                    <div>
+                      <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Harga per Porsi (Rp)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        placeholder="5000"
+                        className="apple-input"
+                      />
+                    </div>
+                  )}
 
-                    {isFree && (
-                      <div>
-                        <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Masa Aman (Jam)</label>
-                        <select
-                          value={expiryHours}
-                          onChange={(e) => setExpiryHours(e.target.value)}
-                          className="apple-input"
-                        >
-                          <option value="2">2 Jam</option>
-                          <option value="4">4 Jam (Standar Suhu Ruang)</option>
-                          <option value="6">6 Jam (Pendingin)</option>
-                          <option value="12">12 Jam</option>
-                          <option value="24">24 Jam (Bahan Segar)</option>
-                          <option value="48">48 Jam (Bahan Tahan Lama)</option>
-                        </select>
-                      </div>
-                    )}
+                  {/* Masa Aman — always shown */}
+                  <div>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Masa Aman (Jam)</label>
+                    <select
+                      value={expiryHours}
+                      onChange={(e) => setExpiryHours(e.target.value)}
+                      className="apple-input"
+                    >
+                      <option value="2">2 Jam</option>
+                      <option value="4">4 Jam (Standar Suhu Ruang)</option>
+                      <option value="6">6 Jam (Pendingin)</option>
+                      <option value="12">12 Jam</option>
+                      <option value="24">24 Jam (Bahan Segar)</option>
+                      <option value="48">48 Jam (Bahan Tahan Lama)</option>
+                    </select>
                   </div>
 
                   <div>
