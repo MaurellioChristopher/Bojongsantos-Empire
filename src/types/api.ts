@@ -74,6 +74,13 @@ export interface CreateBookingRequest {
   recipientId: string;
   recipientName: string;
   recipientPhone: string;
+  fulfillmentMethod?: 'pickup' | 'courier';
+  deliveryFee?: number;
+  deliveryDistanceKm?: number;
+  deliveryAddress?: string;
+  deliveryCoords?: { lat: number; lng: number };
+  courier?: any;
+  courierStatus?: any;
 }
 
 export interface UpdateBookingStatusRequest {

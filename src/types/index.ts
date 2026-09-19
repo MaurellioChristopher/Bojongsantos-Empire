@@ -82,6 +82,56 @@ export function getSurplusItemType(item: { itemType?: SurplusItemType; foodCateg
   return 'siap_santap';
 }
 
+// --- Fulfillment & Courier Logistics ---
+export type FulfillmentMethod = 'pickup' | 'courier';
+
+export type CourierStatus =
+  | 'idle'
+  | 'assigned'
+  | 'heading_to_store'
+  | 'arrived_store'
+  | 'in_transit'
+  | 'arrived_destination'
+  | 'delivered';
+
+export interface CourierDriver {
+  id: string;
+  name: string;
+  phone: string;
+  avatar: string;
+  vehicleType: 'motor' | 'sepeda_listrik';
+  plateNumber: string;
+  rating: number; // e.g. 4.9
+  totalReviews: number;
+  completedDeliveries: number;
+  badge: string; // e.g. 'Top Courier', 'Food Safety Certified'
+  currentCoords: Coordinates;
+}
+
+export interface CourierRating {
+  rating: number; // 1 to 5
+  reviewText?: string;
+  tags?: string[]; // e.g. 'Tepat Waktu', 'Pangan Terjaga Hangat', 'Ramah'
+  tipAmount?: number;
+  createdAt: string;
+}
+
+export interface NavigationStep {
+  instruction: string;
+  distanceMeters: number;
+  durationSeconds: number;
+  modifier?: string; // left, right, straight, etc.
+  name?: string; // street name
+}
+
+export interface DeliveryRouteInfo {
+  polyline: [number, number][]; // [lat, lng] array
+  steps: NavigationStep[];
+  totalDistanceMeters: number;
+  totalDurationSeconds: number;
+  etaMinutes: number;
+}
+
 // --- Booking ---
 export type BookingStatus =
   | 'menunggu'
@@ -111,6 +161,16 @@ export interface Booking {
   pickupLocation: Coordinates;
   pickupAddress: string;
   pickupPin?: string; // 4-digit verification PIN
+
+  // Professional Courier & Delivery Details
+  fulfillmentMethod?: FulfillmentMethod;
+  deliveryFee?: number;
+  deliveryDistanceKm?: number;
+  deliveryAddress?: string;
+  deliveryCoords?: Coordinates;
+  courier?: CourierDriver;
+  courierStatus?: CourierStatus;
+  courierRating?: CourierRating;
 }
 
 // --- Notification ---

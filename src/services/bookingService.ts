@@ -79,6 +79,13 @@ export const bookingService = {
         pickupDeadline: new Date(Date.now() + 2 * 3600000).toISOString(),
         pickupLocation: surplus.location,
         pickupAddress: surplus.address,
+        fulfillmentMethod: data.fulfillmentMethod,
+        deliveryFee: data.deliveryFee,
+        deliveryDistanceKm: data.deliveryDistanceKm,
+        deliveryAddress: data.deliveryAddress,
+        deliveryCoords: data.deliveryCoords,
+        courier: data.courier,
+        courierStatus: data.courierStatus,
       });
     }
   },

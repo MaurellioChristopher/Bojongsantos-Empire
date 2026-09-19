@@ -27,9 +27,17 @@ import { getBookingsByRecipient, updateBookingStatus } from '@/lib/data';
 import { bookingService } from '@/services/bookingService';
 import { formatCountdown, getRelativeTime, formatDateTime } from '@/lib/utils';
 import { BOOKING_STATUS_LABELS } from '@/types';
-import type { Booking, BookingStatus } from '@/types';
+import type { Booking, BookingStatus, CourierRating } from '@/types';
 import { ChatModal } from '@/components/chat/ChatModal';
 import { PickupTicketModal } from '@/components/booking/PickupTicketModal';
+import { CourierRatingModal } from '@/components/courier/CourierRatingModal';
+import { Bike, Star } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const CourierNavigationModal = dynamic(
+  () => import('@/components/courier/CourierNavigationModal').then((mod) => mod.CourierNavigationModal),
+  { ssr: false }
+);
 
 type OrderFilter = 'semua' | 'menunggu' | 'siap' | 'selesai' | 'dibatalkan';
 
@@ -42,6 +50,8 @@ export function PenerimaBooking() {
   const [selectedChatBooking, setSelectedChatBooking] = useState<Booking | null>(null);
   const [cancelModalBooking, setCancelModalBooking] = useState<Booking | null>(null);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
+  const [selectedNavBooking, setSelectedNavBooking] = useState<Booking | null>(null);
+  const [selectedRatingBooking, setSelectedRatingBooking] = useState<Booking | null>(null);
 
   const refresh = async () => {
     if (!user) return;
@@ -401,21 +411,59 @@ export function PenerimaBooking() {
                         <div className="text-caption-apple text-[#597367] space-y-0.5">
                           <div className="flex items-center gap-1 text-[#143628]">
                             <MapPin size={13} className="text-[#2D6A4F]" />
-                            <span>{b.pickupAddress}</span>
+                            <span>{b.fulfillmentMethod === 'courier' && b.deliveryAddress ? `Kirim ke: ${b.deliveryAddress}` : b.pickupAddress}</span>
                           </div>
                           <div>
                             Jumlah: <span className="font-semibold text-[#143628]">{b.quantity} kg</span>
+                            {b.fulfillmentMethod === 'courier' && (
+                              <span className="ml-2 font-mono text-[11px] bg-[#EBF7EE] text-[#2D6A4F] px-2 py-0.5 rounded-full font-bold">
+                                Ongkir: Rp {(b.deliveryFee || 9500).toLocaleString('id-ID')}
+                              </span>
+                            )}
                           </div>
                         </div>
+
+                        {/* Courier Partner Badge Card if courier method */}
+                        {b.fulfillmentMethod === 'courier' && (
+                          <div className="mt-2.5 p-2.5 rounded-xl bg-[#FAF7F2] border border-[#DCE5DB] flex items-center justify-between gap-3 text-xs">
+                            <div className="flex items-center gap-2">
+                              <div className="w-7 h-7 rounded-full bg-[#143628] text-white flex items-center justify-center shrink-0">
+                                <Bike size={14} />
+                              </div>
+                              <div>
+                                <span className="font-bold text-[#143628]">{b.courier?.name || 'Budi Prasetyo'}</span>
+                                <span className="text-[10px] text-[#597367] ml-1.5 font-mono">({b.courier?.plateNumber || 'D 4521 BOJ'})</span>
+                                <div className="text-[10px] text-[#2D6A4F] font-semibold">Tas Termal Higienis Aktif</div>
+                              </div>
+                            </div>
+                            <button
+                              onClick={() => setSelectedNavBooking(b)}
+                              className="px-3 py-1.5 bg-[#2D6A4F] hover:bg-[#1C4736] text-white text-[11px] font-bold rounded-lg shadow-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                            >
+                              <Navigation size={12} />
+                              <span>Live Peta 🛵</span>
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
 
                     {/* Actions */}
                     <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto pt-3 sm:pt-0 border-t sm:border-t-0 border-[#DCE5DB] justify-end">
+                      {b.fulfillmentMethod === 'courier' && (
+                        <button
+                          onClick={() => setSelectedNavBooking(b)}
+                          className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs font-semibold transition-colors cursor-pointer"
+                        >
+                          <Bike size={14} className="text-[#86EFAC]" />
+                          <span>Lacak Kurir di Peta</span>
+                        </button>
+                      )}
+
                       {['menunggu', 'dikonfirmasi'].includes(b.status) && (
                         <button
                           onClick={() => setSelectedTicket(b)}
-                          className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] shadow-xs transition-colors"
+                          className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] shadow-xs transition-colors cursor-pointer"
                         >
                           <QrCode size={14} /> Tiket Ambil QR
                         </button>
@@ -424,7 +472,7 @@ export function PenerimaBooking() {
                       {['menunggu', 'dikonfirmasi'].includes(b.status) && (
                         <button
                           onClick={() => setSelectedChatBooking(b)}
-                          className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] shadow-xs hover:border-[#2D6A4F] transition-colors"
+                          className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] shadow-xs hover:border-[#2D6A4F] transition-colors cursor-pointer"
                         >
                           <MessageSquare size={14} className="text-[#2D6A4F]" />
                           <span>{b.status === 'menunggu' ? 'Chat Konfirmasi' : 'Chat Koordinasi'}</span>
@@ -434,7 +482,7 @@ export function PenerimaBooking() {
                       {b.status === 'menunggu' && (
                         <button
                           onClick={() => setCancelModalBooking(b)}
-                          className="bg-[#FFFFFF] text-xs py-2 px-3.5 rounded-xl border border-red-300 text-red-600 hover:bg-red-50 transition-colors"
+                          className="bg-[#FFFFFF] text-xs py-2 px-3.5 rounded-xl border border-red-300 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                         >
                           Batalkan
                         </button>
@@ -444,14 +492,14 @@ export function PenerimaBooking() {
                         <>
                           <button
                             onClick={() => setCancelModalBooking(b)}
-                            className="bg-[#FFFFFF] text-xs py-2 px-3 rounded-xl border border-[#DCE5DB] text-[#597367] hover:text-red-600 hover:border-red-300 transition-colors"
+                            className="bg-[#FFFFFF] text-xs py-2 px-3 rounded-xl border border-[#DCE5DB] text-[#597367] hover:text-red-600 hover:border-red-300 transition-colors cursor-pointer"
                             title="Batalkan jika ada kendala darurat"
                           >
                             Batalkan
                           </button>
                           <button
                             onClick={() => handleConfirmPickup(b)}
-                            className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-4 rounded-xl font-medium shadow-sm transition-all flex items-center gap-1.5"
+                            className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-4 rounded-xl font-medium shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
                           >
                             <PackageCheck size={15} /> Konfirmasi Makanan Diterima
                           </button>
@@ -459,8 +507,19 @@ export function PenerimaBooking() {
                       )}
 
                       {b.status === 'diambil' && (
-                        <div className="text-xs text-[#15803d] font-semibold flex items-center gap-1">
-                          <CheckCircle2 size={16} /> Diselamatkan Selesai
+                        <div className="flex items-center gap-2">
+                          <div className="text-xs text-[#15803d] font-semibold flex items-center gap-1">
+                            <CheckCircle2 size={16} /> Diselamatkan Selesai
+                          </div>
+                          {b.fulfillmentMethod === 'courier' && (
+                            <button
+                              onClick={() => setSelectedRatingBooking(b)}
+                              className="px-2.5 py-1 bg-[#FAF7F2] hover:bg-[#EDF2EC] text-[#2D6A4F] text-xs font-bold rounded-lg border border-[#DCE5DB] transition-all flex items-center gap-1 cursor-pointer"
+                            >
+                              <Star size={12} className="text-[#FBBF24] fill-[#FBBF24]" />
+                              <span>{b.courierRating ? `Rating ⭐ ${b.courierRating.rating}` : 'Beri Rating Kurir'}</span>
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>
@@ -536,6 +595,41 @@ export function PenerimaBooking() {
             type="complaint"
             isOpen={isComplaintModalOpen}
             onClose={() => setIsComplaintModalOpen(false)}
+          />
+        )}
+
+        {/* Live Courier Turn-by-Turn Navigation Modal */}
+        {selectedNavBooking && (
+          <CourierNavigationModal
+            isOpen={!!selectedNavBooking}
+            onClose={() => setSelectedNavBooking(null)}
+            booking={selectedNavBooking}
+            onDeliveryCompleted={(bId) => {
+              const b = bookings.find((item) => item.id === bId) || selectedNavBooking;
+              try {
+                bookingService.updateStatus(bId, 'diambil');
+              } catch {
+                updateBookingStatus(bId, 'diambil');
+              }
+              success('Pengantaran Selesai', 'Pangan surplus telah berhasil diantar dan diterima!');
+              refresh();
+              if (b) {
+                setSelectedRatingBooking(b);
+              }
+            }}
+          />
+        )}
+
+        {/* Post-Delivery Courier Rating & Review Modal */}
+        {selectedRatingBooking && (
+          <CourierRatingModal
+            isOpen={!!selectedRatingBooking}
+            onClose={() => setSelectedRatingBooking(null)}
+            booking={selectedRatingBooking}
+            onRatingSubmitted={(ratingData) => {
+              success('Rating Tersimpan', 'Terima kasih atas penilaian Anda untuk mitra kurir!');
+              refresh();
+            }}
           />
         )}
       </div>

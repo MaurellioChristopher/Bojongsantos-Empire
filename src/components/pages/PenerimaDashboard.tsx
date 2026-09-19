@@ -13,7 +13,7 @@ import { formatCountdown, formatPrice, calculateDistance, getSurplusPhoto } from
 import { FOOD_CATEGORY_LABELS, FOOD_CATEGORY_EMOJI, getSurplusItemType } from '@/types';
 import { DEFAULT_CENTER } from '@/lib/constants';
 import type { SurplusItem, FoodCategory, Coordinates, SurplusItemType, FoodHeroBadge, CulinaryRecipe } from '@/types';
-import { CheckoutModal } from '@/components/surplus/CheckoutModal';
+import { CheckoutModal, type DeliveryOptionsPayload } from '@/components/surplus/CheckoutModal';
 import dynamic from 'next/dynamic';
 
 // Dynamic import for Leaflet (SSR incompatible)
@@ -110,7 +110,7 @@ export function PenerimaDashboard() {
       .sort((a, b) => a.distance - b.distance);
   }, [items, userLocation, searchQuery, itemTypeFilter, selectedCategory, priceFilter]);
 
-  const handleBook = async (item: SurplusItem) => {
+  const handleBook = async (item: SurplusItem, deliveryOptions?: DeliveryOptionsPayload) => {
     if (!user) {
       warning('Masuk Diperlukan', 'Silakan masuk atau daftar terlebih dahulu untuk menyelesaikan pesanan.');
       window.location.hash = '#/login';
@@ -126,11 +126,22 @@ export function PenerimaDashboard() {
           recipientId: user.id,
           recipientName: user.name,
           recipientPhone: user.phone || '08123456789',
+          fulfillmentMethod: deliveryOptions?.fulfillmentMethod || 'pickup',
+          deliveryFee: deliveryOptions?.deliveryFee || 0,
+          deliveryDistanceKm: deliveryOptions?.deliveryDistanceKm || 0,
+          deliveryAddress: deliveryOptions?.deliveryAddress || item.address,
+          courier: deliveryOptions?.courier,
+          courierStatus: deliveryOptions?.fulfillmentMethod === 'courier' ? 'assigned' : undefined,
         },
         item
       );
 
-      success('Pemesanan Berhasil', `${item.name} telah dipesan. Dialihkan ke tiket pesanan Anda...`);
+      const successMsg =
+        deliveryOptions?.fulfillmentMethod === 'courier'
+          ? `Pesanan berhasil! Kurir ${deliveryOptions.courier?.name || 'Mitra'} ditugaskan mengantar makanan ke lokasi Anda.`
+          : `${item.name} telah dipesan. Dialihkan ke tiket pesanan Anda...`;
+
+      success('Pemesanan Berhasil', successMsg);
       setSelectedItem(null);
       refreshItems();
       setTimeout(() => {

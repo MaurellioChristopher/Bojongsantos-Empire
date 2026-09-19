@@ -12,6 +12,13 @@ import { BOOKING_STATUS_LABELS } from '@/types';
 import type { Booking } from '@/types';
 import { ChatModal } from '@/components/chat/ChatModal';
 import { QrScannerModal } from '@/components/booking/QrScannerModal';
+import { Bike } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const CourierNavigationModal = dynamic(
+  () => import('@/components/courier/CourierNavigationModal').then((mod) => mod.CourierNavigationModal),
+  { ssr: false }
+);
 
 export function PenyediaBooking() {
   const { user, login } = useAuth();
@@ -25,6 +32,7 @@ export function PenyediaBooking() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [verifySuccess, setVerifySuccess] = useState(false);
+  const [selectedNavBooking, setSelectedNavBooking] = useState<Booking | null>(null);
 
   const refresh = async () => {
     if (!user) return;
@@ -301,6 +309,15 @@ export function PenyediaBooking() {
                             <QrCode size={13} />
                             <span>Verifikasi Pengambilan</span>
                           </button>
+                          {b.fulfillmentMethod === 'courier' && (
+                            <button
+                              onClick={() => setSelectedNavBooking(b)}
+                              className="bg-[#143628] hover:bg-[#1C4736] text-white text-xs py-1.5 px-3 rounded-xl flex items-center gap-1.5 shadow-sm transition-all font-medium cursor-pointer"
+                            >
+                              <Bike size={13} className="text-[#86EFAC]" />
+                              <span>Lacak Kurir 🛵</span>
+                            </button>
+                          )}
                           <button
                             onClick={() => setSelectedChatBooking(b)}
                             className="bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] text-xs py-1.5 px-3 rounded-xl flex items-center gap-1.5 border border-[#DCE5DB] transition-all cursor-pointer"
@@ -446,6 +463,15 @@ export function PenyediaBooking() {
           type="complaint"
           isOpen={isComplaintModalOpen}
           onClose={() => setIsComplaintModalOpen(false)}
+        />
+      )}
+
+      {/* Live Courier Turn-by-Turn Navigation Modal for Provider */}
+      {selectedNavBooking && (
+        <CourierNavigationModal
+          isOpen={!!selectedNavBooking}
+          onClose={() => setSelectedNavBooking(null)}
+          booking={selectedNavBooking}
         />
       )}
     </div>
