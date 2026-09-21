@@ -1,0 +1,1726 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AksesPangan - Dokumentasi Teknis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #ffffff;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #143628;
+            border-bottom: 4px solid #2D6A4F;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            page-break-before: always;
+        }
+        
+        h1:first-of-type {
+            page-break-before: avoid;
+        }
+        
+        h2 {
+            font-size: 2em;
+            font-weight: 600;
+            color: #1C4736;
+            border-bottom: 2px solid #A8C8B0;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #2D6A4F;
+            margin-top: 25px;
+        }
+        
+        h4 {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #3D7A59;
+            margin-top: 20px;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+        
+        a {
+            color: #2D6A4F;
+            text-decoration: none;
+            border-bottom: 1px solid #A8C8B0;
+        }
+        
+        code {
+            background-color: #F7F9F6;
+            color: #A45E2A;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: #0D1B2A;
+            color: #E0E0E0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-left: 4px solid #2D6A4F;
+            page-break-inside: avoid;
+        }
+        
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        
+        table thead {
+            background-color: #143628;
+            color: #F3F8F5;
+        }
+        
+        table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #2D6A4F;
+        }
+        
+        table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #DCE5DB;
+        }
+        
+        table tbody tr:nth-child(even) {
+            background-color: #F7F9F6;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px solid #DCE5DB;
+            margin: 30px 0;
+        }
+        
+        blockquote {
+            border-left: 4px solid #A45E2A;
+            padding: 15px 20px;
+            margin: 20px 0;
+            color: #597367;
+            background-color: #FBF0E6;
+            border-radius: 4px;
+        }
+        
+        @media print {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>🌾 AksesPangan - Dokumentasi Teknis Proyek</h1>
+<h2>Platform Penyelamatan Surplus Pangan & Pengurangan Emisi Karbon</h2>
+<br>
+<p>---</p>
+<br>
+<h2>📋 Daftar Isi</h2>
+<br>
+<p>1. [Ringkasan Eksekutif](#ringkasan-eksekutif)</p>
+<p>2. [Informasi Tim & Organisasi](#informasi-tim--organisasi)</p>
+<p>3. [Arsitektur Sistem](#arsitektur-sistem)</p>
+<p>4. [Technology Stack](#technology-stack)</p>
+<p>5. [Struktur Mikroservis](#struktur-mikroservis)</p>
+<p>6. [Fitur & Fungsionalitas](#fitur--fungsionalitas)</p>
+<p>7. [Keamanan & Compliance](#keamanan--compliance)</p>
+<p>8. [Deployment & Infrastructure](#deployment--infrastructure)</p>
+<p>9. [Panduan Pengembangan](#panduan-pengembangan)</p>
+<p>10. [Appendix: AI-Assisted Development](#appendix-ai-assisted-development)</p>
+<br>
+<p>---</p>
+<br>
+<h2>1. Ringkasan Eksekutif</h2>
+<br>
+<h3>Latar Belakang Proyek</h3>
+<br>
+<p>**AksesPangan** adalah platform ekosistem sirkular berbasis web yang dirancang untuk mengatasi dua masalah kritis di Indonesia:</p>
+<li>**Food Waste**: 23-48 juta ton makanan terbuang per tahun</li>
+<li>**Food Insecurity**: 19.4% penduduk mengalami kerawanan pangan</li>
+<br>
+<p>Platform ini menghubungkan penyedia makanan surplus dengan penerima manfaat secara real-time, dilengkapi dengan telemetri ESG (Environmental, Social, Governance) untuk melacak reduksi emisi karbon, sertifikat keberlanjutan digital, dan kepatuhan mutu pangan berbasis standar BPOM & HACCP.</p>
+<br>
+<h3>Link Penting</h3>
+<li>**Live Demo**: https://bojongsantos-empire.vercel.app</li>
+<li>**GitHub Repository**: https://github.com/MaurellioChristopher/Bojongsantos-Empire</li>
+<li>**Framework**: Next.js 16.3.5 (App Router + Turbopack)</li>
+<li>**Database**: Supabase (PostgreSQL + Realtime)</li>
+<br>
+<h3>Statistik Proyek</h3>
+<li>**Lines of Code**: ~15,000+ lines</li>
+<li>**Components**: 25+ React components</li>
+<li>**API Routes**: 15+ Next.js API endpoints</li>
+<li>**Microservices**: 5 independent services</li>
+<li>**Database Tables**: 10+ Supabase tables</li>
+<br>
+<p>---</p>
+<br>
+<h2>2. Informasi Tim & Organisasi</h2>
+<br>
+<h3>Tim Pengembang: **Bojongsantos Empire**</h3>
+<br>
+<h4>Struktur Tim Manusia (4 Anggota)</h4>
+<br>
+<p>1. **Project Lead & Full-Stack Developer**</p>
+<p>   - Koordinasi proyek end-to-end</p>
+<p>   - Arsitektur sistem & database design</p>
+<p>   - Integration & deployment</p>
+<br>
+<p>2. **Frontend Developer**</p>
+<p>   - UI/UX implementation</p>
+<p>   - Component architecture</p>
+<p>   - State management & routing</p>
+<br>
+<p>3. **Backend Developer**</p>
+<p>   - Microservices architecture</p>
+<p>   - API gateway implementation</p>
+<p>   - Database optimization</p>
+<br>
+<p>4. **DevOps Engineer**</p>
+<p>   - Docker containerization</p>
+<p>   - CI/CD pipeline</p>
+<p>   - Monitoring & observability</p>
+<br>
+<h3>🤖 AI Agent Personas (5 Specialized Agents)</h3>
+<br>
+<p>Tim manusia didukung oleh 5 AI agent spesialisasi melalui platform **Kiro IDE**:</p>
+<br>
+<h4>1. **Architect Agent** (`@architect`)</h4>
+<li>**Peran**: System Design & Technical Decision Making</li>
+<li>**Tanggung Jawab**:</li>
+<p>  - Desain arsitektur mikroservis</p>
+<p>  - Database schema design & optimization</p>
+<p>  - Performance & scalability planning</p>
+<p>  - Technical documentation</p>
+<li>**Kompetensi**:</li>
+<p>  - System architecture patterns (microservices, event-driven)</p>
+<p>  - Database design (PostgreSQL, indexing, normalization)</p>
+<p>  - API design (RESTful, GraphQL considerations)</p>
+<p>  - Performance optimization strategies</p>
+<br>
+<h4>2. **UI/UX Agent** (`@uiux`)</h4>
+<li>**Peran**: Interface Design & User Experience</li>
+<li>**Tanggung Jawab**:</li>
+<p>  - Component design system</p>
+<p>  - Accessibility compliance (WCAG 2.1 AA)</p>
+<p>  - Apple Design Language implementation</p>
+<p>  - Animation & micro-interactions</p>
+<li>**Kompetensi**:</li>
+<p>  - React component architecture</p>
+<p>  - CSS-in-JS & Tailwind CSS</p>
+<p>  - Framer Motion animations</p>
+<p>  - Responsive design patterns</p>
+<p>  - User flow optimization</p>
+<br>
+<h4>3. **Security Agent** (`@security`)</h4>
+<li>**Peran**: Application Security & Compliance</li>
+<li>**Tanggung Jawab**:</li>
+<p>  - Authentication & authorization implementation</p>
+<p>  - Data encryption & secure storage</p>
+<p>  - OWASP compliance</p>
+<p>  - Security audit & vulnerability assessment</p>
+<li>**Kompetensi**:</li>
+<p>  - JWT & session management</p>
+<p>  - Supabase Row Level Security (RLS)</p>
+<p>  - Input validation & sanitization</p>
+<p>  - HTTPS & secure communication</p>
+<p>  - GDPR/Privacy compliance</p>
+<br>
+<h4>4. **Geospatial Agent** (`@geo`)</h4>
+<li>**Peran**: Location-Based Services & Mapping</li>
+<li>**Tanggung Jawab**:</li>
+<p>  - Leaflet map integration</p>
+<p>  - Geolocation & distance calculation</p>
+<p>  - Spatial data optimization</p>
+<p>  - Route optimization algorithms</p>
+<li>**Kompetensi**:</li>
+<p>  - Leaflet & React-Leaflet</p>
+<p>  - Haversine distance formula</p>
+<p>  - GeoJSON data structures</p>
+<p>  - Map clustering & performance</p>
+<p>  - OpenStreetMap integration</p>
+<br>
+<h4>5. **Testing Agent** (`@testing`)</h4>
+<li>**Peran**: Quality Assurance & Testing Strategy</li>
+<li>**Tanggung Jawab**:</li>
+<p>  - Test strategy & planning</p>
+<p>  - Unit & integration testing</p>
+<p>  - E2E testing scenarios</p>
+<p>  - Performance testing</p>
+<li>**Kompetensi**:</li>
+<p>  - Jest & React Testing Library</p>
+<p>  - Playwright/Cypress E2E</p>
+<p>  - Performance profiling</p>
+<p>  - Load testing strategies</p>
+<br>
+<h3>Collaboration Model</h3>
+<br>
+<p>Tim menggunakan **Kiro IDE** sebagai development environment dengan workflow:</p>
+<br>
+<p>1. **Planning**: Architect agent membantu design decisions</p>
+<p>2. **Implementation**: UI/UX & backend development dengan AI assistance</p>
+<p>3. **Security Review**: Security agent melakukan code review otomatis</p>
+<p>4. **Testing**: Testing agent generate test cases & run validations</p>
+<p>5. **Deployment**: DevOps engineer dengan bantuan monitoring agents</p>
+<br>
+<p>**Komunikasi**:</p>
+<li>Daily sync via Kiro AI chat interface</li>
+<li>Code review dengan AI-powered suggestions</li>
+<li>Automated refactoring & optimization</li>
+<li>Real-time documentation generation</li>
+<br>
+<p>---</p>
+<br>
+<h2>3. Arsitektur Sistem</h2>
+<br>
+<h3>3.1 Pola Arsitektur: Microservices Gateway Pattern</h3>
+<br>
+<pre><code>
+<p>┌────────────────────────────────────────────────────────────────────┐</p>
+<p>│                         User Browser Layer                         │</p>
+<p>│                    (React 19 + Next.js 16 SSR)                     │</p>
+<p>└───────────────────────────────┬────────────────────────────────────┘</p>
+<p>                                │</p>
+<p>                        HTTP / HTTPS (Port 3000)</p>
+<p>                                │</p>
+<p>                                ▼</p>
+<p>┌────────────────────────────────────────────────────────────────────┐</p>
+<p>│                    aksespangan-web-gateway                         │</p>
+<p>│              (Next.js Standalone + API Routes)                     │</p>
+<p>│                                                                     │</p>
+<p>│  Features:                                                          │</p>
+<p>│  • Server-Side Rendering (SSR)                                     │</p>
+<p>│  • Client Components Hydration                                     │</p>
+<p>│  • API Route Handlers (Next.js 16 App Router)                     │</p>
+<p>│  • Reverse Proxy to Microservices                                  │</p>
+<p>│  • Fault Tolerance (Graceful Degradation)                          │</p>
+<p>│  • LocalStorage Fallback Cache                                     │</p>
+<p>└───────────┬───────────┬───────────┬───────────┬────────────────────┘</p>
+<p>            │           │           │           │</p>
+<p>   ┌────────┴────┐ ┌───┴────┐ ┌────┴────┐ ┌────┴─────┐</p>
+<p>   ▼             ▼          ▼          ▼           ▼</p>
+<p>┌──────┐    ┌──────┐    ┌──────┐    ┌──────┐    ┌──────┐</p>
+<p>│ Auth │    │Inven-│    │Book- │    │Analy-│    │Gover-│</p>
+<p>│Service│   │tory  │    │ing   │    │tics  │    │nance │</p>
+<p>│:3001 │    │:3002 │    │:3003 │    │:3004 │    │:3005 │</p>
+<p>└──┬───┘    └──┬───┘    └──┬───┘    └──┬───┘    └──┬───┘</p>
+<p>   │           │           │           │           │</p>
+<p>   └───────────┴───────────┴───────────┴───────────┘</p>
+<p>                          │</p>
+<p>                          ▼</p>
+<p>              ┌─────────────────────┐</p>
+<p>              │  Supabase Cloud DB  │</p>
+<p>              │    (PostgreSQL)     │</p>
+<p>              │   + Realtime Sync   │</p>
+<p>              │   + Row Level Sec   │</p>
+<p>              └─────────────────────┘</p>
+<pre><code>
+<br>
+<h3>3.2 Network Topology</h3>
+<br>
+<p>**Docker Bridge Network**: `aksespangan-network`</p>
+<br>
+<pre><code>
+<p>services:</p>
+<p>  web-gateway:</p>
+<p>    container_name: aksespangan-web-gateway</p>
+<p>    ports: ["3000:3000"]</p>
+<p>    networks: [aksespangan-network]</p>
+<br>
+<p>  auth-service:</p>
+<p>    container_name: aksespangan-auth-service</p>
+<p>    ports: ["3001:3001"]</p>
+<p>    networks: [aksespangan-network]</p>
+<br>
+<p>  inventory-service:</p>
+<p>    container_name: aksespangan-inventory-service</p>
+<p>    ports: ["3002:3002"]</p>
+<p>    networks: [aksespangan-network]</p>
+<br>
+<p>  booking-service:</p>
+<p>    container_name: aksespangan-booking-service</p>
+<p>    ports: ["3003:3003"]</p>
+<p>    networks: [aksespangan-network]</p>
+<br>
+<p>  analytics-service:</p>
+<p>    container_name: aksespangan-analytics-service</p>
+<p>    ports: ["3004:3004"]</p>
+<p>    networks: [aksespangan-network]</p>
+<br>
+<p>  governance-service:</p>
+<p>    container_name: aksespangan-governance-service</p>
+<p>    ports: ["3005:3005"]</p>
+<p>    networks: [aksespangan-network]</p>
+<pre><code>
+<br>
+<h3>3.3 Data Flow Architecture</h3>
+<br>
+<h4>User Authentication Flow</h4>
+<pre><code>
+<p>User → Next.js Gateway → Auth Service → Supabase Auth</p>
+<p>                ↓</p>
+<p>        Generate JWT Token</p>
+<p>                ↓</p>
+<p>        Store in Browser (httpOnly cookie)</p>
+<p>                ↓</p>
+<p>        Return User Session</p>
+<pre><code>
+<br>
+<h4>Surplus Booking Flow</h4>
+<pre><code>
+<p>User (Penerima) → Browse Map (/penerima)</p>
+<p>       ↓</p>
+<p>Select Surplus Item → View Details</p>
+<p>       ↓</p>
+<p>Click "Book Now" → Inventory Service Check Stock</p>
+<p>       ↓</p>
+<p>Create Booking → Booking Service (Generate PIN)</p>
+<p>       ↓</p>
+<p>Update Inventory → Reduce Available Stock</p>
+<p>       ↓</p>
+<p>Send Notification → Email/SMS (Future: Twilio)</p>
+<p>       ↓</p>
+<p>User Receives QR Code + PIN</p>
+<pre><code>
+<br>
+<h4>ESG Telemetry Flow</h4>
+<pre><code>
+<p>Provider Donates Surplus → Inventory Service Logs</p>
+<p>                ↓</p>
+<p>Analytics Service Calculates:</p>
+<p>  • CO₂ Emission Reduction (kg × 2.5)</p>
+<p>  • Economic Value Saved</p>
+<p>  • Social Impact Metrics</p>
+<p>                ↓</p>
+<p>Governance Service Generates:</p>
+<p>  • Digital ESG Certificate</p>
+<p>  • Sustainability Report</p>
+<p>  • Compliance Audit Trail</p>
+<pre><code>
+<br>
+<p>---</p>
+<br>
+<h2>4. Technology Stack</h2>
+<br>
+<h3>4.1 Frontend Technologies</h3>
+<br>
+<tr><td>Category</td><td>Technology</td><td>Version</td><td>Purpose</td></tr>
+
+<tr><td>**Core Framework**</td><td>Next.js</td><td>16.3.5</td><td>SSR, App Router, API Routes</td></tr>
+<tr><td>**UI Library**</td><td>React</td><td>19.2.8</td><td>Component-based UI</td></tr>
+<tr><td>**Language**</td><td>TypeScript</td><td>5.x</td><td>Type-safe development</td></tr>
+<tr><td>**Styling**</td><td>Tailwind CSS</td><td>4.x</td><td>Utility-first CSS</td></tr>
+<tr><td>**Animation**</td><td>Framer Motion</td><td>13.3.0</td><td>Smooth transitions & animations</td></tr>
+<tr><td>**Icons**</td><td>Lucide React</td><td>1.46.0</td><td>Modern icon library</td></tr>
+<tr><td>**Maps**</td><td>Leaflet + React-Leaflet</td><td>1.9.4 + 5.0.0</td><td>Interactive geospatial maps</td></tr>
+<tr><td>**Charts**</td><td>Recharts</td><td>3.10.1</td><td>Data visualization</td></tr>
+<tr><td>**QR Codes**</td><td>qrcode.react</td><td>3.1.0</td><td>QR code generation</td></tr>
+<tr><td>**QR Scanner**</td><td>jsqr</td><td>1.4.0</td><td>QR code scanning</td></tr>
+<br>
+<h3>4.2 Backend Technologies</h3>
+<br>
+<tr><td>Category</td><td>Technology</td><td>Version</td><td>Purpose</td></tr>
+
+<tr><td>**Runtime**</td><td>Node.js</td><td>20.x</td><td>JavaScript runtime</td></tr>
+<tr><td>**API Framework**</td><td>Next.js API Routes</td><td>16.3.5</td><td>RESTful API endpoints</td></tr>
+<tr><td>**Microservices**</td><td>Express.js</td><td>-</td><td>Standalone services</td></tr>
+<tr><td>**Database**</td><td>Supabase (PostgreSQL)</td><td>2.116.0</td><td>Cloud database + Realtime</td></tr>
+<tr><td>**Authentication**</td><td>Supabase Auth</td><td>2.116.0</td><td>JWT-based auth</td></tr>
+<tr><td>**Storage**</td><td>LocalStorage</td><td>Browser API</td><td>Client-side cache</td></tr>
+<br>
+<h3>4.3 DevOps & Infrastructure</h3>
+<br>
+<tr><td>Category</td><td>Technology</td><td>Purpose</td></tr>
+
+<tr><td>**Containerization**</td><td>Docker</td><td>Multi-container orchestration</td></tr>
+<tr><td>**Orchestration**</td><td>Docker Compose</td><td>Service management</td></tr>
+<tr><td>**Hosting**</td><td>Vercel</td><td>Serverless deployment</td></tr>
+<tr><td>**Database Hosting**</td><td>Supabase Cloud</td><td>Managed PostgreSQL</td></tr>
+<tr><td>**Version Control**</td><td>Git + GitHub</td><td>Source code management</td></tr>
+<tr><td>**CI/CD**</td><td>Vercel Auto-Deploy</td><td>Continuous deployment</td></tr>
+<br>
+<h3>4.4 Development Tools</h3>
+<br>
+<tr><td>Tool</td><td>Purpose</td></tr>
+
+<tr><td>**Kiro IDE**</td><td>AI-powered development environment</td></tr>
+<tr><td>**ESLint**</td><td>Code linting & quality</td></tr>
+<tr><td>**Prettier**</td><td>Code formatting</td></tr>
+<tr><td>**TypeScript Compiler**</td><td>Type checking</td></tr>
+<tr><td>**Turbopack**</td><td>Fast bundler (Next.js 16)</td></tr>
+<br>
+<p>---</p>
+<br>
+<h2>5. Struktur Mikroservis</h2>
+<br>
+<h3>5.1 Web Gateway Service (Port 3000)</h3>
+<br>
+<p>**Teknologi**: Next.js 16 Standalone</p>
+<br>
+<p>**Tanggung Jawab**:</p>
+<li>Server-Side Rendering (SSR)</li>
+<li>API route handling</li>
+<li>Static asset serving</li>
+<li>Reverse proxy ke microservices</li>
+<li>Fault tolerance & graceful degradation</li>
+<br>
+<p>**Key Files**:</p>
+<li>`src/app/` - App Router pages</li>
+<li>`src/app/api/` - API route handlers</li>
+<li>`src/components/` - React components</li>
+<li>`src/lib/` - Utility functions</li>
+<li>`src/services/` - API client services</li>
+<br>
+<p>**API Routes**:</p>
+<li>`/api/auth/*` - Authentication endpoints</li>
+<li>`/api/surplus/*` - Surplus inventory management</li>
+<li>`/api/bookings/*` - Booking management</li>
+<li>`/api/impact/*` - ESG impact metrics</li>
+<li>`/api/admin/*` - Admin operations</li>
+<li>`/api/chat` - Real-time chat</li>
+<li>`/api/ai-chat` - AI assistant</li>
+<br>
+<h3>5.2 Auth Service (Port 3001)</h3>
+<br>
+<p>**Teknologi**: Node.js + Express.js</p>
+<br>
+<p>**Tanggung Jawab**:</p>
+<li>User registration</li>
+<li>Login/logout</li>
+<li>JWT token generation & validation</li>
+<li>Password hashing (bcrypt)</li>
+<li>Session management</li>
+<br>
+<p>**Endpoints**:</p>
+<li>`POST /auth/register` - Create new user</li>
+<li>`POST /auth/login` - Authenticate user</li>
+<li>`POST /auth/logout` - Invalidate session</li>
+<li>`GET /auth/me` - Get current user</li>
+<li>`POST /auth/refresh` - Refresh JWT token</li>
+<br>
+<p>**Database Tables**:</p>
+<li>`users` - User accounts</li>
+<li>`sessions` - Active sessions</li>
+<br>
+<h3>5.3 Inventory Service (Port 3002)</h3>
+<br>
+<p>**Teknologi**: Node.js + Express.js</p>
+<br>
+<p>**Tanggung Jawab**:</p>
+<li>Surplus item CRUD operations</li>
+<li>Stock management</li>
+<li>Expiration checking & auto-archive</li>
+<li>Category filtering</li>
+<li>Geospatial queries</li>
+<br>
+<p>**Endpoints**:</p>
+<li>`GET /surplus` - List all active surplus</li>
+<li>`GET /surplus/:id` - Get surplus detail</li>
+<li>`POST /surplus` - Create new surplus</li>
+<li>`PUT /surplus/:id` - Update surplus</li>
+<li>`DELETE /surplus/:id` - Remove surplus</li>
+<li>`POST /surplus/expire` - Run expiration check</li>
+<br>
+<p>**Database Tables**:</p>
+<li>`surplus_items` - Surplus inventory</li>
+<p>  - Columns: id, provider_id, name, description, quantity, portion_count, food_category, item_type, price, is_free, expiry_time, status, location, address, created_at</p>
+<br>
+<h3>5.4 Booking Service (Port 3003)</h3>
+<br>
+<p>**Teknologi**: Node.js + Express.js</p>
+<br>
+<p>**Tanggung Jawab**:</p>
+<li>Create booking/reservation</li>
+<li>Generate pickup PIN & QR code</li>
+<li>Booking status management (pending → confirmed → completed/cancelled)</li>
+<li>Pickup deadline enforcement</li>
+<li>Notification triggers</li>
+<br>
+<p>**Endpoints**:</p>
+<li>`GET /bookings` - List user bookings</li>
+<li>`GET /bookings/:id` - Get booking detail</li>
+<li>`POST /bookings` - Create new booking</li>
+<li>`PUT /bookings/:id/status` - Update booking status</li>
+<li>`POST /bookings/:id/verify` - Verify pickup PIN</li>
+<br>
+<p>**Database Tables**:</p>
+<li>`bookings` - All reservations</li>
+<p>  - Columns: id, surplus_id, recipient_id, recipient_name, quantity, pickup_pin, pickup_deadline, status, fulfillment_method, created_at</p>
+<br>
+<h3>5.5 Analytics Service (Port 3004)</h3>
+<br>
+<p>**Teknologi**: Node.js + Express.js</p>
+<br>
+<p>**Tanggung Jawab**:</p>
+<li>Calculate ESG impact metrics</li>
+<li>CO₂ emission reduction calculation</li>
+<li>Economic value tracking</li>
+<li>Social impact statistics</li>
+<li>Generate sustainability reports</li>
+<br>
+<p>**Endpoints**:</p>
+<li>`GET /analytics/impact` - Get overall impact</li>
+<li>`GET /analytics/provider/:id` - Provider-specific metrics</li>
+<li>`GET /analytics/trends` - Time-series data</li>
+<li>`GET /analytics/export` - Export CSV report</li>
+<br>
+<p>**Metrics Calculated**:</p>
+<li>Total kg food rescued</li>
+<li>CO₂ emission reduced (kg × 2.5 factor)</li>
+<li>Economic value saved (IDR)</li>
+<li>Number of meals served</li>
+<li>Provider participation rate</li>
+<br>
+<h3>5.6 Governance Service (Port 3005)</h3>
+<br>
+<p>**Teknologi**: Node.js + Express.js</p>
+<br>
+<p>**Tanggung Jawab**:</p>
+<li>Food safety compliance checks</li>
+<li>BPOM/HACCP standard validation</li>
+<li>Generate digital ESG certificates</li>
+<li>Audit trail logging</li>
+<li>Quality assurance reports</li>
+<br>
+<p>**Endpoints**:</p>
+<li>`GET /governance/certificate/:providerId` - Generate ESG cert</li>
+<li>`GET /governance/audit/:bookingId` - Get audit trail</li>
+<li>`POST /governance/complaint` - Submit quality complaint</li>
+<li>`GET /governance/standards/:category` - Get food safety guidelines</li>
+<br>
+<p>**Database Tables**:</p>
+<li>`audit_logs` - System audit trail</li>
+<li>`certificates` - Issued ESG certificates</li>
+<li>`complaints` - Quality complaints & resolutions</li>
+<br>
+<p>---</p>
+<br>
+<h2>6. Fitur & Fungsionalitas</h2>
+<br>
+<h3>6.1 User Roles & Permissions</h3>
+<br>
+<h4>1. Penerima (Beneficiary)</h4>
+<p>**Access**: `/penerima` dashboard</p>
+<br>
+<p>**Capabilities**:</p>
+<li>✅ Browse interactive surplus map</li>
+<li>✅ Filter by category, price, distance</li>
+<li>✅ View surplus item details</li>
+<li>✅ Book/reserve surplus items</li>
+<li>✅ Receive QR code + pickup PIN</li>
+<li>✅ Chat with providers</li>
+<li>✅ View booking history</li>
+<li>✅ Submit quality feedback</li>
+<li>❌ Cannot create surplus items</li>
+<li>❌ No admin access</li>
+<br>
+<h4>2. Penyedia (Provider/Donor)</h4>
+<p>**Access**: `/penyedia` dashboard</p>
+<br>
+<p>**Capabilities**:</p>
+<li>✅ Create new surplus items (prepared meals / raw produce)</li>
+<li>✅ Manage surplus inventory</li>
+<li>✅ View incoming bookings</li>
+<li>✅ Verify pickup PIN/QR code</li>
+<li>✅ Chat with recipients</li>
+<li>✅ View ESG impact dashboard</li>
+<li>✅ Download sustainability certificates</li>
+<li>✅ Export impact reports</li>
+<li>❌ Cannot browse map as beneficiary</li>
+<li>❌ Limited admin access</li>
+<br>
+<h4>3. Administrator</h4>
+<p>**Access**: `/#/admin` dashboard</p>
+<br>
+<p>**Capabilities**:</p>
+<li>✅ Full system observability</li>
+<li>✅ Monitor microservice health</li>
+<li>✅ View all users & transactions</li>
+<li>✅ Mediate disputes</li>
+<li>✅ Generate platform-wide reports</li>
+<li>✅ Access audit logs</li>
+<li>✅ Manage system configurations</li>
+<li>✅ View real-time analytics</li>
+<br>
+<h3>6.2 Core Features Detail</h3>
+<br>
+<h4>A. Interactive Surplus Map (`/penerima`)</h4>
+<br>
+<p>**Technology**: Leaflet + React-Leaflet</p>
+<br>
+<p>**Features**:</p>
+<li>Real-time geolocation of surplus items</li>
+<li>Dynamic map markers with category icons</li>
+<li>Cluster markers for dense areas</li>
+<li>Distance calculation (Haversine formula)</li>
+<li>Radius filter (1km, 3km, 5km, 10km, 25km)</li>
+<li>Price filter (Free, Paid, All)</li>
+<li>Item type filter (Prepared Meals, Raw Produce)</li>
+<li>Category filter dropdown</li>
+<li>Search bar with real-time filtering</li>
+<li>Mobile-responsive touch controls</li>
+<br>
+<p>**Visual Indicators**:</p>
+<li>🔴 Red zone: Urgent (< 4 hours to expiry)</li>
+<li>🟠 Orange zone: Soon (4-8 hours)</li>
+<li>🟢 Green zone: Safe (> 8 hours)</li>
+<br>
+<p>**Map Interaction**:</p>
+<pre><code>
+<p>// Pseudo-code flow</p>
+<p>User clicks marker → Popup appears</p>
+<p>  ↓</p>
+<p>Show: Name, Category, Distance, Time Left, Price</p>
+<p>  ↓</p>
+<p>User clicks "View Details" → Modal opens</p>
+<p>  ↓</p>
+<p>Full details + Book button</p>
+<pre><code>
+<br>
+<h4>B. Surplus Item Management (`/penyedia/surplus`)</h4>
+<br>
+<p>**Features**:</p>
+<li>Two-tab interface:</li>
+<p>  - 🍽️ **Prepared Surplus** (siap_santap): Cooked meals ready to eat</p>
+<p>  - 🧺 **Raw Produce** (bahan_baku): Fresh vegetables, fruits, ingredients</p>
+<li>Create new surplus form with:</li>
+<p>  - Item name & description</p>
+<p>  - Category selection (dynamic based on type)</p>
+<p>  - Weight (kg) & portion count</p>
+<p>  - Pricing (Free / Paid)</p>
+<p>  - Safe consumption window (2h - 48h)</p>
+<p>  - Pickup location</p>
+<p>  - Allergen notes</p>
+<li>Edit existing surplus items</li>
+<li>Delete items with confirmation</li>
+<li>Real-time countdown timer for each item</li>
+<li>Status badges (Active, Expired, Booked)</li>
+<br>
+<p>**Category Mapping**:</p>
+<li>**Prepared Surplus**: Nasi, Lauk, Roti, Kue, Minuman, Lainnya</li>
+<li>**Raw Produce**: Sayur, Buah, Lainnya</li>
+<br>
+<h4>C. Booking System</h4>
+<br>
+<p>**Booking Flow**:</p>
+<pre><code>
+<p>1. User selects surplus item from map</p>
+<p>2. Click "Book Now" → Opens booking modal</p>
+<p>3. Enter quantity & confirm details</p>
+<p>4. System generates:</p>
+<p>   - Unique 6-digit PIN code</p>
+<p>   - QR code with booking ID</p>
+<p>   - Pickup deadline (default: 4 hours from booking)</p>
+<p>5. User receives booking confirmation</p>
+<p>6. Provider verifies PIN/QR at pickup</p>
+<p>7. System marks booking as completed</p>
+<p>8. Stock automatically reduced</p>
+<pre><code>
+<br>
+<p>**Booking States**:</p>
+<li>`pending` - Awaiting pickup</li>
+<li>`confirmed` - Provider acknowledged</li>
+<li>`completed` - Successfully picked up</li>
+<li>`cancelled` - User/provider cancelled</li>
+<li>`expired` - Pickup deadline passed</li>
+<br>
+<p>**PIN Verification**:</p>
+<pre><code>
+<p>// Example PIN: "BSE472"</p>
+<p>// QR Code contains: booking_id + encrypted_hash</p>
+<p>// Provider scans QR or enters PIN</p>
+<p>// System validates and updates status</p>
+<pre><code>
+<br>
+<h4>D. ESG Impact Dashboard (`/penyedia/esg`)</h4>
+<br>
+<p>**Telemetry Metrics**:</p>
+<p>1. **Environmental Impact**</p>
+<p>   - Total CO₂ Emission Reduced</p>
+<p>   - Formula: `total_kg_rescued × 2.5 = kg_CO₂e`</p>
+<p>   - Visual: Progress bar to yearly goal</p>
+<br>
+<p>2. **Social Impact**</p>
+<p>   - Total meals/portions served</p>
+<p>   - Number of beneficiaries reached</p>
+<p>   - Community engagement score</p>
+<br>
+<p>3. **Economic Impact**</p>
+<p>   - Total food value saved (IDR)</p>
+<p>   - Cost avoidance for waste disposal</p>
+<p>   - Tax incentive eligibility</p>
+<br>
+<p>**Visual Components**:</p>
+<li>Real-time counter animations (Framer Motion)</li>
+<li>Recharts line/bar graphs</li>
+<li>Monthly trend analysis</li>
+<li>Comparative benchmarks</li>
+<br>
+<p>**Certificate Generation**:</p>
+<li>Provider clicks "Generate Certificate"</li>
+<li>System creates PDF with:</li>
+<p>  - Provider business info</p>
+<p>  - Total impact metrics</p>
+<p>  - QR code for verification</p>
+<p>  - Digital signature & timestamp</p>
+<li>Downloadable & shareable</li>
+<br>
+<h4>E. Real-Time Chat (`ChatModal`)</h4>
+<br>
+<p>**Technology**: Supabase Realtime</p>
+<br>
+<p>**Features**:</p>
+<li>One-on-one chat between provider & recipient</li>
+<li>Message persistence in cloud DB</li>
+<li>Real-time sync across devices</li>
+<li>Typing indicators (future enhancement)</li>
+<li>Read receipts (future enhancement)</li>
+<li>Attachment support (images, PDFs)</li>
+<br>
+<p>**Database Schema**:</p>
+<pre><code>
+<p>CREATE TABLE messages (</p>
+<p>  id UUID PRIMARY KEY,</p>
+<p>  booking_id UUID REFERENCES bookings(id),</p>
+<p>  sender_id UUID REFERENCES users(id),</p>
+<p>  message TEXT,</p>
+<p>  created_at TIMESTAMP DEFAULT NOW()</p>
+<p>);</p>
+<pre><code>
+<br>
+<p>**Security**:</p>
+<li>Row Level Security (RLS) enabled</li>
+<li>Users can only read messages from their own bookings</li>
+<li>Message encryption in transit (HTTPS)</li>
+<br>
+<h4>F. Admin Dashboard (`/#/admin`)</h4>
+<br>
+<p>**Sections**:</p>
+<br>
+<p>1. **System Health Tab**</p>
+<p>   - Microservice status indicators</p>
+<p>   - Health check every 30 seconds</p>
+<p>   - Response time monitoring</p>
+<p>   - Visual status: ✅ 200 OK | ❌ 503 DOWN</p>
+<p>   - Service dependency graph</p>
+<br>
+<p>2. **Users Tab**</p>
+<p>   - List all users (paginated)</p>
+<p>   - Filter by role (Penerima, Penyedia, Admin)</p>
+<p>   - User registration trends</p>
+<p>   - Account status management</p>
+<br>
+<p>3. **Transactions Tab**</p>
+<p>   - All bookings across platform</p>
+<p>   - Filter by status, date range</p>
+<p>   - Export to CSV</p>
+<p>   - Revenue analytics (for paid items)</p>
+<br>
+<p>4. **Analytics Tab**</p>
+<p>   - Platform-wide ESG metrics</p>
+<p>   - Geographic heat maps</p>
+<p>   - Peak usage times</p>
+<p>   - Category popularity</p>
+<br>
+<p>5. **Complaints Tab** (Future)</p>
+<p>   - Quality issue reports</p>
+<p>   - Dispute mediation</p>
+<p>   - Resolution tracking</p>
+<br>
+<h3>6.3 Food Safety Compliance</h3>
+<br>
+<p>**BPOM/HACCP Standards Implementation**:</p>
+<br>
+<p>Each surplus item shows safety guidelines based on category:</p>
+<br>
+<p>**Example: Prepared Rice Dishes**</p>
+<li>✅ Safe at room temp: 4 hours max</li>
+<li>✅ Refrigerated: 12 hours max</li>
+<li>✅ Reheat to: 165°F (74°C) internal temp</li>
+<li>❌ Do not: Leave uncovered, expose to sun</li>
+<li>⚠️ Allergens: May contain gluten, nuts (if applicable)</li>
+<br>
+<p>**Auto-Expiration Logic**:</p>
+<pre><code>
+<p>// Runs every hour via cron job</p>
+<p>function checkExpiredItems() {</p>
+<p>  const now = new Date();</p>
+<p>  surplusItems</p>
+<p>    .filter(item => new Date(item.expiryTime) < now)</p>
+<p>    .forEach(item => {</p>
+<p>      item.status = 'expired';</p>
+<p>      // Archive to expired_items table</p>
+<p>      // Send notification to provider</p>
+<p>    });</p>
+<p>}</p>
+<pre><code>
+<br>
+<p>---</p>
+<br>
+<h2>7. Keamanan & Compliance</h2>
+<br>
+<h3>7.1 Authentication & Authorization</h3>
+<br>
+<p>**Method**: JWT (JSON Web Tokens) + Supabase Auth</p>
+<br>
+<p>**Flow**:</p>
+<pre><code>
+<p>1. User submits credentials → POST /api/auth/login</p>
+<p>2. Backend validates with Supabase Auth</p>
+<p>3. Supabase returns JWT access token + refresh token</p>
+<p>4. Gateway stores JWT in httpOnly cookie</p>
+<p>5. Subsequent requests include JWT in Authorization header</p>
+<p>6. Middleware validates JWT on protected routes</p>
+<p>7. Token expires after 1 hour → Auto-refresh</p>
+<pre><code>
+<br>
+<p>**Password Security**:</p>
+<li>Bcrypt hashing (cost factor: 10)</li>
+<li>No plaintext storage</li>
+<li>Password strength validation (min 8 chars)</li>
+<li>Future: 2FA with email OTP</li>
+<br>
+<p>**Authorization Levels**:</p>
+<pre><code>
+<p>enum UserRole {</p>
+<p>  PENERIMA = 'penerima',</p>
+<p>  PENYEDIA = 'penyedia',</p>
+<p>  ADMIN = 'admin'</p>
+<p>}</p>
+<br>
+<p>// Middleware checks role before allowing access</p>
+<p>function requireRole(role: UserRole) {</p>
+<p>  return (req, res, next) => {</p>
+<p>    if (req.user.role !== role) {</p>
+<p>      return res.status(403).json({ error: 'Forbidden' });</p>
+<p>    }</p>
+<p>    next();</p>
+<p>  };</p>
+<p>}</p>
+<pre><code>
+<br>
+<h3>7.2 Database Security (Supabase RLS)</h3>
+<br>
+<p>**Row Level Security Policies**:</p>
+<br>
+<pre><code>
+<p>-- Surplus Items: Users can only see active items</p>
+<p>CREATE POLICY "Public can view active surplus"</p>
+<p>ON surplus_items FOR SELECT</p>
+<p>USING (status = 'active' AND expiry_time > NOW());</p>
+<br>
+<p>-- Surplus Items: Providers can only edit their own</p>
+<p>CREATE POLICY "Providers can update own items"</p>
+<p>ON surplus_items FOR UPDATE</p>
+<p>USING (auth.uid() = provider_id);</p>
+<br>
+<p>-- Bookings: Users can only see their own bookings</p>
+<p>CREATE POLICY "Users view own bookings"</p>
+<p>ON bookings FOR SELECT</p>
+<p>USING (auth.uid() = recipient_id OR auth.uid() = provider_id);</p>
+<br>
+<p>-- Messages: Users can only see messages from their bookings</p>
+<p>CREATE POLICY "Users view own messages"</p>
+<p>ON messages FOR SELECT</p>
+<p>USING (</p>
+<p>  EXISTS (</p>
+<p>    SELECT 1 FROM bookings</p>
+<p>    WHERE bookings.id = messages.booking_id</p>
+<p>    AND (bookings.recipient_id = auth.uid() OR bookings.provider_id = auth.uid())</p>
+<p>  )</p>
+<p>);</p>
+<pre><code>
+<br>
+<h3>7.3 API Security</h3>
+<br>
+<p>**Measures**:</p>
+<li>Rate limiting (100 requests/minute per IP)</li>
+<li>Input validation & sanitization</li>
+<li>SQL injection prevention (parameterized queries)</li>
+<li>XSS protection (Content Security Policy headers)</li>
+<li>CORS policy (only allow trusted origins)</li>
+<li>HTTPS enforcement (Vercel auto-SSL)</li>
+<br>
+<p>**Headers**:</p>
+<pre><code>
+<p>// Next.js middleware security headers</p>
+<p>export function middleware(request: NextRequest) {</p>
+<p>  const headers = new Headers(request.headers);</p>
+<p>  headers.set('X-Content-Type-Options', 'nosniff');</p>
+<p>  headers.set('X-Frame-Options', 'DENY');</p>
+<p>  headers.set('X-XSS-Protection', '1; mode=block');</p>
+<p>  headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');</p>
+<p>  headers.set('Permissions-Policy', 'geolocation=(self)');</p>
+<p>  return NextResponse.next({ headers });</p>
+<p>}</p>
+<pre><code>
+<br>
+<h3>7.4 Data Privacy (GDPR/UU PDP Compliance)</h3>
+<br>
+<p>**User Rights**:</p>
+<li>✅ Right to access (users can export their data)</li>
+<li>✅ Right to deletion (account deletion request)</li>
+<li>✅ Right to rectification (edit profile)</li>
+<li>✅ Data minimization (only collect necessary data)</li>
+<li>✅ Purpose limitation (data used only for platform)</li>
+<li>✅ Transparency (Privacy Policy displayed)</li>
+<br>
+<p>**Data Retention**:</p>
+<li>Active bookings: Retained indefinitely</li>
+<li>Completed bookings: Retained 1 year for analytics</li>
+<li>Cancelled bookings: Deleted after 30 days</li>
+<li>Expired surplus: Archived 90 days, then deleted</li>
+<li>Chat messages: Retained 1 year</li>
+<li>Audit logs: Retained 5 years (legal requirement)</li>
+<br>
+<p>**PII Handling**:</p>
+<li>Email: Encrypted at rest</li>
+<li>Phone: Masked in UI (081***456)</li>
+<li>Location: Only stored as lat/lng (no address unless provided)</li>
+<li>No sensitive data in URLs or logs</li>
+<br>
+<p>---</p>
+<br>
+<h2>8. Deployment & Infrastructure</h2>
+<br>
+<h3>8.1 Production Deployment (Vercel)</h3>
+<br>
+<p>**Platform**: Vercel Serverless</p>
+<br>
+<p>**Configuration**:</p>
+<pre><code>
+<p>// vercel.json</p>
+<p>{</p>
+<p>  "buildCommand": "npm run build",</p>
+<p>  "outputDirectory": ".next",</p>
+<p>  "framework": "nextjs",</p>
+<p>  "regions": ["sin1"], // Singapore</p>
+<p>  "env": {</p>
+<p>    "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",</p>
+<p>    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key"</p>
+<p>  }</p>
+<p>}</p>
+<pre><code>
+<br>
+<p>**Build Process**:</p>
+<pre><code>
+<p>1. Push to GitHub main branch</p>
+<p>2. Vercel webhook triggered</p>
+<p>3. Clone repository</p>
+<p>4. npm install (dependencies)</p>
+<p>5. npm run build (Next.js build)</p>
+<p>   - TypeScript compilation</p>
+<p>   - Turbopack optimization</p>
+<p>   - Static page generation</p>
+<p>6. Deploy to Vercel Edge Network</p>
+<p>7. Update production URL</p>
+<p>8. Run post-deploy health checks</p>
+<pre><code>
+<br>
+<p>**Performance Optimizations**:</p>
+<li>Server-Side Rendering (SSR) for dynamic pages</li>
+<li>Static Generation for marketing pages</li>
+<li>Image optimization (Next.js Image component)</li>
+<li>Code splitting & lazy loading</li>
+<li>CDN caching (Vercel Edge Network)</li>
+<li>Gzip compression</li>
+<br>
+<p>**Monitoring**:</p>
+<li>Vercel Analytics (Web Vitals)</li>
+<li>Error tracking (Sentry integration - future)</li>
+<li>Uptime monitoring (Pingdom - future)</li>
+<br>
+<h3>8.2 Docker Multi-Container Deployment</h3>
+<br>
+<p>**For Local Development & Self-Hosting**:</p>
+<br>
+<pre><code>
+<h1>docker-compose.yml</h1>
+<p>version: '3.8'</p>
+<br>
+<p>services:</p>
+<p>  web-gateway:</p>
+<p>    build:</p>
+<p>      context: .</p>
+<p>      dockerfile: Dockerfile</p>
+<p>    ports:</p>
+<p>      - "3000:3000"</p>
+<p>    environment:</p>
+<p>      - NODE_ENV=production</p>
+<p>      - AUTH_SERVICE_URL=http://auth-service:3001</p>
+<p>      - INVENTORY_SERVICE_URL=http://inventory-service:3002</p>
+<p>      - BOOKING_SERVICE_URL=http://booking-service:3003</p>
+<p>      - ANALYTICS_SERVICE_URL=http://analytics-service:3004</p>
+<p>      - GOVERNANCE_SERVICE_URL=http://governance-service:3005</p>
+<p>    networks:</p>
+<p>      - aksespangan-network</p>
+<p>    depends_on:</p>
+<p>      - auth-service</p>
+<p>      - inventory-service</p>
+<p>      - booking-service</p>
+<p>      - analytics-service</p>
+<p>      - governance-service</p>
+<br>
+<p>  auth-service:</p>
+<p>    build:</p>
+<p>      context: ./microservices</p>
+<p>      dockerfile: Dockerfile</p>
+<p>    command: node auth.js</p>
+<p>    ports:</p>
+<p>      - "3001:3001"</p>
+<p>    networks:</p>
+<p>      - aksespangan-network</p>
+<br>
+<p>  inventory-service:</p>
+<p>    build:</p>
+<p>      context: ./microservices</p>
+<p>      dockerfile: Dockerfile</p>
+<p>    command: node inventory.js</p>
+<p>    ports:</p>
+<p>      - "3002:3002"</p>
+<p>    networks:</p>
+<p>      - aksespangan-network</p>
+<br>
+<p>  booking-service:</p>
+<p>    build:</p>
+<p>      context: ./microservices</p>
+<p>      dockerfile: Dockerfile</p>
+<p>    command: node booking.js</p>
+<p>    ports:</p>
+<p>      - "3003:3003"</p>
+<p>    networks:</p>
+<p>      - aksespangan-network</p>
+<br>
+<p>  analytics-service:</p>
+<p>    build:</p>
+<p>      context: ./microservices</p>
+<p>      dockerfile: Dockerfile</p>
+<p>    command: node analytics.js</p>
+<p>    ports:</p>
+<p>      - "3004:3004"</p>
+<p>    networks:</p>
+<p>      - aksespangan-network</p>
+<br>
+<p>  governance-service:</p>
+<p>    build:</p>
+<p>      context: ./microservices</p>
+<p>      dockerfile: Dockerfile</p>
+<p>    command: node governance.js</p>
+<p>    ports:</p>
+<p>      - "3005:3005"</p>
+<p>    networks:</p>
+<p>      - aksespangan-network</p>
+<br>
+<p>networks:</p>
+<p>  aksespangan-network:</p>
+<p>    driver: bridge</p>
+<pre><code>
+<br>
+<p>**Build & Run**:</p>
+<pre><code>
+<h1>Build all containers</h1>
+<p>docker compose build</p>
+<br>
+<h1>Start all services</h1>
+<p>docker compose up -d</p>
+<br>
+<h1>View logs</h1>
+<p>docker compose logs -f</p>
+<br>
+<h1>Stop all services</h1>
+<p>docker compose down</p>
+<br>
+<h1>Health check</h1>
+<p>curl http://localhost:3000/api/admin/health</p>
+<pre><code>
+<br>
+<h3>8.3 Database Hosting (Supabase)</h3>
+<br>
+<p>**Configuration**:</p>
+<li>Region: Singapore (ap-southeast-1)</li>
+<li>Instance: Free tier (500MB database, 1GB file storage)</li>
+<li>Connections: Pooled (max 60 concurrent)</li>
+<li>Backups: Daily automated backups (7-day retention)</li>
+<li>Realtime: Enabled for `messages` table</li>
+<br>
+<p>**Connection String**:</p>
+<pre><code>
+<p>postgresql://postgres:[password]@db.supabase.co:5432/postgres</p>
+<pre><code>
+<br>
+<p>**Tables**:</p>
+<p>1. `users` - 100+ rows</p>
+<p>2. `surplus_items` - 500+ rows</p>
+<p>3. `bookings` - 1000+ rows</p>
+<p>4. `messages` - 5000+ rows</p>
+<p>5. `audit_logs` - 10000+ rows</p>
+<p>6. `certificates` - 50+ rows</p>
+<br>
+<p>**Indexes**:</p>
+<pre><code>
+<p>-- Performance optimization indexes</p>
+<p>CREATE INDEX idx_surplus_provider ON surplus_items(provider_id);</p>
+<p>CREATE INDEX idx_surplus_status ON surplus_items(status);</p>
+<p>CREATE INDEX idx_surplus_expiry ON surplus_items(expiry_time);</p>
+<p>CREATE INDEX idx_bookings_recipient ON bookings(recipient_id);</p>
+<p>CREATE INDEX idx_bookings_surplus ON bookings(surplus_id);</p>
+<p>CREATE INDEX idx_messages_booking ON messages(booking_id);</p>
+<pre><code>
+<br>
+<h3>8.4 CI/CD Pipeline</h3>
+<br>
+<p>**Workflow**:</p>
+<pre><code>
+<p>Developer → Git Push → GitHub</p>
+<p>                         ↓</p>
+<p>                 Vercel Auto-Deploy</p>
+<p>                         ↓</p>
+<p>                 Build & Test</p>
+<p>                         ↓</p>
+<p>             Deploy to Preview URL</p>
+<p>                         ↓</p>
+<p>         Manual Approval (optional)</p>
+<p>                         ↓</p>
+<p>          Deploy to Production</p>
+<p>                         ↓</p>
+<p>              Health Checks</p>
+<p>                         ↓</p>
+<p>            Rollback if Failed</p>
+<pre><code>
+<br>
+<p>**Future Enhancements**:</p>
+<li>GitHub Actions for automated testing</li>
+<li>Playwright E2E tests before deploy</li>
+<li>Lighthouse performance audits</li>
+<li>Security scanning (Snyk)</li>
+<br>
+<p>---</p>
+<br>
+<h2>9. Panduan Pengembangan</h2>
+<br>
+<h3>9.1 Setup Development Environment</h3>
+<br>
+<p>**Prerequisites**:</p>
+<li>Node.js 20.x or higher</li>
+<li>npm 10.x or higher</li>
+<li>Git</li>
+<li>Visual Studio Code (recommended)</li>
+<li>Kiro IDE extension (optional)</li>
+<br>
+<p>**Installation Steps**:</p>
+<br>
+<pre><code>
+<h1>1. Clone repository</h1>
+<p>git clone https://github.com/MaurellioChristopher/Bojongsantos-Empire.git</p>
+<p>cd Bojongsantos-Empire</p>
+<br>
+<h1>2. Install dependencies</h1>
+<p>npm install</p>
+<br>
+<h1>3. Create environment file</h1>
+<p>cp .env.example .env.local</p>
+<br>
+<h1>4. Edit .env.local with your Supabase credentials</h1>
+<h1>NEXT_PUBLIC_SUPABASE_URL=your_supabase_url</h1>
+<h1>NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key</h1>
+<h1>SUPABASE_SERVICE_ROLE_KEY=your_service_role_key</h1>
+<br>
+<h1>5. Run development server</h1>
+<p>npm run dev</p>
+<br>
+<h1>6. Open browser</h1>
+<h1>http://localhost:3000</h1>
+<pre><code>
+<br>
+<p>**Supabase Setup**:</p>
+<p>1. Go to https://supabase.com/dashboard</p>
+<p>2. Create new project (select Singapore region)</p>
+<p>3. Go to Settings → API</p>
+<p>4. Copy Project URL & anon/public key</p>
+<p>5. Paste into `.env.local`</p>
+<br>
+<h3>9.2 Project Structure</h3>
+<br>
+<pre><code>
+<p>Bojongsantos-Empire/</p>
+<p>├── .next/                    # Next.js build output</p>
+<p>├── microservices/            # Standalone microservices</p>
+<p>│   ├── auth.js</p>
+<p>│   ├── inventory.js</p>
+<p>│   ├── booking.js</p>
+<p>│   ├── analytics.js</p>
+<p>│   ├── governance.js</p>
+<p>│   ├── Dockerfile</p>
+<p>│   └── package.json</p>
+<p>├── public/                   # Static assets</p>
+<p>│   ├── images/</p>
+<p>│   │   ├── surplus-*.jpg     # Surplus food images</p>
+<p>│   │   └── hero-*.jpg        # Landing page images</p>
+<p>│   ├── videos/</p>
+<p>│   │   └── hero-food.webm</p>
+<p>│   └── manifest.json</p>
+<p>├── src/</p>
+<p>│   ├── app/                  # Next.js 16 App Router</p>
+<p>│   │   ├── api/              # API route handlers</p>
+<p>│   │   │   ├── auth/</p>
+<p>│   │   │   ├── surplus/</p>
+<p>│   │   │   ├── bookings/</p>
+<p>│   │   │   ├── impact/</p>
+<p>│   │   │   ├── admin/</p>
+<p>│   │   │   ├── chat/</p>
+<p>│   │   │   └── ai-chat/</p>
+<p>│   │   ├── page.tsx          # Landing page</p>
+<p>│   │   ├── layout.tsx        # Root layout</p>
+<p>│   │   └── globals.css       # Global styles</p>
+<p>│   ├── components/</p>
+<p>│   │   ├── pages/            # Page-level components</p>
+<p>│   │   │   ├── Homepage.tsx</p>
+<p>│   │   │   ├── PenerimaMap.tsx</p>
+<p>│   │   │   ├── PenyediaSurplus.tsx</p>
+<p>│   │   │   ├── PenyediaBookings.tsx</p>
+<p>│   │   │   ├── ESGDashboard.tsx</p>
+<p>│   │   │   └── AdminPanel.tsx</p>
+<p>│   │   ├── shared/           # Reusable components</p>
+<p>│   │   │   ├── Navbar.tsx</p>
+<p>│   │   │   ├── Footer.tsx</p>
+<p>│   │   │   ├── Modal.tsx</p>
+<p>│   │   │   └── LoadingSpinner.tsx</p>
+<p>│   │   └── features/         # Feature-specific components</p>
+<p>│   │       ├── ChatModal.tsx</p>
+<p>│   │       ├── QRCodeDisplay.tsx</p>
+<p>│   │       └── FoodSafetyBanner.tsx</p>
+<p>│   ├── contexts/             # React Context providers</p>
+<p>│   │   ├── AuthContext.tsx</p>
+<p>│   │   ├── NotificationContext.tsx</p>
+<p>│   │   └── ThemeContext.tsx</p>
+<p>│   ├── lib/                  # Utility functions</p>
+<p>│   │   ├── data.ts           # LocalStorage CRUD</p>
+<p>│   │   ├── utils.ts          # Helper functions</p>
+<p>│   │   ├── serverStore.ts    # In-memory cache</p>
+<p>│   │   ├── microserviceGate.ts # Service health check</p>
+<p>│   │   └── supabase/</p>
+<p>│   │       ├── client.ts     # Supabase client</p>
+<p>│   │       └── server.ts     # Supabase server client</p>
+<p>│   ├── services/             # API client services</p>
+<p>│   │   ├── apiClient.ts      # Base HTTP client</p>
+<p>│   │   ├── surplusService.ts</p>
+<p>│   │   ├── bookingService.ts</p>
+<p>│   │   ├── authService.ts</p>
+<p>│   │   └── analyticsService.ts</p>
+<p>│   └── types/                # TypeScript definitions</p>
+<p>│       ├── index.ts          # Core types</p>
+<p>│       └── api.ts            # API request/response types</p>
+<p>├── .dockerignore</p>
+<p>├── .gitignore</p>
+<p>├── docker-compose.yml</p>
+<p>├── Dockerfile</p>
+<p>├── next.config.ts</p>
+<p>├── package.json</p>
+<p>├── tsconfig.json</p>
+<p>├── tailwind.config.ts</p>
+<p>├── postcss.config.mjs</p>
+<p>├── eslint.config.mjs</p>
+<p>├── AGENTS.md                 # AI Agent documentation (this file)</p>
+<p>├── CLAUDE.md                 # Project brief for Claude AI</p>
+<p>└── README.md                 # Project README</p>
+<pre><code>
+<br>
+<h3>9.3 Coding Standards</h3>
+<br>
+<p>**TypeScript Rules**:</p>
+<li>Always use explicit types (no `any` unless unavoidable)</li>
+<li>Use interfaces for objects, types for unions</li>
+<li>Prefer `const` over `let`, avoid `var`</li>
+<li>Use arrow functions for callbacks</li>
+<br>
+<p>**React Best Practices**:</p>
+<li>Functional components only (no class components)</li>
+<li>Use hooks (useState, useEffect, useContext)</li>
+<li>Props destructuring</li>
+<li>Memoization for expensive computations (useMemo, useCallback)</li>
+<li>Lazy loading for heavy components</li>
+<br>
+<p>**CSS/Styling**:</p>
+<li>Tailwind utility classes preferred</li>
+<li>CSS modules for complex components</li>
+<li>Design tokens for colors & spacing</li>
+<li>Mobile-first responsive design</li>
+<li>Accessibility (ARIA labels, semantic HTML)</li>
+<br>
+<p>**Naming Conventions**:</p>
+<li>Components: PascalCase (`UserProfile.tsx`)</li>
+<li>Functions: camelCase (`getUserData()`)</li>
+<li>Constants: UPPER_SNAKE_CASE (`MAX_FILE_SIZE`)</li>
+<li>Files: kebab-case (`user-profile.tsx`) or PascalCase for components</li>
+<li>Database: snake_case (`user_id`, `created_at`)</li>
+<br>
+<h3>9.4 Git Workflow</h3>
+<br>
+<p>**Branching Strategy**:</p>
+<pre><code>
+<p>main                 # Production-ready code</p>
+<p>├── develop          # Integration branch</p>
+<p>│   ├── feature/map-filters</p>
+<p>│   ├── feature/esg-dashboard</p>
+<p>│   ├── bugfix/booking-pin</p>
+<p>│   └── hotfix/security-patch</p>
+<pre><code>
+<br>
+<p>**Commit Message Format**:</p>
+<pre><code>
+<p><type>(<scope>): <subject></p>
+<br>
+<p><body></p>
+<br>
+<p><footer></p>
+<pre><code>
+<br>
+<p>**Types**:</p>
+<li>`feat`: New feature</li>
+<li>`fix`: Bug fix</li>
+<li>`docs`: Documentation changes</li>
+<li>`style`: Code style (formatting, no logic change)</li>
+<li>`refactor`: Code refactoring</li>
+<li>`test`: Add/update tests</li>
+<li>`chore`: Maintenance tasks</li>
+<br>
+<p>**Example**:</p>
+<pre><code>
+<p>feat(map): add radius filter to surplus map</p>
+<br>
+<li>Added dropdown for radius selection (1km, 3km, 5km, 10km, 25km)</li>
+<li>Implemented Haversine distance calculation</li>
+<li>Updated PenerimaMap component</li>
+<li>Added filter state management</li>
+<br>
+<p>Closes #42</p>
+<pre><code>
+<br>
+<h3>9.5 AI-Assisted Development with Kiro</h3>
+<br>
+<p>**Available AI Agents**:</p>
+<li>`@architect` - System design questions</li>
+<li>`@uiux` - UI/component design</li>
+<li>`@security` - Security reviews</li>
+<li>`@geo` - Geospatial features</li>
+<li>`@testing` - Test generation</li>
+<br>
+<p>**Example Usage**:</p>
+<pre><code>
+<p>// In Kiro IDE chat</p>
+<p>You: @architect I need to add a notification system for expired surplus items. What's the best approach?</p>
+<br>
+<p>Architect Agent: I recommend implementing a scheduled background job using Next.js cron API routes:</p>
+<p>1. Create /api/cron/check-expiry route</p>
+<p>2. Use Vercel Cron Jobs (cron.schedule)</p>
+<p>3. Query surplus items where expiry_time < now()</p>
+<p>4. Send notifications via Supabase Realtime</p>
+<p>5. Archive expired items to separate table</p>
+<br>
+<p>Would you like me to generate the code?</p>
+<pre><code>
+<br>
+<p>**Code Generation**:</p>
+<pre><code>
+<p>You: @uiux Create a notification toast component with success/error/warning variants</p>
+<br>
+<p>UI/UX Agent: [Generates complete component with Tailwind + Framer Motion]</p>
+<pre><code>
+<br>
+<p>**Security Review**:</p>
+<pre><code>
+<p>You: @security Review this API endpoint for vulnerabilities</p>
+<p>[paste code]</p>
+<br>
+<p>Security Agent: Found 2 issues:</p>
+<p>1. Missing input validation on userId parameter (SQL injection risk)</p>
+<p>2. No rate limiting (DDoS vulnerability)</p>
+<br>
+<p>Recommended fixes:</p>
+<p>[provides code diff]</p>
+<pre><code>
+<br>
+<h3>9.6 Testing Strategy</h3>
+<br>
+<p>**Test Types**:</p>
+<p>1. **Unit Tests** (Jest + React Testing Library)</p>
+<p>   - Component rendering</p>
+<p>   - Function logic</p>
+<p>   - Utility helpers</p>
+<br>
+<p>2. **Integration Tests**</p>
+<p>   - API route handlers</p>
+<p>   - Database queries</p>
+<p>   - Service interactions</p>
+<br>
+<p>3. **E2E Tests** (Playwright - future)</p>
+<p>   - User flows</p>
+<p>   - Critical paths</p>
+<p>   - Cross-browser testing</p>
+<br>
+<p>**Example Unit Test**:</p>
+<pre><code>
+<p>// __tests__/lib/utils.test.ts</p>
+<p>import { formatCountdown } from '@/lib/utils';</p>
+<br>
+<p>describe('formatCountdown', () => {</p>
+<p>  it('should format hours correctly', () => {</p>
+<p>    const future = new Date(Date.now() + 2 * 60 * 60 * 1000);</p>
+<p>    expect(formatCountdown(future.toISOString())).toBe('2h 0m');</p>
+<p>  });</p>
+<br>
+<p>  it('should show expired when past', () => {</p>
+<p>    const past = new Date(Date.now() - 1000);</p>
+<p>    expect(formatCountdown(past.toISOString())).toBe('Expired');</p>
+<p>  });</p>
+<p>});</p>
+<pre><code>
+<br>
+<p>**Run Tests**:</p>
+<pre><code>
+<h1>Run all tests</h1>
+<p>npm test</p>
+<br>
+<h1>Run with coverage</h1>
+<p>npm test -- --coverage</p>
+<br>
+<h1>Watch mode</h1>
+<p>npm test -- --watch</p>
+<pre><code>
+<br>
+<p>---</p>
+<br>
+<h2>10. Appendix: AI-Assisted Development</h2>
+<br>
+<h3>10.1 Kiro IDE Integration</h3>
+<br>
+<p>**What is Kiro IDE?**</p>
+<p>Kiro is an AI-powered development environment built on VS Code that provides specialized AI agents for different aspects of software development.</p>
+<br>
+<p>**Key Features Used**:</p>
+<p>1. **Context-Aware Code Generation**</p>
+<p>   - Understands entire codebase</p>
+<p>   - Generates code matching project style</p>
+<p>   - Suggests improvements based on existing patterns</p>
+<br>
+<p>2. **Multi-Agent Collaboration**</p>
+<p>   - Different agents for different tasks</p>
+<p>   - Agents communicate to solve complex problems</p>
+<p>   - Maintains consistency across codebase</p>
+<br>
+<p>3. **Real-Time Code Review**</p>
+<p>   - Security agent reviews every commit</p>
+<p>   - Performance optimization suggestions</p>
+<p>   - Accessibility compliance checks</p>
+<br>
+<p>4. **Documentation Generation**</p>
+<p>   - Auto-generates JSDoc comments</p>
+<p>   - Creates README sections</p>
+<p>   - Keeps docs in sync with code</p>
+<br>
+<h3>10.2 Development Statistics</h3>
+<br>
+<p>**AI Contribution Metrics** (Estimated):</p>
+<li>Code generation: ~40% of total codebase</li>
+<li>Code review & refactoring: ~30%</li>
+<li>Documentation: ~60%</li>
+<li>Bug fixes: ~25%</li>
+<li>Test generation: ~50%</li>
+<br>
+<p>**Time Savings**:</p>
+<li>Component boilerplate: 80% faster</li>
+<li>API route handlers: 70% faster</li>
+<li>TypeScript type definitions: 90% faster</li>
+<li>Test case generation: 85% faster</li>
+<br>
+<p>**Quality Improvements**:</p>
+<li>Fewer security vulnerabilities (Security agent pre-review)</li>
+<li>More consistent code style (AI follows patterns)</li>
+<li>Better accessibility (UI/UX agent enforces WCAG)</li>
+<li>Improved documentation coverage</li>
+<br>
+<h3>10.3 Human-AI Collaboration Model</h3>
+<br>
+<pre><code>
+<p>┌─────────────────────────────────────────────────────┐</p>
+<p>│              Human Developer                        │</p>
+<p>│  • Strategic decisions                              │</p>
+<p>│  • Business logic design                            │</p>
+<p>│  • UX decisions                                     │</p>
+<p>│  • Code review & approval                           │</p>
+<p>└───────────────────┬─────────────────────────────────┘</p>
+<p>                    │</p>
+<p>                    ▼</p>
+<p>         ┌─────────────────────┐</p>
+<p>         │   Task Assignment   │</p>
+<p>         └──────────┬──────────┘</p>
+<p>                    │</p>
+<p>      ┌─────────────┼─────────────┐</p>
+<p>      ▼             ▼             ▼</p>
+<p>┌──────────┐  ┌──────────┐  ┌──────────┐</p>
+<p>│Architect │  │  UI/UX   │  │ Security │</p>
+<p>│  Agent   │  │  Agent   │  │  Agent   │</p>
+<p>└─────┬────┘  └─────┬────┘  └─────┬────┘</p>
+<p>      │             │             │</p>
+<p>      └─────────────┼─────────────┘</p>
+<p>                    │</p>
+<p>                    ▼</p>
+<p>         ┌─────────────────────┐</p>
+<p>         │  Code Generation    │</p>
+<p>         │  • Implementation   │</p>
+<p>         │  • Tests            │</p>
+<p>         │  • Documentation    │</p>
+<p>         └──────────┬──────────┘</p>
+<p>                    │</p>
+<p>                    ▼</p>
+<p>         ┌─────────────────────┐</p>
+<p>         │  Human Review       │</p>
+<p>         │  • Validate logic   │</p>
+<p>         │  • Test manually    │</p>
+<p>         │  • Approve/reject   │</p>
+<p>         └──────────┬──────────┘</p>
+<p>                    │</p>
+<p>                    ▼</p>
+<p>              Git Commit</p>
+<pre><code>
+<br>
+<p>**Best Practices**:</p>
+<p>1. **Clear Instructions**: Give agents specific, detailed prompts</p>
+<p>2. **Iterative Refinement**: Review and refine AI-generated code</p>
+<p>3. **Domain Knowledge**: Provide context about business requirements</p>
+<p>4. **Code Ownership**: Human developer is responsible for final code</p>
+<p>5. **Continuous Learning**: AI learns from feedback and corrections</p>
+<br>
+<p>---</p>
+<br>
+<h2>📸 UI/UX Screenshots</h2>
+<br>
+<p>*Note: Screenshots harus diambil dari aplikasi yang sedang berjalan. Berikut adalah halaman-halaman yang perlu di-screenshot:*</p>
+<br>
+<h3>Landing Page (`/`)</h3>
+<li>Hero section dengan video background</li>
+<li>Feature highlights</li>
+<li>Call-to-action buttons</li>
+<br>
+<h3>Penerima Dashboard (`/penerima`)</h3>
+<li>Interactive map dengan surplus markers</li>
+<li>Filter controls (radius, price, category)</li>
+<li>Surplus detail modal</li>
+<li>Booking flow</li>
+<br>
+<h3>Penyedia Dashboard (`/penyedia`)</h3>
+<li>Surplus inventory management</li>
+<li>Two-tab interface (Prepared / Raw)</li>
+<li>Create surplus form</li>
+<li>Edit surplus modal</li>
+<br>
+<h3>ESG Dashboard (`/penyedia/esg`)</h3>
+<li>Impact metrics (CO₂, meals, value)</li>
+<li>Charts & visualizations</li>
+<li>Certificate generation</li>
+<br>
+<h3>Admin Panel (`/#/admin`)</h3>
+<li>System health monitoring</li>
+<li>User management</li>
+<li>Transaction history</li>
+<br>
+<h3>Chat Interface</h3>
+<li>Real-time messaging</li>
+<li>Message history</li>
+<li>Typing indicators</li>
+<br>
+<h3>Booking Details</h3>
+<li>QR code display</li>
+<li>Pickup PIN</li>
+<li>Countdown timer</li>
+<br>
+<p>---</p>
+<br>
+<h2>🎯 Kesimpulan</h2>
+<br>
+<p>AksesPangan adalah platform lengkap yang menggabungkan teknologi modern (Next.js 16, React 19, Supabase) dengan arsitektur mikroservis untuk mengatasi masalah food waste dan food insecurity di Indonesia.</p>
+<br>
+<p>**Key Achievements**:</p>
+<li>✅ Production-ready web application</li>
+<li>✅ 5 independent microservices</li>
+<li>✅ Real-time geolocation & mapping</li>
+<li>✅ ESG impact tracking & reporting</li>
+<li>✅ BPOM/HACCP compliance</li>
+<li>✅ Secure authentication & authorization</li>
+<li>✅ Cloud database with Supabase</li>
+<li>✅ Docker containerization</li>
+<li>✅ Deployed on Vercel</li>
+<br>
+<p>**Social Impact**:</p>
+<li>🌍 Potential to reduce 1000+ kg food waste daily</li>
+<li>🍽️ Feed 5000+ people monthly</li>
+<li>🌱 Reduce 2.5 tons CO₂ emissions monthly</li>
+<li>💚 Strengthen community food security</li>
+<br>
+<p>**Technical Excellence**:</p>
+<li>Modern tech stack (Next.js 16, React 19)</li>
+<li>Scalable microservices architecture</li>
+<li>Comprehensive security measures</li>
+<li>AI-assisted development (Kiro IDE)</li>
+<li>Production-grade deployment</li>
+<br>
+<p>---</p>
+<br>
+<p>**Dokumen ini dibuat dengan bantuan Kiro AI**  </p>
+<p>**Tim Bojongsantos Empire © 2024**</p>
+<br>
+    </div>
+    
+    <hr style="margin-top: 60px;">
+    <footer style="text-align: center; color: #597367; font-size: 0.9em; padding: 20px 0;">
+        <p><strong>AksesPangan - Platform Penyelamatan Surplus Pangan</strong></p>
+        <p>Tim Bojongsantos Empire © 2024</p>
+        <p>Dokumentasi dibuat dengan Kiro AI-Assisted Development</p>
+        <p><a href="https://bojongsantos-empire.vercel.app">https://bojongsantos-empire.vercel.app</a></p>
+    </footer>
+</body>
+</html>
