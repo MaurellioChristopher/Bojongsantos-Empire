@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AksesPangan — Dari Surplus ke Solusi",
-  description: "Platform penghubung surplus makanan dari pelaku usaha dengan masyarakat secara real-time. Menyelamatkan makanan, mengurangi kelaparan, menekan emisi.",
-  keywords: "food waste, surplus makanan, food rescue, akses pangan, keberlanjutan",
+  title: "AksesPangan — From Surplus to Solution",
+  description: "Real-time surplus food redistribution platform connecting businesses with communities. Rescuing food, curbing hunger, reducing emissions.",
+  keywords: "food waste, surplus food, food rescue, food security, sustainability, climate action",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased">
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />

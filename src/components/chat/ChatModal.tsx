@@ -79,7 +79,7 @@ export function ChatModal(props: ChatModalProps) {
       );
       if (lastReplyCountRef.current > 0 && newAdminReplies.length > 0) {
         newAdminReplies.forEach((m) => {
-          info('Admin Membalas', m.message.substring(0, 80) + (m.message.length > 80 ? '…' : ''));
+          info('Admin Replied', m.message.substring(0, 80) + (m.message.length > 80 ? '…' : ''));
         });
       }
       lastReplyCountRef.current = unique.length;
@@ -173,7 +173,7 @@ export function ChatModal(props: ChatModalProps) {
   const handleCreateNewComplaint = (e: React.FormEvent) => {
     e.preventDefault();
     if (!subject.trim() || !complaintText.trim()) {
-      error('Form Belum Lengkap', 'Mohon isi judul dan rincian keluhan Anda.');
+      error('Incomplete Form', 'Please fill in the subject and details of your report.');
       return;
     }
 
@@ -186,7 +186,7 @@ export function ChatModal(props: ChatModalProps) {
       message: complaintText.trim(),
     });
 
-    success('Keluhan Terkirim', 'Tim Admin AksesPangan akan segera menindaklanjuti kendala Anda.');
+    success('Report Submitted', 'AksesPangan Admin Team will investigate and follow up promptly.');
     if (props.type === 'complaint' && props.onComplaintSubmitted) {
       props.onComplaintSubmitted();
     }
@@ -203,28 +203,28 @@ export function ChatModal(props: ChatModalProps) {
 
   if (isOrderMode) {
     const isPenyedia = user.role === 'penyedia';
-    title = isPenyedia ? `Chat dengan ${props.booking.recipientName}` : `Chat dengan ${props.booking.providerBusinessName}`;
-    subtitle = `Pesanan: ${props.booking.surplusName} (${props.booking.quantity} kg) — ${props.booking.pickupAddress}`;
+    title = isPenyedia ? `Chat with ${props.booking.recipientName}` : `Chat with ${props.booking.providerBusinessName}`;
+    subtitle = `Order: ${props.booking.surplusName} (${props.booking.quantity} kg) — ${props.booking.pickupAddress}`;
   } else if (isExistingComplaint) {
-    title = `Tiket: ${props.complaint?.subject}`;
-    subtitle = `Dari: ${props.complaint?.userName} (${props.complaint?.userRole.toUpperCase()}) — Status: ${props.complaint?.status.toUpperCase()}`;
+    title = `Ticket: ${props.complaint?.subject}`;
+    subtitle = `From: ${props.complaint?.userName} (${props.complaint?.userRole.toUpperCase()}) — Status: ${props.complaint?.status.toUpperCase()}`;
   } else {
-    title = 'Sampaikan Keluhan ke Admin';
-    subtitle = 'Layanan bantuan & resolusi kendala operasional ekosistem AksesPangan';
+    title = 'Submit Issue to Admin';
+    subtitle = 'Support services & operational issue resolution for the AksesPangan ecosystem';
   }
 
   const quickReplies = isOrderMode
     ? user.role === 'penyedia'
       ? [
-          'Pesanan sudah kami konfirmasi, makanan siap diambil.',
-          'Halo, bisa konfirmasi estimasi jam penjemputan?',
-          'Silakan langsung menuju ke kasir / bagian penyerahan makanan.',
+          'Order confirmed, food is ready for pickup.',
+          'Hello, could you confirm your estimated pickup time?',
+          'Please proceed directly to the counter / food handover station.',
         ]
       : [
-          'Halo, saya sudah memesan ini. Apakah siap disiapkan?',
-          'Saya sedang dalam perjalanan menuju lokasi.',
-          'Perkiraan sampai sekitar 15 menit lagi.',
-          'Terima kasih banyak, makanan telah saya terima dengan baik!',
+          'Hello, I placed this booking. Is it being prepared?',
+          'I am on my way to your location.',
+          'Estimated arrival in about 15 minutes.',
+          'Thank you very much, food received in good condition!',
         ]
     : [];
 
@@ -265,34 +265,34 @@ export function ChatModal(props: ChatModalProps) {
               <div className="p-3.5 bg-[#FBEFEA] rounded-xl border border-[#F2D7CD] flex items-start gap-2.5 text-xs text-[#9A3412]">
                 <AlertCircle size={16} className="text-[#2D6A4F] flex-shrink-0 mt-0.5" />
                 <span>
-                  Admin AksesPangan memantau keluhan pengguna 24/7 untuk memastikan keadilan, keselamatan mutu pangan, dan kelancaran transaksi.
+                  AksesPangan Admin monitors reports 24/7 to ensure fair distribution, food safety compliance, and seamless fulfillment.
                 </span>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-[#5A4D43] uppercase tracking-wider mb-1.5">
-                  Subjek / Pokok Kendala
+                  Subject / Issue Summary
                 </label>
                 <input
                   type="text"
                   required
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  placeholder="Contoh: Kendala pengambilan pesanan / Lokasi penyedia tutup"
+                  placeholder="e.g. Pickup issue / Store was closed"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm text-[#143628]"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-[#5A4D43] uppercase tracking-wider mb-1.5">
-                  Rincian Keluhan
+                  Issue Details
                 </label>
                 <textarea
                   required
                   rows={4}
                   value={complaintText}
                   onChange={(e) => setComplaintText(e.target.value)}
-                  placeholder="Jelaskan kendala secara rinci, cantumkan nama penyedia/penerima atau nomor pesanan terkait jika ada..."
+                  placeholder="Explain the issue in detail, include provider/recipient name or order ID if relevant..."
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm text-[#143628] resize-none"
                 />
               </div>
@@ -303,13 +303,13 @@ export function ChatModal(props: ChatModalProps) {
                   onClick={props.onClose}
                   className="px-4 py-2.5 text-sm font-medium text-[#597367] hover:text-[#143628]"
                 >
-                  Batal
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   className="btn-apple-primary text-sm py-2.5 px-6 flex items-center gap-2"
                 >
-                  <span>Kirim Keluhan</span>
+                  <span>Submit Report</span>
                   <Send size={14} />
                 </button>
               </div>
@@ -323,7 +323,7 @@ export function ChatModal(props: ChatModalProps) {
                   <div className="p-3.5 bg-[#FFFFFF] rounded-xl border border-[#DCE5DB] shadow-2xs mb-4">
                     <div className="flex items-center justify-between text-[11px] text-[#597367] mb-1">
                       <span className="font-semibold text-[#143628]">{props.complaint?.userName}</span>
-                      <span>{new Date(props.complaint?.createdAt || '').toLocaleString('id-ID')}</span>
+                      <span>{new Date(props.complaint?.createdAt || '').toLocaleString('en-US')}</span>
                     </div>
                     <p className="text-xs text-[#143628] font-medium m-0">{props.complaint?.message}</p>
                   </div>
@@ -332,11 +332,11 @@ export function ChatModal(props: ChatModalProps) {
                 {messages.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-48 text-center text-[#597367]">
                     <MessageSquare size={36} className="mb-2 text-[#C4B3A3]" />
-                    <p className="text-xs">Belum ada percakapan.</p>
+                    <p className="text-xs">No messages yet.</p>
                     <p className="text-[11px] text-[#597367] max-w-xs mt-1">
                       {isOrderMode
-                        ? 'Gunakan obrolan ini untuk koordinasi penjemputan dan verifikasi kondisi makanan.'
-                        : 'Balasan dari admin akan tampil di sini.'}
+                        ? 'Use this chat to coordinate pickup and verify food conditions.'
+                        : 'Admin replies will appear here.'}
                     </p>
                   </div>
                 ) : (
@@ -349,7 +349,7 @@ export function ChatModal(props: ChatModalProps) {
                       >
                         <div className="flex items-center gap-1.5 mb-1 px-1">
                           <span className="text-[10px] font-semibold text-[#597367]">
-                            {isMe ? 'Anda' : msg.senderName}
+                            {isMe ? 'You' : msg.senderName}
                           </span>
                           <span className="text-[9px] px-1.5 py-0.2 rounded-full uppercase bg-[#EFE8DD] text-[#5A4D43] font-mono border border-[#DCE5DB]/60">
                             {msg.senderRole}
@@ -370,7 +370,7 @@ export function ChatModal(props: ChatModalProps) {
                           <p className="m-0 break-words">{msg.message}</p>
                         </div>
                         <span className="text-[9px] text-[#597367] mt-1 px-1">
-                          {new Date(msg.createdAt).toLocaleTimeString('id-ID', {
+                          {new Date(msg.createdAt).toLocaleTimeString('en-US', {
                             hour: '2-digit',
                             minute: '2-digit',
                           })}
@@ -411,8 +411,8 @@ export function ChatModal(props: ChatModalProps) {
                   onChange={(e) => setNewMessage(e.target.value)}
                   placeholder={
                     isOrderMode
-                      ? 'Ketik pesan koordinasi...'
-                      : 'Ketik balasan untuk keluhan ini...'
+                      ? 'Type a coordination message...'
+                      : 'Type a reply to this report...'
                   }
                   className="flex-1 px-4 py-2.5 rounded-full border border-[#DCE5DB] bg-[#FAF7F2] focus:bg-[#FFFFFF] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-xs sm:text-sm text-[#143628]"
                 />

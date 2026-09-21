@@ -38,7 +38,7 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
           <div>
             <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-[#CAD6C8]">
               <ShieldCheck size={14} className="text-[#84A98C]" />
-              <span>Tiket Resmi Pengambilan</span>
+              <span>Official Pickup Ticket</span>
             </div>
             <h3 className="text-lg font-semibold text-white tracking-tight mt-0.5">
               Digital Boarding Pass
@@ -64,7 +64,7 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
             />
             <div className="flex-1 min-w-0">
               <span className="inline-block text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#EDF2EC] text-[#2D6A4F] font-semibold mb-1">
-                {booking.quantity} kg Makanan
+                {booking.quantity} kg Food
               </span>
               <h4 className="text-sm font-semibold text-[#143628] truncate">
                 {booking.surplusName}
@@ -79,7 +79,7 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
           {/* QR Code & PIN Presentation */}
           <div className="bg-[#F7F9F6] p-5 rounded-2xl border border-[#DCE5DB] text-center space-y-3">
             <div className="text-[11px] font-mono uppercase tracking-wider text-[#597367]">
-              Tunjukkan QR Code ke Penyedia / Sebutkan PIN:
+              Show QR Code to Provider / State PIN:
             </div>
 
             {/* Real scannable QR code */}
@@ -97,7 +97,7 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
             {/* 4-Digit Large PIN Box */}
             <div className="pt-1">
               <div className="text-[10px] text-[#597367] uppercase font-mono tracking-widest mb-1.5">
-                4-DIGIT PIN SERAH TERIMA
+                4-DIGIT HANDOVER PIN
               </div>
               <div className="inline-flex items-center gap-2">
                 {pin.split('').map((char, i) => (
@@ -117,7 +117,7 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
             <div className="flex items-start gap-2.5 p-3 rounded-xl bg-[#F7F9F6] border border-[#DCE5DB]">
               <MapPin size={16} className="text-[#2D6A4F] shrink-0 mt-0.5" />
               <div>
-                <div className="font-semibold text-[#143628]">Alamat Pengambilan</div>
+                <div className="font-semibold text-[#143628]">Pickup Address</div>
                 <div className="text-[#597367] mt-0.5 leading-relaxed">{booking.pickupAddress}</div>
               </div>
             </div>
@@ -125,10 +125,10 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
             <div className="flex items-center justify-between p-3 rounded-xl bg-[#F7F9F6] border border-[#DCE5DB]">
               <div className="flex items-center gap-2 text-[#597367]">
                 <Clock size={15} className="text-[#B8401A]" />
-                <span>Batas Pengambilan:</span>
+                <span>Pickup Deadline:</span>
               </div>
               <span className="font-semibold font-mono text-[#B8401A]">
-                {remaining || 'Hari ini'}
+                {remaining || 'Today'}
               </span>
             </div>
           </div>
@@ -138,7 +138,7 @@ export function PickupTicketModal({ isOpen, onClose, booking }: PickupTicketModa
             onClick={onClose}
             className="w-full h-11 bg-[#143628] hover:bg-[#1C4736] text-white font-medium text-sm rounded-xl transition-all shadow-xs cursor-pointer"
           >
-            Tutup Tiket
+            Close Ticket
           </button>
         </div>
 

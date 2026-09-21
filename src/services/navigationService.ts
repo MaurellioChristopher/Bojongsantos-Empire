@@ -127,32 +127,32 @@ function createFallbackRoute(origin: Coordinates, destination: Coordinates): Del
 
   const steps: NavigationStep[] = [
     {
-      instruction: 'Mulai bergerak dari lokasi penjemputan',
+      instruction: 'Depart from pickup store location',
       distanceMeters: Math.round(totalMeters * 0.25),
       durationSeconds: Math.round(totalDurationSeconds * 0.25),
       modifier: 'straight',
-      name: 'Jl. Bojongsoang Raya',
+      name: 'Main Bojongsoang Corridor',
     },
     {
-      instruction: 'Belok kanan menuju koridor pengantaran utama',
+      instruction: 'Turn right onto main delivery arterial avenue',
       distanceMeters: Math.round(totalMeters * 0.45),
       durationSeconds: Math.round(totalDurationSeconds * 0.45),
       modifier: 'right',
-      name: 'Jl. Sukabirus',
+      name: 'Sukabirus Road',
     },
     {
-      instruction: 'Belok kiri mendekati titik alamat penerima',
+      instruction: 'Turn left approaching recipient destination street',
       distanceMeters: Math.round(totalMeters * 0.3),
       durationSeconds: Math.round(totalDurationSeconds * 0.3),
       modifier: 'left',
-      name: 'Jl. Radio Telekomunikasi',
+      name: 'Telecommunications Boulevard',
     },
     {
-      instruction: 'Tiba di lokasi tujuan penerima pangan surplus',
+      instruction: 'Arrive at surplus food recipient destination',
       distanceMeters: 0,
       durationSeconds: 0,
       modifier: 'arrive',
-      name: 'Titik Penerima',
+      name: 'Recipient Destination',
     },
   ];
 

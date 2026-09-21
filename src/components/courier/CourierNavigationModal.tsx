@@ -94,7 +94,7 @@ function createMotorbikePin(bearingDeg: number) {
 function createPlacePin(type: 'store' | 'destination', title: string) {
   const isStore = type === 'store';
   const bgColor = isStore ? '#2D6A4F' : '#E63946';
-  const label = isStore ? 'Resto / Donor' : 'Tujuan Penerima';
+  const label = isStore ? 'Resto / Donor' : 'Recipient Destination';
 
   return L.divIcon({
     className: 'place-waypoint-marker',
@@ -283,7 +283,7 @@ export function CourierNavigationModal({
       : [storeCoords.lat, storeCoords.lng];
 
   const currentStep = routeInfo?.steps[currentStepIdx] || {
-    instruction: 'Lanjutkan perjalanan menuju alamat penerima',
+    instruction: 'Continue towards recipient address',
     distanceMeters: 250,
   };
 
@@ -313,7 +313,7 @@ export function CourierNavigationModal({
             <div>
               <div className="text-[11px] font-mono text-[#86EFAC] uppercase tracking-wider flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-ping" />
-                <span>Navigasi Aktif • OSRM Road Graph</span>
+                <span>Active Navigation • OSRM Road Graph</span>
               </div>
               <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
                 {currentStep.instruction}
@@ -323,13 +323,13 @@ export function CourierNavigationModal({
 
           <div className="flex items-center gap-3 text-right">
             <div className="hidden sm:block">
-              <div className="text-xs font-bold text-white">{remainingDistanceKm} km lagi</div>
-              <div className="text-[11px] text-white/70">ETA: ~{remainingEtaMinutes} menit</div>
+              <div className="text-xs font-bold text-white">{remainingDistanceKm} km left</div>
+              <div className="text-[11px] text-white/70">ETA: ~{remainingEtaMinutes} mins</div>
             </div>
             <button
               onClick={() => setSoundEnabled(!soundEnabled)}
               className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
-              title="Suara Panduan"
+              title="Audio Guidance"
             >
               {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
             </button>
@@ -349,8 +349,8 @@ export function CourierNavigationModal({
           {isLoadingRoute ? (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#F7F9F6] z-30">
               <div className="w-10 h-10 border-3 border-[#2D6A4F] border-t-transparent rounded-full animate-spin mb-3" />
-              <div className="text-sm font-bold text-[#143628]">Menghitung Rute Jalan Raya Nyata (OSRM)...</div>
-              <div className="text-xs text-[#597367]">Mengoptimasi rute rendah emisi Bojongsoang</div>
+              <div className="text-sm font-bold text-[#143628]">Calculating Real Highway Route (OSRM)...</div>
+              <div className="text-xs text-[#597367]">Optimizing low-emission route in Bojongsoang</div>
             </div>
           ) : (
             <MapContainer
@@ -407,9 +407,9 @@ export function CourierNavigationModal({
               <Gauge size={16} />
             </div>
             <div>
-              <div className="text-[10px] text-[#597367] font-semibold">Kecepatan Kurir</div>
+              <div className="text-[10px] text-[#597367] font-semibold">Courier Speed</div>
               <div className="text-sm font-bold text-[#143628] leading-none">
-                {isPlaying ? `${simSpeed} km/h` : '0 km/h (Berhenti)'}
+                {isPlaying ? `${simSpeed} km/h` : '0 km/h (Stopped)'}
               </div>
             </div>
           </div>
@@ -424,7 +424,7 @@ export function CourierNavigationModal({
                 className="absolute top-3 right-3 sm:right-auto sm:left-1/2 sm:-translate-x-1/2 z-20 bg-[#2E7D32] text-white px-4 py-2.5 rounded-2xl shadow-xl border border-white/20 flex items-center gap-2.5 text-xs font-bold"
               >
                 <CheckCircle2 size={18} className="text-[#86EFAC]" />
-                <span>Geofence Terpicu: Kurir telah tiba di titik alamat penerima (&le; 50m)!</span>
+                <span>Geofence Triggered: Courier has arrived at recipient address (≤ 50m)!</span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -453,13 +453,13 @@ export function CourierNavigationModal({
                   <Star size={12} className="fill-[#FBBF24]" />
                   <span className="font-bold text-[#143628] ml-1">{courier.rating}</span>
                 </div>
-                <span>• {courier.totalReviews} ulasan</span>
+                <span>• {courier.totalReviews} reviews</span>
                 <span className="text-[#16a34a] font-semibold">({courier.badge})</span>
               </div>
               <div className="text-[11px] text-[#597367] mt-1 flex items-center gap-1">
                 <Store size={12} className="text-[#2D6A4F]" />
                 <span className="font-medium truncate max-w-[240px]">
-                  Dari {booking.providerBusinessName} • {booking.quantity} kg
+                  From {booking.providerBusinessName} • {booking.quantity} kg
                 </span>
               </div>
             </div>
@@ -472,7 +472,7 @@ export function CourierNavigationModal({
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
                 className="p-2 rounded-lg hover:bg-white text-[#143628] transition-all cursor-pointer"
-                title={isPlaying ? 'Jeda Simulasi' : 'Jalankan Simulasi'}
+                title={isPlaying ? 'Pause Simulation' : 'Start Simulation'}
               >
                 {isPlaying ? <Pause size={16} /> : <Play size={16} className="text-[#2D6A4F]" />}
               </button>
@@ -483,7 +483,7 @@ export function CourierNavigationModal({
                   setHasArrived(false);
                 }}
                 className="p-2 rounded-lg hover:bg-white text-[#597367] transition-all cursor-pointer"
-                title="Mulai Ulang Rute"
+                title="Restart Route"
               >
                 <RotateCcw size={15} />
               </button>
@@ -493,7 +493,7 @@ export function CourierNavigationModal({
             <a
               href={`tel:${courier.phone}`}
               className="p-2.5 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] rounded-xl transition-all cursor-pointer"
-              title="Hubungi Kurir"
+              title="Call Courier"
             >
               <Phone size={16} />
             </a>
@@ -504,7 +504,7 @@ export function CourierNavigationModal({
               className="flex-1 sm:flex-initial bg-[#2D6A4F] hover:bg-[#1C4736] text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
             >
               <CheckCircle2 size={16} />
-              <span>{hasArrived ? 'Verifikasi & Terima Pangan' : 'Selesaikan Pengantaran'}</span>
+              <span>{hasArrived ? 'Verify & Receive Food' : 'Complete Delivery'}</span>
             </button>
           </div>
         </div>

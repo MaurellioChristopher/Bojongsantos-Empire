@@ -6,8 +6,8 @@ import type { Coordinates } from '@/types';
 
 // App info
 export const APP_NAME = 'AksesPangan';
-export const APP_TAGLINE = 'Dari Surplus ke Solusi — Menyelamatkan Makanan, Mengurangi Kelaparan, Menekan Emisi';
-export const APP_DESCRIPTION = 'Platform penghubung surplus makanan dari pelaku usaha dengan masyarakat secara real-time.';
+export const APP_TAGLINE = 'From Surplus to Solution — Rescuing Food, Reducing Hunger, Cutting Emissions';
+export const APP_DESCRIPTION = 'Real-time surplus food redistribution network connecting culinary businesses with communities.';
 
 // Default coordinates (Bandung / Bojongsoang area)
 export const DEFAULT_CENTER: Coordinates = {
@@ -39,7 +39,7 @@ export const DISTANCE_OPTIONS = [
   { label: '5 km', value: 5 },
   { label: '10 km', value: 10 },
   { label: '20 km', value: 20 },
-  { label: 'Semua', value: 999 },
+  { label: 'All Distances', value: 999 },
 ];
 
 // Animation durations
@@ -71,29 +71,29 @@ export const STORAGE_KEYS = {
 export const NAV_ITEMS = {
   penyedia: [
     { label: 'Dashboard', href: '/penyedia', icon: 'LayoutDashboard' },
-    { label: 'Surplus Saya', href: '/penyedia/surplus', icon: 'Package' },
-    { label: 'Booking Masuk', href: '/penyedia/booking', icon: 'ClipboardList' },
-    { label: 'Riwayat', href: '/penyedia/history', icon: 'History' },
+    { label: 'My Surplus', href: '/penyedia/surplus', icon: 'Package' },
+    { label: 'Incoming Bookings', href: '/penyedia/booking', icon: 'ClipboardList' },
+    { label: 'History', href: '/penyedia/history', icon: 'History' },
   ],
   penerima: [
-    { label: 'Cari Makanan', href: '/penerima', icon: 'MapPin' },
-    { label: 'Booking Saya', href: '/penerima/booking', icon: 'ShoppingBag' },
-    { label: 'Riwayat', href: '/penerima/history', icon: 'History' },
+    { label: 'Explore Food', href: '/penerima', icon: 'MapPin' },
+    { label: 'My Orders', href: '/penerima/booking', icon: 'ShoppingBag' },
+    { label: 'History', href: '/penerima/history', icon: 'History' },
   ],
   admin: [
     { label: 'Dashboard', href: '/admin', icon: 'LayoutDashboard' },
-    { label: 'Pengguna', href: '/admin/users', icon: 'Users' },
-    { label: 'Transaksi', href: '/admin/transactions', icon: 'Receipt' },
+    { label: 'Users', href: '/admin/users', icon: 'Users' },
+    { label: 'Transactions', href: '/admin/transactions', icon: 'Receipt' },
   ],
   shared: [
-    { label: 'Dampak', href: '/dashboard', icon: 'BarChart3' },
-    { label: 'Syarat', href: '/terms', icon: 'FileText' },
+    { label: 'Impact', href: '/dashboard', icon: 'BarChart3' },
+    { label: 'Terms', href: '/terms', icon: 'FileText' },
   ],
 };
 
 // Food safety high-risk categories
 export const HIGH_RISK_FOODS = ['lauk']; // Initially limit high-risk foods
-export const FOOD_SAFETY_WARNING = 'Makanan ini termasuk kategori berisiko tinggi. Pastikan untuk segera dikonsumsi setelah pengambilan dan perhatikan kondisi makanan sebelum dikonsumsi.';
+export const FOOD_SAFETY_WARNING = 'This item falls into a high-risk category. Ensure it is consumed promptly after pickup and inspect food condition before consumption.';
 
 // Demo user credentials
 export const DEMO_CREDENTIALS = {

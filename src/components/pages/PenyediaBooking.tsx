@@ -74,11 +74,11 @@ export function PenyediaBooking() {
     }
     addNotification({
       type: 'success',
-      title: 'Booking Dikonfirmasi',
-      message: `${booking.recipientName} akan mengambil ${booking.surplusName}`,
+      title: 'Booking Confirmed',
+      message: `${booking.recipientName} will pick up ${booking.surplusName}`,
       userId: booking.recipientId,
     });
-    success('Booking Dikonfirmasi', `${booking.recipientName} akan segera mengambil makanan`);
+    success('Booking Confirmed', `${booking.recipientName} will pick up the food shortly`);
     refresh();
   };
 
@@ -90,11 +90,11 @@ export function PenyediaBooking() {
     }
     addNotification({
       type: 'warning',
-      title: 'Booking Dibatalkan',
-      message: `Booking ${booking.surplusName} telah dibatalkan`,
+      title: 'Booking Cancelled',
+      message: `Booking for ${booking.surplusName} has been cancelled`,
       userId: booking.recipientId,
     });
-    warning('Booking Ditolak', 'Stok surplus telah dikembalikan ke katalog');
+    warning('Booking Rejected', 'Surplus inventory has been returned to the catalog');
     refresh();
   };
 
@@ -118,13 +118,13 @@ export function PenyediaBooking() {
         // Immediately update UI — status flips to "diambil" right away
         markBookingAsPickedUp(verifyingBooking.id);
         success(
-          '✅ Verifikasi Berhasil!',
-          `Serah terima ${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) kepada ${verifyingBooking.recipientName} telah selesai.`
+          '✅ Verification Successful!',
+          `Handover of ${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) to ${verifyingBooking.recipientName} is complete.`
         );
         addNotification({
           type: 'success',
-          title: 'Pesanan Berhasil Diambil',
-          message: `${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) telah berhasil diterima. Terima kasih sudah menyelamatkan makanan!`,
+          title: 'Order Successfully Picked Up',
+          message: `${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) has been successfully received. Thank you for rescuing food!`,
           userId: verifyingBooking.recipientId,
         });
         setTimeout(() => {
@@ -133,10 +133,10 @@ export function PenyediaBooking() {
           refresh();
         }, 1800);
       } else {
-        setPinError(res.error || 'PIN verifikasi tidak sesuai');
+        setPinError(res.error || 'Verification PIN does not match');
       }
     } catch {
-      setPinError('Terjadi kesalahan saat memverifikasi PIN');
+      setPinError('An error occurred while verifying PIN');
     } finally {
       setIsVerifying(false);
     }
@@ -150,14 +150,14 @@ export function PenyediaBooking() {
       // Immediately flip status in UI — no need to wait for refresh()
       markBookingAsPickedUp(bookingId);
       success(
-        '✅ QR Code Berhasil Dipindai!',
-        `Serah terima ${verifyingBooking?.surplusName ?? ''} (${verifyingBooking?.quantity ?? ''} kg) kepada ${verifyingBooking?.recipientName ?? ''} telah selesai.`
+        '✅ QR Code Successfully Scanned!',
+        `Handover of ${verifyingBooking?.surplusName ?? ''} (${verifyingBooking?.quantity ?? ''} kg) to ${verifyingBooking?.recipientName ?? ''} is complete.`
       );
       if (verifyingBooking) {
         addNotification({
           type: 'success',
-          title: 'Pesanan Berhasil Diambil',
-          message: `${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) telah berhasil diterima. Terima kasih sudah menyelamatkan makanan!`,
+          title: 'Order Successfully Picked Up',
+          message: `${verifyingBooking.surplusName} (${verifyingBooking.quantity} kg) has been successfully received. Thank you for rescuing food!`,
           userId: verifyingBooking.recipientId,
         });
       }
@@ -167,7 +167,7 @@ export function PenyediaBooking() {
         refresh();
       }, 1800);
     } else {
-      setPinError(res.error || 'QR Code tidak valid atau sudah digunakan.');
+      setPinError(res.error || 'QR code is invalid or has already been used.');
     }
   };
 
@@ -177,16 +177,16 @@ export function PenyediaBooking() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#143628] mb-4 border border-[#DCE5DB] shadow-sm">
           <Clock size={32} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Akses Khusus Mitra Penyedia</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Provider Partner Access Only</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Halaman ini hanya dapat diakses oleh akun Mitra Penyedia untuk mengelola permintaan klaim makanan.
+          This page is accessible only by Provider Partner accounts to manage food claim requests.
         </p>
         <div className="flex items-center justify-center">
           <a
             href="#/login"
             className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all text-center"
           >
-            Masuk ke Akun Anda
+            Log in to Your Account
           </a>
         </div>
       </div>
@@ -203,11 +203,11 @@ export function PenyediaBooking() {
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <a href="#/penyedia" className="text-[#2D6A4F] hover:text-[#B8401A] text-xs mb-2 inline-flex items-center gap-1 font-semibold">
-              <ArrowLeft size={14} /> Kembali ke Dashboard
+              <ArrowLeft size={14} /> Back to Dashboard
             </a>
-            <h1 className="text-display-lg text-[#143628]">Daftar Pesanan &amp; Pengambilan</h1>
+            <h1 className="text-display-lg text-[#143628]">Orders &amp; Pickups List</h1>
             <p className="text-body-apple text-[#597367] m-0">
-              Kelola permintaan makanan dari masyarakat, konfirmasi serah terima, dan koordinasi via chat.
+              Manage community food requests, confirm handovers, and coordinate via chat.
             </p>
           </div>
 
@@ -216,21 +216,21 @@ export function PenyediaBooking() {
             className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2.5 px-4 flex items-center gap-2 self-start sm:self-center text-[#143628] border border-[#DCE5DB] rounded-xl shadow-xs transition-colors"
           >
             <AlertCircle size={15} className="text-[#2D6A4F]" />
-            <span>Sampaikan Keluhan ke Admin</span>
+            <span>Submit Complaint to Admin</span>
           </button>
         </div>
 
         {/* Pending Requests */}
         <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 mb-8 shadow-xs">
           <h2 className="text-tagline text-[#143628] mb-4 flex items-center gap-2">
-            <span>Perlu Konfirmasi Segera</span>
+            <span>Requires Immediate Confirmation</span>
             <span className="bg-[#FFF2EB] text-[#2D6A4F] border border-[#FAD7C8] text-xs px-2.5 py-0.5 rounded-full font-mono font-bold">{pending.length}</span>
           </h2>
 
           {pending.length === 0 ? (
             <div className="text-center py-10 text-[#597367]">
               <Inbox size={32} className="text-[#A8988B] mx-auto mb-2" />
-              <p className="text-body-apple m-0">Semua pesanan telah diproses.</p>
+              <p className="text-body-apple m-0">All orders have been processed.</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -241,11 +241,11 @@ export function PenyediaBooking() {
                     <div className="text-caption-apple text-[#597367] space-y-0.5">
                       <div className="flex items-center gap-1">
                         <User size={13} className="text-[#A8988B]" />
-                        <span>Penerima: <span className="text-[#143628] font-medium">{b.recipientName}</span> ({b.recipientPhone})</span>
+                        <span>Beneficiary: <span className="text-[#143628] font-medium">{b.recipientName}</span> ({b.recipientPhone})</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <Scale size={13} className="text-[#A8988B]" />
-                        <span>Jumlah: {b.quantity} kg • Dipesan: {getRelativeTime(b.bookedAt)}</span>
+                        <span>Quantity: {b.quantity} kg • Ordered: {getRelativeTime(b.bookedAt)}</span>
                       </div>
                     </div>
                   </div>
@@ -256,19 +256,19 @@ export function PenyediaBooking() {
                       className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] shadow-xs transition-colors"
                     >
                       <MessageSquare size={13} className="text-[#2D6A4F]" />
-                      <span>Chat Penerima</span>
+                      <span>Chat Beneficiary</span>
                     </button>
                     <button
                       onClick={() => handleReject(b)}
                       className="bg-[#FFFFFF] text-xs py-2 px-3 rounded-xl border border-red-300 text-red-600 hover:bg-red-50 transition-colors"
                     >
-                      Tolak
+                      Reject
                     </button>
                     <button
                       onClick={() => handleConfirm(b)}
                       className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-4 rounded-xl font-medium shadow-sm transition-all"
                     >
-                      Konfirmasi
+                      Confirm
                     </button>
                   </div>
                 </div>
@@ -279,10 +279,10 @@ export function PenyediaBooking() {
 
         {/* Confirmed / Active & Past History */}
         <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 shadow-xs">
-          <h2 className="text-tagline text-[#143628] mb-4">Pesanan Aktif &amp; Riwayat</h2>
+          <h2 className="text-tagline text-[#143628] mb-4">Active Orders &amp; History</h2>
 
           {past.length === 0 ? (
-            <p className="text-caption-apple text-[#597367] text-center py-8">Belum ada riwayat transaksi sebelumnya.</p>
+            <p className="text-caption-apple text-[#597367] text-center py-8">No prior transaction history.</p>
           ) : (
             <div className="divide-y divide-[#DCE5DB]">
               {past.map((b) => {
@@ -292,7 +292,7 @@ export function PenyediaBooking() {
                     <div>
                       <div className="text-body-strong text-[#143628] mb-0.5 font-medium">{b.surplusName}</div>
                       <div className="text-caption-apple text-[#597367]">
-                        Penerima: <span className="text-[#143628] font-medium">{b.recipientName}</span> • {b.quantity} kg • {formatDateTime(b.bookedAt)}
+                        Beneficiary: <span className="text-[#143628] font-medium">{b.recipientName}</span> • {b.quantity} kg • {formatDateTime(b.bookedAt)}
                       </div>
                     </div>
 
@@ -304,14 +304,14 @@ export function PenyediaBooking() {
                             className="bg-[#2D6A4F] hover:bg-[#1E4D38] text-[#FFFFFF] text-xs py-1.5 px-3 rounded-xl flex items-center gap-1.5 shadow-sm transition-all font-medium cursor-pointer"
                           >
                             <QrCode size={13} />
-                            <span>Verifikasi Pengambilan</span>
+                            <span>Verify Pickup</span>
                           </button>
                           <button
                             onClick={() => setSelectedNavBooking(b)}
                             className="bg-[#143628] hover:bg-[#1C4736] text-white text-xs py-1.5 px-3 rounded-xl flex items-center gap-1.5 shadow-sm transition-all font-medium cursor-pointer"
                           >
                             <Bike size={13} className="text-[#86EFAC]" />
-                            <span>Lacak Kurir 🛵</span>
+                            <span>Track Courier 🛵</span>
                           </button>
                           <button
                             onClick={() => setSelectedChatBooking(b)}
@@ -344,7 +344,7 @@ export function PenyediaBooking() {
             <div className="flex items-center justify-between pb-3 border-b border-[#E5ECE4] mb-4">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#2D6A4F]">
                 <ShieldCheck size={16} />
-                <span>Validasi Serah Terima Pangan</span>
+                <span>Food Handover Validation</span>
               </div>
               <button
                 onClick={() => setVerifyingBooking(null)}
@@ -358,7 +358,7 @@ export function PenyediaBooking() {
               <div className="p-3 bg-[#F7F9F6] rounded-xl border border-[#DCE5DB] text-xs">
                 <div className="font-semibold text-sm text-[#143628]">{verifyingBooking.surplusName}</div>
                 <div className="text-[#597367] mt-0.5">
-                  Penerima: <span className="font-medium text-[#143628]">{verifyingBooking.recipientName}</span> • {verifyingBooking.quantity} kg
+                  Beneficiary: <span className="font-medium text-[#143628]">{verifyingBooking.recipientName}</span> • {verifyingBooking.quantity} kg
                 </div>
               </div>
 
@@ -369,19 +369,19 @@ export function PenyediaBooking() {
                     <CheckCircle2 size={36} className="text-[#2D6A4F]" />
                   </div>
                   <div>
-                    <p className="text-base font-bold text-[#143628]">Serah Terima Berhasil!</p>
+                    <p className="text-base font-bold text-[#143628]">Handover Successful!</p>
                     <p className="text-xs text-[#597367] mt-1">
-                      {verifyingBooking.surplusName} ({verifyingBooking.quantity} kg) telah diterima oleh {verifyingBooking.recipientName}.
+                      {verifyingBooking.surplusName} ({verifyingBooking.quantity} kg) has been received by {verifyingBooking.recipientName}.
                     </p>
                   </div>
-                  <p className="text-[11px] text-[#597367] font-mono">Menutup otomatis...</p>
+                  <p className="text-[11px] text-[#597367] font-mono">Closing automatically...</p>
                 </div>
               ) : (
                 <>
               {/* PIN Input Form */}
               <form onSubmit={handleVerifySubmit} className="space-y-3">
                 <label className="block text-xs font-medium text-[#143628]">
-                  Masukkan 4-Digit PIN Pengambilan Penerima:
+                  Enter the Beneficiary's 4-Digit Pickup PIN:
                 </label>
                 <div className="flex justify-center">
                   <input
@@ -408,11 +408,11 @@ export function PenyediaBooking() {
                     className="w-full h-11 bg-[#143628] hover:bg-[#1C4736] text-white font-medium text-xs uppercase tracking-wider rounded-xl transition-all shadow-xs cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     <CheckCircle2 size={15} />
-                    <span>{isVerifying ? 'Memvalidasi...' : 'Verifikasi & Selesaikan Pesanan'}</span>
+                    <span>{isVerifying ? 'Validating...' : 'Verify & Complete Order'}</span>
                   </button>
 
                   <div className="relative my-1 text-center">
-                    <span className="text-[10px] uppercase font-mono text-[#597367] bg-white px-2">atau</span>
+                    <span className="text-[10px] uppercase font-mono text-[#597367] bg-white px-2">or</span>
                   </div>
 
                   <button
@@ -421,7 +421,7 @@ export function PenyediaBooking() {
                     className="w-full h-10 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] font-medium text-xs rounded-xl border border-[#DCE5DB] transition-all cursor-pointer flex items-center justify-center gap-2"
                   >
                     <Camera size={14} className="text-[#2D6A4F]" />
-                    <span>Pindai QR Code dengan Kamera</span>
+                    <span>Scan QR Code with Camera</span>
                   </button>
                 </div>
               </form>

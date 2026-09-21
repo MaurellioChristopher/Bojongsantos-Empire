@@ -42,7 +42,7 @@ export function AdminDashboard() {
       setServices(s);
       setComplaints(getAdminComplaints());
     } catch {
-      error('Gagal memuat data', 'Terjadi kesalahan saat memuat data admin');
+      error('Failed to load data', 'An error occurred while loading admin data');
     } finally {
       setIsRefreshing(false);
     }
@@ -70,16 +70,16 @@ export function AdminDashboard() {
     if (userId === user?.id) return;
     try {
       await adminService.deleteUser(userId);
-      success('Pengguna Dihapus', `${name} telah dihapus dari sistem`);
+      success('User Deleted', `${name} has been removed from the system`);
       refresh();
     } catch {
-      error('Gagal menghapus', 'Terjadi kesalahan saat menghapus pengguna');
+      error('Failed to delete', 'An error occurred while deleting the user');
     }
   };
 
   const handleUpdateComplaint = (complaintId: string, status: 'open' | 'in_progress' | 'resolved') => {
     updateComplaintStatus(complaintId, status);
-    success('Status Diperbarui', `Status keluhan diubah menjadi ${status.toUpperCase()}`);
+    success('Status Updated', `Complaint status updated to ${status.toUpperCase()}`);
     setComplaints(getAdminComplaints());
   };
 
@@ -89,12 +89,12 @@ export function AdminDashboard() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#597367] mb-4 border border-[#DCE5DB] shadow-xs">
           <Shield size={32} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Akses Dibatasi</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Access Restricted</h2>
         <p className="text-body-apple text-[#597367] max-w-sm mb-6">
-          Halaman ini khusus untuk administrator platform AksesPangan.
+          This page is reserved for AksesPangan platform administrators.
         </p>
         <a href="#/login" className="btn-apple-primary">
-          Masuk Sebagai Admin
+          Log in as Admin
         </a>
       </div>
     );
@@ -102,11 +102,11 @@ export function AdminDashboard() {
 
   const tabs = [
     { id: 'overview' as const, label: 'Overview', icon: BarChart3 },
-    { id: 'complaints' as const, label: `Keluhan (${complaints.filter(c => c.status !== 'resolved').length})`, icon: MessageSquare },
-    { id: 'governance' as const, label: 'Standar & ESG', icon: BookOpen },
-    { id: 'users' as const, label: 'Pengguna', icon: Users },
-    { id: 'transactions' as const, label: 'Transaksi', icon: Receipt },
-    { id: 'microservices' as const, label: 'Sistem', icon: Server },
+    { id: 'complaints' as const, label: `Complaints (${complaints.filter(c => c.status !== 'resolved').length})`, icon: MessageSquare },
+    { id: 'governance' as const, label: 'Standards & ESG', icon: BookOpen },
+    { id: 'users' as const, label: 'Users', icon: Users },
+    { id: 'transactions' as const, label: 'Transactions', icon: Receipt },
+    { id: 'microservices' as const, label: 'System', icon: Server },
   ];
 
   const filteredUsers = users.filter((u) =>
@@ -122,7 +122,7 @@ export function AdminDashboard() {
           <div>
             <h1 className="text-display-lg text-[#143628] mb-1">Admin Governance</h1>
             <p className="text-body-apple text-[#597367]">
-              Pengawasan platform & status kesehatan seluruh microservices.
+              Platform oversight &amp; health status across all microservices.
             </p>
           </div>
 
@@ -132,7 +132,7 @@ export function AdminDashboard() {
             className="btn-apple-dark text-xs flex items-center gap-1.5 self-start sm:self-auto py-2 px-3.5"
           >
             <RefreshCw size={13} className={isRefreshing ? 'animate-spin' : ''} />
-            <span>Sinkronisasi Data</span>
+            <span>Sync Data</span>
           </button>
         </div>
 
@@ -167,24 +167,24 @@ export function AdminDashboard() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="card-apple-utility bg-[#FFFFFF] border border-[#DCE5DB] p-5 text-center">
                 <div className="text-display-md font-semibold text-[#143628]">{users.length}</div>
-                <div className="text-caption-apple text-[#597367]">Total Akun Terdaftar</div>
+                <div className="text-caption-apple text-[#597367]">Registered Accounts</div>
               </div>
               <div className="card-apple-utility bg-[#FFFFFF] border border-[#DCE5DB] p-5 text-center">
                 <div className="text-display-md font-semibold text-[#2E7D32]">{impact.totalKgSaved} kg</div>
-                <div className="text-caption-apple text-[#597367]">Makanan Terselamatkan</div>
+                <div className="text-caption-apple text-[#597367]">Food Rescued</div>
               </div>
               <div className="card-apple-utility bg-[#FFFFFF] border border-[#DCE5DB] p-5 text-center">
                 <div className="text-display-md font-semibold text-[#143628]">{bookings.length}</div>
-                <div className="text-caption-apple text-[#597367]">Transaksi Tercatat</div>
+                <div className="text-caption-apple text-[#597367]">Recorded Transactions</div>
               </div>
               <div className="card-apple-utility bg-[#FFFFFF] border border-[#DCE5DB] p-5 text-center">
                 <div className="text-display-md font-semibold text-[#2E7D32]">{impact.totalCO2eSaved} kg</div>
-                <div className="text-caption-apple text-[#597367]">CO₂e Ditekan</div>
+                <div className="text-caption-apple text-[#597367]">CO₂e Avoided</div>
               </div>
             </div>
 
             <div className="card-apple-utility bg-[#FFFFFF] border border-[#DCE5DB] p-6">
-              <h3 className="text-tagline text-[#143628] mb-4">Transaksi Terkini</h3>
+              <h3 className="text-tagline text-[#143628] mb-4">Recent Transactions</h3>
               <div className="divide-y divide-[#DCE5DB]/60">
                 {bookings.slice(0, 5).map((b) => (
                   <div key={b.id} className="py-3.5 flex items-center justify-between">
@@ -211,7 +211,7 @@ export function AdminDashboard() {
               <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#597367]" />
               <input
                 type="text"
-                placeholder="Cari akun pengguna berdasarkan nama atau email..."
+                placeholder="Search user accounts by name or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="apple-search-pill bg-[#FFFFFF] border border-[#DCE5DB] text-[#143628]"
@@ -226,7 +226,7 @@ export function AdminDashboard() {
                       <div className="text-body-strong text-[#143628] flex items-center gap-2">
                         {u.name}
                         {u.id === user.id && (
-                          <span className="text-xs text-[#597367] font-normal">(Akun Anda)</span>
+                          <span className="text-xs text-[#597367] font-normal">(Your Account)</span>
                         )}
                       </div>
                       <div className="text-caption-apple text-[#597367]">
@@ -243,7 +243,7 @@ export function AdminDashboard() {
                         <button
                           onClick={() => handleDeleteUser(u.id, u.name)}
                           className="p-1.5 text-[#2D6A4F] hover:bg-[#FBEFEA] rounded-full transition-colors"
-                          title="Hapus Pengguna"
+                          title="Delete User"
                         >
                           <Trash2 size={16} />
                         </button>
@@ -266,7 +266,7 @@ export function AdminDashboard() {
                     <div>
                       <div className="text-body-strong text-[#143628] mb-0.5">{b.surplusName}</div>
                       <div className="text-caption-apple text-[#597367]">
-                        Penerima: {b.recipientName} • Restoran: {b.providerBusinessName} • Jumlah: {b.quantity} kg
+                        Beneficiary: {b.recipientName} • Restaurant: {b.providerBusinessName} • Quantity: {b.quantity} kg
                       </div>
                       <div className="text-fine-print text-[#597367] mt-1">
                         {formatDateTime(b.bookedAt)}
@@ -287,13 +287,13 @@ export function AdminDashboard() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="text-tagline text-[#143628] mb-1">Pusat Layanan &amp; Keluhan Pengguna</h3>
+                <h3 className="text-tagline text-[#143628] mb-1">Support &amp; User Complaints Center</h3>
                 <p className="text-caption-apple text-[#597367]">
-                  Daftar laporan kendala dan tiket aduan dari Mitra Penyedia dan Penerima Manfaat.
+                  List of reported issues and support tickets from Provider Partners and Beneficiaries.
                 </p>
               </div>
               <div className="text-xs text-[#597367] font-mono">
-                Total {complaints.length} Tiket
+                Total {complaints.length} Tickets
               </div>
             </div>
 
@@ -302,8 +302,8 @@ export function AdminDashboard() {
                 <div className="w-12 h-12 rounded-full bg-[#EBF7EE] text-[#2E7D32] flex items-center justify-center mx-auto mb-2 border border-[#C8E6C9]">
                   <CheckCircle2 size={24} />
                 </div>
-                <h4 className="text-body-strong text-[#143628] mb-1">Tidak Ada Keluhan Tertunda</h4>
-                <p className="text-caption-apple text-[#597367] m-0">Semua laporan kendala pengguna telah berhasil diselesaikan.</p>
+                <h4 className="text-body-strong text-[#143628] mb-1">No Pending Complaints</h4>
+                <p className="text-caption-apple text-[#597367] m-0">All user reported issues have been resolved successfully.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -319,7 +319,7 @@ export function AdminDashboard() {
                               ? 'bg-[#FEF6EE] text-[#D97706] border border-[#FDE68A]'
                               : 'bg-[#FBEFEA] text-[#2D6A4F] border border-[#F2D7CD]'
                           }`}>
-                            {c.status === 'resolved' ? 'SELESAI' : c.status === 'in_progress' ? 'SEDANG DITANGANI' : 'BARU'}
+                            {c.status === 'resolved' ? 'RESOLVED' : c.status === 'in_progress' ? 'IN PROGRESS' : 'NEW'}
                           </span>
                           <span className="text-[11px] font-mono text-[#597367]">
                             {formatDateTime(c.createdAt)}
@@ -327,7 +327,7 @@ export function AdminDashboard() {
                         </div>
                         <h4 className="text-base font-semibold text-[#143628] m-0">{c.subject}</h4>
                         <div className="text-xs text-[#597367] mt-1">
-                          Dari: <strong className="text-[#143628]">{c.userName}</strong> ({c.userRole.toUpperCase()} • {c.userEmail})
+                          From: <strong className="text-[#143628]">{c.userName}</strong> ({c.userRole.toUpperCase()} • {c.userEmail})
                         </div>
                       </div>
 
@@ -337,7 +337,7 @@ export function AdminDashboard() {
                           className="btn-apple-primary text-xs py-2 px-3.5 flex items-center gap-1.5"
                         >
                           <MessageSquare size={13} />
-                          <span>Buka Chat ({c.replies?.length || 0})</span>
+                          <span>Open Chat ({c.replies?.length || 0})</span>
                         </button>
                       </div>
                     </div>
@@ -347,14 +347,14 @@ export function AdminDashboard() {
                     </p>
 
                     <div className="flex items-center justify-between gap-3 mt-4 pt-3 border-t border-[#DCE5DB]/60 text-xs">
-                      <span className="text-[#597367]">Ubah Status Tiket:</span>
+                      <span className="text-[#597367]">Change Ticket Status:</span>
                       <div className="flex items-center gap-2">
                         {c.status !== 'in_progress' && (
                           <button
                             onClick={() => handleUpdateComplaint(c.id, 'in_progress')}
                             className="text-xs font-medium text-[#D97706] hover:underline cursor-pointer"
                           >
-                            Tandai Sedang Ditangani
+                            Mark In Progress
                           </button>
                         )}
                         {c.status !== 'resolved' && (
@@ -363,7 +363,7 @@ export function AdminDashboard() {
                             className="text-xs font-semibold text-[#2E7D32] hover:underline cursor-pointer flex items-center gap-1"
                           >
                             <CheckCircle2 size={13} />
-                            <span>Tandai Selesai</span>
+                            <span>Mark Resolved</span>
                           </button>
                         )}
                       </div>
@@ -379,9 +379,9 @@ export function AdminDashboard() {
         {activeTab === 'governance' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
             <div>
-              <h3 className="text-tagline text-[#143628] mb-1">Tata Kelola Standar Mutu &amp; Dampak ESG</h3>
+              <h3 className="text-tagline text-[#143628] mb-1">Quality Standards &amp; ESG Impact Governance</h3>
               <p className="text-caption-apple text-[#597367]">
-                Pintasan cepat untuk mengelola regulasi keselamatan makanan dan target keberlanjutan.
+                Quick access to manage food safety regulations and sustainability targets.
               </p>
             </div>
 
@@ -391,13 +391,13 @@ export function AdminDashboard() {
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#FBEFEA] text-[#2D6A4F] border border-[#F2D7CD] mb-3">
                     <BookOpen size={20} />
                   </div>
-                  <h4 className="text-base font-semibold text-[#143628] mb-1">Standar Mutu &amp; Regulasi</h4>
+                  <h4 className="text-base font-semibold text-[#143628] mb-1">Quality Standards &amp; Regulations</h4>
                   <p className="text-xs text-[#597367] leading-relaxed mb-4">
-                    Kelola pasal dan klausul keamanan makanan, batas waktu penyimpanan, protokol suhu, dan hak kewajiban pengguna.
+                    Manage food safety articles, storage time limits, temperature protocols, and user rights.
                   </p>
                 </div>
                 <a href="#/terms" className="btn-apple-primary text-xs py-2.5 px-4 text-center">
-                  Buka &amp; Kelola Standar Mutu (CRUD)
+                  Open &amp; Manage Quality Standards (CRUD)
                 </a>
               </div>
 
@@ -406,13 +406,13 @@ export function AdminDashboard() {
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[#FBEFEA] text-[#2D6A4F] border border-[#F2D7CD] mb-3">
                     <Target size={20} />
                   </div>
-                  <h4 className="text-base font-semibold text-[#143628] mb-1">Laporan &amp; Target Dampak ESG</h4>
+                  <h4 className="text-base font-semibold text-[#143628] mb-1">ESG Impact Reports &amp; Targets</h4>
                   <p className="text-xs text-[#597367] leading-relaxed mb-4">
-                    Kelola target penyelamatan tonase pangan nasional, reduksi emisi CO₂e, target porsi, dan pernyataan misi keberlanjutan.
+                    Manage national food rescue tonnage targets, CO₂e emission reductions, meal counts, and sustainability mission statements.
                   </p>
                 </div>
                 <a href="#/dashboard" className="btn-apple-primary text-xs py-2.5 px-4 text-center">
-                  Buka &amp; Kelola Target ESG
+                  Open &amp; Manage ESG Targets
                 </a>
               </div>
             </div>
@@ -423,9 +423,9 @@ export function AdminDashboard() {
         {activeTab === 'microservices' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
             <div>
-              <h3 className="text-tagline text-[#143628] mb-1">Status Operasional Microservices</h3>
+              <h3 className="text-tagline text-[#143628] mb-1">Microservices Operational Status</h3>
               <p className="text-caption-apple text-[#597367]">
-                Seluruh endpoint beroperasi mandiri dengan kontrak REST API TypeScript murni.
+                All microservices operate autonomously with type-safe REST API contracts.
               </p>
             </div>
 
@@ -479,13 +479,13 @@ export function AdminDashboard() {
                                 : 'bg-[#2E7D32] animate-pulse'
                             }`}
                           />
-                          {isDown ? 'Layanan Terputus (Offline)' : isDegraded ? 'Kinerja Terganggu' : '100% Operasional'}
+                          {isDown ? 'Service Disrupted (Offline)' : isDegraded ? 'Degraded Performance' : '100% Operational'}
                         </div>
                         <div className="text-fine-print text-[#597367] mt-1.5">
                           {isDown ? (
-                            <span className="text-red-600/90 font-medium">Container Offline • Dicek: {new Date(svc.timestamp).toLocaleTimeString('id-ID')}</span>
+                            <span className="text-red-600/90 font-medium">Container Offline • Checked: {new Date(svc.timestamp).toLocaleTimeString('en-US')}</span>
                           ) : (
-                            `Uptime: ${Math.floor(svc.uptimeSeconds / 60)} menit • Sinkron: ${new Date(svc.timestamp).toLocaleTimeString('id-ID')}`
+                            `Uptime: ${Math.floor(svc.uptimeSeconds / 60)} mins • Synced: ${new Date(svc.timestamp).toLocaleTimeString('en-US')}`
                           )}
                         </div>
                       </div>
@@ -508,7 +508,7 @@ export function AdminDashboard() {
 
             {/* Microservice Endpoints Registry */}
             <div className="card-apple-utility bg-[#FFFFFF] border border-[#DCE5DB] p-6">
-              <h4 className="text-body-strong text-[#143628] mb-3">Katalog Endpoint Terintegrasi</h4>
+              <h4 className="text-body-strong text-[#143628] mb-3">Integrated Endpoints Registry</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-[#143628]">
                 <div className="bg-[#FAF7F2] border border-[#DCE5DB]/60 p-2.5 rounded-[8px] flex items-center justify-between">
                   <span>POST /api/auth/login</span>

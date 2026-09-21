@@ -147,10 +147,10 @@ export function CheckoutModal({
               </div>
               <div>
                 <h2 className="text-tagline font-bold text-[#143628] tracking-tight leading-none mb-1">
-                  Checkout & Konfirmasi Pesanan
+                  Checkout &amp; Order Confirmation
                 </h2>
                 <p className="text-fine-print text-[#597367] m-0">
-                  Langkah 2 dari 2: Tinjau rincian biaya & panduan mutu makanan
+                  Step 2 of 2: Review cost breakdown &amp; food safety guidelines
                 </p>
               </div>
             </div>
@@ -174,7 +174,7 @@ export function CheckoutModal({
                   : 'text-[#597367] hover:text-[#143628]'
               }`}
             >
-              <ShoppingBag size={14} /> Ringkasan Pesanan & Pengantaran
+              <ShoppingBag size={14} /> Order Summary &amp; Delivery
             </button>
             <button
               type="button"
@@ -185,7 +185,7 @@ export function CheckoutModal({
                   : 'text-[#597367] hover:text-[#143628]'
               }`}
             >
-              <ShieldCheck size={14} className="text-[#16a34a]" /> Panduan Mutu ({guideline.categoryName})
+              <ShieldCheck size={14} className="text-[#16a34a]" /> Safety &amp; Quality Guidelines ({guideline.categoryName})
             </button>
           </div>
 
@@ -209,7 +209,7 @@ export function CheckoutModal({
 
                     <div>
                       <span className="inline-block text-fine-print font-mono uppercase px-2 py-0.5 rounded-full bg-[#EDF2EC] text-[#2D6A4F] font-semibold mb-1">
-                        Surplus Siap Konsumsi
+                        Ready-to-Eat Surplus
                       </span>
                       <h3 className="text-body-strong font-bold text-[#143628] leading-tight">
                         {item.name}
@@ -222,23 +222,23 @@ export function CheckoutModal({
                   </div>
 
                   <div className="text-right sm:self-center">
-                    <div className="text-fine-print text-[#597367]">Harga Makanan</div>
+                    <div className="text-fine-print text-[#597367]">Food Price</div>
                     <div className="text-body-strong font-bold text-[#143628]">
                       {item.isFree ? (
-                        <span className="text-[#16a34a] font-bold">100% GRATIS</span>
+                        <span className="text-[#16a34a] font-bold">100% FREE</span>
                       ) : (
                         formatPrice(item.price)
                       )}
                     </div>
-                    <div className="text-[11px] text-[#597367]">{item.portionCount} Porsi ({item.quantity} kg)</div>
+                    <div className="text-[11px] text-[#597367]">{item.portionCount} Portions ({item.quantity} kg)</div>
                   </div>
                 </div>
 
-                {/* 2. Metode Pemenuhan Pesanan (Ambil Sendiri vs Kurir Profesional) */}
+                {/* 2. Order Fulfillment Method (Self-Pickup vs Courier) */}
                 <div className="space-y-3">
                   <h4 className="text-caption-strong text-[#143628] flex items-center gap-1.5">
                     <Navigation size={14} className="text-[#2D6A4F]" />
-                    <span>Pilih Metode Pengambilan Pangan:</span>
+                    <span>Select Food Fulfillment Method:</span>
                   </h4>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -254,7 +254,7 @@ export function CheckoutModal({
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-2">
                           <Store size={18} className={fulfillmentMethod === 'pickup' ? 'text-[#2D6A4F]' : 'text-[#597367]'} />
-                          <span className="font-bold text-xs text-[#143628]">Ambil Mandiri (Self-Pickup)</span>
+                          <span className="font-bold text-xs text-[#143628]">Self-Pickup</span>
                         </div>
                         <input
                           type="radio"
@@ -265,10 +265,10 @@ export function CheckoutModal({
                         />
                       </div>
                       <p className="text-[11px] text-[#597367] mt-2 mb-2 leading-relaxed">
-                        Ambil sendiri ke outlet resto membawa wadah & tunjukkan Digital QR Pass.
+                        Pick up directly at the restaurant outlet with your own container and show your Digital QR Pass.
                       </p>
                       <span className="text-[11px] font-bold text-[#16a34a] bg-white px-2 py-0.5 rounded-full self-start border border-[#C8E6C9]">
-                        Bebas Ongkir (Rp 0)
+                        Free Pickup (Rp 0)
                       </span>
                     </div>
 
@@ -284,7 +284,7 @@ export function CheckoutModal({
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-2">
                           <Bike size={18} className={fulfillmentMethod === 'courier' ? 'text-[#2D6A4F]' : 'text-[#597367]'} />
-                          <span className="font-bold text-xs text-[#143628]">Kirim via Mitra Kurir</span>
+                          <span className="font-bold text-xs text-[#143628]">Delivery via Courier Partner</span>
                         </div>
                         <input
                           type="radio"
@@ -295,7 +295,7 @@ export function CheckoutModal({
                         />
                       </div>
                       <p className="text-[11px] text-[#597367] mt-2 mb-2 leading-relaxed">
-                        Diantar cepat oleh kurir resmi bersertifikat dengan tas termal higienis.
+                        Quick delivery by certified official couriers in hygienic thermal bags.
                       </p>
                       <div className="flex items-center gap-2">
                         <span className="text-[11px] font-bold text-[#143628] bg-white px-2 py-0.5 rounded-full border border-[#DCE5DB]">
@@ -307,7 +307,7 @@ export function CheckoutModal({
                   </div>
                 </div>
 
-                {/* 3. Detail Pengantaran Kurir (Jika dipilih) */}
+                {/* 3. Courier Delivery Details */}
                 {fulfillmentMethod === 'courier' && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
@@ -317,7 +317,7 @@ export function CheckoutModal({
                     <div className="flex items-center justify-between pb-2 border-b border-[#DCE5DB]">
                       <div className="flex items-center gap-2 text-xs font-bold text-[#143628]">
                         <Bike size={15} className="text-[#2D6A4F]" />
-                        <span>Mitra Kurir Pangan yang Ditugaskan:</span>
+                        <span>Assigned Food Courier Partner:</span>
                       </div>
                       {courier && (
                         <span className="text-[10px] bg-[#EBF7EE] text-[#2D6A4F] px-2 py-0.5 rounded-full font-bold border border-[#C8E6C9] flex items-center gap-1">
@@ -345,21 +345,21 @@ export function CheckoutModal({
                             <div className="text-[10px] text-[#597367] flex items-center gap-1 mt-0.5">
                               <Star size={11} className="text-[#FBBF24] fill-[#FBBF24]" />
                               <span className="font-bold text-[#143628]">{courier.rating}</span>
-                              <span>• {courier.totalReviews} ulasan ({courier.completedDeliveries} order sukses)</span>
+                              <span>• {courier.totalReviews} reviews ({courier.completedDeliveries} successful deliveries)</span>
                             </div>
                           </div>
                         </div>
 
                         <div className="text-right">
-                          <span className="text-[10px] text-[#597367]">Estimasi Tiba</span>
-                          <div className="text-xs font-bold text-[#2D6A4F]">15 - 25 Menit</div>
+                          <span className="text-[10px] text-[#597367]">Estimated Arrival</span>
+                          <div className="text-xs font-bold text-[#2D6A4F]">15 - 25 Minutes</div>
                         </div>
                       </div>
                     )}
 
                     <div>
                       <label className="block text-[11px] font-semibold text-[#597367] mb-1">
-                        Alamat Pengantaran Penerima:
+                        Recipient Delivery Address:
                       </label>
                       <div className="flex items-center gap-2 bg-[#F7F9F6] border border-[#DCE5DB] rounded-xl px-3 py-2 text-xs focus-within:border-[#2D6A4F] focus-within:bg-white transition-all">
                         <MapPin size={14} className="text-[#2D6A4F] shrink-0" />
@@ -367,7 +367,7 @@ export function CheckoutModal({
                           type="text"
                           value={deliveryAddress}
                           onChange={(e) => setDeliveryAddress(e.target.value)}
-                          placeholder="Masukkan alamat lengkap pengantaran..."
+                          placeholder="Enter complete delivery address..."
                           className="w-full bg-transparent text-xs text-[#143628] focus:outline-hidden"
                         />
                       </div>
@@ -375,30 +375,30 @@ export function CheckoutModal({
                   </motion.div>
                 )}
 
-                {/* 4. Rincian Pembayaran Transparan */}
+                {/* 4. Transparent Payment Breakdown */}
                 <div className="p-5 rounded-[18px] bg-[#FFFFFF] border border-[#DCE5DB] space-y-3">
                   <h4 className="text-caption-strong text-[#143628] border-b border-[#DCE5DB] pb-2 flex items-center justify-between">
-                    <span>Rincian Pembayaran</span>
-                    <span className="text-fine-print font-normal text-[#597367]">Bebas Biaya Admin</span>
+                    <span>Payment Breakdown</span>
+                    <span className="text-fine-print font-normal text-[#597367]">No Admin Fees</span>
                   </h4>
 
                   <div className="flex justify-between text-caption-apple text-[#597367]">
-                    <span>Harga Makanan ({item.portionCount} porsi)</span>
+                    <span>Food Price ({item.portionCount} portions)</span>
                     <span className="text-[#143628] font-medium">
-                      {item.isFree ? 'Rp 0 (100% Gratis)' : formatPrice(item.price)}
+                      {item.isFree ? 'Rp 0 (100% Free)' : formatPrice(item.price)}
                     </span>
                   </div>
 
                   {fulfillmentMethod === 'courier' && (
                     <>
                       <div className="flex justify-between text-caption-apple text-[#597367]">
-                        <span>Ongkos Kirim Kurir ({deliveryFeeInfo.distanceKm} km)</span>
+                        <span>Courier Delivery Fee ({deliveryFeeInfo.distanceKm} km)</span>
                         <span className="text-[#143628] font-medium">
                           Rp {(deliveryFeeInfo.baseFee + deliveryFeeInfo.distanceFee).toLocaleString('id-ID')}
                         </span>
                       </div>
                       <div className="flex justify-between text-caption-apple text-[#597367]">
-                        <span>Biaya Tas Termal Higienis</span>
+                        <span>Hygienic Thermal Bag Fee</span>
                         <span className="text-[#143628] font-medium">
                           Rp {deliveryFeeInfo.ecoHandlingFee.toLocaleString('id-ID')}
                         </span>
@@ -407,17 +407,17 @@ export function CheckoutModal({
                   )}
 
                   <div className="flex justify-between text-caption-apple text-[#597367]">
-                    <span>Biaya Penyelamatan Pangan (ESG)</span>
-                    <span className="text-[#16a34a] font-medium">Rp 0 (Subsidi AksesPangan)</span>
+                    <span>Food Rescue Contribution (ESG)</span>
+                    <span className="text-[#16a34a] font-medium">Rp 0 (Subsidized by AksesPangan)</span>
                   </div>
 
                   <div className="pt-2 border-t border-[#DCE5DB] flex justify-between items-center">
                     <div>
-                      <span className="text-body-strong text-[#143628] font-bold">Total Pembayaran</span>
+                      <span className="text-body-strong text-[#143628] font-bold">Total Payment</span>
                       <p className="text-fine-print text-[#597367] m-0">
                         {fulfillmentMethod === 'courier'
-                          ? 'Bayar tunai/QRIS ke kurir saat makanan tiba'
-                          : 'Ambil langsung di resto'}
+                          ? 'Pay online or via QRIS during checkout'
+                          : 'Direct pickup at restaurant'}
                       </p>
                     </div>
                     <span className="text-display-md text-[#143628] font-bold">
@@ -430,13 +430,13 @@ export function CheckoutModal({
                 <div className="p-4 rounded-[16px] bg-[#FAF7F2] border border-[#DCE5DB] flex items-start gap-3">
                   <ShieldCheck size={18} className="text-[#2D6A4F] flex-shrink-0 mt-0.5" />
                   <div className="text-xs text-[#597367]">
-                    <span className="font-semibold text-[#143628]">Penjaminan Mutu Pangan:</span> {guideline.reheatingInstructions}
+                    <span className="font-semibold text-[#143628]">Food Quality Assurance:</span> {guideline.reheatingInstructions}
                     <button
                       type="button"
                       onClick={() => setActiveTab('keamanan')}
                       className="block mt-1 font-semibold text-[#2D6A4F] underline hover:opacity-75 cursor-pointer"
                     >
-                      Lihat instruksi penyimpanan & Do's/Don'ts lengkap →
+                      View complete storage guidelines &amp; Do's/Don'ts →
                     </button>
                   </div>
                 </div>
@@ -447,7 +447,7 @@ export function CheckoutModal({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB]">
                     <div className="text-fine-print text-[#597367] mb-1 flex items-center gap-1">
-                      <ThermometerSun size={13} className="text-[#2D6A4F]" /> Suhu Penyimpanan
+                      <ThermometerSun size={13} className="text-[#2D6A4F]" /> Storage Temp
                     </div>
                     <div className="text-caption-strong text-[#143628]">
                       {guideline.storageTemp}
@@ -456,26 +456,26 @@ export function CheckoutModal({
 
                   <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB]">
                     <div className="text-fine-print text-[#597367] mb-1 flex items-center gap-1">
-                      <Clock size={13} className="text-[#2D6A4F]" /> Maks. Suhu Ruang
+                      <Clock size={13} className="text-[#2D6A4F]" /> Max Room Temp
                     </div>
                     <div className="text-caption-strong text-[#143628]">
-                      {guideline.maxSafeHours} Jam sejak diambil
+                      {guideline.maxSafeHours} Hours from pickup
                     </div>
                   </div>
 
                   <div className="p-3.5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB]">
                     <div className="text-fine-print text-[#597367] mb-1 flex items-center gap-1">
-                      <ShieldCheck size={13} className="text-[#16a34a]" /> Maks. Kulkas (&lt;4°C)
+                      <ShieldCheck size={13} className="text-[#16a34a]" /> Max Refrig. (&lt;4°C)
                     </div>
                     <div className="text-caption-strong text-[#143628]">
-                      {guideline.maxRefrigeratedHours} Jam
+                      {guideline.maxRefrigeratedHours} Hours
                     </div>
                   </div>
                 </div>
 
                 <div className="p-4 rounded-[16px] bg-[#FFF2EB] border border-[#FAD7C8]">
                   <div className="text-caption-strong text-[#2D6A4F] mb-1 flex items-center gap-1.5 font-bold">
-                    <Flame size={16} /> Tata Cara Pemanasan Ulang (Reheating)
+                    <Flame size={16} /> Reheating Instructions
                   </div>
                   <p className="text-caption-apple text-[#933719] m-0 leading-relaxed">
                     {guideline.reheatingInstructions}
@@ -485,7 +485,7 @@ export function CheckoutModal({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="p-4 rounded-[16px] bg-[#F1F8F3] border border-[#CDE5D4]">
                     <h5 className="text-caption-strong text-[#1E5D34] mb-2 flex items-center gap-1.5 font-bold">
-                      <CheckCircle2 size={16} className="text-[#16a34a]" /> Hal yang Boleh Dilakukan (Do's)
+                      <CheckCircle2 size={16} className="text-[#16a34a]" /> Recommended Practices (Do's)
                     </h5>
                     <ul className="space-y-1.5 pl-0 text-xs text-[#1E5D34] list-none m-0">
                       {guideline.dos.map((item, idx) => (
@@ -499,7 +499,7 @@ export function CheckoutModal({
 
                   <div className="p-4 rounded-[16px] bg-[#FDF2F2] border border-[#F9CFCF]">
                     <h5 className="text-caption-strong text-[#982020] mb-2 flex items-center gap-1.5 font-bold">
-                      <AlertTriangle size={16} className="text-[#dc2626]" /> Larangan & Tanda Rusak (Don'ts)
+                      <AlertTriangle size={16} className="text-[#dc2626]" /> Warnings &amp; Spoilage Signs (Don'ts)
                     </h5>
                     <ul className="space-y-1.5 pl-0 text-xs text-[#982020] list-none m-0">
                       {guideline.donts.map((item, idx) => (
@@ -525,7 +525,7 @@ export function CheckoutModal({
                 className="mt-0.5 w-4 h-4 rounded accent-[#143628] cursor-pointer"
               />
               <span className="text-xs text-[#143628] leading-snug">
-                Saya menyetujui panduan keselamatan mutu makanan di atas dan berkomitmen untuk menerima/mengambil makanan sebelum batas waktu habis.
+                I agree to the food safety guidelines above and commit to collecting/receiving the food before the pickup deadline expires.
               </span>
             </label>
 
@@ -535,7 +535,7 @@ export function CheckoutModal({
                 onClick={onClose}
                 className="flex-1 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] font-medium text-sm py-3 rounded-xl border border-[#DCE5DB] transition-colors cursor-pointer"
               >
-                Batal
+                Cancel
               </button>
               <button
                 type="button"
@@ -544,10 +544,10 @@ export function CheckoutModal({
                 className="flex-1 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] font-medium text-sm py-3 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm cursor-pointer"
               >
                 {isLoading
-                  ? 'Memproses Pesanan...'
+                  ? 'Processing Order...'
                   : fulfillmentMethod === 'courier'
-                  ? `Konfirmasi & Panggil Kurir (Rp ${totalPayment.toLocaleString('id-ID')})`
-                  : 'Konfirmasi Ambil Mandiri'}
+                  ? `Confirm & Request Courier (Rp ${totalPayment.toLocaleString('id-ID')})`
+                  : 'Confirm Self-Pickup'}
               </button>
             </div>
           </div>

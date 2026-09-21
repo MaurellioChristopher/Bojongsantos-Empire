@@ -89,24 +89,24 @@ function SaraAvatar({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
 const makeWelcomeMessage = (): ChatMessage => ({
   id: 'welcome-1',
   sender: 'bot',
-  text: `Halo! Saya **SARA** 🌿 — *Smart Agri-food Rescue Assistant* dari platform **AksesPangan**.\n\nSaya siap membantu Anda 24/7:\n\n🍲 **Cari makanan surplus** terdekat di Bojongsoang & Bandung\n🌡️ **Panduan keamanan pangan** BPOM & HACCP yang akurat\n🌱 **Kalkulator emisi karbon** (CO₂e) dari aksi penyelamatan Anda\n🍳 **Resep kreatif zero-waste** dari sisa bahan makanan\n🏪 **Panduan lengkap** mendaftar & menggunakan AksesPangan\n💬 **Pertanyaan bebas** seputar pangan, gizi, & lingkungan\n\nApa yang ingin Anda ketahui hari ini?`,
-  timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+  text: `Hello! I am **SARA** 🌿 — *Smart Agri-food Rescue Assistant* on the **AksesPangan** platform.\n\nI am here to help you 24/7:\n\n🍲 **Find surplus food** near you in Bojongsoang & Greater Bandung\n🌡️ **Food safety guidelines** based on BPOM & HACCP standards\n🌱 **Carbon emissions calculator** (CO₂e) for your rescue actions\n🍳 **Creative zero-waste recipes** for surplus ingredients\n🏪 **Complete guides** on registering & using AksesPangan\n💬 **Open conversation** on food security, nutrition & climate\n\nWhat would you like to explore today?`,
+  timestamp: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
 });
 
 // ============================================================
 // Quick prompt categories
 // ============================================================
 const QUICK_PROMPTS = [
-  { icon: '🍲', label: 'Cari Makanan Gratis' },
-  { icon: '🌱', label: 'Hitung Emisi 5 kg' },
-  { icon: '🍳', label: 'Resep Nasi Sisa' },
-  { icon: '🛡️', label: 'Cara Reheating Aman' },
-  { icon: '🏪', label: 'Cara Daftar Mitra' },
-  { icon: '👑', label: 'Siapa Pembuat Web Ini?' },
-  { icon: '📍', label: 'Stok di Bojongsoang' },
-  { icon: '🥬', label: 'Resep Sayur Layu' },
-  { icon: '🥐', label: 'Olah Roti Sisa' },
-  { icon: '❓', label: 'Apa itu AksesPangan?' },
+  { icon: '🍲', label: 'Find Free Food' },
+  { icon: '🌱', label: 'Calculate 5 kg Emissions' },
+  { icon: '🍳', label: 'Leftover Rice Recipe' },
+  { icon: '🛡️', label: 'Safe Reheating Guide' },
+  { icon: '🏪', label: 'Become a Partner' },
+  { icon: '👑', label: 'Who Created This Web?' },
+  { icon: '📍', label: 'Stock in Bojongsoang' },
+  { icon: '🥬', label: 'Wilted Vegetable Ideas' },
+  { icon: '🥐', label: 'Day-Old Bread Recipes' },
+  { icon: '❓', label: 'What is AksesPangan?' },
 ];
 
 // ============================================================
@@ -114,7 +114,7 @@ const QUICK_PROMPTS = [
 // ============================================================
 function processOfflineQuery(rawQuery: string, allItems: SurplusItem[]): ChatMessage {
   const q = rawQuery.toLowerCase().trim();
-  const nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+  const nowTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   const active = allItems.filter((i) => i.status === 'active');
 
   // Helper
@@ -127,47 +127,48 @@ function processOfflineQuery(rawQuery: string, allItems: SurplusItem[]): ChatMes
   });
 
   // ── 1. GREETINGS ──────────────────────────────────────────
-  if (/^(halo|hai|hi|hello|selamat|hei|pagi|siang|malam|assalamu|permisi|ada\?)/.test(q)) {
+  if (/^(hello|hi|hey|good|morning|afternoon|evening|greetings|halo|hai)/.test(q)) {
     const hour = new Date().getHours();
-    const salam = hour < 11 ? 'Selamat pagi' : hour < 15 ? 'Selamat siang' : hour < 18 ? 'Selamat sore' : 'Selamat malam';
+    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
     return mkBot(
-      `${salam}! 🌿 Saya **SARA**, asisten AI AksesPangan.\n\nSaya bisa membantu Anda menemukan makanan surplus gratis, menghitung jejak karbon, memberikan resep kreatif, atau menjawab pertanyaan seputar pangan dan lingkungan.\n\nMau mulai dari mana?`
+      `${greeting}! 🌿 I am **SARA**, your AksesPangan AI assistant.\n\nI can assist you in finding free surplus food, computing your carbon savings, sharing creative recipes, or answering questions on food preservation and environmental impact.\n\nWhere would you like to start?`
     );
   }
 
   // ── 2. IDENTITY (SARA / BOT) ──────────────────────────────
-  if (/(siapa kamu|kamu siapa|apa itu sara|perkenalkan|tentang bot|tentang ai|bot ini)/.test(q)) {
+  if (/(who are you|what is sara|about sara|introduce|about ai|about bot|identity|siapa kamu)/.test(q)) {
     return mkBot(
-      `Perkenalkan, saya **SARA** (Smart Agri-food Rescue Assistant) 🌿\n\nSaya adalah asisten kecerdasan buatan resmi platform **AksesPangan**, yang dirancang khusus untuk:\n\n• 🍲 Membantu Anda menemukan & mengambil makanan surplus\n• 🌱 Mengedukasi tentang keamanan pangan & lingkungan\n• 🍳 Memberikan inspirasi resep zero-waste\n• 📊 Menghitung dampak ESG dari aksi penyelamatan pangan\n\nSaya dikembangkan oleh **Tim Bojongsantos Empire** dan didukung teknologi **Google Gemini AI**. Saya aktif 24/7 untuk mendukung misi nol sampah makanan Indonesia! 🇮🇩`
+      `Pleased to meet you! I am **SARA** (Smart Agri-food Rescue Assistant) 🌿\n\nI am the official artificial intelligence assistant for the **AksesPangan** ecosystem, specifically engineered to:\n\n• 🍲 Help you locate & claim surplus food distributions\n• 🌱 Educate on food safety standards & environmental preservation\n• 🍳 Inspire zero-waste culinary recipes\n• 📊 Calculate verified ESG metrics and emissions averted\n\nI was developed by **Team Bojongsantos Empire** and am powered by **Google Gemini AI**. I am active 24/7 to support Indonesia's zero food waste mission! 🇮🇩🌿`
     );
   }
 
   // ── 3. CREATOR / TEAM ────────────────────────────────────
-  if (/(pembuat|developer|siapa yang|tim|anggota|bojongsantos|diciptakan|dibikin|author|penemu|founder)/.test(q)) {
+  if (/(creator|developer|who made|team|member|bojongsantos|created by|author|founder|pembuat)/.test(q)) {
     return mkBot(
-      `👑 **Platform AksesPangan** diciptakan oleh **Tim Bojongsantos Empire**:\n\n1. 🌟 **Maurellio Christopher Yonathan**\n2. 🌸 **Alya Salma Khoerunnisaa**\n3. ⚡ **Rakean Ahmad Zayyid Ardhi**\n4. 🚀 **Jazzkord Cmajor Dahring**\n\nMereka merancang sistem ini dengan arsitektur **6 microservices** (Auth, Inventory, Booking, Analytics, Governance, Notifications) dan AI terpadu untuk mewujudkan **SDGs 2, 12, dan 13** — Zero Hunger, Konsumsi Bertanggung Jawab, dan Aksi Iklim.\n\nSebuah karya nyata untuk Indonesia! 🇮🇩🌿`
+      `👑 **AksesPangan** was innovated and built by **Team Bojongsantos Empire**:\n\n1. 🌟 **Maurellio Christopher Yonathan**\n2. 🌸 **Alya Salma Khoerunnisaa**\n3. ⚡ **Rakean Ahmad Zayyid Ardhi**\n4. 🚀 **Jazzkord Cmajor Dahring**\n\nThey engineered this platform featuring **6 isolated microservices** (Auth, Inventory, Booking, Analytics, Governance, Notifications) with integrated AI intelligence to champion **UN SDGs 2, 12, and 13** — Zero Hunger, Responsible Consumption, and Climate Action.\n\nA true tech-for-good innovation! 🇮🇩🌿`
     );
   }
 
   // ── 4. WHAT IS AKSESPANGAN ───────────────────────────────
-  if (/(apa itu aksespangan|tentang aksespangan|aksespangan itu|platform ini|website ini|fungsi web)/.test(q)) {
+  if (/(what is aksespangan|about aksespangan|this platform|this website|how it works|apa itu)/.test(q)) {
     return mkBot(
-      `🌿 **AksesPangan** adalah platform digital penyelamatan pangan surplus Indonesia.\n\n**Cara kerjanya:**\n1. 🏪 Restoran, hotel, & katering mengunggah makanan surplus mereka\n2. 🍲 Masyarakat & penerima manfaat bisa mengklaim secara gratis/murah\n3. 📱 Verifikasi serah terima via **PIN** atau **scan QR Code**\n4. 🌱 Setiap kilogram yang terselamatkan = **2.5 kg CO₂e** dicegah\n\n**Dampak nyata:**\n• Mengurangi food waste Indonesia (23-48 juta ton/tahun)\n• Membantu masyarakat prasejahtera mendapat gizi layak\n• Menghasilkan laporan ESG/CSR untuk mitra bisnis\n\nMau cari makanan sekarang atau daftar jadi mitra?`,
-      { actionLink: { label: 'Mulai Jelajahi Platform →', href: '#/penerima' } }
+      `🌿 **AksesPangan** is an integrated digital platform dedicated to rescuing surplus food across Indonesia.\n\n**How it works:**\n1. 🏪 Restaurants, hotels, & caterers upload high-quality surplus inventory\n2. 🍲 Beneficiaries and communities discover & claim meals freely or affordably\n3. 📱 Safe handover verification via **Handover PIN** or **QR Code scan**\n4. 🌱 Every kilogram rescued prevents **2.5 kg CO₂e** of greenhouse emissions\n\n**Measurable impact:**\n• Mitigates food waste in Indonesia (23–48 million tons/year)\n• Enhances food security and nutritional access for underserved communities\n• Delivers automated ESG/CSR compliance metrics for corporate food donors\n\nWould you like to search available food or register as a partner?`,
+      { actionLink: { label: 'Explore Surplus Catalog →', href: '#/penerima' } }
     );
   }
 
   // ── 5. FOOD SEARCH ───────────────────────────────────────
-  if (/(cari|makanan|surplus|gratis|ambil|klaim|bojongsoang|bandung|nasi|roti|sayur|buah|lauk|minuman|stok|tersedia|ada apa)/.test(q)) {
+  if (/(search|food|surplus|free|claim|get|bojongsoang|bandung|rice|bread|vegetable|fruit|stock|available|cari|makanan)/.test(q)) {
     let matched = [...active];
 
-    if (q.includes('gratis')) matched = matched.filter((i) => i.isFree);
+    if (q.includes('free') || q.includes('gratis')) matched = matched.filter((i) => i.isFree);
     if (q.includes('bojongsoang')) matched = matched.filter((i) => (i.address + i.providerBusinessName).toLowerCase().includes('bojongsoang'));
     else if (q.includes('bandung')) matched = matched.filter((i) => (i.address + i.providerBusinessName).toLowerCase().includes('bandung'));
 
     const categoryMap: Record<string, string> = {
-      nasi: 'nasi', roti: 'roti', sayur: 'sayur', buah: 'buah',
-      lauk: 'lauk', kue: 'kue', minuman: 'minuman',
+      rice: 'nasi', nasi: 'nasi', bread: 'roti', roti: 'roti',
+      vegetable: 'sayur', sayur: 'sayur', fruit: 'buah', buah: 'buah',
+      meat: 'lauk', lauk: 'lauk', cake: 'kue', kue: 'kue', drink: 'minuman', minuman: 'minuman',
     };
     for (const [key, cat] of Object.entries(categoryMap)) {
       if (q.includes(key)) { matched = matched.filter((i) => i.foodCategory === cat); break; }
@@ -176,115 +177,115 @@ function processOfflineQuery(rawQuery: string, allItems: SurplusItem[]): ChatMes
     const topItems = matched.slice(0, 4);
     if (topItems.length === 0) {
       return mkBot(
-        `Maaf, saat ini belum ada stok surplus untuk kriteria pencarian tersebut. 😔\n\n💡 **Saran:**\n• Coba cari dengan kategori berbeda (nasi, roti, sayur, dll)\n• Periksa kembali dalam beberapa jam — stok baru sering ditambah sore hari (15:00–18:00 WIB)\n• Aktifkan notifikasi untuk dapat pemberitahuan stok baru`,
-        { actionLink: { label: 'Buka Peta Surplus Lengkap →', href: '#/penerima' } }
+        `Currently, there are no active surplus items matching your specific search query. 😔\n\n💡 **Tips:**\n• Try browsing other categories (grains, baked goods, produce, etc.)\n• Check back in a few hours — new donor surplus is frequently posted in the afternoon (3:00 PM – 6:00 PM WIB)\n• Enable notifications to receive instant surplus alerts`,
+        { actionLink: { label: 'Open Live Surplus Map →', href: '#/penerima' } }
       );
     }
 
     return mkBot(
-      `✅ Ditemukan **${topItems.length} makanan surplus** yang siap diselamatkan!\n\n👇 Ketuk kartu di bawah untuk info lengkap & cara mengambilnya:`,
+      `✅ Found **${topItems.length} surplus items** ready to be rescued!\n\n👇 Tap any card below to view details and claim your portion:`,
       {
         items: topItems,
-        actionLink: { label: 'Lihat Semua di Katalog →', href: '#/penerima' },
+        actionLink: { label: 'View All in Catalog →', href: '#/penerima' },
       }
     );
   }
 
   // ── 6. FOOD SAFETY ───────────────────────────────────────
-  if (/(aman|keamanan|bpom|haccp|suhu|reheat|panaskan|basi|rusak|simpan|kulkas|expire|kedaluwarsa|bahaya|standar mutu|food safety|danger zone)/.test(q)) {
+  if (/(safe|safety|bpom|haccp|temperature|reheat|spoil|storage|fridge|expire|shelf|danger zone|keamanan)/.test(q)) {
     return mkBot(
-      `🛡️ **Panduan Keamanan Pangan (BPOM & HACCP):**\n\n**⚠️ Danger Zone:** Suhu **5°C – 60°C** adalah zona proliferasi bakteri tercepat. Hindari makanan berada di zona ini lebih dari **2 jam** (di iklim tropis Indonesia).\n\n**🌡️ Standar Penyimpanan:**\n• Makanan matang di suhu ruang: maks **2–4 jam**\n• Di lemari es (< 4°C): maks **24 jam** (lauk matang)\n• Di freezer (< -18°C): maks **1–3 bulan**\n\n**🔥 Reheating yang Benar:**\n• Panaskan hingga suhu inti minimal **74°C** selama **≥ 15 detik**\n• Hanya boleh dipanaskan ulang **1 kali** saja\n• Tambahkan sedikit air agar nasi tidak kering\n\n**👁️ Uji Sensori 3L sebelum konsumsi:**\n• **Lihat:** tidak berjamur, warna normal\n• **Cium:** tidak berbau asam/tengik/menyengat\n• **Raba:** tidak berlendir atau bertekstur aneh\n\n*Jika ragu pada salah satu tanda — **jangan dikonsumsi**.*`,
-      { actionLink: { label: 'Baca Standar Mutu Lengkap →', href: '#/terms' } }
+      `🛡️ **Food Safety Protocol Guidelines (BPOM & HACCP):**\n\n**⚠️ Danger Zone:** Temperatures between **5°C – 60°C** promote rapid microbial multiplication. Avoid keeping perishable food in this zone for more than **2 hours** in tropical climates.\n\n**🌡️ Storage Protocols:**\n• Prepared food at room temperature: max **2–4 hours**\n• Refrigerated (< 4°C): max **24 hours** (cooked proteins)\n• Deep frozen (< -18°C): **1–3 months**\n\n**🔥 Correct Reheating Procedure:**\n• Heat until the core internal temperature reaches at least **74°C** for **≥ 15 seconds**\n• Reheat only **once**; never repeatedly re-chill and re-heat\n• Add a splash of water to keep rice and grains moist\n\n**👁️ 3-Step Sensory Check before consumption:**\n• **Look:** no discoloration, mold, or unnatural shine\n• **Smell:** no sour, rancid, or pungent odors\n• **Feel:** no slimy or abnormally tacky textures\n\n*When in doubt — **do not consume**.*`,
+      { actionLink: { label: 'Read Full Safety Protocols →', href: '#/terms' } }
     );
   }
 
   // ── 7. CARBON / ESG CALCULATOR ───────────────────────────
-  if (/(karbon|emisi|co2|esg|jejak|lingkungan|hitung|reduksi|iklim|metana|co₂|gas rumah kaca|pohon)/.test(q)) {
+  if (/(carbon|emission|co2|esg|footprint|environment|calculate|reduction|climate|methane|tree|hitung)/.test(q)) {
     const numMatch = q.match(/(\d+(?:[.,]\d+)?)\s*kg?/);
     const kg = numMatch ? parseFloat(numMatch[1].replace(',', '.')) : 10;
     const co2 = Math.round(kg * 2.5 * 10) / 10;
     const trees = Math.round((co2 / 22) * 10) / 10;
 
     return mkBot(
-      `🌱 **Kalkulator Reduksi Emisi Karbon:**\n\nSetiap **1 kg makanan terselamatkan** = **2.5 kg CO₂e dicegah** *(Sumber: IPCC & WRI)*\n\nMakanan yang membusuk di TPA menghasilkan gas **metana (CH₄)** yang 25× lebih kuat dari CO₂ dalam memperparah pemanasan global.\n\n---\n\n✅ Dengan menyelamatkan **${kg} kg makanan**, Anda telah:`,
+      `🌱 **Carbon Emissions Reduction Calculator:**\n\nEvery **1 kg of surplus food rescued** = **2.5 kg CO₂e averted** *(Source: IPCC & WRI)*\n\nFood rotting in municipal landfills generates **methane gas (CH₄)**, which is 25× more potent than carbon dioxide in accelerating global warming.\n\n---\n\n✅ By rescuing **${kg} kg of food**, you have accomplished:`,
       {
         esgMetric: { kg, co2, trees },
-        actionLink: { label: 'Lihat Dashboard ESG & Sertifikat →', href: '#/dashboard' },
+        actionLink: { label: 'View ESG Dashboard & Certificates →', href: '#/dashboard' },
       }
     );
   }
 
   // ── 8. RICE / NASI RECIPE ────────────────────────────────
-  if (/(resep nasi|olah nasi|nasi sisa|nasi kemarin|nasi basi|nasi dingin|nasi goreng)/.test(q)) {
+  if (/(recipe.*rice|rice.*recipe|leftover rice|cold rice|fried rice|resep nasi|olah nasi)/.test(q)) {
     return mkBot(
-      `🍚 **5 Resep Kreatif dari Nasi Sisa:**\n\n**1. Nasi Goreng Spesial** *(10 menit)*\n   Tumis bawang putih + bawang merah → tambah nasi dingin + kecap + telur ceplok → tabur daun bawang & kerupuk.\n\n**2. Arancini Bola Nasi Goreng** *(20 menit)*\n   Campur nasi + keju parut + kocokan telur → bentuk bola → gulingkan tepung roti → goreng hingga keemasan.\n\n**3. Nasi Bakar Daun Pisang** *(15 menit)*\n   Campur nasi + bumbu teri/ayam + sereh → bungkus daun pisang → bakar di atas bara api.\n\n**4. Bubur Instan Hemat** *(15 menit)*\n   Tambahkan kaldu ayam ke nasi → masak sambil terus diaduk → tambah jahe, merica, & topping suka-suka.\n\n**5. Crispy Rice Snack** *(30 menit + oven)*\n   Pipihkan nasi di loyang → panggang 180°C 20 menit → potong-potong → tabur garam & wijen.\n\n🌿 **Tips Zero-Waste:** Nasi terlalu basi untuk dimakan? Jadikan kompos atau campuran pakan ternak!`
+      `🍚 **5 Creative Recipes from Leftover Rice:**\n\n**1. Special Indonesian Fried Rice** *(10 mins)*\n   Sauté minced garlic + shallots → fold in cold rice + sweet soy sauce + fried egg → garnish with scallions & crisps.\n\n**2. Golden Arancini Rice Balls** *(20 mins)*\n   Mix rice + grated cheese + beaten egg → shape into spheres → roll in breadcrumbs → fry until crispy & golden.\n\n**3. Banana Leaf Baked Rice** *(15 mins)*\n   Combine rice with shredded seasoned chicken/anchovies + lemongrass → wrap in banana leaves → grill over charcoal.\n\n**4. Savory Quick Congee** *(15 mins)*\n   Simmer rice in chicken/vegetable broth while stirring continuously → season with fresh ginger, white pepper, and scallions.\n\n**5. Oven-Crisped Rice Snack** *(30 mins)*\n   Flatten rice onto a baking sheet → bake at 180°C for 20 mins → slice into crackers → sprinkle with sea salt & sesame seeds.\n\n🌿 **Zero-Waste Tip:** If rice is slightly past culinary safety, compost it as nitrogen-rich plant nourishment!`
     );
   }
 
   // ── 9. BREAD / ROTI RECIPE ───────────────────────────────
-  if (/(resep roti|olah roti|roti sisa|roti keras|roti kemarin|baguette|sourdough)/.test(q)) {
+  if (/(recipe.*bread|bread.*recipe|stale bread|leftover bread|baguette|sourdough|resep roti)/.test(q)) {
     return mkBot(
-      `🍞 **5 Cara Kreatif Olah Roti Sisa:**\n\n**1. French Toast Klasik** *(10 menit)*\n   Celup irisan roti ke kocokan telur + susu + kayu manis → goreng mentega hingga keemasan → sajikan dengan madu.\n\n**2. Bread Pudding** *(45 menit)*\n   Potong roti → rendam campuran susu + telur + gula + vanilla → tuang ke loyang → panggang 180°C 30 mnt.\n\n**3. Crouton Salad** *(15 menit)*\n   Potong dadu roti → lumuri minyak zaitun + oregano + bawang putih → panggang 160°C 15 mnt hingga renyah.\n\n**4. Bruschetta Tomat** *(10 menit)*\n   Panggang irisan roti → olesi bawang putih segar → taruh tomat cincang + basil + minyak zaitun.\n\n**5. Pizza Roti Dadakan** *(15 menit)*\n   Oles saus tomat + keju mozzarella + topping pilihan → panggang 200°C 10 mnt.\n\n🌿 **Tips:** Roti yang sudah sangat keras? Rendam air lalu kukus 5 menit — hasilnya seperti baru!`
+      `🍞 **5 Ways to Upcycle Day-Old Bread:**\n\n**1. Classic Golden French Toast** *(10 mins)*\n   Dip slices into beaten egg + milk + cinnamon → toast in butter until caramelized → serve with pure honey.\n\n**2. Custard Bread Pudding** *(45 mins)*\n   Cube bread → soak in milk, egg, sugar, and vanilla extract → pour into a pan → bake at 180°C for 30 mins.\n\n**3. Herbal Salad Croutons** *(15 mins)*\n   Cube bread → toss with olive oil + dried oregano + garlic powder → bake at 160°C for 15 mins until crunchy.\n\n**4. Tomato Garlic Bruschetta** *(10 mins)*\n   Toast bread slices → rub with a fresh garlic clove → top with diced ripe tomatoes, fresh basil, and extra-virgin olive oil.\n\n**5. Quick Bread Pizza** *(15 mins)*\n   Spread tomato marinara sauce + mozzarella cheese + choice toppings → bake at 200°C for 10 mins.\n\n🌿 **Pro Tip:** For dry, hard bread, sprinkle with drops of water and steam for 5 minutes — it regains its soft texture!`
     );
   }
 
   // ── 10. VEGETABLE / SAYUR RECIPE ─────────────────────────
-  if (/(resep sayur|olah sayur|sayur layu|sayur sisa|bayam|kangkung|brokoli|wortel|kubis)/.test(q)) {
+  if (/(recipe.*vegetable|vegetable.*recipe|wilted|spinach|carrot|broccoli|cabbage|resep sayur)/.test(q)) {
     return mkBot(
-      `🥬 **Resep dari Sayuran Layu / Sisa:**\n\n**1. Kaldu Sayuran Kaya Gizi** *(30 menit)*\n   Rebus semua sisa sayuran (wortel, seledri, bawang, dll) + air → saring → gunakan sebagai kaldu sup/masakan.\n\n**2. Kimchi Cepat** *(10 menit + fermentasi 1 hari)*\n   Potong kubis/sawi → lumuri garam → peras air → campur pasta gochugaru + bawang putih + jahe + gula.\n\n**3. Tumis Bumbu Habang** *(15 menit)*\n   Haluskan cabai merah + bawang + tomat → tumis → masukkan semua sayuran sisa → kecap manis + garam.\n\n**4. Vegetable Smoothie Hijau** *(5 menit)*\n   Blender bayam/kangkung + pisang matang + susu/yogurt + madu → kaya zat besi & serat.\n\n**5. Keripik Sayur Oven** *(25 menit)*\n   Iris tipis wortel/zucchini/bayam → lumuri minyak + garam → panggang 160°C 20 mnt hingga kering.\n\n🌿 **Tips:** Sayuran yang sangat layu masih bisa digunakan untuk kaldu — jangan langsung dibuang!`
+      `🥬 **Creative Recipes for Wilted / Leftover Vegetables:**\n\n**1. Nutrient-Rich Vegetable Broth** *(30 mins)*\n   Simmer all clean vegetable trimmings (carrots, celery, onions, greens) in water → strain → freeze as gourmet cooking broth.\n\n**2. Quick Pickled Kimchi** *(10 mins + 1 day ferment)*\n   Chop cabbage/greens → salt to draw water → squeeze → toss with garlic, ginger, chili paste, and a touch of sugar.\n\n**3. Indonesian Spiced Stir-Fry** *(15 mins)*\n   Blend red chili + shallots + tomato → sauté until fragrant → toss in vegetables → finish with sweet soy sauce and sea salt.\n\n**4. Green Energy Smoothie** *(5 mins)*\n   Blend washed greens + ripe banana + milk/plant milk + honey → rich in iron, antioxidants, and dietary fiber.\n\n**5. Oven Vegetable Crisps** *(25 mins)*\n   Thinly slice root vegetables or kale → toss with olive oil and salt → bake at 160°C for 20 mins until crisp.\n\n🌿 **Tip:** Slightly wilted greens are ideal for soups, purees, and broths — avoid tossing them prematurely!`
     );
   }
 
   // ── 11. FRUIT / BUAH RECIPE ──────────────────────────────
-  if (/(resep buah|olah buah|buah matang|buah layu|pisang|mangga|pepaya|jeruk|semangka)/.test(q)) {
+  if (/(recipe.*fruit|fruit.*recipe|overripe|banana|mango|papaya|berry|resep buah)/.test(q)) {
     return mkBot(
-      `🍎 **Resep dari Buah Terlalu Matang:**\n\n**1. Banana Ice Cream** *(5 menit + beku)*\n   Bekukan pisang terlalu matang → blender hingga creamy → tambah cokelat/stroberi → jadi es krim sehat!\n\n**2. Smoothie Bowl Tropis** *(5 menit)*\n   Blender mangga/pepaya + pisang + susu → tuang ke mangkuk → hias granola + madu + buah segar.\n\n**3. Selai Buah Homemade** *(30 menit)*\n   Potong buah → masak dengan gula (50% berat buah) + air perasan lemon → aduk hingga mengental.\n\n**4. Kompot Buah Spiced** *(20 menit)*\n   Masak semua buah + air + kayu manis + cengkeh + gula → saring → minum sebagai minuman segar/hangat.\n\n**5. Kulit Buah Permen Alami** *(dried fruit)*\n   Kupas & iris tipis buah → rendam air gula → jemur/oven suhu rendah 70°C hingga kering.\n\n🌿 **Bonus:** Kulit pisang → pupuk alami tanaman. Biji pepaya → bumbu lada alternatif setelah dikeringkan!`
+      `🍎 **Recipes for Overripe & Surplus Fruits:**\n\n**1. 1-Ingredient Nice Cream** *(5 mins + frozen)*\n   Freeze peeled overripe bananas → blend until silky and creamy → mix in cocoa or berries → nutritious vegan soft-serve!\n\n**2. Tropical Acai/Smoothie Bowl** *(5 mins)*\n   Blend mango/papaya + banana + yogurt → pour into a bowl → garnish with toasted granola, seeds, and sliced fruit.\n\n**3. Homemade Fruit Compote / Jam** *(30 mins)*\n   Chop fruit → simmer with sugar (30-50% fruit weight) + fresh lemon juice → stir until thickened and glossy.\n\n**4. Spiced Fruit Infusion** *(20 mins)*\n   Simmer fruit pieces with cinnamon stick, star anise, and honey → strain → enjoy warm or over crushed ice.\n\n**5. Oven-Dehydrated Fruit Chips** *(low-heat dry)*\n   Thinly slice apples/pears/bananas → bake at 75°C for 2–3 hours until leathery and sweet.\n\n🌿 **Eco Bonus:** Banana peels make outstanding potassium fertilizer for house plants when soaked in water for 48 hours!`
     );
   }
 
   // ── 12. PROVIDER ONBOARDING ──────────────────────────────
-  if (/(daftar|cara daftar|mitra|penyedia|restoran|hotel|katering|donor|upload surplus|cara upload|unggah)/.test(q)) {
+  if (/(partner|provider|restaurant|hotel|catering|donor|upload surplus|how to donate|daftar mitra)/.test(q)) {
     return mkBot(
-      `🏪 **Panduan Menjadi Mitra Penyedia AksesPangan:**\n\n**Langkah 1 — Registrasi (2 menit)**\n   Buka menu "Daftar" → pilih peran **Mitra Penyedia** → isi nama bisnis, alamat, kontak.\n\n**Langkah 2 — Unggah Surplus (1 menit/item)**\n   Dashboard → Kelola Surplus → "+ Tambah Bahan Baku" atau "+ Tambah Sisa Makanan"\n   Isi: nama item, kategori, berat (kg), estimasi porsi, batas waktu aman, harga (gratis/berbayar).\n\n**Langkah 3 — Terima Pesanan**\n   Notifikasi masuk saat ada penerima yang memesan → konfirmasi atau tolak → chat koordinasi langsung.\n\n**Langkah 4 — Verifikasi Serah Terima**\n   Penerima datang bawa **QR Code** atau **PIN 4 digit** → scan/input PIN → pesanan selesai!\n\n**Langkah 5 — Dapatkan Laporan ESG**\n   Setiap bulan dapatkan **Sertifikat Dampak Lingkungan** dengan tonase pangan & CO₂ yang berhasil diselamatkan — cocok untuk laporan CSR!\n\n🌟 *Bergabung sekarang dan jadilah pahlawan pangan!*`,
-      { actionLink: { label: 'Daftar Jadi Mitra Sekarang →', href: '#/register' } }
+      `🏪 **Guide to Becoming an AksesPangan Food Donor Partner:**\n\n**Step 1 — Registration (2 mins)**\n   Navigate to "Register" → select the **Business Provider** role → fill in business details and address.\n\n**Step 2 — Post Surplus Inventory (1 min/item)**\n   Access your Provider Portal → Surplus Inventory → Click "+ Add Produce" or "+ Add Prepared Food"\n   Specify: item name, category, weight (kg), portion count, safe consumption window, and pricing (Free / Discounted).\n\n**Step 3 — Review Incoming Requests**\n   Receive real-time notifications when beneficiaries place bookings → accept or reject → coordinate via live order chat.\n\n**Step 4 — Verify Handover Seamlessly**\n   When the recipient arrives, inspect their **Digital QR Code Ticket** or **4-Digit PIN** → scan or confirm → handover completed!\n\n**Step 5 — Automated ESG Reporting**\n   Receive monthly **Certified Environmental Impact Statements** documenting food saved and CO₂e averted — ready for CSR & ESG audits!\n\n🌟 *Join today and become a certified Food & Climate Hero!*`,
+      { actionLink: { label: 'Register as Provider Partner →', href: '#/register' } }
     );
   }
 
   // ── 13. RECIPIENT ONBOARDING ─────────────────────────────
-  if (/(cara ambil|cara klaim|cara pesan|prosedur|pengambilan|booking|penerima|qr code|pin|tiket)/.test(q)) {
+  if (/(how to claim|how to book|pickup|recipient|beneficiary|qr code|pin|ticket|cara ambil)/.test(q)) {
     return mkBot(
-      `📱 **Cara Mengambil Makanan Surplus di AksesPangan:**\n\n**1. Daftar/Masuk** sebagai Penerima Manfaat\n\n**2. Cari Makanan** di Katalog — filter berdasarkan lokasi, kategori, atau harga.\n\n**3. Klik "Detail & Pesan"** → konfirmasi pemesanan → tunggu konfirmasi dari penyedia.\n\n**4. Tiket QR Code** — setelah dikonfirmasi, Anda mendapat **tiket digital** berisi QR Code + PIN 4 digit di menu "Pesanan Saya".\n\n**5. Datang ke Lokasi** — tunjukkan QR Code atau sebutkan PIN kepada penyedia saat pengambilan.\n\n**6. Pesanan Selesai!** — penyedia scan QR/input PIN → status berubah "Diambil" → pangan terselamatkan! 🎉\n\n⏰ *Perhatikan batas waktu pengambilan yang tertera di tiket!*`,
-      { actionLink: { label: 'Cari Makanan Tersedia →', href: '#/penerima' } }
+      `📱 **How to Claim Surplus Food on AksesPangan:**\n\n**1. Register or Log In** as a Beneficiary Recipient.\n\n**2. Explore the Catalog & Map** — filter by proximity, dietary category, or free distribution.\n\n**3. Click "Claim / Order"** → confirm quantity and pickup notes → wait for provider confirmation.\n\n**4. Digital QR Ticket** — upon confirmation, access your **Digital Boarding Pass** with a secure QR Code & 4-digit PIN under "My Bookings".\n\n**5. Arrive at the Store** — present your QR code or state your PIN to the store staff.\n\n**6. Enjoy Your Meal!** — store verifies handover → order completed → surplus food preserved! 🎉\n\n⏰ *Always note the pickup deadline displayed on your digital ticket!*`,
+      { actionLink: { label: 'Browse Available Surplus →', href: '#/penerima' } }
     );
   }
 
   // ── 14. FOOD WASTE FACTS / EDUCATION ─────────────────────
-  if (/(fakta|statistik|data|food waste|sampah makanan|pembuangan|indonesia|dunia|masalah pangan|kelaparan|edukasi)/.test(q)) {
+  if (/(fact|statistic|data|food waste|landfill|hunger|problem|education|fakta)/.test(q)) {
     return mkBot(
-      `📊 **Fakta Food Waste Indonesia yang Mengejutkan:**\n\n🇮🇩 **Indonesia = Pembuang Makanan Terbesar Ke-2 di G20**\n   23 – 48 juta ton makanan terbuang per tahun *(Bappenas)*\n\n☁️ **Dampak Iklim yang Serius:**\n   Makanan busuk di TPA hasilkan **metana (CH₄)** yang 25× lebih merusak iklim dari CO₂.\n   Food waste global = **8–10%** dari total emisi gas rumah kaca bumi.\n\n🍽️ **Paradoks Pangan:**\n   Di saat jutaan ton makanan terbuang, **28 juta warga Indonesia** masih mengalami kerawanan pangan.\n\n💰 **Kerugian Ekonomi:**\n   Indonesia kehilangan **Rp 213–551 triliun/tahun** akibat food waste *(Bappenas 2021)*.\n\n🌱 **Solusinya:**\n   Jika 25% food waste Indonesia berhasil diselamatkan, bisa memberi makan **70 juta orang** per hari!\n\n*AksesPangan hadir sebagai solusi nyata untuk masalah ini.* 💚`,
-      { actionLink: { label: 'Lihat Dampak Nyata di Dashboard ESG →', href: '#/dashboard' } }
+      `📊 **Startling Facts on Food Waste & Climate:**\n\n🇮🇩 **Indonesia = 2nd Largest Food Waster in G20**\n   Between 23 – 48 million metric tons of food are wasted annually *(Bappenas)*.\n\n☁️ **Severe Climate Ramifications:**\n   Decomposing food in landfills emits **methane (CH₄)**, 25× more damaging to our climate than CO₂.\n   Global food waste accounts for **8–10%** of total anthropogenic greenhouse gas emissions.\n\n🍽️ **The Food Security Paradox:**\n   While millions of tons of edible food are discarded, **28 million Indonesians** face chronic food vulnerability.\n\n💰 **Economic Toll:**\n   Food waste inflicts an estimated **Rp 213–551 trillion/year** loss on the national economy.\n\n🌱 **The Solution:**\n   Rescuing just 25% of national food waste would feed over **70 million people** daily!\n\n*AksesPangan was engineered to bridge this divide.* 💚`,
+      { actionLink: { label: 'View Real-Time ESG Dashboard →', href: '#/dashboard' } }
     );
   }
 
   // ── 15. NUTRITION / GIZI QUESTIONS ───────────────────────
-  if (/(gizi|nutrisi|vitamin|kalori|protein|karbohidrat|lemak|serat|mineral|kesehatan makan|diet|obesitas)/.test(q)) {
+  if (/(nutrition|vitamin|calorie|protein|carbohydrate|fat|fiber|mineral|healthy|diet|gizi)/.test(q)) {
     return mkBot(
-      `🥗 **Tips Gizi & Nutrisi dari Makanan Surplus:**\n\nMakanan surplus dari restoran dan hotel umumnya berkualitas tinggi. Berikut panduan memaksimalkan nilai gizinya:\n\n**🍚 Karbohidrat (nasi, roti):**\n   Sumber energi utama. Konsumsi porsi sedang (100-150g) — pilih nasi merah jika tersedia.\n\n**🍗 Protein (lauk ayam/ikan/tahu/tempe):**\n   Penting untuk regenerasi sel. Pastikan dipanaskan ulang dengan benar sebelum dikonsumsi.\n\n**🥬 Serat (sayuran, buah):**\n   Jaga kesehatan pencernaan & turunkan kolesterol. Cuci bersih dan konsumsi sesegera mungkin.\n\n**💧 Hidrasi:**\n   Minum minimal 8 gelas air/hari — terutama penting saat mengonsumsi makanan reheat yang lebih padat garam.\n\n**⚠️ Catatan Keamanan:**\n   Makanan surplus tetap aman dan bergizi selama dikonsumsi dalam batas waktu yang tertera dan disimpan dengan benar.\n\n*Ingin tahu nilai gizi spesifik dari makanan tertentu? Tanyakan saja!* 😊`
+      `🥗 **Nutritional Guidelines for Rescued Surplus Food:**\n\nSurplus food distributed from restaurants, bakeries, and farms is wholesome and nutrient-dense. Here is how to maximize its nutritional value:\n\n**🍚 Carbohydrates (rice, bread):**\n   Primary energy sources. Aim for moderate portions (100–150g) and pair with fiber.\n\n**🍗 Protein (chicken, fish, tofu, tempeh):**\n   Essential for tissue repair and immune defense. Ensure thorough reheating before consumption.\n\n**🥬 Dietary Fiber (vegetables, fresh fruit):**\n   Promotes gut microbiome health and stabilizes blood sugar. Wash and enjoy promptly.\n\n**💧 Proper Hydration:**\n   Drink at least 8 glasses of fresh water daily to aid metabolic digestion.\n\n**⚠️ Safety Reminder:**\n   Surplus food retains high nutritional integrity when stored within safe temperature ranges and consumed before the stated deadline.\n\n*Have questions about a specific ingredient's nutritional value? Just ask!* 😊`
     );
   }
 
   // ── 16. ESG / DASHBOARD / CERTIFICATE ────────────────────
-  if (/(dashboard|laporan|sertifikat|esg|csr|audit|dampak|impact|telemetri)/.test(q)) {
+  if (/(dashboard|report|certificate|esg|csr|audit|impact|telemetry|sertifikat)/.test(q)) {
     return mkBot(
-      `📈 **Dashboard ESG & Sertifikat Dampak AksesPangan:**\n\nSetiap transaksi penyelamatan pangan tercatat dan diukur dampaknya secara otomatis:\n\n📊 **Yang bisa dilihat di Dashboard:**\n• Total kilogram pangan terselamatkan\n• Estimasi emisi CO₂e yang dicegah\n• Jumlah porsi makanan terdistribusi\n• Timeline tren penyelamatan pangan\n• Setara pohon yang ditanam (1 pohon = ±22 kg CO₂/tahun)\n\n🏆 **Sertifikat ESG untuk Penyedia:**\nMitra penyedia otomatis mendapat laporan dampak yang dapat digunakan untuk:\n• Laporan keberlanjutan CSR perusahaan\n• Audit ESG dan sertifikasi green business\n• Materi promosi brand bertanggung jawab lingkungan\n\n*Semua data real-time dan transparan!*`,
-      { actionLink: { label: 'Buka Dashboard ESG →', href: '#/dashboard' } }
+      `📈 **AksesPangan ESG Telemetry & Impact Certification:**\n\nEvery rescued meal is tracked and quantified using international ecological formulas:\n\n📊 **Key Dashboard Metrics:**\n• Total kilograms of surplus food rescued\n• Greenhouse gas emissions (CO₂e) averted\n• Total nutritious portions distributed\n• Cumulative ecological trendlines\n• Tree seedling equivalence (1 tree = ±22 kg CO₂/year)\n\n🏆 **Official ESG Impact Certificates for Providers:**\nCorporate food donors receive verifiable certificates suitable for:\n• Corporate CSR sustainability disclosures\n• Green business ESG audits and ISO certification\n• Public stakeholder brand transparency\n\n*All data is verified, transparent, and updated in real time!*`,
+      { actionLink: { label: 'Open ESG Dashboard →', href: '#/dashboard' } }
     );
   }
 
   // ── DEFAULT FALLBACK ──────────────────────────────────────
   return mkBot(
-    `Terima kasih atas pertanyaan Anda tentang *"${rawQuery}"* 💬\n\nSaya SARA, asisten AI AksesPangan. Untuk pertanyaan yang lebih kompleks dan bebas seperti ini, saya bekerja jauh lebih optimal dengan **Google Gemini AI** aktif.\n\n⚡ **Aktifkan AI Penuh:**\nKlik tombol ⚙️ di pojok kanan atas → masukkan **Gemini API Key** gratis dari [aistudio.google.com](https://aistudio.google.com) → saya bisa menjawab **semua pertanyaan** secara mendalam!\n\nSementara itu, saya tetap bisa membantu:\n• 🍲 Cari makanan surplus tersedia\n• 🌱 Hitung reduksi emisi karbon\n• 🍳 Ide resep zero-waste\n• 🛡️ Panduan keamanan pangan`,
-    { actionLink: { label: 'Jelajahi Katalog Surplus →', href: '#/penerima' } }
+    `Thank you for asking about *"${rawQuery}"* 💬\n\nI am SARA, your AksesPangan AI assistant. For complex, nuanced questions, I perform best with **Google Gemini AI** activated.\n\n⚡ **Enable Full AI:**\nClick the ⚙️ Settings icon at the top right → enter your free **Gemini API Key** from [aistudio.google.com](https://aistudio.google.com) → I can provide in-depth answers to any topic!\n\nIn the meantime, I can readily assist with:\n• 🍲 Finding active surplus food near you\n• 🌱 Calculating carbon emission reductions\n• 🍳 Zero-waste culinary recipes\n• 🛡️ Certified food safety protocols`,
+    { actionLink: { label: 'Explore Surplus Catalog →', href: '#/penerima' } }
   );
 }
 
@@ -452,7 +453,7 @@ export function AIChatbotWidget() {
             borderColor: 'rgba(45,106,79,0.5)',
             boxShadow: '0 8px 24px rgba(20,54,40,0.45)',
           }}
-          aria-label="Buka Asisten SARA AI"
+          aria-label="Open SARA AI Assistant"
         >
           <SaraAvatar size="sm" />
           <div className="text-left hidden sm:block">
@@ -463,7 +464,7 @@ export function AIChatbotWidget() {
               </span>
             </div>
             <div className="text-[10px] text-white/65 leading-tight">
-              {hasKey ? 'Aktif & Siap Menjawab' : 'Asisten Pangan & ESG'}
+              {hasKey ? 'Active & Ready' : 'Food & ESG Assistant'}
             </div>
           </div>
           {/* Notification dot when closed */}
@@ -521,22 +522,22 @@ export function AIChatbotWidget() {
                 <button
                   onClick={() => setShowSettings(!showSettings)}
                   className={`p-1.5 rounded-lg transition-colors ${showSettings ? 'bg-white/20 text-white' : 'hover:bg-white/10 text-white/70 hover:text-white'}`}
-                  title="Pengaturan API Key"
+                  title="API Key Settings"
                 ><Settings size={14} /></button>
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
                   className="p-1.5 hover:bg-white/10 rounded-lg transition-colors text-white/70 hover:text-white"
-                  title={isExpanded ? 'Kecilkan' : 'Perbesar'}
+                  title={isExpanded ? 'Minimize' : 'Expand'}
                 >{isExpanded ? <Minimize2 size={14} /> : <Maximize2 size={14} />}</button>
                 <button
                   onClick={handleReset}
                   className="p-1.5 hover:bg-white/10 rounded-lg transition-colors text-white/70 hover:text-white"
-                  title="Reset Percakapan"
+                  title="Reset Conversation"
                 ><RefreshCw size={13} /></button>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-1.5 hover:bg-white/10 rounded-lg transition-colors text-white/70 hover:text-white ml-0.5"
-                  title="Tutup"
+                  title="Close"
                 ><X size={16} /></button>
               </div>
             </div>
@@ -546,7 +547,7 @@ export function AIChatbotWidget() {
               <div className="bg-emerald-700 text-white text-[11px] px-3 py-1.5 flex items-center justify-between font-medium shrink-0">
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 size={13} />
-                  <span>API Key Gemini berhasil disimpan! SARA sekarang aktif dengan AI penuh.</span>
+                  <span>Gemini API Key saved successfully! SARA is now running with full AI capabilities.</span>
                 </div>
                 <button onClick={() => setKeySavedToast(false)}><X size={12} /></button>
               </div>
@@ -564,18 +565,18 @@ export function AIChatbotWidget() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5 text-xs font-bold text-[#143628]">
                       <Key size={13} className="text-[#2D6A4F]" />
-                      <span>Konfigurasi Google Gemini AI</span>
+                      <span>Google Gemini AI Configuration</span>
                     </div>
                     <button onClick={() => setShowSettings(false)} className="text-[#597367] hover:text-[#143628]">
                       <X size={13} />
                     </button>
                   </div>
                   <p className="text-[11px] text-[#597367] mb-2.5 leading-relaxed">
-                    Aktifkan <strong>Gemini API Key</strong> agar SARA menjadi lebih pintar — bisa menjawab segala pertanyaan bebas (resep, gizi, sains, dll).
+                    Enable your <strong>Gemini API Key</strong> to unlock SARA&apos;s full potential — answers open questions on recipes, nutrition, food science, and more.
                   </p>
                   <input
                     type="password"
-                    placeholder="AIzaSy... (tempel Gemini API Key)"
+                    placeholder="AIzaSy... (paste Gemini API Key here)"
                     value={tempApiKey}
                     onChange={(e) => setTempApiKey(e.target.value)}
                     className="w-full px-3 py-2 bg-white border border-[#CAD6C8] rounded-lg text-xs text-[#143628] focus:outline-none focus:ring-1 focus:ring-[#2D6A4F] mb-2"
@@ -587,14 +588,14 @@ export function AIChatbotWidget() {
                       rel="noreferrer"
                       className="text-[10px] text-[#2D6A4F] hover:underline font-semibold flex items-center gap-1"
                     >
-                      Dapatkan Key Gratis → Google AI Studio
+                      Get Free Key → Google AI Studio
                       <ExternalLink size={9} />
                     </a>
                     <button
                       onClick={handleSaveApiKey}
                       className="bg-[#2D6A4F] hover:bg-[#1C4736] text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer"
                     >
-                      Simpan & Aktifkan
+                      Save & Activate
                     </button>
                   </div>
                 </motion.div>
@@ -657,17 +658,17 @@ export function AIChatbotWidget() {
                           <div className="bg-emerald-50 px-3 py-2 flex items-center justify-between">
                             <div className="flex items-center gap-2">
                               <Leaf size={15} className="text-emerald-700" />
-                              <span className="font-bold text-xs text-emerald-900">{msg.esgMetric.kg} kg Pangan Diselamatkan</span>
+                              <span className="font-bold text-xs text-emerald-900">{msg.esgMetric.kg} kg Food Rescued</span>
                             </div>
                           </div>
                           <div className="bg-white px-3 py-2.5 grid grid-cols-2 gap-2">
                             <div className="text-center p-2 bg-emerald-50 rounded-lg">
                               <div className="font-mono font-black text-lg text-emerald-700">−{msg.esgMetric.co2}</div>
-                              <div className="text-[10px] text-emerald-600 font-semibold">kg CO₂e Dicegah</div>
+                              <div className="text-[10px] text-emerald-600 font-semibold">kg CO₂e Averted</div>
                             </div>
                             <div className="text-center p-2 bg-emerald-50 rounded-lg">
                               <div className="font-mono font-black text-lg text-emerald-700">≈{msg.esgMetric.trees}</div>
-                              <div className="text-[10px] text-emerald-600 font-semibold">Pohon/Tahun</div>
+                              <div className="text-[10px] text-emerald-600 font-semibold">Trees/Year</div>
                             </div>
                           </div>
                         </div>
@@ -678,7 +679,7 @@ export function AIChatbotWidget() {
                         <div className="mt-3 space-y-2">
                           <div className="text-[11px] font-bold text-[#2D6A4F] flex items-center gap-1">
                             <ShoppingBag size={12} />
-                            <span>Klik untuk info lengkap & cara ambil:</span>
+                            <span>Click for details & pickup info:</span>
                           </div>
                           {msg.items.map((item) => (
                             <div
@@ -706,7 +707,7 @@ export function AIChatbotWidget() {
                               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${
                                 item.isFree ? 'bg-emerald-100 text-emerald-800' : 'bg-stone-100 text-stone-700'
                               }`}>
-                                {item.isFree ? 'Gratis' : formatPrice(item.price)}
+                                {item.isFree ? 'Free' : formatPrice(item.price)}
                               </span>
                             </div>
                           ))}
@@ -754,7 +755,7 @@ export function AIChatbotWidget() {
                         />
                       ))}
                     </div>
-                    <span className="text-[11px] text-[#597367] font-medium">SARA sedang berpikir…</span>
+                    <span className="text-[11px] text-[#597367] font-medium">SARA is thinking…</span>
                   </div>
                 </div>
               )}
@@ -785,7 +786,7 @@ export function AIChatbotWidget() {
                       ><X size={14} /></button>
                       <div className="absolute bottom-2 left-2 flex gap-1.5">
                         <span className={`text-[11px] font-bold px-2.5 py-1 rounded-full shadow ${selectedFoodItem.isFree ? 'bg-emerald-600 text-white' : 'bg-white text-[#143628]'}`}>
-                          {selectedFoodItem.isFree ? '100% GRATIS' : formatPrice(selectedFoodItem.price)}
+                          {selectedFoodItem.isFree ? '100% FREE' : formatPrice(selectedFoodItem.price)}
                         </span>
                         <span className="text-[11px] bg-black/70 text-white px-2.5 py-1 rounded-full font-semibold">
                           {selectedFoodItem.quantity} kg
@@ -797,7 +798,7 @@ export function AIChatbotWidget() {
                       <div>
                         <h4 className="font-bold text-sm text-[#143628] leading-snug">{selectedFoodItem.name}</h4>
                         <p className="text-xs text-[#597367] mt-0.5 leading-relaxed">
-                          {selectedFoodItem.description || 'Pangan surplus layak konsumsi berkualitas tinggi.'}
+                          {selectedFoodItem.description || 'Wholesome, high-quality surplus food ready for consumption.'}
                         </p>
                       </div>
 
@@ -810,16 +811,16 @@ export function AIChatbotWidget() {
                         <div className="flex items-center gap-2 text-[11px] text-[#597367] pt-0.5">
                           <Clock size={11} className="text-[#B8401A] shrink-0" />
                           <span>
-                            Ambil sebelum: {selectedFoodItem.expiryTime
-                              ? new Date(selectedFoodItem.expiryTime).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB'
-                              : 'Hari ini'}
+                            Pickup before: {selectedFoodItem.expiryTime
+                              ? new Date(selectedFoodItem.expiryTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+                              : 'Today'}
                           </span>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-2 p-2 bg-emerald-50 border border-emerald-200 rounded-xl">
                         <ShieldCheck size={14} className="text-emerald-700 shrink-0" />
-                        <span className="text-[11px] text-emerald-900">Terverifikasi standar keamanan pangan BPOM.</span>
+                        <span className="text-[11px] text-emerald-900">Verified under BPOM & HACCP food safety protocols.</span>
                       </div>
 
                       <div className="flex flex-col gap-2 pt-1">
@@ -829,14 +830,14 @@ export function AIChatbotWidget() {
                           style={{ background: 'linear-gradient(135deg, #143628 0%, #2D6A4F 100%)' }}
                         >
                           <ShoppingBag size={13} />
-                          {isAuthenticated ? 'Ambil / Pesan Sekarang' : 'Masuk untuk Klaim Makanan'}
+                          {isAuthenticated ? 'Claim / Order Now' : 'Log In to Claim Food'}
                         </button>
                         <button
                           onClick={() => { setSelectedFoodItem(null); setIsOpen(false); window.location.hash = '#/penerima'; }}
                           className="w-full py-2 bg-white hover:bg-stone-50 border border-[#DCE5DB] text-[#143628] rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                           <MapPin size={12} />
-                          Lihat di Peta Katalog
+                          View on Live Map
                         </button>
                       </div>
                     </div>
@@ -854,7 +855,7 @@ export function AIChatbotWidget() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder={hasKey ? 'Tanya apa saja ke SARA…' : 'Cari makanan, resep, atau tanya pangan…'}
+                  placeholder={hasKey ? 'Ask SARA anything…' : 'Search surplus food, recipes, or safety tips…'}
                   className="flex-1 bg-transparent text-xs text-[#143628] focus:outline-none placeholder:text-[#597367]/55"
                 />
                 <button
@@ -868,7 +869,7 @@ export function AIChatbotWidget() {
                   style={inputValue.trim() && !isTyping ? {
                     background: 'linear-gradient(135deg, #143628 0%, #2D6A4F 100%)',
                   } : {}}
-                  aria-label="Kirim"
+                  aria-label="Send"
                 >
                   <Send size={13} className="translate-x-[0.5px]" />
                 </button>
@@ -877,15 +878,15 @@ export function AIChatbotWidget() {
               <div className="flex items-center justify-between mt-1.5 px-1 text-[9px] text-[#597367]/75">
                 <span className="flex items-center gap-1">
                   {hasKey
-                    ? <><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" /> Didukung Google Gemini AI</>
-                    : <><span className="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block" /> Mode Cerdas SARA Engine</>
+                    ? <><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" /> Powered by Google Gemini AI</>
+                    : <><span className="w-1.5 h-1.5 rounded-full bg-amber-400 inline-block" /> SARA Smart Engine Mode</>
                   }
                 </span>
                 <button
                   onClick={() => setShowSettings(true)}
                   className="hover:underline text-[#2D6A4F] font-semibold cursor-pointer"
                 >
-                  {hasKey ? 'Ubah API Key' : '⚡ Aktifkan AI Penuh'}
+                  {hasKey ? 'Change API Key' : '⚡ Activate Full AI'}
                 </button>
               </div>
             </div>

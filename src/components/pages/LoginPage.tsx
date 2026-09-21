@@ -24,19 +24,19 @@ export function LoginPage() {
     try {
       const result = await login(email, password);
       if (result.success) {
-        success('Autentikasi Berhasil', 'Selamat datang kembali di AksesPangan');
+        success('Authentication Successful', 'Welcome back to AksesPangan');
         const currentUser = getCurrentUser();
         const finalRole = currentUser?.role || 'penerima';
         if (finalRole === 'penyedia') window.location.hash = '#/penyedia';
         else if (finalRole === 'admin') window.location.hash = '#/admin';
         else window.location.hash = '#/penerima';
       } else {
-        setErrorMessage(result.error || 'Email atau kata sandi tidak sesuai');
-        error('Gagal Masuk', result.error || 'Email atau kata sandi tidak sesuai');
+        setErrorMessage(result.error || 'Invalid email or password');
+        error('Sign In Failed', result.error || 'Invalid email or password');
       }
     } catch (err: any) {
-      setErrorMessage(err.message || 'Terjadi kesalahan sistem');
-      error('Gagal Masuk', err.message || 'Terjadi kesalahan sistem');
+      setErrorMessage(err.message || 'A system error occurred');
+      error('Sign In Failed', err.message || 'A system error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -75,13 +75,13 @@ export function LoginPage() {
 
               <div className="max-w-md">
                 <p className="text-xs font-mono uppercase tracking-widest text-[#F3F8F5]/70 mb-3">
-                  Inisiatif Ketahanan Pangan
+                  Food Security Initiative
                 </p>
                 <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#F3F8F5] leading-snug mb-4">
-                  Menghubungkan surplus makanan dengan kebutuhan nyata masyarakat.
+                  Connecting food surplus with real community needs.
                 </h2>
                 <p className="text-sm text-[#F3F8F5]/80 leading-relaxed mb-8">
-                  Sistem distribusi terpadu yang membantu industri kuliner mendokumentasikan dampak lingkungan sekaligus memperluas akses pangan berkualitas secara bermartabat.
+                  An integrated distribution system helping culinary businesses document environmental impact while expanding dignified access to nutritious food.
                 </p>
               </div>
             </div>
@@ -91,18 +91,18 @@ export function LoginPage() {
               <div className="grid grid-cols-3 gap-6">
                 <div>
                   <div className="text-xl sm:text-2xl font-semibold font-mono text-[#F3F8F5] tracking-tight">
-                    12.450 kg
+                    12,450 kg
                   </div>
                   <div className="text-[11px] text-[#F3F8F5]/60 mt-1">
-                    Pangan Terselamatkan
+                    Rescued Food
                   </div>
                 </div>
                 <div>
                   <div className="text-xl sm:text-2xl font-semibold font-mono text-[#F3F8F5] tracking-tight">
-                    31.200
+                    31,200
                   </div>
                   <div className="text-[11px] text-[#F3F8F5]/60 mt-1">
-                    Porsi Tersalurkan
+                    Meals Distributed
                   </div>
                 </div>
                 <div>
@@ -110,7 +110,7 @@ export function LoginPage() {
                     100%
                   </div>
                   <div className="text-[11px] text-[#F3F8F5]/60 mt-1">
-                    Standar Mutu Uji
+                    Quality Tested
                   </div>
                 </div>
               </div>
@@ -124,10 +124,10 @@ export function LoginPage() {
               {/* Form Header */}
               <div className="mb-7">
                 <h2 className="text-2xl font-semibold tracking-tight text-[#143628] mb-1.5">
-                  Masuk ke Akun
+                  Sign in to Account
                 </h2>
                 <p className="text-sm text-[#597367]">
-                  Masukkan alamat email dan kata sandi Anda untuk melanjutkan ke platform.
+                  Enter your email address and password to continue to the platform.
                 </p>
               </div>
 
@@ -136,7 +136,7 @@ export function LoginPage() {
                 <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-2.5 animate-in fade-in slide-in-from-top-2">
                   <AlertTriangle size={18} className="shrink-0 mt-0.5 text-red-600" />
                   <div className="flex-1">
-                    <p className="font-bold mb-0.5 text-red-800">Layanan Microservice Terputus</p>
+                    <p className="font-bold mb-0.5 text-red-800">Microservice Service Disconnected</p>
                     <p className="leading-relaxed m-0 text-red-700">{errorMessage}</p>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ export function LoginPage() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-medium text-[#143628] mb-1.5">
-                    Alamat Email
+                    Email Address
                   </label>
                   <div className="relative">
                     <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#597367] pointer-events-none">
@@ -157,7 +157,7 @@ export function LoginPage() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="nama@email.com"
+                      placeholder="name@email.com"
                       className="w-full bg-[#FFFFFF] text-[#143628] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#DCE5DB] focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 outline-none transition-all"
                     />
                   </div>
@@ -166,14 +166,14 @@ export function LoginPage() {
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className="block text-xs font-medium text-[#143628]">
-                      Kata Sandi
+                      Password
                     </label>
                     <button
                       type="button"
-                      onClick={() => alert('Untuk bantuan kata sandi atau reset akun, silakan hubungi tim administrator di support@aksespangan.id')}
+                      onClick={() => alert('For password assistance or account reset, please contact the administrator team at support@aksespangan.id')}
                       className="text-xs text-[#2D6A4F] hover:underline cursor-pointer"
                     >
-                      Bantuan Sandi
+                      Password Help
                     </button>
                   </div>
                   <div className="relative">
@@ -208,7 +208,7 @@ export function LoginPage() {
                       onChange={(e) => setRememberMe(e.target.checked)}
                       className="rounded border-[#DCE5DB] text-[#2D6A4F] focus:ring-[#2D6A4F]"
                     />
-                    <span>Ingat sesi masuk di perangkat ini</span>
+                    <span>Remember session on this device</span>
                   </label>
                 </div>
 
@@ -219,19 +219,19 @@ export function LoginPage() {
                     disabled={isLoading}
                     className="w-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] font-medium text-sm h-11 rounded-xl transition-all flex items-center justify-center cursor-pointer shadow-sm hover:shadow-md disabled:opacity-50"
                   >
-                    {isLoading ? 'Memverifikasi...' : 'Lanjutkan ke Platform'}
+                    {isLoading ? 'Verifying...' : 'Continue to Platform'}
                   </button>
                 </div>
               </form>
 
               {/* Registration Link */}
               <div className="mt-6 pt-5 border-t border-[#E5ECE4] text-center text-xs text-[#597367]">
-                Belum memiliki akun?{' '}
+                Don&apos;t have an account?{' '}
                 <a
                   href="#/register"
                   className="font-semibold text-[#2D6A4F] hover:text-[#B8401A] hover:underline transition-colors"
                 >
-                  Daftar akun baru
+                  Register new account
                 </a>
               </div>
             </div>
@@ -243,7 +243,7 @@ export function LoginPage() {
       {/* Clean Minimalist Footer */}
       <footer className="py-4 text-center text-xs text-[#597367] border-t border-[#DCE5DB] bg-[#F7F9F6]">
         <p className="m-0">
-          AksesPangan &copy; 2026 • Platform Kolaborasi Penyelamatan Surplus Pangan
+          AksesPangan &copy; 2026 • Surplus Food Rescue & Redistribution Network
         </p>
       </footer>
     </div>

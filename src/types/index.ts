@@ -231,14 +231,14 @@ export interface AppState {
 
 // --- Food Category Labels ---
 export const FOOD_CATEGORY_LABELS: Record<FoodCategory, string> = {
-  nasi: 'Nasi & Karbohidrat',
-  lauk: 'Lauk Pauk',
-  sayur: 'Sayur & Salad',
-  roti: 'Roti & Pastry',
-  kue: 'Kue & Snack',
-  buah: 'Buah-buahan',
-  minuman: 'Minuman',
-  lainnya: 'Lainnya',
+  nasi: 'Rice & Carbs',
+  lauk: 'Main Dishes',
+  sayur: 'Vegetables & Salad',
+  roti: 'Bread & Pastry',
+  kue: 'Cakes & Snacks',
+  buah: 'Fruits',
+  minuman: 'Beverages',
+  lainnya: 'Other',
 };
 
 export const FOOD_CATEGORY_EMOJI: Record<FoodCategory, string> = {
@@ -253,21 +253,21 @@ export const FOOD_CATEGORY_EMOJI: Record<FoodCategory, string> = {
 };
 
 export const BOOKING_STATUS_LABELS: Record<BookingStatus, string> = {
-  menunggu: 'Menunggu Konfirmasi',
-  dikonfirmasi: 'Dikonfirmasi',
-  diambil: 'Sudah Diambil',
-  dibatalkan: 'Dibatalkan',
-  kedaluwarsa: 'Kedaluwarsa',
+  menunggu: 'Awaiting Confirmation',
+  dikonfirmasi: 'Confirmed',
+  diambil: 'Completed (Claimed)',
+  dibatalkan: 'Cancelled',
+  kedaluwarsa: 'Expired',
 };
 
 export const BUSINESS_TYPE_LABELS: Record<BusinessType, string> = {
-  restoran: 'Restoran',
+  restoran: 'Restaurant',
   hotel: 'Hotel',
-  kafe: 'Kafe',
-  katering: 'Katering',
+  kafe: 'Cafe',
+  katering: 'Catering',
   supermarket: 'Supermarket',
-  pasar: 'Pasar',
-  lainnya: 'Lainnya',
+  pasar: 'Market',
+  lainnya: 'Other',
 };
 
 // --- Chat & Complaints ---

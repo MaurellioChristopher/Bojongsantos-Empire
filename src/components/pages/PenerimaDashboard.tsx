@@ -112,7 +112,7 @@ export function PenerimaDashboard() {
 
   const handleBook = async (item: SurplusItem, deliveryOptions?: DeliveryOptionsPayload) => {
     if (!user) {
-      warning('Masuk Diperlukan', 'Silakan masuk atau daftar terlebih dahulu untuk menyelesaikan pesanan.');
+      warning('Sign In Required', 'Please sign in or register first to complete your order.');
       window.location.hash = '#/login';
       return;
     }
@@ -142,17 +142,17 @@ export function PenerimaDashboard() {
 
       const successMsg =
         deliveryOptions?.fulfillmentMethod === 'courier'
-          ? `Pesanan berhasil! Kurir ${deliveryOptions.courier?.name || 'Mitra'} ditugaskan mengantar makanan ke lokasi Anda.`
-          : `${item.name} telah dipesan. Dialihkan ke tiket pesanan Anda...`;
+          ? `Order successful! Courier ${deliveryOptions.courier?.name || 'Partner'} has been assigned to deliver to your location.`
+          : `${item.name} has been reserved. Redirecting to your order ticket...`;
 
-      success('Pemesanan Berhasil', successMsg);
+      success('Order Placed Successfully', successMsg);
       setSelectedItem(null);
       refreshItems();
       setTimeout(() => {
         window.location.hash = '#/penerima/booking';
       }, 500);
     } catch (err: any) {
-      warning('Perhatian', err.message || 'Item tidak dapat dipesan saat ini');
+      warning('Notice', err.message || 'Item cannot be ordered at this time');
       refreshItems();
     } finally {
       setIsBookingLoading(false);
@@ -163,27 +163,27 @@ export function PenerimaDashboard() {
   const categories: { id: FoodCategory | 'all'; label: string }[] = useMemo(() => {
     if (itemTypeFilter === 'siap_santap') {
       return [
-        { id: 'all', label: 'Semua Makanan Siap Santap' },
-        { id: 'nasi', label: '🍚 Nasi & Lauk' },
-        { id: 'roti', label: '🍞 Roti & Pastry' },
-        { id: 'minuman', label: '🥤 Minuman' },
+        { id: 'all', label: 'All Ready-to-Eat Food' },
+        { id: 'nasi', label: '🍚 Rice & Dishes' },
+        { id: 'roti', label: '🍞 Bakery & Pastry' },
+        { id: 'minuman', label: '🥤 Beverages' },
       ];
     }
     if (itemTypeFilter === 'bahan_baku') {
       return [
-        { id: 'all', label: 'Semua Bahan Baku' },
-        { id: 'sayur', label: '🥬 Sayuran Segar' },
-        { id: 'buah', label: '🍎 Buah-buahan' },
-        { id: 'lainnya', label: '📦 Bahan Pokok' },
+        { id: 'all', label: 'All Raw Produce' },
+        { id: 'sayur', label: '🥬 Fresh Vegetables' },
+        { id: 'buah', label: '🍎 Fresh Fruits' },
+        { id: 'lainnya', label: '📦 Staples & Grains' },
       ];
     }
     return [
-      { id: 'all', label: 'Semua Kategori' },
-      { id: 'nasi', label: '🍚 Nasi & Lauk' },
-      { id: 'roti', label: '🍞 Roti & Pastry' },
-      { id: 'sayur', label: '🥬 Sayuran Segar' },
-      { id: 'buah', label: '🍎 Buah-buahan' },
-      { id: 'minuman', label: '🥤 Minuman' },
+      { id: 'all', label: 'All Categories' },
+      { id: 'nasi', label: '🍚 Rice & Dishes' },
+      { id: 'roti', label: '🍞 Bakery & Pastry' },
+      { id: 'sayur', label: '🥬 Fresh Vegetables' },
+      { id: 'buah', label: '🍎 Fresh Fruits' },
+      { id: 'minuman', label: '🥤 Beverages' },
     ];
   }, [itemTypeFilter]);
 
@@ -194,16 +194,16 @@ export function PenerimaDashboard() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#143628] mb-4 border border-[#DCE5DB] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Akses Katalog Terkunci</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Catalog Access Locked</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Sesuai ketentuan platform, pengguna harus masuk sebagai <strong>Penerima Manfaat</strong> untuk menjelajahi Katalog Surplus dan melakukan pemesanan makanan.
+          Under platform policy, you must be signed in as a <strong>Recipient</strong> to browse the Surplus Catalog and order food.
         </p>
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <a href="#/login" className="btn-apple-primary text-sm py-2.5 px-6">
-            Masuk ke Akun Penerima
+            Sign In to Recipient Account
           </a>
           <a href="#/register" className="btn-apple-secondary text-sm py-2.5 px-6">
-            Daftar Sebagai Penerima
+            Register as Recipient
           </a>
         </div>
       </div>
@@ -217,12 +217,12 @@ export function PenerimaDashboard() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#2D6A4F] mb-4 border border-[#DCE5DB] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Akses Dibatasi untuk Penyedia</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Access Restricted for Providers</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Mitra Penyedia tidak dapat mengakses Katalog Surplus untuk memesan makanan sebagai Penerima. Silakan gunakan dashboard penyedia untuk mengelola stok surplus Anda.
+          Provider Partners cannot access the Surplus Catalog to order food as Recipients. Please use your provider dashboard to manage your surplus inventory.
         </p>
         <a href="#/penyedia" className="btn-apple-primary text-sm py-2.5 px-6">
-          Kembali ke Dashboard Penyedia
+          Back to Provider Dashboard
         </a>
       </div>
     );
@@ -235,12 +235,12 @@ export function PenerimaDashboard() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#143628] mb-4 border border-[#DCE5DB] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Akses Administrator</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Administrator Access</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Akun Administrator tidak dapat melakukan pemesanan surplus sebagai Penerima.
+          Administrator accounts cannot place surplus orders as Recipients.
         </p>
         <a href="#/admin" className="btn-apple-primary text-sm py-2.5 px-6">
-          Kembali ke Dashboard Admin
+          Back to Admin Dashboard
         </a>
       </div>
     );
@@ -252,11 +252,11 @@ export function PenerimaDashboard() {
         {/* Header Section */}
         <div className="mb-6">
           <h1 className="text-display-lg text-[#143628] mb-1">
-            Katalog Penyelamatan Pangan
+            Food Rescue Catalog
           </h1>
           <div className="h-[2px] rounded-full mb-2 w-16 bg-[#2D6A4F]" />
           <p className="text-body-apple text-[#597367]">
-            Pilih kategori pangan surplus yang ingin Anda selamatkan: Makanan Siap Santap, Bahan Baku Segar, atau Segera Kedaluwarsa.
+            Choose the surplus food category you wish to rescue: Ready-to-Eat Meals, Fresh Raw Produce, or Urgent Expiry.
           </p>
         </div>
 
@@ -275,13 +275,13 @@ export function PenerimaDashboard() {
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-[#143628] flex items-center gap-1.5">
-                      <span>Lencana Pahlawan Pangan Anda</span>
+                      <span>Your Food Hero Badges</span>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#2D6A4F] text-white font-bold">
-                        {unlockedCount}/{badges.length} Terbuka
+                        {unlockedCount}/{badges.length} Unlocked
                       </span>
                     </h3>
                     <p className="text-[11px] text-[#597367]">
-                      Lencana apresiasi atas aksi nyata penyelamatan pangan dan penurunan emisi lingkungan.
+                      Badges honoring direct food rescue action and environmental emission reductions.
                     </p>
                   </div>
                 </div>
@@ -302,7 +302,7 @@ export function PenerimaDashboard() {
                       <span className={`text-[9px] font-mono uppercase px-1.5 py-0.5 rounded-full font-bold ${
                         b.isUnlocked ? 'bg-[#2D6A4F] text-white' : 'bg-[#DCE5DB] text-[#597367]'
                       }`}>
-                        {b.isUnlocked ? 'Terbuka' : `${b.progress}%`}
+                        {b.isUnlocked ? 'Unlocked' : `${b.progress}%`}
                       </span>
                     </div>
                     <div>
@@ -342,18 +342,18 @@ export function PenerimaDashboard() {
             <div className="flex items-center justify-between w-full mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🍲</span>
-                <span className="font-bold text-sm tracking-tight">Siap Santap</span>
+                <span className="font-bold text-sm tracking-tight">Ready-to-Eat</span>
               </div>
               <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${
                 itemTypeFilter === 'siap_santap' ? 'bg-[#2D6A4F] text-white' : 'bg-[#EDF2EC] text-[#143628]'
               }`}>
-                {typeCounts.siapSantap} Item
+                {typeCounts.siapSantap} Items
               </span>
             </div>
             <p className={`text-[11px] leading-relaxed ${
               itemTypeFilter === 'siap_santap' ? 'text-white/80' : 'text-[#597367]'
             }`}>
-              Hidangan matang resto, kafe & katering siap konsumsi.
+              Prepared cooked dishes from restaurants, cafes &amp; caterers.
             </p>
           </button>
 
@@ -373,18 +373,18 @@ export function PenerimaDashboard() {
             <div className="flex items-center justify-between w-full mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🥬</span>
-                <span className="font-bold text-sm tracking-tight">Bahan Baku</span>
+                <span className="font-bold text-sm tracking-tight">Raw Produce</span>
               </div>
               <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${
                 itemTypeFilter === 'bahan_baku' ? 'bg-[#2D6A4F] text-white' : 'bg-[#EDF2EC] text-[#143628]'
               }`}>
-                {typeCounts.bahanBaku} Item
+                {typeCounts.bahanBaku} Items
               </span>
             </div>
             <p className={`text-[11px] leading-relaxed ${
               itemTypeFilter === 'bahan_baku' ? 'text-white/80' : 'text-[#597367]'
             }`}>
-              Sayuran, beras, kentang & buah segar siap olah masak.
+              Fresh vegetables, grains, potatoes &amp; fruits ready to cook.
             </p>
           </button>
 
@@ -404,18 +404,18 @@ export function PenerimaDashboard() {
             <div className="flex items-center justify-between w-full mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">⚡</span>
-                <span className="font-bold text-sm tracking-tight text-inherit">Darurat Pangan</span>
+                <span className="font-bold text-sm tracking-tight text-inherit">Urgent Rescue</span>
               </div>
               <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${
                 itemTypeFilter === 'urgent' ? 'bg-white text-[#B8401A]' : 'bg-red-100 text-[#B8401A]'
               }`}>
-                {typeCounts.urgent} Item
+                {typeCounts.urgent} Items
               </span>
             </div>
             <p className={`text-[11px] leading-relaxed ${
               itemTypeFilter === 'urgent' ? 'text-white/90' : 'text-[#597367]'
             }`}>
-              Batas waktu &lt; 4 jam. Prioritas penyelamatan utama!
+              Expiry &lt; 4 hours. Highest food rescue priority!
             </p>
           </button>
 
@@ -435,7 +435,7 @@ export function PenerimaDashboard() {
             <div className="flex items-center justify-between w-full mb-2">
               <div className="flex items-center gap-2">
                 <span className="text-xl">🍱</span>
-                <span className="font-bold text-sm tracking-tight">Semua Pangan</span>
+                <span className="font-bold text-sm tracking-tight">All Food</span>
               </div>
               <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${
                 itemTypeFilter === 'all' ? 'bg-[#2D6A4F] text-white' : 'bg-[#EDF2EC] text-[#143628]'
@@ -446,7 +446,7 @@ export function PenerimaDashboard() {
             <p className={`text-[11px] leading-relaxed ${
               itemTypeFilter === 'all' ? 'text-white/80' : 'text-[#597367]'
             }`}>
-              Jelajahi seluruh persediaan surplus yang tersedia.
+              Browse all available surplus food items.
             </p>
           </button>
         </div>
@@ -460,9 +460,9 @@ export function PenerimaDashboard() {
                   🥬
                 </span>
                 <div>
-                  <span className="font-bold text-[#143628]">Panduan Bahan Baku Mentah: </span>
+                  <span className="font-bold text-[#143628]">Raw Produce Guidelines: </span>
                   <span className="text-[#597367]">
-                    Bahan pangan mentah belum melalui proses memasak. Cuci bersih dengan air mengalir dan simpan pada suhu dingin/kulkas sebelum diolah.
+                    Raw produce has not undergone cooking. Wash thoroughly under running water and store at chilled/refrigerator temperatures before cooking.
                   </span>
                 </div>
               </>
@@ -472,9 +472,9 @@ export function PenerimaDashboard() {
                   🍲
                 </span>
                 <div>
-                  <span className="font-bold text-[#143628]">Standar Makanan Siap Santap: </span>
+                  <span className="font-bold text-[#143628]">Ready-to-Eat Standards: </span>
                   <span className="text-[#597367]">
-                    Makanan matang telah terverifikasi aman. Demi kesehatan, santap maksimal 4 jam sejak diambil atau panaskan kembali hingga suhu &gt;74°C.
+                    Cooked dishes are verified wholesome and safe. For maximum safety, consume within 4 hours of pickup or reheat thoroughly to &gt;74°C.
                   </span>
                 </div>
               </>
@@ -484,9 +484,9 @@ export function PenerimaDashboard() {
                   🛡️
                 </span>
                 <div>
-                  <span className="font-bold text-[#143628]">Katalog Terpadu: </span>
+                  <span className="font-bold text-[#143628]">Integrated Catalog: </span>
                   <span className="text-[#597367]">
-                    Gunakan tab di atas untuk memilih secara spesifik antara <strong>Makanan Siap Santap</strong> (matang) atau <strong>Bahan Baku</strong> (mentah/segar).
+                    Use the tabs above to filter specifically between <strong>Ready-to-Eat Meals</strong> (cooked) or <strong>Raw Produce</strong> (fresh/uncooked).
                   </span>
                 </div>
               </>
@@ -508,10 +508,10 @@ export function PenerimaDashboard() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={
                 itemTypeFilter === 'bahan_baku'
-                  ? 'Cari sayuran segar, buah, atau bahan dapur...'
+                  ? 'Search fresh vegetables, fruits, or cooking ingredients...'
                   : itemTypeFilter === 'siap_santap'
-                  ? 'Cari hidangan nasi, lauk, roti matang, resto...'
-                  : 'Cari makanan siap santap atau bahan baku...'
+                  ? 'Search rice meals, cooked dishes, bakeries, restaurants...'
+                  : 'Search ready-to-eat meals or raw produce...'
               }
               className="apple-search-pill"
             />
@@ -527,7 +527,7 @@ export function PenerimaDashboard() {
                   : 'text-[#597367] hover:text-[#143628]'
               }`}
             >
-              <List size={15} /> Daftar ({filteredItems.length})
+              <List size={15} /> List ({filteredItems.length})
             </button>
             <button
               onClick={() => setViewMode('map')}
@@ -537,7 +537,7 @@ export function PenerimaDashboard() {
                   : 'text-[#597367] hover:text-[#143628]'
               }`}
             >
-              <Map size={15} /> Peta
+              <Map size={15} /> Map
             </button>
           </div>
         </div>
@@ -565,7 +565,7 @@ export function PenerimaDashboard() {
               priceFilter === 'free' ? 'apple-chip-active' : ''
             }`}
           >
-            Hanya Gratis
+            Free Only
           </button>
         </div>
 
@@ -586,9 +586,9 @@ export function PenerimaDashboard() {
                 <div className="w-12 h-12 rounded-full bg-[#EDF2EC] flex items-center justify-center mx-auto mb-3 text-[#597367]">
                   <Search size={22} />
                 </div>
-                <h3 className="text-body-strong text-[#143628] mb-1">Tidak Ada Makanan Ditemukan</h3>
+                <h3 className="text-body-strong text-[#143628] mb-1">No Food Found</h3>
                 <p className="text-caption-apple text-[#597367] mb-4">
-                  Coba ubah kata kunci atau ganti filter kategori.
+                  Try adjusting your search terms or changing the category filter.
                 </p>
                 <button
                   onClick={() => {
@@ -644,7 +644,7 @@ export function PenerimaDashboard() {
 
                             {isUrgent && (
                               <span className="animate-pulse inline-flex items-center gap-1 text-[9px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#B8401A] text-white shadow-md border border-white/20">
-                                <span>⚡ Darurat &lt; 4 Jam</span>
+                                <span>⚡ Urgent &lt; 4h</span>
                               </span>
                             )}
                           </div>
@@ -658,14 +658,14 @@ export function PenerimaDashboard() {
                                   : 'bg-[#0C2017] text-[#F3F8F5] border border-[#F3F8F5]/20'
                               }`}
                             >
-                              {item.isFree ? 'GRATIS' : formatPrice(item.price)}
+                              {item.isFree ? 'FREE' : formatPrice(item.price)}
                             </span>
                           </div>
 
                           {/* Bottom Left: Portions Tag */}
                           <div className="absolute bottom-3 left-3 z-10">
                             <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded-[3px] bg-[#0C2017]/75 backdrop-blur-md text-[#F3F8F5] border border-[#F3F8F5]/15">
-                              {item.quantity} kg · {item.portionCount} porsi
+                              {item.quantity} kg · {item.portionCount} portions
                             </span>
                           </div>
                         </div>
@@ -691,7 +691,7 @@ export function PenerimaDashboard() {
                       {/* Bottom Action Area */}
                       <div className="px-5 pb-5 pt-3 border-t border-[#DCE5DB] bg-[#FAF7F2] flex items-center justify-between gap-2">
                         <div className="flex flex-col">
-                          <span className="text-[10px] uppercase font-mono tracking-wider text-[#597367]">Sisa Waktu</span>
+                          <span className="text-[10px] uppercase font-mono tracking-wider text-[#597367]">Time Left</span>
                           <div className={`text-caption-strong flex items-center gap-1 font-mono ${isUrgent ? 'text-[#B8401A] font-bold' : 'text-[#2D6A4F]'}`}>
                             <Clock size={12} />
                             <span>{formatCountdown(item.expiryTime)}</span>
@@ -707,10 +707,10 @@ export function PenerimaDashboard() {
                                 setRecipeModalItem(item);
                               }}
                               className="bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#2D6A4F] px-2.5 py-1.5 rounded-full text-[11px] font-semibold border border-[#DCE5DB] transition-all cursor-pointer flex items-center gap-1 shadow-2xs"
-                              title="Lihat Ide Olah Resep"
+                              title="View Recipe Ideas"
                             >
                               <span>💡</span>
-                              <span className="hidden sm:inline">Ide Resep</span>
+                              <span className="hidden sm:inline">Recipe Ideas</span>
                             </button>
                           )}
 
@@ -720,7 +720,7 @@ export function PenerimaDashboard() {
                             whileTap={{ scale: 0.96 }}
                             className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-sm cursor-pointer transition-all shrink-0"
                           >
-                            Detail & Pesan
+                            Details &amp; Order
                           </motion.button>
                         </div>
                       </div>
@@ -744,7 +744,7 @@ export function PenerimaDashboard() {
                   <div className="flex items-center justify-between pb-3 border-b border-[#E5ECE4] mb-4">
                     <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#2D6A4F]">
                       <ChefHat size={16} />
-                      <span>Ide Olah Bahan Baku Cerdas</span>
+                      <span>Smart Culinary Recipe Ideas</span>
                     </div>
                     <button
                       onClick={() => setRecipeModalItem(null)}
@@ -761,10 +761,10 @@ export function PenerimaDashboard() {
                       className="w-12 h-12 rounded-lg object-cover border border-[#DCE5DB]"
                     />
                     <div>
-                      <div className="text-[10px] font-mono text-[#597367] uppercase">Bahan Mentah Terkait</div>
+                      <div className="text-[10px] font-mono text-[#597367] uppercase">Related Raw Produce</div>
                       <div className="text-xs font-bold text-[#143628]">{recipeModalItem.name}</div>
                       <div className="text-[10px] text-[#2D6A4F]">
-                        Tersedia: {recipeModalItem.quantity} kg • {recipeModalItem.providerBusinessName}
+                        Available: {recipeModalItem.quantity} kg • {recipeModalItem.providerBusinessName}
                       </div>
                     </div>
                   </div>
@@ -783,7 +783,7 @@ export function PenerimaDashboard() {
                   <div className="mb-4 bg-[#FAF7F2] p-3.5 rounded-xl border border-[#DCE5DB]">
                     <div className="text-xs font-bold text-[#143628] mb-2 flex items-center gap-1.5">
                       <span>🥗</span>
-                      <span>Bahan-Bahan yang Dibutuhkan:</span>
+                      <span>Ingredients Needed:</span>
                     </div>
                     <ul className="text-xs text-[#5A4D44] space-y-1 list-disc list-inside">
                       {recipe.ingredients.map((ing, i) => (
@@ -796,7 +796,7 @@ export function PenerimaDashboard() {
                   <div className="mb-4">
                     <div className="text-xs font-bold text-[#143628] mb-2 flex items-center gap-1.5">
                       <span>🍳</span>
-                      <span>Langkah Memasak Praktis:</span>
+                      <span>Practical Cooking Steps:</span>
                     </div>
                     <ol className="text-xs text-[#597367] space-y-2 list-decimal list-inside leading-relaxed">
                       {recipe.steps.map((step, i) => (
@@ -808,11 +808,11 @@ export function PenerimaDashboard() {
                   {/* Tips */}
                   <div className="p-3 bg-[#EDF2EC] rounded-xl border border-[#DCE5DB] text-xs space-y-1.5 mb-5">
                     <div className="flex items-start gap-1.5 text-[#2D6A4F]">
-                      <span className="font-bold shrink-0">🌿 Manfaat Gizi:</span>
+                      <span className="font-bold shrink-0">🌿 Nutritional Benefits:</span>
                       <span className="text-[#143628]">{recipe.nutritionNote}</span>
                     </div>
                     <div className="flex items-start gap-1.5 text-[#B8401A]">
-                      <span className="font-bold shrink-0">♻️ Tips Zero-Waste:</span>
+                      <span className="font-bold shrink-0">♻️ Zero-Waste Tip:</span>
                       <span className="text-[#143628]">{recipe.zeroWasteTip}</span>
                     </div>
                   </div>
@@ -825,13 +825,13 @@ export function PenerimaDashboard() {
                       }}
                       className="flex-1 h-10 bg-[#143628] hover:bg-[#1C4736] text-white font-medium text-xs rounded-xl shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
                     >
-                      <span>Pesan Bahan Baku Ini ({recipeModalItem.quantity} kg)</span>
+                      <span>Order This Produce ({recipeModalItem.quantity} kg)</span>
                     </button>
                     <button
                       onClick={() => setRecipeModalItem(null)}
                       className="px-4 h-10 bg-white hover:bg-[#EDF2EC] text-[#143628] font-medium text-xs rounded-xl border border-[#DCE5DB] transition-all cursor-pointer"
                     >
-                      Tutup
+                      Close
                     </button>
                   </div>
                 </div>

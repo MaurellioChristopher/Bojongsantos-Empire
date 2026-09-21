@@ -48,12 +48,12 @@ export function PenyediaDashboard() {
           <div className="w-16 h-16 rounded-full bg-[#EDF2EC] border border-[#DCE5DB] flex items-center justify-center mx-auto mb-4 text-[#143628]">
             <Store size={32} />
           </div>
-          <h2 className="text-display-md text-[#143628] mb-2">Akses Terbatas</h2>
+          <h2 className="text-display-md text-[#143628] mb-2">Restricted Access</h2>
           <p className="text-body-apple text-[#597367] mb-6">
-            Halaman ini khusus untuk mitra penyedia makanan surplus terverifikasi.
+            This page is reserved for verified surplus food business partners.
           </p>
           <a href="#/login" className="w-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] py-3 rounded-xl font-medium block text-sm transition-all shadow-sm">
-            Masuk sebagai Mitra
+            Log in as Partner
           </a>
         </div>
       </div>
@@ -69,10 +69,10 @@ export function PenyediaDashboard() {
   const unlockedBadges = badges.filter((b) => b.isUnlocked).length;
 
   const stats = [
-    { label: 'Surplus Aktif', value: activeItems.length, unit: 'item', icon: Package },
-    { label: 'Booking Masuk', value: pendingBookings.length, unit: 'pesanan', icon: ClipboardList },
-    { label: 'Makanan Disalurkan', value: totalKg, unit: 'kg', icon: CheckCircle },
-    { label: 'Total Transaksi', value: completedBookings.length, unit: 'kali', icon: TrendingUp },
+    { label: 'Active Surplus', value: activeItems.length, unit: 'items', icon: Package },
+    { label: 'Incoming Bookings', value: pendingBookings.length, unit: 'orders', icon: ClipboardList },
+    { label: 'Food Distributed', value: totalKg, unit: 'kg', icon: CheckCircle },
+    { label: 'Total Transactions', value: completedBookings.length, unit: 'times', icon: TrendingUp },
   ];
 
   return (
@@ -82,13 +82,13 @@ export function PenyediaDashboard() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <span className="text-caption-strong text-[#2D6A4F] uppercase tracking-wide mb-1 inline-block font-bold">
-              Portal Mitra Usaha
+              Business Partner Portal
             </span>
             <h1 className="text-display-lg text-[#143628]">
               {user.businessName || user.name}
             </h1>
             <p className="text-body-apple text-[#597367] m-0">
-              Kelola stok makanan surplus dan pantau pesanan pengambilan masyarakat.
+              Manage surplus food inventory and monitor community pickup orders.
             </p>
           </div>
 
@@ -98,11 +98,11 @@ export function PenyediaDashboard() {
               className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-[#143628] border border-[#DCE5DB] px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-all shadow-2xs cursor-pointer"
             >
               <Award size={16} className="text-[#2D6A4F]" />
-              <span>Sertifikat Hijau ESG</span>
+              <span>ESG Green Certificate</span>
             </button>
 
             <a href="#/penyedia/surplus" className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] px-4 py-2.5 rounded-xl text-sm font-medium flex items-center gap-2 transition-all shadow-sm">
-              <Plus size={16} /> Unggah Surplus Baru
+              <Plus size={16} /> Upload New Surplus
             </a>
           </div>
         </div>
@@ -117,16 +117,16 @@ export function PenyediaDashboard() {
             <div className="max-w-xl">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest bg-white/15 px-2.5 py-0.5 rounded-full font-bold text-[#E5ECE4]">
-                  Tanggung Jawab Berkelanjutan
+                  Corporate Sustainability
                 </span>
-                <span className="text-[10px] font-mono text-[#DCE5DB]">• SDGs 2 & 12</span>
+                <span className="text-[10px] font-mono text-[#DCE5DB]">• SDGs 2 &amp; 12</span>
               </div>
               <h2 className="text-lg sm:text-xl font-bold mb-1.5 flex items-center gap-2">
-                <span>Mitra Hijau Ramah Lingkungan</span>
+                <span>Eco-Friendly Green Partner</span>
                 <ShieldCheck size={20} className="text-[#8FB397]" />
               </h2>
               <p className="text-xs sm:text-sm text-[#DCE5DB] leading-relaxed">
-                Unit usaha Anda telah menyalurkan <strong>{totalKg} kg</strong> pangan berkualitas dan berhasil mencegah potensi emisi sebesar <strong>{co2Saved} kg CO₂e</strong> ke atmosfer bumi.
+                Your business has distributed <strong>{totalKg} kg</strong> of quality food and prevented approximately <strong>{co2Saved} kg CO₂e</strong> of greenhouse gas emissions from entering the atmosphere.
               </p>
             </div>
 
@@ -136,7 +136,7 @@ export function PenyediaDashboard() {
                 className="bg-[#FAF7F2] hover:bg-white text-[#143628] px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all shadow-sm cursor-pointer"
               >
                 <FileCheck size={16} className="text-[#2D6A4F]" />
-                <span>Unduh / Cetak Sertifikat ESG</span>
+                <span>Download / Print ESG Certificate</span>
               </button>
             </div>
           </div>
@@ -166,13 +166,13 @@ export function PenyediaDashboard() {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-[#143628] flex items-center gap-2">
-                  <span>Pencapaian Pahlawan Pangan Mitra</span>
+                  <span>Partner Food Hero Achievements</span>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#2D6A4F] text-white font-bold">
-                    {unlockedBadges}/{badges.length} Terbuka
+                    {unlockedBadges}/{badges.length} Unlocked
                   </span>
                 </h3>
                 <p className="text-[11px] text-[#597367] m-0">
-                  Apresiasi atas kontribusi nyata bisnis Anda dalam mencegah food waste
+                  Recognition of your business's impact in preventing food waste
                 </p>
               </div>
             </div>
@@ -193,7 +193,7 @@ export function PenyediaDashboard() {
                     <span className="text-2xl">{b.icon}</span>
                     {b.isUnlocked ? (
                       <span className="text-[9px] font-bold font-mono px-1.5 py-0.5 rounded bg-[#2D6A4F] text-white">
-                        Diraih
+                        Earned
                       </span>
                     ) : (
                       <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#DCE5DB] text-[#597367]">
@@ -226,20 +226,20 @@ export function PenyediaDashboard() {
         <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 mb-8 shadow-xs">
           <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#DCE5DB]">
             <div>
-              <h3 className="text-tagline text-[#143628] mb-0.5">Stok Surplus Aktif</h3>
-              <p className="text-caption-apple text-[#597367] m-0">Makanan yang saat ini tampil di peta pencarian</p>
+              <h3 className="text-tagline text-[#143628] mb-0.5">Active Surplus Inventory</h3>
+              <p className="text-caption-apple text-[#597367] m-0">Food currently listed on the live discovery map</p>
             </div>
             <a href="#/penyedia/surplus" className="text-[#2D6A4F] hover:text-[#B8401A] text-caption-strong flex items-center gap-1 font-semibold">
-              Kelola Semua ({surplus.length}) <ArrowRight size={14} />
+              Manage All ({surplus.length}) <ArrowRight size={14} />
             </a>
           </div>
 
           {activeItems.length === 0 ? (
             <div className="text-center py-12 text-[#597367]">
               <Package size={32} className="text-[#A8988B] mx-auto mb-2" />
-              <p className="text-body-apple m-0">Belum ada surplus aktif saat ini.</p>
+              <p className="text-body-apple m-0">No active surplus items right now.</p>
               <a href="#/penyedia/surplus" className="text-[#2D6A4F] hover:underline text-sm mt-2 inline-block font-medium">
-                + Tambah surplus makanan pertama Anda
+                + Add your first surplus food item
               </a>
             </div>
           ) : (
@@ -252,15 +252,15 @@ export function PenyediaDashboard() {
                         {item.foodCategory}
                       </span>
                       <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#143628] text-[#F3F8F5]">
-                        {item.isFree ? 'Gratis' : formatPrice(item.price)}
+                        {item.isFree ? 'Free' : formatPrice(item.price)}
                       </span>
                     </div>
                     <div className="text-body-strong text-[#143628] line-clamp-1 mb-1">{item.name}</div>
-                    <div className="text-caption-apple text-[#597367] mb-2">{item.quantity} kg • {item.portionCount} porsi</div>
+                    <div className="text-caption-apple text-[#597367] mb-2">{item.quantity} kg • {item.portionCount} portions</div>
                   </div>
                   <div className="text-fine-print font-medium pt-2 border-t border-[#DCE5DB] flex items-center gap-1.5 text-[#2D6A4F]">
                     <Clock size={12} />
-                    <span>Sisa waktu: {formatCountdown(item.expiryTime)}</span>
+                    <span>Time remaining: {formatCountdown(item.expiryTime)}</span>
                   </div>
                 </div>
               ))}
@@ -272,18 +272,18 @@ export function PenyediaDashboard() {
         <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 shadow-xs">
           <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#DCE5DB]">
             <div>
-              <h3 className="text-tagline text-[#143628] mb-0.5">Booking Menunggu Konfirmasi</h3>
-              <p className="text-caption-apple text-[#597367] m-0">Permintaan pengambilan dari penerima manfaat</p>
+              <h3 className="text-tagline text-[#143628] mb-0.5">Bookings Awaiting Confirmation</h3>
+              <p className="text-caption-apple text-[#597367] m-0">Pickup requests from beneficiaries</p>
             </div>
             <a href="#/penyedia/booking" className="text-[#2D6A4F] hover:text-[#B8401A] text-caption-strong flex items-center gap-1 font-semibold">
-              Lihat Riwayat Booking <ArrowRight size={14} />
+              View Booking History <ArrowRight size={14} />
             </a>
           </div>
 
           {pendingBookings.length === 0 ? (
             <div className="text-center py-8 text-[#597367]">
               <CheckCircle size={24} className="text-[#1b8a36] mx-auto mb-1" />
-              <p className="text-body-apple m-0">Tidak ada booking yang menunggu konfirmasi.</p>
+              <p className="text-body-apple m-0">No bookings awaiting confirmation.</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -292,11 +292,11 @@ export function PenyediaDashboard() {
                   <div>
                     <div className="text-body-strong text-[#143628]">{b.surplusName}</div>
                     <div className="text-caption-apple text-[#597367]">
-                      Penerima: {b.recipientName} ({b.recipientPhone}) • Jumlah: {b.quantity} kg
+                      Beneficiary: {b.recipientName} ({b.recipientPhone}) • Quantity: {b.quantity} kg
                     </div>
                   </div>
                   <a href="#/penyedia/booking" className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] px-3.5 py-1.5 rounded-xl text-xs font-semibold shadow-sm">
-                    Tinjau Pesanan
+                    Review Order
                   </a>
                 </div>
               ))}

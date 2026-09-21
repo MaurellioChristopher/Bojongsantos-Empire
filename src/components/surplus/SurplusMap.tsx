@@ -25,7 +25,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 // Create High-End Interactive Leaflet Marker
 function createInteractivePin(item: SurplusItem, isSelected: boolean) {
   const color = CATEGORY_COLORS[item.foodCategory] || '#1d1d1f';
-  const priceTag = item.isFree ? 'GRATIS' : formatPrice(item.price);
+  const priceTag = item.isFree ? 'FREE' : formatPrice(item.price);
 
   return L.divIcon({
     className: 'interactive-surplus-pin',
@@ -245,7 +245,7 @@ export default function SurplusMap({
         <div className="bg-[#FFFFFF]/95 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#DCE5DB] shadow-md flex items-center gap-2 text-xs font-semibold text-[#143628]">
           <span className="w-2 h-2 rounded-full bg-[#2D6A4F] animate-pulse" />
           <span>
-            {items.length} Lokasi {selectedCategory === 'all' ? 'Surplus' : FOOD_CATEGORY_LABELS[selectedCategory as FoodCategory] || selectedCategory} di Sekitar Anda
+            {items.length} {selectedCategory === 'all' ? 'Surplus' : FOOD_CATEGORY_LABELS[selectedCategory as FoodCategory] || selectedCategory} Locations Near You
           </span>
         </div>
       </div>
@@ -271,7 +271,7 @@ export default function SurplusMap({
                       : 'bg-[#143628] text-[#F3F8F5]'
                   }`}
                 >
-                  {activeItem.isFree ? 'GRATIS' : formatPrice(activeItem.price)}
+                  {activeItem.isFree ? 'FREE' : formatPrice(activeItem.price)}
                 </span>
                 <span className="text-[11px] font-medium text-[#597367] uppercase tracking-wider font-mono">
                   {FOOD_CATEGORY_LABELS[activeItem.foodCategory]}
@@ -281,7 +281,7 @@ export default function SurplusMap({
               <button
                 onClick={() => setActiveItem(null)}
                 className="text-[#597367] hover:text-[#143628] p-1 rounded-full hover:bg-[#EDF2EC] transition-colors"
-                aria-label="Tutup"
+                aria-label="Close"
               >
                 <X size={16} />
               </button>
@@ -310,12 +310,12 @@ export default function SurplusMap({
             {/* Micro Details Bar */}
             <div className="flex items-center gap-4 text-xs text-[#5A4D44] mb-4 py-2 px-3 bg-[#FAF7F2] rounded-[10px] border border-[#DCE5DB]">
               <div>
-                Stok: <span className="font-semibold text-[#143628]">{activeItem.quantity} kg</span> ({activeItem.portionCount} porsi)
+                Stock: <span className="font-semibold text-[#143628]">{activeItem.quantity} kg</span> ({activeItem.portionCount} portions)
               </div>
               <span className="text-[#CAD6C8]">•</span>
               <div className="flex items-center gap-1 text-[#143628] font-medium">
                 <Clock size={12} className="text-[#2D6A4F]" />
-                <span>Sisa {formatCountdown(activeItem.expiryTime)}</span>
+                <span>{formatCountdown(activeItem.expiryTime)}</span>
               </div>
             </div>
 
@@ -328,7 +328,7 @@ export default function SurplusMap({
                 }}
                 className="flex-1 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] rounded-xl text-xs font-semibold py-2.5 px-4 flex items-center justify-center gap-1.5 transition-all shadow-sm"
               >
-                <span>Klaim Makanan Ini Sekarang</span>
+                <span>Claim This Surplus Now</span>
                 <ArrowRight size={14} />
               </button>
             </div>
@@ -352,7 +352,7 @@ export default function SurplusMap({
             >
               <span className="font-semibold">{item.providerBusinessName.split(' ')[0]}</span>
               <span className="text-[10px] opacity-75 font-mono">
-                ({item.isFree ? 'Gratis' : formatPrice(item.price)})
+                ({item.isFree ? 'Free' : formatPrice(item.price)})
               </span>
             </button>
           );

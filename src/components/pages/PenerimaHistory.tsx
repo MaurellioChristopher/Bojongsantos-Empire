@@ -29,16 +29,16 @@ export function PenerimaHistory() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#143628] mb-4 border border-[#DCE5DB] shadow-sm">
           <Clock size={32} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Riwayat Booking & Penyelamatan</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Booking &amp; Rescue History</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Silakan masuk ke akun Anda untuk melihat arsip lengkap makanan yang telah Anda klaim.
+          Please log in to your account to view the complete archive of food you have claimed.
         </p>
         <div className="flex items-center justify-center">
           <a
             href="#/login"
             className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all text-center"
           >
-            Masuk ke Akun Anda
+            Log in to Your Account
           </a>
         </div>
       </div>
@@ -48,11 +48,11 @@ export function PenerimaHistory() {
   const statusBadge = (status: BookingStatus) => {
     switch (status) {
       case 'diambil':
-        return <span className="badge-apple badge-apple-success">Diambil Selesai</span>;
+        return <span className="badge-apple badge-apple-success">Completed</span>;
       case 'dibatalkan':
-        return <span className="badge-apple badge-apple-error">Dibatalkan</span>;
+        return <span className="badge-apple badge-apple-error">Cancelled</span>;
       case 'kedaluwarsa':
-        return <span className="badge-apple badge-apple-warning">Kedaluwarsa</span>;
+        return <span className="badge-apple badge-apple-warning">Expired</span>;
       default:
         return <span className="badge-apple badge-apple-neutral">{BOOKING_STATUS_LABELS[status] || status}</span>;
     }
@@ -67,11 +67,11 @@ export function PenerimaHistory() {
         {/* Header */}
         <div className="mb-8">
           <a href="#/penerima" className="text-[#2D6A4F] hover:text-[#B8401A] text-xs mb-2 inline-flex items-center gap-1 font-semibold">
-            <ArrowLeft size={14} /> Kembali ke Beranda Penerima
+            <ArrowLeft size={14} /> Back to Beneficiary Home
           </a>
-          <h1 className="text-display-lg text-[#143628]">Riwayat Booking</h1>
+          <h1 className="text-display-lg text-[#143628]">Booking History</h1>
           <p className="text-body-apple text-[#597367] m-0">
-            Catatan komprehensif surplus makanan yang telah Anda klaim dan selamatkan.
+            A comprehensive record of surplus food you have claimed and rescued.
           </p>
         </div>
 
@@ -85,19 +85,19 @@ export function PenerimaHistory() {
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
                 <p className="text-[11px] uppercase tracking-wider text-[#CAD6C8] font-semibold mb-1 flex items-center gap-1.5">
-                  <Leaf size={14} className="text-[#30d158]" /> Total Kontribusi Lingkungan
+                  <Leaf size={14} className="text-[#30d158]" /> Total Environmental Impact
                 </p>
                 <div className="text-[44px] font-bold tracking-tight text-[#F3F8F5] leading-none mb-2">
-                  {totalSaved} <span className="text-xl font-medium text-[#CAD6C8]">kg pangan diselamatkan</span>
+                  {totalSaved} <span className="text-xl font-medium text-[#CAD6C8]">kg food rescued</span>
                 </div>
                 <p className="text-body-apple text-[#CAD6C8] m-0 max-w-xl">
-                  Setara dengan pemangkasan <span className="text-[#F3F8F5] font-medium">{co2Saved} kg CO₂e</span> emisi gas rumah kaca dari pembusukan pangan di tempat pembuangan akhir.
+                  Equivalent to reducing <span className="text-[#F3F8F5] font-medium">{co2Saved} kg CO₂e</span> of greenhouse gas emissions from landfill food decomposition.
                 </p>
               </div>
               <div className="flex items-center gap-3 self-start md:self-auto bg-[#F3F8F5]/10 px-5 py-3 rounded-full border border-[#F3F8F5]/20">
                 <PackageCheck size={20} className="text-[#30d158]" />
                 <span className="text-sm font-semibold text-[#F3F8F5]">
-                  {bookings.filter((b) => b.status === 'diambil').length} Transaksi Selesai
+                  {bookings.filter((b) => b.status === 'diambil').length} Completed Rescues
                 </span>
               </div>
             </div>
@@ -107,19 +107,19 @@ export function PenerimaHistory() {
         {/* History List */}
         <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 shadow-xs">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-tagline text-[#143628] font-bold">Daftar Transaksi</h2>
-            <span className="text-caption-apple text-[#597367]">{bookings.length} catatan</span>
+            <h2 className="text-tagline text-[#143628] font-bold">Transaction Records</h2>
+            <span className="text-caption-apple text-[#597367]">{bookings.length} records</span>
           </div>
 
           {bookings.length === 0 ? (
             <div className="text-center py-12 text-[#597367]">
               <ClipboardList size={36} className="text-[#A8988B] mx-auto mb-3" />
-              <p className="text-body-strong text-[#143628] mb-1">Belum ada riwayat booking</p>
+              <p className="text-body-strong text-[#143628] mb-1">No booking history yet</p>
               <p className="text-caption-apple text-[#597367] max-w-xs mx-auto mb-4">
-                Saat Anda menyelesaikan atau membatalkan pesanan, riwayatnya akan tersimpan di sini.
+                When you complete or cancel an order, its history will appear here.
               </p>
               <a href="#/penerima" className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] px-4 py-2 rounded-xl text-xs font-semibold inline-flex shadow-sm transition-all">
-                Jelajahi Surplus Makanan
+                Explore Surplus Food
               </a>
             </div>
           ) : (
@@ -138,7 +138,7 @@ export function PenerimaHistory() {
                       {statusBadge(b.status)}
                     </div>
                     <p className="text-caption-apple text-[#597367] mb-1">
-                      Mitra Penyedia: <span className="text-[#143628] font-medium">{b.providerBusinessName}</span>
+                      Provider Partner: <span className="text-[#143628] font-medium">{b.providerBusinessName}</span>
                     </p>
                     <div className="flex items-center gap-4 text-xs text-[#597367]">
                       <span className="font-semibold text-[#143628] flex items-center gap-1">

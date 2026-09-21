@@ -61,16 +61,16 @@ export function TermsPage() {
           <Lock size={30} />
         </div>
         <h2 className="text-display-md text-[#143628] mb-2">
-          Akses Dibatasi untuk {isPenyedia ? 'Penyedia' : 'Penerima'}
+          Access Restricted for {isPenyedia ? 'Providers' : 'Recipients'}
         </h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Sesuai aturan hak akses platform AksesPangan, akun {isPenyedia ? 'Mitra Penyedia' : 'Penerima Manfaat'} tidak memiliki izin untuk melihat maupun mengelola informasi pada fitur Standar Mutu dan Regulasi Konsumsi.
+          Under AksesPangan access policies, {isPenyedia ? 'Provider Partner' : 'Beneficiary Recipient'} accounts do not have permission to view or manage Quality Standards and Consumption Regulations.
         </p>
         <a
           href={isPenyedia ? '#/penyedia' : '#/penerima'}
           className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all"
         >
-          Kembali ke {isPenyedia ? 'Dashboard Penyedia' : 'Katalog Surplus'}
+          Back to {isPenyedia ? 'Provider Dashboard' : 'Surplus Catalog'}
         </a>
       </div>
     );
@@ -93,13 +93,13 @@ export function TermsPage() {
 
   const handleDelete = (item: QualityStandardItem, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!confirm(`Hapus pasal "${item.title}"?`)) return;
+    if (!confirm(`Delete article "${item.title}"?`)) return;
     try {
       deleteQualityStandard(item.id);
-      success('Pasal Dihapus', `Pasal "${item.title}" berhasil dihapus.`);
+      success('Article Deleted', `Article "${item.title}" was successfully deleted.`);
       refreshStandards();
     } catch {
-      error('Gagal', 'Terjadi kesalahan saat menghapus pasal.');
+      error('Failed', 'An error occurred while deleting the article.');
     }
   };
 
@@ -113,19 +113,19 @@ export function TermsPage() {
           title: formTitle,
           content: formContent,
         });
-        success('Pasal Diperbarui', `Pasal "${formTitle}" berhasil disimpan.`);
+        success('Article Updated', `Article "${formTitle}" was successfully updated.`);
       } else {
         addQualityStandard({
           title: formTitle,
           content: formContent,
           order: standards.length + 1,
         });
-        success('Pasal Ditambahkan', `Pasal "${formTitle}" berhasil diterbitkan.`);
+        success('Article Added', `Article "${formTitle}" was successfully published.`);
       }
       setIsModalOpen(false);
       refreshStandards();
     } catch {
-      error('Gagal', 'Terjadi kesalahan saat menyimpan pasal.');
+      error('Failed', 'An error occurred while saving the article.');
     }
   };
 
@@ -139,13 +139,13 @@ export function TermsPage() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] text-xs font-semibold uppercase tracking-wider mb-3">
               <Shield size={14} className="text-[#2D6A4F]" />
-              <span>Standar Keamanan Pangan &amp; Syarat Layanan</span>
+              <span>Food Safety Standards &amp; Terms of Service</span>
             </div>
             <h1 className="text-display-lg text-[#143628] mb-2 font-serif">
-              Standar Mutu &amp; Regulasi Konsumsi
+              Quality Standards &amp; Consumption Regulations
             </h1>
             <p className="text-body-apple text-[#597367] max-w-2xl m-0">
-              Protokol ketat penanganan surplus makanan untuk memastikan seluruh hidangan yang diselamatkan layak, aman, dan higienis dikonsumsi masyarakat.
+              Strict food surplus management protocols ensuring every rescued meal is wholesome, safe, and hygienic for community consumption.
             </p>
           </div>
 
@@ -155,7 +155,7 @@ export function TermsPage() {
               className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2.5 px-4 rounded-xl flex items-center gap-2 self-start sm:self-auto shrink-0 shadow-sm transition-all"
             >
               <Plus size={15} />
-              <span>Tambah Standar Mutu</span>
+              <span>Add Quality Standard</span>
             </button>
           )}
         </div>
@@ -163,7 +163,7 @@ export function TermsPage() {
         {/* 4 Core Pillars */}
         <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 mb-8 shadow-xs">
           <h2 className="text-tagline text-[#143628] mb-4">
-            4 Pilar Jaminan Mutu AksesPangan
+            4 Pillars of AksesPangan Quality Assurance
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#DCE5DB] flex items-start gap-3.5">
@@ -171,9 +171,9 @@ export function TermsPage() {
                 <ThermometerSun size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#143628] mb-1">Kontrol Suhu Penyimpanan</h4>
+                <h4 className="text-body-strong text-[#143628] mb-1">Storage Temperature Control</h4>
                 <p className="text-caption-apple text-[#597367] m-0">
-                  Makanan panas dijaga di atas 60°C dan makanan dingin di bawah 5°C sebelum diambil oleh penerima.
+                  Hot food maintained above 60°C and cold food below 5°C before recipient pickup.
                 </p>
               </div>
             </div>
@@ -183,9 +183,9 @@ export function TermsPage() {
                 <Clock size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#143628] mb-1">Batas Waktu Konsumsi (4 Jam)</h4>
+                <h4 className="text-body-strong text-[#143628] mb-1">Consumption Window (4 Hours)</h4>
                 <p className="text-caption-apple text-[#597367] m-0">
-                  Makanan siap saji tidak boleh dibiarkan lebih dari 4 jam pada rentang suhu bahaya (5°C - 60°C).
+                  Ready-to-eat food must not stay more than 4 hours in the temperature danger zone (5°C - 60°C).
                 </p>
               </div>
             </div>
@@ -195,9 +195,9 @@ export function TermsPage() {
                 <Clock size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#143628] mb-1">Batas Waktu Pengambilan</h4>
+                <h4 className="text-body-strong text-[#143628] mb-1">Pickup Deadline</h4>
                 <p className="text-caption-apple text-[#597367] m-0">
-                  Ambil makanan sesuai jadwal pickup deadline untuk memastikan kesegaran tetap prima.
+                  Pick up food according to the scheduled deadline to ensure maximum freshness.
                 </p>
               </div>
             </div>
@@ -207,9 +207,9 @@ export function TermsPage() {
                 <CheckCircle size={18} />
               </div>
               <div>
-                <h4 className="text-body-strong text-[#143628] mb-1">Verifikasi Fisik di Tempat</h4>
+                <h4 className="text-body-strong text-[#143628] mb-1">On-site Physical Verification</h4>
                 <p className="text-caption-apple text-[#597367] m-0">
-                  Periksa kemasan tertutup rapat dan pastikan tidak ada perubahan warna atau aroma yang tidak wajar.
+                  Inspect sealed packaging and verify there is no unusual discoloration or odor.
                 </p>
               </div>
             </div>
@@ -220,9 +220,9 @@ export function TermsPage() {
         <div className="p-5 rounded-[14px] flex items-start gap-3.5 mb-8 bg-[#FFF2EB] border border-[#FAD7C8]">
           <AlertTriangle size={18} className="flex-shrink-0 mt-0.5 text-[#2D6A4F]" />
           <div>
-            <div className="text-body-strong text-[#143628] mb-0.5">Catatan Penting Konsumsi</div>
+            <div className="text-body-strong text-[#143628] mb-0.5">Important Consumption Notice</div>
             <div className="text-caption-apple text-[#597367] leading-relaxed">
-              Jika setelah dibuka makanan mengeluarkan aroma masam, berlendir, atau kemasan rusak, segera buang dan laporkan melalui platform. Keselamatan Anda selalu menjadi prioritas utama.
+              If upon opening the food smells sour, feels slimy, or has compromised packaging, dispose of it immediately and report via the platform. Your safety is always our top priority.
             </div>
           </div>
         </div>
@@ -232,11 +232,11 @@ export function TermsPage() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-tagline text-[#143628] flex items-center gap-2 m-0 font-bold">
               <BookOpen size={20} className="text-[#2D6A4F]" />
-              Pasal Ketentuan &amp; Standar Mutu Platform
+              Platform Quality Standards &amp; Regulations
             </h2>
             {isAdmin && (
               <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-[#FAF2EB] text-[#2D6A4F] border border-[#F2DACB] font-semibold inline-flex items-center gap-1">
-                <ShieldCheck size={13} className="text-[#2D6A4F]" /> Mode Admin Aktif
+                <ShieldCheck size={13} className="text-[#2D6A4F]" /> Admin Mode Active
               </span>
             )}
           </div>
@@ -268,14 +268,14 @@ export function TermsPage() {
                         <button
                           onClick={(e) => handleOpenEdit(item, e)}
                           className="p-1.5 rounded-md hover:bg-[#EDF2EC] text-[#597367] hover:text-[#143628] transition-colors"
-                          title="Ubah pasal"
+                          title="Edit article"
                         >
                           <Edit2 size={14} />
                         </button>
                         <button
                           onClick={(e) => handleDelete(item, e)}
                           className="p-1.5 rounded-md hover:bg-rose-50 text-[#A8988B] hover:text-rose-600 transition-colors"
-                          title="Hapus pasal"
+                          title="Delete article"
                         >
                           <Trash2 size={14} />
                         </button>
@@ -313,7 +313,7 @@ export function TermsPage() {
           >
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#DCE5DB]">
               <h3 className="font-semibold text-lg text-[#143628] m-0">
-                {editingItem ? 'Ubah Standar Mutu' : 'Tambah Standar Mutu Baru'}
+                {editingItem ? 'Edit Quality Standard' : 'Add New Quality Standard'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -326,28 +326,28 @@ export function TermsPage() {
             <form onSubmit={handleSaveForm} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-[#143628] uppercase tracking-wider mb-1">
-                  Judul Pasal / Standar Mutu
+                  Article / Standard Title
                 </label>
                 <input
                   type="text"
                   required
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  placeholder="Contoh: 6. Kebijakan Kemasan Ramah Lingkungan"
+                  placeholder="e.g. 6. Eco-Friendly Packaging Policy"
                   className="w-full px-3.5 py-2 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] text-[#143628] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-[#143628] uppercase tracking-wider mb-1">
-                  Isi Ketentuan &amp; Regulasi
+                  Provisions &amp; Regulation Content
                 </label>
                 <textarea
                   required
                   rows={5}
                   value={formContent}
                   onChange={(e) => setFormContent(e.target.value)}
-                  placeholder="Rincian ketentuan standar mutu dan kewajiban pengguna..."
+                  placeholder="Detailed quality standards and user obligations..."
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[#DCE5DB] bg-[#FAF7F2] text-[#143628] focus:outline-none focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 text-sm resize-none"
                 />
               </div>
@@ -358,14 +358,14 @@ export function TermsPage() {
                   onClick={() => setIsModalOpen(false)}
                   className="px-4 py-2 text-sm font-medium text-[#597367] hover:text-[#143628]"
                 >
-                  Batal
+                  Cancel
                 </button>
                 <button
                   type="submit"
                   className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2 px-5 rounded-xl font-medium flex items-center gap-2 shadow-sm transition-all"
                 >
                   <Save size={15} />
-                  <span>{editingItem ? 'Simpan Perubahan' : 'Terbitkan Pasal'}</span>
+                  <span>{editingItem ? 'Save Changes' : 'Publish Article'}</span>
                 </button>
               </div>
             </form>

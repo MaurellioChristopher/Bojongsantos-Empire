@@ -23,12 +23,12 @@ interface CourierRatingModalProps {
 }
 
 const FEEDBACK_TAGS = [
-  '⚡ Cepat & Tepat Waktu',
-  '🍲 Pangan Hangat & Higienis',
-  '😊 Kurir Ramah & Sopan',
-  '📍 Mudah Menemukan Alamat',
-  '🛡️ Protokol Aman Terjaga',
-  '🎒 Tas Termal Bersih',
+  '⚡ Fast & On Time',
+  '🍲 Warm & Hygienic Food',
+  '😊 Friendly & Polite Courier',
+  '📍 Found Address Easily',
+  '🛡️ Safe Protocols Maintained',
+  '🎒 Clean Thermal Bag',
 ];
 
 const TIP_OPTIONS = [0, 2000, 5000, 10000];
@@ -42,8 +42,8 @@ export function CourierRatingModal({
   const [selectedStars, setSelectedStars] = useState<number>(5);
   const [hoverStars, setHoverStars] = useState<number | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([
-    '⚡ Cepat & Tepat Waktu',
-    '🍲 Pangan Hangat & Higienis',
+    '⚡ Fast & On Time',
+    '🍲 Warm & Hygienic Food',
   ]);
   const [reviewText, setReviewText] = useState('');
   const [tipAmount, setTipAmount] = useState<number>(2000);
@@ -75,15 +75,15 @@ export function CourierRatingModal({
   const getStarLabel = (stars: number) => {
     switch (stars) {
       case 1:
-        return 'Kurang Memuaskan 🙁';
+        return 'Unsatisfactory 🙁';
       case 2:
-        return 'Cukup 😐';
+        return 'Fair 😐';
       case 3:
-        return 'Baik 🙂';
+        return 'Good 🙂';
       case 4:
-        return 'Sangat Baik 😊';
+        return 'Very Good 😊';
       case 5:
-        return 'Luar Biasa & Sangat Higienis! 🌟';
+        return 'Outstanding & Highly Hygienic! 🌟';
       default:
         return '';
     }
@@ -129,9 +129,9 @@ export function CourierRatingModal({
             <div className="w-16 h-16 rounded-full bg-[#EBF7EE] text-[#2D6A4F] flex items-center justify-center shadow-inner">
               <CheckCircle2 size={36} />
             </div>
-            <h3 className="text-lg font-bold text-[#143628]">Ulasan Berhasil Dikirim!</h3>
+            <h3 className="text-lg font-bold text-[#143628]">Review Submitted Successfully!</h3>
             <p className="text-xs text-[#597367] max-w-xs">
-              Terima kasih! Penilaian Anda membantu menjaga standar higienitas dan mutu mitra kurir AksesPangan.
+              Thank you! Your feedback helps uphold hygiene and service standards for AksesPangan couriers.
             </p>
           </div>
         ) : (
@@ -140,7 +140,7 @@ export function CourierRatingModal({
             <div className="flex items-center justify-between pb-3 border-b border-[#DCE5DB]">
               <div className="flex items-center gap-2">
                 <Bike size={18} className="text-[#2D6A4F]" />
-                <h3 className="font-bold text-sm text-[#143628]">Ulasan & Rating Mitra Kurir</h3>
+                <h3 className="font-bold text-sm text-[#143628]">Courier Partner Review & Rating</h3>
               </div>
               <button
                 onClick={onClose}
@@ -165,7 +165,7 @@ export function CourierRatingModal({
                   </span>
                 </div>
                 <div className="text-xs text-[#597367] mt-0.5">
-                  Pengantaran {booking.surplusName} ({booking.quantity} kg)
+                  Delivery of {booking.surplusName} ({booking.quantity} kg)
                 </div>
                 <div className="text-[11px] text-[#16a34a] font-semibold mt-0.5 flex items-center gap-1">
                   <Sparkles size={11} />
@@ -177,7 +177,7 @@ export function CourierRatingModal({
             {/* Interactive Star Rating */}
             <div className="text-center py-2">
               <div className="text-xs text-[#597367] font-semibold mb-2">
-                Bagaimana kualitas pengantaran oleh kurir?
+                How was the delivery quality by the courier?
               </div>
               <div className="flex items-center justify-center gap-2">
                 {[1, 2, 3, 4, 5].map((star) => {
@@ -210,7 +210,7 @@ export function CourierRatingModal({
 
             {/* Quick Feedback Chips */}
             <div className="my-3 space-y-1.5">
-              <span className="text-[11px] font-semibold text-[#597367]">Poin yang Anda sukai:</span>
+              <span className="text-[11px] font-semibold text-[#597367]">What did you like?</span>
               <div className="flex flex-wrap gap-1.5">
                 {FEEDBACK_TAGS.map((tag) => {
                   const isSelected = selectedTags.includes(tag);
@@ -237,7 +237,7 @@ export function CourierRatingModal({
               <textarea
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
-                placeholder="Tulis pesan atau apresiasi untuk kurir (opsional)..."
+                placeholder="Write a note or appreciation for the courier (optional)..."
                 rows={2}
                 className="w-full p-3 bg-[#F7F9F6] border border-[#DCE5DB] rounded-xl text-xs text-[#143628] placeholder:text-[#597367]/60 focus:bg-white focus:outline-hidden focus:border-[#2D6A4F] transition-all resize-none"
               />
@@ -248,10 +248,10 @@ export function CourierRatingModal({
               <div className="text-[11px] font-bold text-[#143628] flex items-center justify-between mb-2">
                 <span className="flex items-center gap-1">
                   <Heart size={12} className="text-[#E63946] fill-[#E63946]" />
-                  Beri Tip untuk Mitra Kurir:
+                  Tip Courier Partner:
                 </span>
                 <span className="font-mono text-[#2D6A4F]">
-                  {tipAmount > 0 ? `+Rp ${tipAmount.toLocaleString('id-ID')}` : 'Tanpa Tip'}
+                  {tipAmount > 0 ? `+Rp ${tipAmount.toLocaleString('id-ID')}` : 'No Tip'}
                 </span>
               </div>
               <div className="grid grid-cols-4 gap-1.5">
@@ -266,7 +266,7 @@ export function CourierRatingModal({
                         : 'bg-white text-[#143628] border-[#DCE5DB] hover:bg-stone-50'
                     }`}
                   >
-                    {val === 0 ? 'Nanti' : `Rp ${val.toLocaleString('id-ID')}`}
+                    {val === 0 ? 'None' : `Rp ${val.toLocaleString('id-ID')}`}
                   </button>
                 ))}
               </div>
@@ -279,7 +279,7 @@ export function CourierRatingModal({
                 onClick={onClose}
                 className="flex-1 py-2.5 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] rounded-xl text-xs font-semibold transition-all cursor-pointer"
               >
-                Lewati
+                Skip
               </button>
               <button
                 type="button"
@@ -288,7 +288,7 @@ export function CourierRatingModal({
                 className="flex-1 py-2.5 bg-[#2D6A4F] hover:bg-[#1C4736] text-white rounded-xl text-xs font-bold shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
               >
                 <Send size={13} />
-                <span>Kirim Penilaian</span>
+                <span>Submit Review</span>
               </button>
             </div>
           </>

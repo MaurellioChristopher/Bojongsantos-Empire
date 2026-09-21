@@ -76,26 +76,26 @@ function AnimatedCounter({
 const educationalFacts = [
   {
     id: 1,
-    highlight: 'Pembuang Pangan Terbesar ke-2 di G20',
-    fact: 'Indonesia merupakan negara pembuang sampah makanan terbesar kedua di antara negara G20! Sebanyak 23 hingga 48 juta ton makanan terbuang sia-sia setiap tahunnya.',
-    source: 'Kajian Bappenas & Food Loss & Waste Indonesia',
+    highlight: '2nd Largest Food Waster in G20',
+    fact: 'Indonesia is the second largest food-wasting nation among G20 countries! Between 23 and 48 million tons of food are wasted needlessly every year.',
+    source: 'Bappenas & Food Loss & Waste Indonesia Study',
   },
   {
     id: 2,
-    highlight: 'Gas Metana 25x Lebih Merusak Iklim',
-    fact: 'Sampah makanan yang membusuk di TPA menghasilkan gas metana (CH₄) yang memiliki potensi pemanasan iklim 25 kali lipat lebih agresif daripada karbon dioksida!',
-    source: 'Kementerian Lingkungan Hidup & Kehutanan',
+    highlight: 'Methane Gas 25x More Climate Potent',
+    fact: 'Food waste decomposing in landfills generates methane gas (CH₄), which has a global warming potential 25 times more potent than carbon dioxide!',
+    source: 'Ministry of Environment & Forestry',
   },
   {
     id: 3,
-    highlight: 'Sanggup Mencukupi Gizi 50% Populasi',
-    fact: 'Jika diselamatkan secara terstruktur, susut dan sisa pangan berkualitas di Indonesia sanggup mencukupi gizi hingga 28 juta warga pra-sejahtera dan mengentaskan kelaparan.',
+    highlight: 'Can Nourish 28 Million Citizens',
+    fact: 'If rescued systematically, quality food loss and surplus in Indonesia can fulfill the nutritional needs of up to 28 million vulnerable citizens and eliminate hunger.',
     source: 'World Resources Institute (WRI)',
   },
   {
     id: 4,
-    highlight: '1 kg Pangan = 2.5 kg CO₂e Dicegah',
-    fact: 'Setiap kilogram hidangan yang berhasil disalurkan ke masyarakat sebelum rusak langsung memangkas 2.5 kg emisi gas rumah kaca yang membebani atmosfer bumi.',
+    highlight: '1 kg Food = 2.5 kg CO₂e Prevented',
+    fact: 'Every single kilogram of meals redistributed to communities before spoiling directly prevents 2.5 kg of greenhouse gas emissions from polluting the atmosphere.',
     source: 'Intergovernmental Panel on Climate Change (IPCC)',
   },
 ];
@@ -103,26 +103,26 @@ const educationalFacts = [
 // Media Coverage (Clean Neutral Badges)
 const mediaCoverage = [
   { name: 'BBC Indonesia', type: 'Global' },
-  { name: 'Metro TV', type: 'Televisi' },
-  { name: 'Kompas', type: 'Nasional' },
-  { name: 'Jawa Pos', type: 'Surat Kabar' },
-  { name: 'Liputan 6', type: 'Televisi' },
+  { name: 'Metro TV', type: 'Television' },
+  { name: 'Kompas', type: 'National' },
+  { name: 'Jawa Pos', type: 'Newspaper' },
+  { name: 'Liputan 6', type: 'Television' },
   { name: 'The Jakarta Post', type: 'Media' },
   { name: 'IDN Times', type: 'Digital' },
-  { name: 'Trans 7', type: 'Televisi' },
+  { name: 'Trans 7', type: 'Television' },
   { name: 'Detikcom', type: 'Portal' },
   { name: 'Kumparan', type: 'Digital' },
 ];
 
 const ecosystemPartners = [
-  { name: 'Hotel Shangri-La', type: 'Mitra Hotel' },
+  { name: 'Hotel Shangri-La', type: 'Hotel Partner' },
   { name: 'Artotel Suites', type: 'Hospitality' },
-  { name: 'Aloft Hotel', type: 'Mitra Dapur' },
-  { name: 'Super Indo', type: 'Retail Segar' },
+  { name: 'Aloft Hotel', type: 'Kitchen Partner' },
+  { name: 'Super Indo', type: 'Fresh Retail' },
   { name: 'Lemonilo', type: 'Healthy Food' },
-  { name: 'Badan Pangan Nasional', type: 'Instansi' },
-  { name: 'Bappenas', type: 'Kementerian PPN' },
-  { name: 'Koalisi Pangan Lestari', type: 'Aliansi ESG' },
+  { name: 'Badan Pangan Nasional', type: 'Agency' },
+  { name: 'Bappenas', type: 'Gov Ministry' },
+  { name: 'Koalisi Pangan Lestari', type: 'ESG Alliance' },
 ];
 
 export function LandingPage() {
@@ -221,10 +221,10 @@ export function LandingPage() {
   };
 
   const categories = [
-    { id: 'all', label: 'SEMUA SURPLUS' },
-    { id: 'nasi', label: 'KULINER UTAMA' },
-    { id: 'roti', label: 'PATISSERIE & ROTI' },
-    { id: 'sayur', label: 'HASIL BUMI SEGAR' },
+    { id: 'all', label: 'ALL SURPLUS' },
+    { id: 'nasi', label: 'MAIN MEALS' },
+    { id: 'roti', label: 'PASTRY & BAKERY' },
+    { id: 'sayur', label: 'FRESH PRODUCE' },
     { id: 'minuman', label: 'BOTANICAL DRINKS' },
   ];
 
@@ -331,7 +331,7 @@ export function LandingPage() {
                       pointerEvents: portalPointerEvents,
                     }}
                     className="relative size-[0.80em] rounded-full overflow-hidden border cursor-pointer flex items-center justify-center will-change-transform bg-black z-20 group"
-                    title="Klik atau scroll untuk mengeksplorasi"
+                    title="Click or scroll to explore"
                   >
                     <motion.div
                       style={{
@@ -384,7 +384,7 @@ export function LandingPage() {
                   href={isAuthenticated ? (user?.role === 'penerima' ? '#/penerima' : '#/' + user?.role) : '#/login'}
                   className="btn-garda-pill-gold group"
                 >
-                  <span>{isAuthenticated ? (user?.role === 'penerima' ? 'AMBIL SURPLUS SEKARANG' : 'BUKA DASHBOARD ANDA') : 'AMBIL SURPLUS (MASUK)'}</span>
+                  <span>{isAuthenticated ? (user?.role === 'penerima' ? 'CLAIM SURPLUS NOW' : 'OPEN YOUR DASHBOARD') : 'CLAIM SURPLUS (SIGN IN)'}</span>
                   <span className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1 border border-white/30">
                     <ArrowRight size={14} />
                   </span>
@@ -393,7 +393,7 @@ export function LandingPage() {
                   href={isAuthenticated ? (user?.role === 'penyedia' ? '#/penyedia' : '#/' + user?.role) : '#/register'}
                   className="btn-garda-pill group"
                 >
-                  <span className="text-white">GABUNG SEBAGAI MITRA</span>
+                  <span className="text-white">JOIN AS A PARTNER</span>
                   <span className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                     <ArrowRight size={14} />
                   </span>
@@ -404,7 +404,7 @@ export function LandingPage() {
               <button
                 onClick={handlePortalClick}
                 className="mt-8 text-white/70 hover:text-white transition-colors cursor-pointer"
-                aria-label="Scroll ke bawah"
+                aria-label="Scroll down"
               >
                 <ChevronDown size={22} className="animate-bounce" />
               </button>
@@ -430,7 +430,7 @@ export function LandingPage() {
               </div>
               <div className="hidden sm:inline-flex items-center gap-2 text-[11px] font-mono text-white/60 tracking-wider">
                 <Activity size={13} className="text-white/80" />
-                <span>MONITORING DARURAT PANGAN NASIONAL</span>
+                <span>NATIONAL FOOD EMERGENCY MONITORING</span>
               </div>
             </div>
 
@@ -445,13 +445,13 @@ export function LandingPage() {
                 <div className="lg:col-span-4">
                   <div className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-white mb-2.5 font-bold px-2.5 py-1 rounded-md bg-white/10 border border-white/20">
                     <Flame size={12} className="text-white/80" />
-                    <span>DARURAT SAMPAH PANGAN</span>
+                    <span>FOOD WASTE EMERGENCY</span>
                   </div>
                   <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white leading-[1.05] mb-2">
-                    Tahukah <br /> Kamu?
+                    Did You <br /> Know?
                   </h2>
                   <p className="text-xs text-white/70 leading-relaxed m-0">
-                    Fakta nyata seputar krisis food waste dan potensi besar penyelamatan pangan di Indonesia.
+                    Real facts on the food waste crisis and the enormous potential of food rescue in Indonesia.
                   </p>
                 </div>
 
@@ -470,11 +470,11 @@ export function LandingPage() {
                         {educationalFacts[activeFactIndex].highlight}
                       </span>
                       <p className="text-base sm:text-xl font-medium text-white leading-relaxed mb-2 drop-shadow-sm">
-                        "{educationalFacts[activeFactIndex].fact}"
+                        &ldquo;{educationalFacts[activeFactIndex].fact}&rdquo;
                       </p>
                       <span className="text-[11px] text-white/50 font-mono flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                        Sumber data: {educationalFacts[activeFactIndex].source}
+                        Data source: {educationalFacts[activeFactIndex].source}
                       </span>
                     </motion.div>
                   </AnimatePresence>
@@ -489,7 +489,7 @@ export function LandingPage() {
                           className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                             activeFactIndex === idx ? 'w-6 bg-white' : 'w-2 bg-white/30 hover:bg-white/60'
                           }`}
-                          aria-label={`Fakta ${idx + 1}`}
+                          aria-label={`Fact ${idx + 1}`}
                         />
                       ))}
                     </div>
@@ -498,14 +498,14 @@ export function LandingPage() {
                       <button
                         onClick={prevFact}
                         className="w-8 h-8 rounded-full bg-white/10 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center cursor-pointer"
-                        aria-label="Fakta Sebelumnya"
+                        aria-label="Previous Fact"
                       >
                         <ChevronLeft size={16} />
                       </button>
                       <button
                         onClick={nextFact}
                         className="w-8 h-8 rounded-full bg-white text-black hover:bg-neutral-200 transition-colors flex items-center justify-center cursor-pointer font-bold shadow-md"
-                        aria-label="Fakta Selanjutnya"
+                        aria-label="Next Fact"
                       >
                         <ChevronRight size={16} />
                       </button>
@@ -524,13 +524,13 @@ export function LandingPage() {
                     <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Utensils size={14} />
                     </div>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Porsi</span>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Portions</span>
                   </div>
                   <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={825002} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
-                    Makanan Diselamatkan
+                    Food Rescued
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
                     <div className="h-full rounded-full w-[88%]" style={{ background: 'linear-gradient(90deg, #2D6A4F, #1E5E41)' }} />
@@ -543,13 +543,13 @@ export function LandingPage() {
                     <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Users size={14} />
                     </div>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Jiwa</span>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">People</span>
                   </div>
                   <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={29294} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
-                    Penerima Manfaat
+                    Beneficiaries Reached
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
                     <div className="h-full rounded-full w-[74%]" style={{ background: 'linear-gradient(90deg, #2D6A4F, #1E5E41)' }} />
@@ -562,13 +562,13 @@ export function LandingPage() {
                     <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Scale size={14} />
                     </div>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Kilogram</span>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">Kilograms</span>
                   </div>
                   <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={658000} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
-                    Pangan Tercegah TPA
+                    Diverted From Landfill
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
                     <div className="h-full rounded-full w-[82%]" style={{ background: 'linear-gradient(90deg, #2D6A4F, #1E5E41)' }} />
@@ -581,13 +581,13 @@ export function LandingPage() {
                     <div className="w-7 h-7 rounded-lg bg-white/10 text-white flex items-center justify-center">
                       <Leaf size={14} />
                     </div>
-                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">KGCO₂-ek</span>
+                    <span className="text-[10px] uppercase font-mono tracking-wider text-white/60 font-semibold px-2 py-0.5 rounded-full bg-white/10">KGCO₂-eq</span>
                   </div>
                   <div className="text-white mb-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight">
                     <AnimatedCounter value={1506416} />
                   </div>
                   <p className="text-[11px] uppercase tracking-wider text-white/80 font-medium m-0">
-                    Emisi Gas Dicegah
+                    Emissions Prevented
                   </p>
                   <div className="w-full h-1 rounded-full bg-white/10 overflow-hidden mt-3">
                     <div className="h-full rounded-full w-[95%]" style={{ background: 'linear-gradient(90deg, #2D6A4F, #1E5E41)' }} />
@@ -598,7 +598,7 @@ export function LandingPage() {
 
             {/* Subtle Scroll Cue at the bottom of Stage 2 */}
             <div className="mt-3.5 flex items-center justify-center gap-2 text-[11px] font-mono text-white/60">
-              <span>Scroll perlahan untuk menjelajahi katalog surplus &amp; ekosistem</span>
+              <span>Scroll down gently to explore surplus catalog &amp; ecosystem</span>
               <ChevronDown size={13} className="text-white/80 animate-bounce" />
             </div>
           </motion.div>
@@ -612,7 +612,7 @@ export function LandingPage() {
       <section className="w-full py-12 bg-[#0C2017] border-y border-[#1D3E30] overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 mb-5 text-center">
           <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#F3F8F5]/70 font-semibold">
-            DILIPUT OLEH MEDIA &amp; TERHUBUNG DENGAN EKOSISTEM KULINER
+            FEATURED IN MEDIA &amp; CONNECTED WITH THE CULINARY ECOSYSTEM
           </span>
         </div>
 
@@ -668,10 +668,10 @@ export function LandingPage() {
           {/* Heading */}
           <div className="flex flex-col items-center text-center mb-16">
             <h2 className="font-serif text-[clamp(2.2rem,5vw,3.5rem)] font-bold text-[#143628] leading-tight mb-3">
-              Ayo jadi agen perubahan!
+              Be an agent of change!
             </h2>
             <p className="max-w-xl text-base sm:text-lg text-[#597367] leading-relaxed">
-              Mari bergabung dalam gerakan untuk menyelamatkan pangan yang berpotensi terbuang!
+              Join the collective movement to rescue edible surplus food from being needlessly wasted!
             </p>
           </div>
 
@@ -687,20 +687,20 @@ export function LandingPage() {
                 <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#EDF2EC]">
                   <img
                     src="/images/surplus-nasi-liwet.jpg"
-                    alt="Donasi Makanan"
+                    alt="Donate Food"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#143628] mb-2 text-center">
-                  Donasi Makanan
+                  Donate Food
                 </h3>
                 <p className="text-xs text-[#597367] leading-relaxed text-center mb-6">
-                  Donasikan makanan berlebih dari rumah, event, atau bisnismu; ketimbang dibuang dan merugikan lingkungan sekitarmu.
+                  Donate surplus food from your home, events, or business instead of discarding it and harming the surrounding environment.
                 </p>
               </div>
 
               <a href="#/penyedia/surplus" className="w-full py-2.5 px-4 rounded-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
-                <span>Mulai Donasi</span>
+                <span>Start Donating</span>
                 <span className="w-7 h-7 rounded-full bg-[#F3F8F5]/15 text-[#F3F8F5] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
@@ -717,20 +717,20 @@ export function LandingPage() {
                 <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#EDF2EC]">
                   <img
                     src="/images/surplus-bakery.jpg"
-                    alt="Ambil Surplus"
+                    alt="Claim Surplus"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#143628] mb-2 text-center">
-                  Ambil Surplus
+                  Claim Surplus
                 </h3>
                 <p className="text-xs text-[#597367] leading-relaxed text-center mb-6">
-                  Selamatkan aneka hidangan hangat bergizi gratis atau harga terjangkau dari dapur mitra restoran sebelum batas waktu habis.
+                  Rescue warm, nutritious meals for free or at heavily discounted rates from partner kitchens before expiry deadlines.
                 </p>
               </div>
 
               <a href="#/penerima" className="w-full py-2.5 px-4 rounded-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
-                <span>Ambil Makanan</span>
+                <span>Claim Food</span>
                 <span className="w-7 h-7 rounded-full bg-[#F3F8F5]/15 text-[#F3F8F5] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
@@ -747,20 +747,20 @@ export function LandingPage() {
                 <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#EDF2EC]">
                   <img
                     src="/images/hero-food-delivery.jpg"
-                    alt="Usul Penerima"
+                    alt="Nominate Beneficiary"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#143628] mb-2 text-center">
-                  Usul Penerima
+                  Nominate Beneficiary
                 </h3>
                 <p className="text-xs text-[#597367] leading-relaxed text-center mb-6">
-                  Rekomendasikan masyarakat pra-sejahtera atau panti asuhan di sekitarmu, agar donasi semakin merata dan tepat sasaran.
+                  Recommend vulnerable communities or orphanages near you, ensuring surplus distributions are equitable and targeted.
                 </p>
               </div>
 
               <a href="#/register" className="w-full py-2.5 px-4 rounded-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
-                <span>Rekomendasikan</span>
+                <span>Nominate</span>
                 <span className="w-7 h-7 rounded-full bg-[#F3F8F5]/15 text-[#F3F8F5] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
@@ -777,20 +777,20 @@ export function LandingPage() {
                 <div className="w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-[#EDF2EC]">
                   <img
                     src="/images/hero-food-kitchen.jpg"
-                    alt="Jadi Relawan"
+                    alt="Become Volunteer"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#143628] mb-2 text-center">
-                  Jadi Relawan
+                  Become a Volunteer
                 </h3>
                 <p className="text-xs text-[#597367] leading-relaxed text-center mb-6">
-                  Ayo ikut turun tangan langsung dan menjadi relawan Food Squad AksesPangan, apapun minat dan keahlian yang kamu miliki!
+                  Take direct action and join the AksesPangan Food Squad volunteer network, whatever your unique passions and talents!
                 </p>
               </div>
 
               <a href="#/register" className="w-full py-2.5 px-4 rounded-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs font-semibold flex items-center justify-between transition-all group shadow-2xs">
-                <span>Daftar Relawan</span>
+                <span>Join Volunteers</span>
                 <span className="w-7 h-7 rounded-full bg-[#F3F8F5]/15 text-[#F3F8F5] flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight size={13} />
                 </span>
@@ -811,7 +811,7 @@ export function LandingPage() {
           <div className="relative w-full lg:w-1/2 min-h-[280px] lg:min-h-[400px]">
             <img
               src="/images/hero-food-kitchen.jpg"
-              alt="Dapur Mitra Kuliner"
+              alt="Culinary Partner Kitchen"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0C2017]/80 to-transparent lg:hidden" />
@@ -822,20 +822,20 @@ export function LandingPage() {
             <div className="flex flex-col items-start gap-3">
               <span className="inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-[#F3F8F5]/80">
                 <Building2 size={13} />
-                <span>KOLABORASI HOTEL &amp; RESTORAN</span>
+                <span>HOTEL &amp; RESTAURANT COLLABORATION</span>
               </span>
               <h2 className="font-serif text-[clamp(2rem,4vw,3rem)] font-bold leading-tight tracking-tight text-[#F3F8F5]">
-                Anda pemilik bisnis makanan?
+                Do you own a food business?
               </h2>
               <p className="max-w-md text-sm sm:text-base leading-relaxed text-[#F3F8F5]/85">
-                Makanan berlebih Anda bisa memberi makan saudara-saudara kita yang membutuhkan, sementara sisa bahan makanan yang tidak dapat dikonsumsi dapat dimanfaatkan kembali menjadi pakan ternak.
+                Your surplus meals can feed community members in need, while organic kitchen scraps that are no longer consumable can be diverted into animal feed.
                 <br /><br />
-                Tanpa repot, tim kami akan mengambilnya langsung dari lokasi Anda dan memberikan laporan dampak emisi ESG setiap bulannya. Jadilah mitra kami!
+                Completely hassle-free: our logistics team picks up directly from your doorstep and provides monthly ESG carbon emission reduction certificates. Become our partner!
               </p>
             </div>
 
             <a href="#/register" className="btn-garda-pill-gold group">
-              <span>Daftar Jadi Mitra</span>
+              <span>Partner With Us</span>
               <span className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center transition-transform duration-200 group-hover:translate-x-1 border border-white/30">
                 <ArrowRight size={14} />
               </span>
@@ -854,13 +854,13 @@ export function LandingPage() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-5 border-b border-[#DCE5DB]">
             <div>
               <span className="text-[10px] uppercase tracking-[0.25em] text-[#597367] font-semibold block mb-1.5 font-mono">
-                INVENTARIS SURPLUS AKTIF HARI INI
+                ACTIVE SURPLUS INVENTORY TODAY
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#143628]">
-                Katalog Makanan Tersedia
+                Available Surplus Catalog
               </h2>
               <p className="text-[14px] text-[#597367] m-0 mt-1">
-                Hidangan siap santap pilihan dari restoran terakreditasi, siap diselamatkan sebelum batas waktu berakhir.
+                Curated ready-to-eat dishes from certified culinary partners, ready to be rescued before the deadline.
               </p>
             </div>
 
@@ -868,7 +868,7 @@ export function LandingPage() {
               href={isAuthenticated && user?.role === 'penerima' ? '#/penerima' : '#/login'}
               className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#2D6A4F] hover:opacity-75 transition-opacity mt-4 sm:mt-0"
             >
-              <span>LIHAT SEMUA DI KATALOG</span>
+              <span>VIEW ALL IN CATALOG</span>
               <ArrowRight size={14} />
             </a>
           </div>
@@ -915,7 +915,7 @@ export function LandingPage() {
                       <div className="absolute top-3 right-3 z-10">
                         {item.isFree ? (
                           <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#2D6A4F] text-white shadow-md">
-                            GRATIS
+                            FREE
                           </span>
                         ) : (
                           <span className="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-[#0C2017]/90 backdrop-blur-md text-[#F3F8F5] border border-[#F3F8F5]/20 shadow-md">
@@ -925,7 +925,7 @@ export function LandingPage() {
                       </div>
                       <div className="absolute bottom-3 left-3 z-10">
                         <span className="text-[11px] font-mono tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#0C2017]/75 backdrop-blur-md text-[#F3F8F5] border border-[#F3F8F5]/20">
-                          {item.quantity} kg · {item.portionCount} porsi
+                          {item.quantity} kg · {item.portionCount} portions
                         </span>
                       </div>
                     </div>
@@ -949,14 +949,14 @@ export function LandingPage() {
                   <div className="px-6 py-4 bg-[#EDF2EC] border-t border-[#DCE5DB] flex items-center justify-between">
                     <div className="text-xs text-[#143628] font-medium flex items-center gap-1.5 font-mono">
                       <Clock size={13} className="text-[#597367]" />
-                      <span>Sisa {formatCountdown(item.expiryTime)}</span>
+                      <span>{formatCountdown(item.expiryTime)} left</span>
                     </div>
 
                     <a
                       href={isAuthenticated && user?.role === 'penerima' ? `#/penerima?item=${item.id}` : '#/login'}
                       className="text-xs font-bold uppercase tracking-wider py-2 px-4 bg-[#143628] text-[#F3F8F5] hover:bg-[#1C4736] rounded-full transition-colors no-underline shadow-2xs"
                     >
-                      {isAuthenticated && user?.role === 'penerima' ? 'Klaim Porsi →' : 'Masuk untuk Klaim →'}
+                      {isAuthenticated && user?.role === 'penerima' ? 'Claim Portion →' : 'Sign in to Claim →'}
                     </a>
                   </div>
                 </motion.div>
@@ -966,12 +966,12 @@ export function LandingPage() {
 
           {filteredItems.length === 0 && (
             <div className="w-full py-16 text-center bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB]">
-              <p className="text-[#597367] text-sm mb-3">Tidak ada surplus aktif di kategori ini saat ini.</p>
+              <p className="text-[#597367] text-sm mb-3">No active surplus in this category at this time.</p>
               <button
                 onClick={() => setSelectedCategory('all')}
                 className="text-xs font-bold uppercase tracking-wider text-[#2D6A4F] underline cursor-pointer"
               >
-                Lihat Semua Kategori
+                View All Categories
               </button>
             </div>
           )}
@@ -986,13 +986,13 @@ export function LandingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#F3F8F5]/80 block mb-2.5 font-mono">
-              PROTOKOL KEAMANAN &amp; INTEGRITAS
+              SECURITY &amp; INTEGRITY PROTOCOLS
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#F3F8F5] mb-4">
-              Cepat. Higienis. Tepat Sasaran.
+              Fast. Hygienic. Targeted.
             </h2>
             <p className="text-[#F3F8F5]/70 text-sm leading-relaxed m-0">
-              Sistem penyelamatan makanan terotomatisasi yang menjaga kehormatan hidangan dan menjamin keamanan konsumsi.
+              An automated food rescue system that preserves the dignity of every meal and guarantees consumption safety.
             </p>
           </div>
 
@@ -1000,13 +1000,13 @@ export function LandingPage() {
             <div className="p-8 rounded-3xl bg-[#241B15] border border-[#3D2D23] hover:border-[#2D6A4F]/50 transition-colors flex flex-col justify-between shadow-sm">
               <div>
                 <span className="font-serif text-3xl font-bold text-[#2D6A4F] block mb-4">01</span>
-                <h3 className="text-lg font-bold text-[#F3F8F5] mb-2">Unggah Surplus 60 Detik</h3>
+                <h3 className="text-lg font-bold text-[#F3F8F5] mb-2">60-Second Surplus Upload</h3>
                 <p className="text-xs text-[#F3F8F5]/70 leading-relaxed mb-6">
-                  Restoran dan bakery terverifikasi mengunggah hidangan berlebih, porsi aman, dan batas kadaluwarsa melalui antarmuka khusus tanpa hambatan birokrasi.
+                  Verified restaurants and bakeries upload surplus food, safe portions, and expiry deadlines through a specialized interface without bureaucratic delay.
                 </p>
               </div>
               <a href="#/penyedia" className="text-xs font-bold uppercase tracking-wider text-[#F3F8F5] inline-flex items-center gap-1.5 hover:text-[#2D6A4F] transition-colors">
-                <span>Alur Mitra Penyedia</span>
+                <span>Provider Partner Flow</span>
                 <ChevronRight size={14} />
               </a>
             </div>
@@ -1014,13 +1014,13 @@ export function LandingPage() {
             <div className="p-8 rounded-3xl bg-[#241B15] border border-[#3D2D23] hover:border-[#2D6A4F]/50 transition-colors flex flex-col justify-between shadow-sm">
               <div>
                 <span className="font-serif text-3xl font-bold text-[#2D6A4F] block mb-4">02</span>
-                <h3 className="text-lg font-bold text-[#F3F8F5] mb-2">SOP Countdown 4 Jam</h3>
+                <h3 className="text-lg font-bold text-[#F3F8F5] mb-2">4-Hour Countdown SOP</h3>
                 <p className="text-xs text-[#F3F8F5]/70 leading-relaxed mb-6">
-                  Algoritma ketat menjaga rentang waktu konsumsi makanan. Setiap item yang melewati batas aman secara otomatis ditarik dari katalog publik.
+                  Strict algorithms enforce safe consumption timeframes. Any item that passes the safe window is automatically delisted from the public catalog.
                 </p>
               </div>
               <a href="#/terms" className="text-xs font-bold uppercase tracking-wider text-[#F3F8F5] inline-flex items-center gap-1.5 hover:text-[#2D6A4F] transition-colors">
-                <span>Panduan Keamanan Pangan</span>
+                <span>Food Safety Guidelines</span>
                 <ChevronRight size={14} />
               </a>
             </div>
@@ -1028,13 +1028,13 @@ export function LandingPage() {
             <div className="p-8 rounded-3xl bg-[#241B15] border border-[#3D2D23] hover:border-[#2D6A4F]/50 transition-colors flex flex-col justify-between shadow-sm">
               <div>
                 <span className="font-serif text-3xl font-bold text-[#2D6A4F] block mb-4">03</span>
-                <h3 className="text-lg font-bold text-[#F3F8F5] mb-2">Reduksi Emisi Metana Nyata</h3>
+                <h3 className="text-lg font-bold text-[#F3F8F5] mb-2">Real Methane Emission Reduction</h3>
                 <p className="text-xs text-[#F3F8F5]/70 leading-relaxed mb-6">
-                  Setiap kilogram makanan yang terselamatkan diverifikasi dalam laporan iklim ESG: 1 kg pangan setara pencegahan 2.5 kg gas rumah kaca CO₂e.
+                  Every kilogram of food rescued is verified in transparent ESG climate reports: 1 kg food equals 2.5 kg CO₂e greenhouse gas reduction.
                 </p>
               </div>
               <a href="#/dashboard" className="text-xs font-bold uppercase tracking-wider text-[#F3F8F5] inline-flex items-center gap-1.5 hover:text-[#2D6A4F] transition-colors">
-                <span>Telemetri Karbon</span>
+                <span>Carbon Telemetry</span>
                 <ChevronRight size={14} />
               </a>
             </div>
@@ -1050,61 +1050,61 @@ export function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#F3F8F5] mb-4 font-mono">
-                Katalog &amp; Pangan
+                Catalog &amp; Food
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#F3F8F5]/70">
-                <li><a href="#/penerima" className="hover:text-[#F3F8F5] transition-colors">Cari Surplus Terdekat</a></li>
-                <li><a href="#/penerima" className="hover:text-[#F3F8F5] transition-colors">Peta Geolocation GPS</a></li>
-                <li><a href="#/penerima" className="hover:text-[#F3F8F5] transition-colors">Kategori Makanan</a></li>
-                <li><a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">SOP Higiene 4 Jam</a></li>
+                <li><a href="#/penerima" className="hover:text-[#F3F8F5] transition-colors">Find Nearby Surplus</a></li>
+                <li><a href="#/penerima" className="hover:text-[#F3F8F5] transition-colors">GPS Geolocation Map</a></li>
+                <li><a href="#/penerima" className="hover:text-[#F3F8F5] transition-colors">Food Categories</a></li>
+                <li><a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">4-Hour Hygiene SOP</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#F3F8F5] mb-4 font-mono">
-                Mitra Penyedia
+                Provider Partners
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#F3F8F5]/70">
-                <li><a href="#/register" className="hover:text-[#F3F8F5] transition-colors">Daftarkan Usaha Kuliner</a></li>
-                <li><a href="#/penyedia" className="hover:text-[#F3F8F5] transition-colors">Dashboard Manajemen Stok</a></li>
-                <li><a href="#/penyedia/surplus" className="hover:text-[#F3F8F5] transition-colors">Unggah Makanan Berlebih</a></li>
-                <li><a href="#/penyedia/booking" className="hover:text-[#F3F8F5] transition-colors">Konfirmasi Penjemputan</a></li>
+                <li><a href="#/register" className="hover:text-[#F3F8F5] transition-colors">Register Food Business</a></li>
+                <li><a href="#/penyedia" className="hover:text-[#F3F8F5] transition-colors">Stock Management Dashboard</a></li>
+                <li><a href="#/penyedia/surplus" className="hover:text-[#F3F8F5] transition-colors">Upload Surplus Food</a></li>
+                <li><a href="#/penyedia/booking" className="hover:text-[#F3F8F5] transition-colors">Confirm Pickups</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#F3F8F5] mb-4 font-mono">
-                Dampak Lingkungan
+                Environmental Impact
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#F3F8F5]/70">
-                <li><a href="#/dashboard" className="hover:text-[#F3F8F5] transition-colors">Telemetri Karbon CO₂e</a></li>
-                <li><a href="#/dashboard" className="hover:text-[#F3F8F5] transition-colors">Ekuivalensi Serapan Pohon</a></li>
-                <li><a href="#/admin" className="hover:text-[#F3F8F5] transition-colors">Audit Microservices</a></li>
-                <li><a href="#/dashboard" className="hover:text-[#F3F8F5] transition-colors">Laporan ESG Transparan</a></li>
+                <li><a href="#/dashboard" className="hover:text-[#F3F8F5] transition-colors">Carbon Telemetry CO₂e</a></li>
+                <li><a href="#/dashboard" className="hover:text-[#F3F8F5] transition-colors">Tree Absorption Equivalency</a></li>
+                <li><a href="#/admin" className="hover:text-[#F3F8F5] transition-colors">Microservices Audit</a></li>
+                <li><a href="#/dashboard" className="hover:text-[#F3F8F5] transition-colors">Transparent ESG Reports</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-xs font-bold uppercase tracking-wider text-[#F3F8F5] mb-4 font-mono">
-                Platform &amp; Legalitas
+                Platform &amp; Legal
               </h4>
               <ul className="list-none p-0 m-0 space-y-2.5 text-xs text-[#F3F8F5]/70">
-                <li><a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Syarat &amp; Ketentuan</a></li>
-                <li><a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Kebijakan Higiene Pangan</a></li>
-                <li><a href="#/login" className="hover:text-[#F3F8F5] transition-colors">Akses Masuk Akun</a></li>
-                <li><a href="#/register" className="hover:text-[#F3F8F5] transition-colors">Registrasi Akun Baru</a></li>
+                <li><a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Terms &amp; Conditions</a></li>
+                <li><a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Food Hygiene Policy</a></li>
+                <li><a href="#/login" className="hover:text-[#F3F8F5] transition-colors">Sign In to Account</a></li>
+                <li><a href="#/register" className="hover:text-[#F3F8F5] transition-colors">Register New Account</a></li>
               </ul>
             </div>
           </div>
 
           <div className="pt-8 border-t border-[#2C2018] flex flex-col sm:flex-row items-center justify-between text-xs text-[#F3F8F5]/50">
             <p className="m-0 mb-3 sm:mb-0">
-              © 2026 AksesPangan. Gerakan Penyelamatan Makanan Indonesia.
+              © 2026 AksesPangan. Indonesian Food Rescue Movement.
             </p>
             <div className="flex gap-6">
-              <a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Privasi</a>
-              <a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Ketentuan</a>
-              <a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Standar Mutu</a>
+              <a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Privacy</a>
+              <a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Terms</a>
+              <a href="#/terms" className="hover:text-[#F3F8F5] transition-colors">Quality Standards</a>
             </div>
           </div>
         </div>

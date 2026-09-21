@@ -69,7 +69,7 @@ export function QrScannerModal({ isOpen, onClose, onScan, expectedBookingId }: Q
         if (payload.bookingId && payload.pin) {
           if (payload.bookingId !== expectedBookingId) {
             setScanState('error_mismatch');
-            setErrorMsg('QR Code ini bukan untuk pesanan yang sedang diverifikasi.');
+            setErrorMsg('This QR code does not match the booking being verified.');
             stopCamera();
             return;
           }
@@ -122,11 +122,11 @@ export function QrScannerModal({ isOpen, onClose, onScan, expectedBookingId }: Q
         if (cancelled) return;
         const msg = err instanceof Error ? err.message : String(err);
         if (msg.includes('Permission') || msg.includes('denied') || msg.includes('NotAllowed')) {
-          setErrorMsg('Akses kamera ditolak. Izinkan akses kamera di pengaturan browser, lalu coba lagi.');
+          setErrorMsg('Camera access denied. Please allow camera permissions in browser settings and try again.');
         } else if (msg.includes('NotFound') || msg.includes('DevicesNotFound')) {
-          setErrorMsg('Kamera tidak ditemukan di perangkat ini.');
+          setErrorMsg('No camera detected on this device.');
         } else {
-          setErrorMsg('Gagal mengakses kamera. Pastikan browser Anda mendukung akses kamera.');
+          setErrorMsg('Failed to access camera. Please ensure your browser supports camera access.');
         }
         setScanState('error_camera');
       }
@@ -150,7 +150,7 @@ export function QrScannerModal({ isOpen, onClose, onScan, expectedBookingId }: Q
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#2D6A4F]/30">
           <div className="flex items-center gap-2.5 text-[#F3F8F5]">
             <Camera size={18} className="text-[#2D6A4F]" />
-            <span className="text-sm font-semibold tracking-tight">Pindai QR Code Tiket</span>
+            <span className="text-sm font-semibold tracking-tight">Scan Ticket QR Code</span>
           </div>
           <button
             onClick={onClose}
@@ -194,14 +194,14 @@ export function QrScannerModal({ isOpen, onClose, onScan, expectedBookingId }: Q
           {scanState === 'requesting' && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0C2017]/90 gap-3">
               <Loader2 size={36} className="text-[#2D6A4F] animate-spin" />
-              <p className="text-[#F3F8F5]/80 text-sm text-center px-6">Meminta akses kamera…</p>
+              <p className="text-[#F3F8F5]/80 text-sm text-center px-6">Requesting camera access...</p>
             </div>
           )}
 
           {scanState === 'found' && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0C2017]/90 gap-3">
               <CheckCircle2 size={48} className="text-[#2D6A4F]" />
-              <p className="text-[#F3F8F5] font-semibold text-sm">QR Code Terdeteksi!</p>
+              <p className="text-[#F3F8F5] font-semibold text-sm">QR Code Detected!</p>
             </div>
           )}
 
@@ -217,7 +217,7 @@ export function QrScannerModal({ isOpen, onClose, onScan, expectedBookingId }: Q
         <div className="px-5 py-4 border-t border-[#2D6A4F]/30">
           {scanState === 'scanning' && (
             <p className="text-[#F3F8F5]/60 text-xs text-center">
-              Arahkan kamera ke QR Code pada tiket penerima
+              Point your camera at the QR code on the recipient&apos;s ticket
             </p>
           )}
           {(scanState === 'error_camera' || scanState === 'error_mismatch') && (
@@ -225,11 +225,11 @@ export function QrScannerModal({ isOpen, onClose, onScan, expectedBookingId }: Q
               onClick={onClose}
               className="w-full py-2 rounded-xl bg-[#2D6A4F] hover:bg-[#1E5038] text-white text-xs font-semibold transition-colors cursor-pointer"
             >
-              Tutup & Masukkan PIN Manual
+              Close & Enter Manual PIN
             </button>
           )}
           {scanState === 'requesting' && (
-            <p className="text-[#F3F8F5]/50 text-xs text-center">Menunggu izin akses kamera…</p>
+            <p className="text-[#F3F8F5]/50 text-xs text-center">Waiting for camera permission...</p>
           )}
         </div>
       </div>

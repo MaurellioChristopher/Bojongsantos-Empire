@@ -78,7 +78,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
 
   const handleLogout = () => {
     logout();
-    info('Sampai jumpa!', 'Anda telah keluar dari akun');
+    info('See you soon!', 'You have successfully signed out');
     window.location.hash = '#/';
   };
 
@@ -162,7 +162,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute === '/' ? 'text-[#143628] font-semibold' : 'hover:text-[#2D6A4F]'
                     }`}
                   >
-                    Beranda
+                    Home
                     {activeRoute === '/' && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -175,7 +175,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Dampak ESG
+                    ESG Impact
                     {activeRoute.startsWith('/dashboard') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -188,7 +188,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/terms') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Standar Mutu
+                    Quality Standards
                     {activeRoute.startsWith('/terms') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -196,7 +196,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 </>
               )}
 
-              {/* Penerima links (strictly NO Beranda, NO ESG, NO Standar Mutu) */}
+              {/* Penerima links */}
               {isAuthenticated && user?.role === 'penerima' && (
                 <>
                   <a
@@ -207,7 +207,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute === '/penerima' ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Katalog Surplus
+                    Surplus Catalog
                     {activeRoute === '/penerima' && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -220,7 +220,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/penerima/booking') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Pesanan Saya
+                    My Orders
                     {activeRoute.startsWith('/penerima/booking') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -233,7 +233,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/penerima/history') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Riwayat
+                    History
                     {activeRoute.startsWith('/penerima/history') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -241,7 +241,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 </>
               )}
 
-              {/* Penyedia links (Strictly NO ESG, NO Standar Mutu, NO Katalog Penerima) */}
+              {/* Penyedia links */}
               {isAuthenticated && user?.role === 'penyedia' && (
                 <>
                   <a
@@ -265,7 +265,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/penyedia/surplus') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Surplus Saya
+                    My Surplus
                     {activeRoute.startsWith('/penyedia/surplus') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -278,7 +278,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/penyedia/booking') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Pesanan Masuk
+                    Incoming Orders
                     {activeRoute.startsWith('/penyedia/booking') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -291,7 +291,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/penyedia/history') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Riwayat
+                    History
                     {activeRoute.startsWith('/penyedia/history') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -309,7 +309,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                     }`}
                   >
                     <Shield size={13} className={isDark ? 'text-white' : 'text-black'} />
-                    Dashboard Admin
+                    Admin Console
                   </a>
                   <a
                     href="#/terms"
@@ -319,7 +319,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/terms') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Kelola Standar Mutu
+                    Manage Standards
                     {activeRoute.startsWith('/terms') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -332,7 +332,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         : activeRoute.startsWith('/dashboard') ? 'text-black font-semibold' : 'hover:text-black'
                     }`}
                   >
-                    Kelola Dampak ESG
+                    ESG Analytics
                     {activeRoute.startsWith('/dashboard') && (
                       <span className="absolute -bottom-1 left-0 right-0 h-[2px] rounded-full" style={{ background: isDark ? '#F3F8F5' : '#2D6A4F' }} />
                     )}
@@ -344,7 +344,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
 
           {/* Right: High-End Actions */}
           <div className="flex items-center gap-5 sm:gap-6 text-[12px] font-medium tracking-[0.06em] uppercase">
-            {/* Support Link (only for Guest and Penerima) */}
+            {/* Support Link */}
             {(!user || user.role === 'penerima') && (
               <a
                 href="#/terms"
@@ -352,7 +352,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   isDark ? 'text-white/70 hover:text-white' : 'text-[#666666] hover:text-black'
                 }`}
               >
-                Bantuan
+                Support
               </a>
             )}
 
@@ -373,7 +373,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   className={`text-xs transition-colors p-1 cursor-pointer ${
                     isDark ? 'text-[#F3F8F5]/70 hover:text-[#F3F8F5]' : 'text-[#597367] hover:text-[#143628]'
                   }`}
-                  title="Keluar"
+                  title="Sign Out"
                 >
                   <LogOut size={14} />
                 </button>
@@ -386,11 +386,11 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 }`}
               >
                 <User size={15} />
-                <span className="hidden sm:inline">Masuk</span>
+                <span className="hidden sm:inline">Sign In</span>
               </a>
             )}
 
-            {/* Notification Bell (only for logged-in users) */}
+            {/* Notification Bell */}
             {isAuthenticated && user && (
               <div className="relative" ref={notifRef}>
                 <button
@@ -400,7 +400,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                   className={`relative p-1.5 transition-opacity cursor-pointer ${
                     isDark ? 'text-[#F3F8F5]' : 'text-[#143628]'
                   }`}
-                  title="Notifikasi"
+                  title="Notifications"
                 >
                   <Bell size={17} />
                   {unreadCount > 0 && (
@@ -424,7 +424,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                       className="absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-[#DCE5DB] z-50 overflow-hidden"
                     >
                       <div className="px-4 py-3 border-b border-[#DCE5DB] flex items-center justify-between">
-                        <span className="text-xs font-bold text-[#143628] uppercase tracking-wider">Notifikasi</span>
+                        <span className="text-xs font-bold text-[#143628] uppercase tracking-wider">Notifications</span>
                         {unreadCount > 0 && (
                           <button
                             onClick={() => {
@@ -434,7 +434,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                             }}
                             className="text-[10px] text-[#2D6A4F] font-semibold hover:underline cursor-pointer"
                           >
-                            Tandai semua dibaca
+                            Mark all as read
                           </button>
                         )}
                       </div>
@@ -442,7 +442,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                         {notifications.length === 0 ? (
                           <div className="px-4 py-8 text-center text-[#597367]">
                             <Bell size={24} className="mx-auto mb-2 text-[#C4B3A3]" />
-                            <p className="text-xs">Belum ada notifikasi.</p>
+                            <p className="text-xs">No notifications yet.</p>
                           </div>
                         ) : (
                           notifications.slice(0, 10).map((n) => (
@@ -495,7 +495,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                 className={`relative p-1.5 transition-opacity no-underline ${
                   isDark ? 'text-[#F3F8F5]' : 'text-[#143628]'
                 }`}
-                title={user.role === 'penyedia' ? 'Pesanan Masuk' : 'Pesanan Saya'}
+                title={user.role === 'penyedia' ? 'Incoming Orders' : 'My Orders'}
               >
                 <ShoppingBag size={17} />
                 {activeBookingsCount > 0 && (
@@ -538,21 +538,21 @@ export function Navbar({ currentRoute }: NavbarProps) {
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Beranda
+                    Home
                   </a>
                   <a
                     href="#/dashboard"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Dampak ESG
+                    ESG Impact
                   </a>
                   <a
                     href="#/terms"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Standar Mutu
+                    Quality Standards
                   </a>
                 </>
               )}
@@ -565,21 +565,21 @@ export function Navbar({ currentRoute }: NavbarProps) {
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Katalog Surplus
+                    Surplus Catalog
                   </a>
                   <a
                     href="#/penerima/booking"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Pesanan Saya
+                    My Orders
                   </a>
                   <a
                     href="#/penerima/history"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Riwayat
+                    History
                   </a>
                 </>
               )}
@@ -599,21 +599,21 @@ export function Navbar({ currentRoute }: NavbarProps) {
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Surplus Saya
+                    My Surplus
                   </a>
                   <a
                     href="#/penyedia/booking"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Pesanan Masuk
+                    Incoming Orders
                   </a>
                   <a
                     href="#/penyedia/history"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Riwayat
+                    History
                   </a>
                 </>
               )}
@@ -626,21 +626,21 @@ export function Navbar({ currentRoute }: NavbarProps) {
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100 font-semibold"
                   >
-                    Dashboard Admin
+                    Admin Dashboard
                   </a>
                   <a
                     href="#/terms"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Kelola Standar Mutu
+                    Manage Quality Standards
                   </a>
                   <a
                     href="#/dashboard"
                     onClick={() => setMenuOpen(false)}
                     className="text-black hover:opacity-70 no-underline py-1.5 border-b border-gray-100"
                   >
-                    Kelola Dampak ESG
+                    Manage ESG Impact
                   </a>
                 </>
               )}
@@ -656,7 +656,7 @@ export function Navbar({ currentRoute }: NavbarProps) {
                       }}
                       className="text-xs font-semibold uppercase tracking-wider py-1.5 px-3 border border-black rounded-[3px]"
                     >
-                      Keluar
+                      Logout
                     </button>
                   </div>
                 ) : (
@@ -666,14 +666,14 @@ export function Navbar({ currentRoute }: NavbarProps) {
                       onClick={() => setMenuOpen(false)}
                       className="text-xs font-bold uppercase tracking-wider py-2.5 text-center flex-1 border border-black rounded-[3px] text-black no-underline"
                     >
-                      Masuk
+                      Sign In
                     </a>
                     <a
                       href="#/register"
                       onClick={() => setMenuOpen(false)}
                       className="text-xs font-bold uppercase tracking-wider py-2.5 text-center flex-1 bg-black text-white rounded-[3px] no-underline"
                     >
-                      Daftar Akun
+                      Register
                     </a>
                   </div>
                 )}

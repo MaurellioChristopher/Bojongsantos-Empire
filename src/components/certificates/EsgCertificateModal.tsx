@@ -24,7 +24,7 @@ export function EsgCertificateModal({
   const co2Prevented = Math.round(totalKgSaved * 2.5 * 10) / 10;
   const portions = Math.round(totalKgSaved * 2.5);
   const certNumber = `AP-ESG-2026-${user.id ? user.id.slice(-6).toUpperCase() : 'BDG01'}`;
-  const issueDate = new Date().toLocaleDateString('id-ID', {
+  const issueDate = new Date().toLocaleDateString('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -42,7 +42,7 @@ export function EsgCertificateModal({
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#DCE5DB] bg-[#F7F9F6] print:hidden">
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#2D6A4F]">
             <ShieldCheck size={16} />
-            <span>Sertifikat Terverifikasi AksesPangan</span>
+            <span>AksesPangan Verified Certificate</span>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -50,7 +50,7 @@ export function EsgCertificateModal({
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs font-medium rounded-lg shadow-xs transition-all cursor-pointer"
             >
               <Printer size={14} />
-              <span>Cetak / Simpan PDF</span>
+              <span>Print / Save PDF</span>
             </button>
             <button
               onClick={onClose}
@@ -81,23 +81,23 @@ export function EsgCertificateModal({
                 AKSES PANGAN • ESG INITIATIVE
               </div>
               <h1 className="text-2xl sm:text-3xl font-serif tracking-tight text-[#143628] mt-1 mb-1 font-bold">
-                Sertifikat Penyelamat Pangan & Iklim
+                Food & Climate Hero Certificate
               </h1>
               <p className="text-xs text-[#597367] max-w-lg mx-auto">
-                Diberikan sebagai pengakuan atas dedikasi dan kontribusi nyata dalam penekanan food waste dan perlindungan lingkungan hidup.
+                Conferred in formal recognition of exemplary dedication to food waste prevention and ecological climate stewardship.
               </p>
             </div>
 
             {/* Awardee Presentation */}
             <div className="text-center my-6 py-4 border-y border-[#E5ECE4]">
               <div className="text-[11px] uppercase tracking-wider text-[#597367] mb-1">
-                Diberikan Secara Resmi Kepada:
+                Formally Presented To:
               </div>
               <div className="text-xl sm:text-2xl font-bold text-[#143628] tracking-tight">
                 {user.businessName || user.name}
               </div>
               <div className="text-xs text-[#597367] mt-0.5">
-                {user.businessAddress || 'Bandung Raya, Jawa Barat'} • Mitra Terverifikasi
+                {user.businessAddress || 'Greater Bandung, West Java'} • Verified Partner
               </div>
             </div>
 
@@ -108,7 +108,7 @@ export function EsgCertificateModal({
                   {totalKgSaved.toFixed(1)} <span className="text-xs font-normal">kg</span>
                 </div>
                 <div className="text-[10px] sm:text-xs text-[#597367] mt-0.5">
-                  Surplus Terselamatkan
+                  Surplus Rescued
                 </div>
               </div>
               <div className="p-3 bg-[#F7F9F6] rounded-xl border border-[#DCE5DB]">
@@ -116,15 +116,15 @@ export function EsgCertificateModal({
                   {co2Prevented} <span className="text-xs font-normal">kg CO₂e</span>
                 </div>
                 <div className="text-[10px] sm:text-xs text-[#597367] mt-0.5">
-                  Emisi Gas Dicegah
+                  Emissions Averted
                 </div>
               </div>
               <div className="p-3 bg-[#F7F9F6] rounded-xl border border-[#DCE5DB]">
                 <div className="text-lg sm:text-2xl font-bold font-mono text-[#143628]">
-                  {portions} <span className="text-xs font-normal">porsi</span>
+                  {portions} <span className="text-xs font-normal">portions</span>
                 </div>
                 <div className="text-[10px] sm:text-xs text-[#597367] mt-0.5">
-                  Akses Pangan Tersalurkan
+                  Meals Distributed
                 </div>
               </div>
             </div>
@@ -148,9 +148,9 @@ export function EsgCertificateModal({
             {/* Signatures & Verification Stamp */}
             <div className="flex items-end justify-between pt-6 border-t border-[#E5ECE4] text-xs text-[#597367]">
               <div>
-                <div className="font-mono text-[10px] text-[#597367]/80">NOMOR REGISTRASI:</div>
+                <div className="font-mono text-[10px] text-[#597367]/80">REGISTRATION NUMBER:</div>
                 <div className="font-mono font-bold text-[#143628] text-xs">{certNumber}</div>
-                <div className="text-[10px] text-[#597367] mt-0.5">Terbit: {issueDate}</div>
+                <div className="text-[10px] text-[#597367] mt-0.5">Issued: {issueDate}</div>
               </div>
 
               {/* Stamp Seal */}
@@ -164,7 +164,7 @@ export function EsgCertificateModal({
                 <div className="font-serif italic text-base text-[#143628] font-bold mb-1">
                   Prof. Dr. Ir. Pangan Lestari
                 </div>
-                <div className="text-[10px] text-[#597367]">Komite Penilai Keberlanjutan Pangan</div>
+                <div className="text-[10px] text-[#597367]">Food Sustainability Evaluation Committee</div>
               </div>
             </div>
 

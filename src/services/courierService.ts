@@ -29,7 +29,7 @@ export const PROFESSIONAL_COURIERS: CourierDriver[] = [
     rating: 4.8,
     totalReviews: 94,
     completedDeliveries: 215,
-    badge: 'Eco-Rider • Cepat & Higienis',
+    badge: 'Eco-Rider • Fast & Hygienic',
     currentCoords: {
       lat: -6.9782,
       lng: 107.6285,

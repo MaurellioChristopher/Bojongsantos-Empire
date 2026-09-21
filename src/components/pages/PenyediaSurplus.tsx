@@ -53,16 +53,16 @@ export function PenyediaSurplus() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#143628] mb-4 border border-[#DCE5DB] shadow-sm">
           <Package size={32} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Akses Khusus Mitra Penyedia</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Provider Partner Access Only</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Halaman ini khusus untuk Mitra Penyedia untuk menambah dan mengelola stok makanan surplus.
+          This page is reserved for provider partners to add and manage surplus food inventory.
         </p>
         <div className="flex items-center justify-center">
           <a
             href="#/login"
             className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all text-center"
           >
-            Masuk ke Akun Anda
+            Log in to Your Account
           </a>
         </div>
       </div>
@@ -141,29 +141,29 @@ export function PenyediaSurplus() {
     try {
       if (editItem) {
         await surplusService.update(editItem.id, itemData);
-        success('Berhasil Diperbarui', `${name} telah diperbarui`);
+        success('Successfully Updated', `${name} has been updated`);
       } else {
         await surplusService.create(itemData);
-        success('Surplus Ditambahkan', `${name} berhasil dipublikasikan ke peta`);
+        success('Surplus Added', `${name} was successfully published to the map`);
       }
       setShowForm(false);
       resetForm();
       refreshItems();
     } catch (err: any) {
-      error('Gagal Menyimpan', err.message || 'Gagal menyimpan surplus makanan');
+      error('Failed to Save', err.message || 'Failed to save surplus food');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleDelete = async (id: string, itemName: string) => {
-    if (!confirm(`Yakin ingin menghapus ${itemName}?`)) return;
+    if (!confirm(`Are you sure you want to delete ${itemName}?`)) return;
     try {
       await surplusService.delete(id);
-      success('Surplus Dihapus', `${itemName} telah dihapus dari katalog`);
+      success('Surplus Deleted', `${itemName} has been removed from the catalog`);
       refreshItems();
     } catch (err: any) {
-      error('Gagal Menghapus', err.message || 'Gagal menghapus surplus');
+      error('Failed to Delete', err.message || 'Failed to delete surplus');
     }
   };
 
@@ -174,11 +174,11 @@ export function PenyediaSurplus() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           <div>
             <a href="#/penyedia" className="text-[#2D6A4F] hover:text-[#B8401A] text-xs mb-2 inline-flex items-center gap-1 font-semibold">
-              <ArrowLeft size={14} /> Kembali ke Dashboard
+              <ArrowLeft size={14} /> Back to Dashboard
             </a>
-            <h1 className="text-display-lg text-[#143628]">Kelola Inventaris Surplus</h1>
+            <h1 className="text-display-lg text-[#143628]">Manage Surplus Inventory</h1>
             <p className="text-body-apple text-[#597367] m-0">
-              Kelola stok <strong>Sisa Makanan</strong> dan <strong>Bahan Baku</strong> secara terpisah.
+              Manage stock for <strong>Prepared Surplus</strong> and <strong>Raw Produce</strong> separately.
             </p>
           </div>
         </div>
@@ -194,7 +194,7 @@ export function PenyediaSurplus() {
             }`}
           >
             <Utensils size={15} />
-            Sisa Makanan
+            Prepared Surplus
             <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${
               activeTab === 'siap_santap' ? 'bg-white/20 text-[#F3F8F5]' : 'bg-[#DCE5DB] text-[#597367]'
             }`}>
@@ -210,7 +210,7 @@ export function PenyediaSurplus() {
             }`}
           >
             <ShoppingBasket size={15} />
-            Bahan Baku
+            Raw Produce
             <span className={`text-xs px-2 py-0.5 rounded-full font-mono ${
               activeTab === 'bahan_baku' ? 'bg-white/20 text-[#FFF8F2]' : 'bg-[#DCE5DB] text-[#597367]'
             }`}>
@@ -227,8 +227,8 @@ export function PenyediaSurplus() {
                 <Utensils size={16} className="text-[#2D6A4F]" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#143628] leading-none">Sisa Makanan Matang</p>
-                <p className="text-xs text-[#597367] mt-0.5">Makanan siap santap yang masih layak dikonsumsi</p>
+                <p className="text-sm font-semibold text-[#143628] leading-none">Prepared / Cooked Surplus</p>
+                <p className="text-xs text-[#597367] mt-0.5">Ready-to-eat meals and dishes that are safe for consumption</p>
               </div>
             </div>
           ) : (
@@ -237,8 +237,8 @@ export function PenyediaSurplus() {
                 <ShoppingBasket size={16} className="text-[#A45E2A]" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-[#2C1810] leading-none">Bahan Baku Mentah / Segar</p>
-                <p className="text-xs text-[#7A5842] mt-0.5">Sayuran, buah, dan bahan mentah siap olah</p>
+                <p className="text-sm font-semibold text-[#2C1810] leading-none">Raw Produce / Fresh Ingredients</p>
+                <p className="text-xs text-[#7A5842] mt-0.5">Vegetables, fruits, and raw ingredients ready for cooking</p>
               </div>
             </div>
           )}
@@ -251,7 +251,7 @@ export function PenyediaSurplus() {
             }`}
           >
             <Plus size={16} />
-            {activeTab === 'siap_santap' ? 'Tambah Sisa Makanan' : 'Tambah Bahan Baku'}
+            {activeTab === 'siap_santap' ? 'Add Prepared Surplus' : 'Add Raw Produce'}
           </button>
         </div>
 
@@ -268,14 +268,14 @@ export function PenyediaSurplus() {
                 <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#DCE5DB]">
                   <div>
                     <h3 className="text-tagline text-[#143628] font-bold">
-                      {editItem ? 'Edit Informasi Surplus' : 'Unggah Makanan Surplus Baru'}
+                      {editItem ? 'Edit Surplus Information' : 'Upload New Surplus Food'}
                     </h3>
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full mt-1 inline-block ${
                       itemType === 'siap_santap'
                         ? 'bg-[#E8F4EE] text-[#2D6A4F]'
                         : 'bg-[#FBF0E6] text-[#A45E2A]'
                     }`}>
-                      {itemType === 'siap_santap' ? '🍽 Sisa Makanan' : '🧺 Bahan Baku'}
+                      {itemType === 'siap_santap' ? '🍽 Prepared Surplus' : '🧺 Raw Produce'}
                     </span>
                   </div>
                   <button
@@ -287,9 +287,9 @@ export function PenyediaSurplus() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Tipe Item Toggle */}
+                  {/* Item Type Toggle */}
                   <div>
-                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Jenis Item</label>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Item Type</label>
                     <div className="flex gap-2">
                       <button
                         type="button"
@@ -298,7 +298,7 @@ export function PenyediaSurplus() {
                           itemType === 'siap_santap' ? 'bg-[#143628] text-[#F3F8F5] border-[#143628]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
                         }`}
                       >
-                        <Utensils size={12} /> Sisa Makanan
+                        <Utensils size={12} /> Prepared Surplus
                       </button>
                       <button
                         type="button"
@@ -307,25 +307,25 @@ export function PenyediaSurplus() {
                           itemType === 'bahan_baku' ? 'bg-[#A45E2A] text-[#FFF8F2] border-[#A45E2A]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
                         }`}
                       >
-                        <ShoppingBasket size={12} /> Bahan Baku
+                        <ShoppingBasket size={12} /> Raw Produce
                       </button>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Nama {itemType === 'siap_santap' ? 'Makanan' : 'Bahan'}</label>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Name of {itemType === 'siap_santap' ? 'Food' : 'Produce'}</label>
                     <input
                       type="text"
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder={itemType === 'siap_santap' ? 'Contoh: Nasi Kotak Ayam Bakar' : 'Contoh: Wortel Organik Segar'}
+                      placeholder={itemType === 'siap_santap' ? 'E.g., Grilled Chicken Rice Box' : 'E.g., Fresh Organic Carrots'}
                       className="apple-input"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Kategori</label>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Category</label>
                     <select
                       value={foodCategory}
                       onChange={(e) => setFoodCategory(e.target.value as FoodCategory)}
@@ -333,18 +333,18 @@ export function PenyediaSurplus() {
                     >
                       {itemType === 'siap_santap' ? (
                         <>
-                          <option value="nasi">🍚 Nasi &amp; Karbohidrat</option>
-                          <option value="lauk">🍗 Lauk Pauk</option>
-                          <option value="roti">🍞 Roti &amp; Pastry</option>
-                          <option value="kue">🍰 Kue &amp; Snack</option>
-                          <option value="minuman">🥤 Minuman</option>
-                          <option value="lainnya">📦 Lainnya</option>
+                          <option value="nasi">🍚 Rice &amp; Carbohydrates</option>
+                          <option value="lauk">🍗 Main Dishes</option>
+                          <option value="roti">🍞 Bread &amp; Pastry</option>
+                          <option value="kue">🍰 Cakes &amp; Snacks</option>
+                          <option value="minuman">🥤 Beverages</option>
+                          <option value="lainnya">📦 Others</option>
                         </>
                       ) : (
                         <>
-                          <option value="sayur">🥗 Sayur &amp; Salad</option>
-                          <option value="buah">🍎 Buah-buahan</option>
-                          <option value="lainnya">📦 Bahan Lainnya</option>
+                          <option value="sayur">🥗 Vegetables &amp; Salad</option>
+                          <option value="buah">🍎 Fruits</option>
+                          <option value="lainnya">📦 Other Produce</option>
                         </>
                       )}
                     </select>
@@ -352,35 +352,35 @@ export function PenyediaSurplus() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Berat (kg)</label>
+                      <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Weight (kg)</label>
                       <input
                         type="number"
                         step="0.5"
                         required
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
-                        placeholder="Contoh: 5"
+                        placeholder="E.g., 5"
                         className="apple-input"
                       />
                     </div>
                     <div>
                       <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">
-                        {itemType === 'siap_santap' ? 'Estimasi Porsi' : 'Estimasi Paket'}
+                        {itemType === 'siap_santap' ? 'Estimated Portions' : 'Estimated Packages'}
                       </label>
                       <input
                         type="number"
                         required
                         value={portionCount}
                         onChange={(e) => setPortionCount(e.target.value)}
-                        placeholder="Contoh: 10"
+                        placeholder="E.g., 10"
                         className="apple-input"
                       />
                     </div>
                   </div>
 
-                  {/* Skema Harga */}
+                  {/* Pricing Scheme */}
                   <div>
-                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Skema Harga</label>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Pricing Scheme</label>
                     <div className="flex gap-2">
                       <button
                         type="button"
@@ -389,7 +389,7 @@ export function PenyediaSurplus() {
                           isFree ? 'bg-[#143628] text-[#F3F8F5] border-[#143628]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
                         }`}
                       >
-                        Gratis
+                        Free
                       </button>
                       <button
                         type="button"
@@ -398,15 +398,15 @@ export function PenyediaSurplus() {
                           !isFree ? 'bg-[#143628] text-[#F3F8F5] border-[#143628]' : 'bg-[#FAF7F2] text-[#143628] border-[#DCE5DB]'
                         }`}
                       >
-                        Berbayar
+                        Paid
                       </button>
                     </div>
                   </div>
 
-                  {/* Harga — only when paid */}
+                  {/* Price — only when paid */}
                   {!isFree && (
                     <div>
-                      <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Harga per Porsi (Rp)</label>
+                      <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Price per Portion (Rp)</label>
                       <input
                         type="number"
                         min="0"
@@ -418,42 +418,42 @@ export function PenyediaSurplus() {
                     </div>
                   )}
 
-                  {/* Masa Aman — always shown */}
+                  {/* Safe consumption window */}
                   <div>
-                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Masa Aman (Jam)</label>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Safe Consumption Window (Hours)</label>
                     <select
                       value={expiryHours}
                       onChange={(e) => setExpiryHours(e.target.value)}
                       className="apple-input"
                     >
-                      <option value="2">2 Jam</option>
-                      <option value="4">4 Jam (Standar Suhu Ruang)</option>
-                      <option value="6">6 Jam (Pendingin)</option>
-                      <option value="12">12 Jam</option>
-                      <option value="24">24 Jam (Bahan Segar)</option>
-                      <option value="48">48 Jam (Bahan Tahan Lama)</option>
+                      <option value="2">2 Hours</option>
+                      <option value="4">4 Hours (Room Temp Standard)</option>
+                      <option value="6">6 Hours (Refrigerated)</option>
+                      <option value="12">12 Hours</option>
+                      <option value="24">24 Hours (Fresh Produce)</option>
+                      <option value="48">48 Hours (Long Shelf-Life)</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Lokasi Pengambilan</label>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Pickup Location</label>
                     <input
                       type="text"
                       required
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
-                      placeholder="Alamat restoran / dapur Anda"
+                      placeholder="Restaurant or kitchen address"
                       className="apple-input"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Deskripsi &amp; Catatan Alergen</label>
+                    <label className="block text-caption-strong text-[#143628] mb-1.5 font-semibold">Description &amp; Allergen Notes</label>
                     <textarea
                       rows={3}
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      placeholder="Jelaskan kondisi, kemasan, atau catatan alergi jika ada..."
+                      placeholder="Describe condition, packaging, or allergen info if applicable..."
                       className="apple-input h-auto py-2.5"
                     />
                   </div>
@@ -464,7 +464,7 @@ export function PenyediaSurplus() {
                       onClick={() => setShowForm(false)}
                       className="bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] flex-1 text-sm py-2.5 rounded-xl border border-[#DCE5DB] transition-colors"
                     >
-                      Batal
+                      Cancel
                     </button>
                     <button
                       type="submit"
@@ -475,7 +475,7 @@ export function PenyediaSurplus() {
                           : 'bg-[#A45E2A] hover:bg-[#8B4E22] text-[#FFF8F2]'
                       }`}
                     >
-                      {isSubmitting ? 'Menyimpan...' : editItem ? 'Simpan Perubahan' : 'Publikasikan Surplus'}
+                      {isSubmitting ? 'Saving...' : editItem ? 'Save Changes' : 'Publish Surplus'}
                     </button>
                   </div>
                 </form>
@@ -499,12 +499,12 @@ export function PenyediaSurplus() {
                   : <ShoppingBasket size={40} className="text-[#C8A880] mx-auto mb-3" />
                 }
                 <h3 className={`text-tagline mb-1 ${isSiapSantap ? 'text-[#143628]' : 'text-[#2C1810]'}`}>
-                  Belum Ada {isSiapSantap ? 'Sisa Makanan' : 'Bahan Baku'} yang Diunggah
+                  No {isSiapSantap ? 'Prepared Surplus' : 'Raw Produce'} Uploaded Yet
                 </h3>
                 <p className={`text-caption-apple mb-6 ${isSiapSantap ? 'text-[#597367]' : 'text-[#7A5842]'}`}>
                   {isSiapSantap
-                    ? 'Mulai selamatkan makanan matang berlebih dari usaha Anda hari ini.'
-                    : 'Unggah bahan baku segar atau mentah yang belum terpakai dari dapur Anda.'}
+                    ? 'Start rescuing surplus cooked meals from your business today.'
+                    : "Upload fresh or raw surplus produce that hasn't been used in your kitchen."}
                 </p>
                 <button
                   onClick={() => openAddForm(activeTab)}
@@ -515,7 +515,7 @@ export function PenyediaSurplus() {
                   }`}
                 >
                   <Plus size={16} />
-                  {isSiapSantap ? 'Tambah Sisa Makanan' : 'Tambah Bahan Baku'}
+                  {isSiapSantap ? 'Add Prepared Surplus' : 'Add Raw Produce'}
                 </button>
               </div>
             );
@@ -556,7 +556,7 @@ export function PenyediaSurplus() {
                       {item.name}
                     </h3>
                     <div className={`text-caption-apple mb-2 ${isSiapSantap ? 'text-[#597367]' : 'text-[#7A5842]'}`}>
-                      {item.quantity} kg • {item.portionCount} {isSiapSantap ? 'porsi' : 'paket'} • {item.isFree ? 'Gratis' : formatPrice(item.price)}
+                      {item.quantity} kg • {item.portionCount} {isSiapSantap ? 'portions' : 'packs'} • {item.isFree ? 'Free' : formatPrice(item.price)}
                     </div>
                     <p className={`text-caption-apple line-clamp-2 mb-4 ${isSiapSantap ? 'text-[#597367]' : 'text-[#7A5842]'}`}>
                       {item.description}
@@ -568,7 +568,7 @@ export function PenyediaSurplus() {
                   }`}>
                     <span className={`text-fine-print flex items-center gap-1 ${isSiapSantap ? 'text-[#597367]' : 'text-[#7A5842]'}`}>
                       <Clock size={12} className={isSiapSantap ? 'text-[#2D6A4F]' : 'text-[#A45E2A]'} />
-                      <span>Sisa: {formatCountdown(item.expiryTime)}</span>
+                      <span>Time left: {formatCountdown(item.expiryTime)}</span>
                     </span>
                     <div className="flex items-center gap-2">
                       <button
@@ -583,7 +583,7 @@ export function PenyediaSurplus() {
                       <button
                         onClick={() => handleDelete(item.id, item.name)}
                         className="p-1.5 text-red-600 hover:bg-red-50 rounded-full transition-colors"
-                        title="Hapus"
+                        title="Delete"
                       >
                         <Trash2 size={16} />
                       </button>

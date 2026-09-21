@@ -29,16 +29,16 @@ export function PenyediaHistory() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#143628] mb-4 border border-[#DCE5DB] shadow-sm">
           <Package size={32} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Riwayat Penyaluran Surplus</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Surplus Distribution History</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Silakan masuk ke akun Mitra Penyedia Anda untuk melihat arsip lengkap stok surplus yang telah tersalurkan.
+          Please log in to your Provider Partner account to view the complete archive of distributed surplus stock.
         </p>
         <div className="flex items-center justify-center">
           <a
             href="#/login"
             className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all text-center"
           >
-            Masuk ke Akun Anda
+            Log in to Your Account
           </a>
         </div>
       </div>
@@ -48,11 +48,11 @@ export function PenyediaHistory() {
   const statusBadge = (status: BookingStatus) => {
     switch (status) {
       case 'diambil':
-        return <span className="badge-apple badge-apple-success">Tersalurkan Selesai</span>;
+        return <span className="badge-apple badge-apple-success">Successfully Distributed</span>;
       case 'dibatalkan':
-        return <span className="badge-apple badge-apple-error">Dibatalkan</span>;
+        return <span className="badge-apple badge-apple-error">Cancelled</span>;
       case 'kedaluwarsa':
-        return <span className="badge-apple badge-apple-warning">Kedaluwarsa</span>;
+        return <span className="badge-apple badge-apple-warning">Expired</span>;
       default:
         return <span className="badge-apple badge-apple-neutral">{BOOKING_STATUS_LABELS[status] || status}</span>;
     }
@@ -66,11 +66,11 @@ export function PenyediaHistory() {
         {/* Header */}
         <div className="mb-8">
           <a href="#/penyedia" className="text-[#2D6A4F] hover:text-[#B8401A] text-xs mb-2 inline-flex items-center gap-1 font-semibold">
-            <ArrowLeft size={14} /> Kembali ke Dashboard Mitra Penyedia
+            <ArrowLeft size={14} /> Back to Provider Dashboard
           </a>
-          <h1 className="text-display-lg text-[#143628]">Riwayat Penyaluran</h1>
+          <h1 className="text-display-lg text-[#143628]">Distribution History</h1>
           <p className="text-body-apple text-[#597367] m-0">
-            Arsip lengkap stok surplus yang berhasil diselamatkan dan diambil oleh penerima manfaat.
+            Complete archive of surplus stock successfully rescued and picked up by beneficiaries.
           </p>
         </div>
 
@@ -78,37 +78,37 @@ export function PenyediaHistory() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 shadow-xs">
             <div className="text-[11px] uppercase font-semibold text-[#597367] tracking-wider mb-1">
-              Total Makanan Tersalurkan
+              Total Food Distributed
             </div>
             <div className="text-display-md text-[#143628] font-bold">
               {totalDistributed} <span className="text-sm font-normal text-[#597367]">kg</span>
             </div>
             <div className="text-caption-apple text-[#1b8a36] mt-1 flex items-center gap-1 font-medium">
-              <CheckCircle2 size={13} /> Berhasil diselamatkan
+              <CheckCircle2 size={13} /> Successfully rescued
             </div>
           </div>
 
           <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 shadow-xs">
             <div className="text-[11px] uppercase font-semibold text-[#597367] tracking-wider mb-1">
-              Estimasi Emisi Dicegah
+              Estimated Emissions Prevented
             </div>
             <div className="text-display-md text-[#143628] font-bold">
               {(totalDistributed * 2.5).toFixed(1)} <span className="text-sm font-normal text-[#597367]">kg CO₂e</span>
             </div>
             <div className="text-caption-apple text-[#597367] mt-1">
-              Faktor emisi 2.5x bobot
+              2.5x weight emission factor
             </div>
           </div>
 
           <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 shadow-xs">
             <div className="text-[11px] uppercase font-semibold text-[#597367] tracking-wider mb-1">
-              Total Pesanan Selesai
+              Total Orders Completed
             </div>
             <div className="text-display-md text-[#143628] font-bold">
-              {bookings.filter((b) => b.status === 'diambil').length} <span className="text-sm font-normal text-[#597367]">transaksi</span>
+              {bookings.filter((b) => b.status === 'diambil').length} <span className="text-sm font-normal text-[#597367]">orders</span>
             </div>
             <div className="text-caption-apple text-[#597367] mt-1">
-              Dari {bookings.length} total klaim
+              Out of {bookings.length} total claims
             </div>
           </div>
         </div>
@@ -116,19 +116,19 @@ export function PenyediaHistory() {
         {/* History Records List */}
         <div className="bg-[#FFFFFF] rounded-2xl border border-[#DCE5DB] p-6 sm:p-8 shadow-xs">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-tagline text-[#143628] font-bold">Daftar Penyaluran Selesai</h2>
-            <span className="text-caption-apple text-[#597367]">{bookings.length} rekaman</span>
+            <h2 className="text-tagline text-[#143628] font-bold">Completed Distribution List</h2>
+            <span className="text-caption-apple text-[#597367]">{bookings.length} records</span>
           </div>
 
           {bookings.length === 0 ? (
             <div className="text-center py-12 text-[#597367]">
               <Archive size={36} className="text-[#A8988B] mx-auto mb-3" />
-              <p className="text-body-strong text-[#143628] mb-1">Belum ada riwayat penyaluran</p>
+              <p className="text-body-strong text-[#143628] mb-1">No distribution history yet</p>
               <p className="text-caption-apple text-[#597367] max-w-xs mx-auto mb-4">
-                Surplus yang telah diambil atau diselesaikan akan muncul dalam arsip ini.
+                Surplus food that has been collected or completed will appear in this archive.
               </p>
               <a href="#/penyedia/surplus" className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] px-4 py-2 rounded-xl text-xs font-semibold inline-flex shadow-sm transition-all">
-                Kelola Stok Surplus
+                Manage Surplus Inventory
               </a>
             </div>
           ) : (
@@ -147,7 +147,7 @@ export function PenyediaHistory() {
                       {statusBadge(b.status)}
                     </div>
                     <p className="text-caption-apple text-[#597367] mb-1 flex items-center gap-1">
-                      <User size={13} /> Penerima: <span className="text-[#143628] font-medium">{b.recipientName}</span>
+                      <User size={13} /> Beneficiary: <span className="text-[#143628] font-medium">{b.recipientName}</span>
                     </p>
                     <div className="flex items-center gap-4 text-xs text-[#597367]">
                       <span className="font-semibold text-[#143628] flex items-center gap-1">
@@ -161,7 +161,7 @@ export function PenyediaHistory() {
                   </div>
 
                   <div className="text-right sm:self-center">
-                    <span className="text-xs text-[#597367] font-mono">Klaim #{b.id.slice(0, 8)}</span>
+                    <span className="text-xs text-[#597367] font-mono">Claim #{b.id.slice(0, 8)}</span>
                   </div>
                 </motion.div>
               ))}

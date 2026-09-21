@@ -39,13 +39,13 @@ const CourierNavigationModal = dynamic(
   { ssr: false }
 );
 
-type OrderFilter = 'semua' | 'menunggu' | 'siap' | 'selesai' | 'dibatalkan';
+type OrderFilter = 'all' | 'pending' | 'ready' | 'completed' | 'cancelled';
 
 export function PenerimaBooking() {
   const { user, login } = useAuth();
   const { success, warning } = useNotification();
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [activeFilter, setActiveFilter] = useState<OrderFilter>('semua');
+  const [activeFilter, setActiveFilter] = useState<OrderFilter>('all');
   const [selectedTicket, setSelectedTicket] = useState<Booking | null>(null);
   const [selectedChatBooking, setSelectedChatBooking] = useState<Booking | null>(null);
   const [cancelModalBooking, setCancelModalBooking] = useState<Booking | null>(null);
@@ -82,7 +82,7 @@ export function PenerimaBooking() {
     } catch {
       updateBookingStatus(booking.id, 'diambil');
     }
-    success('Pengambilan Selesai', `Terima kasih telah menyelamatkan ${booking.quantity} kg makanan.`);
+    success('Pickup Completed', `Thank you for rescuing ${booking.quantity} kg of food.`);
     if (selectedTicket?.id === booking.id) setSelectedTicket(null);
     refresh();
   };
@@ -93,7 +93,7 @@ export function PenerimaBooking() {
     } catch {
       updateBookingStatus(booking.id, 'dibatalkan');
     }
-    warning('Pesanan Dibatalkan', `Pesanan ${booking.surplusName} telah dibatalkan.`);
+    warning('Order Cancelled', `Order for ${booking.surplusName} has been cancelled.`);
     if (selectedTicket?.id === booking.id) setSelectedTicket(null);
     refresh();
   };
@@ -104,16 +104,16 @@ export function PenerimaBooking() {
         <div className="w-16 h-16 rounded-full bg-[#FFFFFF] flex items-center justify-center text-[#143628] mb-4 border border-[#DCE5DB] shadow-sm">
           <Lock size={30} />
         </div>
-        <h2 className="text-display-md text-[#143628] mb-2">Akses Khusus Penerima Manfaat</h2>
+        <h2 className="text-display-md text-[#143628] mb-2">Beneficiary Access Only</h2>
         <p className="text-body-apple text-[#597367] max-w-md mb-6">
-          Halaman ini khusus untuk Penerima Manfaat yang terdaftar untuk melihat pesanan makanan surplus.
+          This page is reserved for registered beneficiaries to view and manage surplus food orders.
         </p>
         <div className="flex items-center justify-center">
           <a
             href="#/login"
             className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-sm py-2.5 px-6 rounded-xl font-medium shadow-sm transition-all text-center"
           >
-            Masuk ke Akun Anda
+            Log in to Your Account
           </a>
         </div>
       </div>
@@ -122,11 +122,11 @@ export function PenerimaBooking() {
 
   // Filter bookings based on active filter tab
   const filteredBookings = bookings.filter((b) => {
-    if (activeFilter === 'semua') return true;
-    if (activeFilter === 'menunggu') return b.status === 'menunggu';
-    if (activeFilter === 'siap') return b.status === 'dikonfirmasi';
-    if (activeFilter === 'selesai') return b.status === 'diambil';
-    if (activeFilter === 'dibatalkan') return ['dibatalkan', 'kedaluwarsa'].includes(b.status);
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'pending') return b.status === 'menunggu';
+    if (activeFilter === 'ready') return b.status === 'dikonfirmasi';
+    if (activeFilter === 'completed') return b.status === 'diambil';
+    if (activeFilter === 'cancelled') return ['dibatalkan', 'kedaluwarsa'].includes(b.status);
     return true;
   });
 
@@ -136,15 +136,15 @@ export function PenerimaBooking() {
   const renderStatusBadge = (status: BookingStatus) => {
     switch (status) {
       case 'menunggu':
-        return <span className="badge-apple badge-apple-warning">Menunggu Konfirmasi</span>;
+        return <span className="badge-apple badge-apple-warning">Awaiting Confirmation</span>;
       case 'dikonfirmasi':
-        return <span className="badge-apple badge-apple-info">Siap Diambil</span>;
+        return <span className="badge-apple badge-apple-info">Ready for Pickup</span>;
       case 'diambil':
-        return <span className="badge-apple badge-apple-success">Selesai Diambil</span>;
+        return <span className="badge-apple badge-apple-success">Completed</span>;
       case 'dibatalkan':
-        return <span className="badge-apple badge-apple-neutral text-red-600">Dibatalkan</span>;
+        return <span className="badge-apple badge-apple-neutral text-red-600">Cancelled</span>;
       case 'kedaluwarsa':
-        return <span className="badge-apple badge-apple-neutral">Kedaluwarsa</span>;
+        return <span className="badge-apple badge-apple-neutral">Expired</span>;
       default:
         return <span className="badge-apple badge-apple-neutral">{BOOKING_STATUS_LABELS[status] || status}</span>;
     }
@@ -163,15 +163,15 @@ export function PenerimaBooking() {
         {/* Top Navigation & Title Bar */}
         <div className="mb-6">
           <a href="#/penerima" className="text-[#2D6A4F] hover:text-[#B8401A] text-xs mb-2 inline-flex items-center gap-1 font-semibold">
-            <ArrowLeft size={14} /> Kembali ke Katalog Makanan
+            <ArrowLeft size={14} /> Back to Food Catalog
           </a>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h1 className="text-display-lg text-[#143628] mb-1">
-                Pesanan &amp; Status Penyelamatan Saya
+                My Orders &amp; Rescue Status
               </h1>
               <p className="text-body-apple text-[#597367] m-0">
-                Pantau verifikasi mitra, koordinasi via chat, dan konfirmasi saat makanan diterima.
+                Track partner verification, coordinate via chat, and confirm once food is received.
               </p>
             </div>
 
@@ -182,10 +182,10 @@ export function PenerimaBooking() {
                   if (targetBooking) setSelectedNavBooking(targetBooking);
                 }}
                 className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-3.5 flex items-center gap-1.5 rounded-xl shadow-xs transition-all font-semibold cursor-pointer active:scale-95 border border-[#2D6A4F]"
-                title="Buka Navigasi & Live Peta Kurir"
+                title="Open Navigation & Live Courier Map"
               >
                 <Bike size={15} className="text-[#86EFAC] animate-pulse" />
-                <span>Live Tracking Kurir 🛵</span>
+                <span>Live Courier Tracking 🛵</span>
               </button>
 
               <button
@@ -193,13 +193,13 @@ export function PenerimaBooking() {
                 className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] rounded-xl shadow-xs transition-colors"
               >
                 <AlertCircle size={14} className="text-[#2D6A4F]" />
-                <span>Bantuan Admin</span>
+                <span>Admin Help</span>
               </button>
 
               <div className="flex items-center gap-2 bg-[#FFFFFF] px-4 py-2 rounded-full border border-[#DCE5DB] shadow-xs">
                 <ShoppingBag size={15} className="text-[#143628]" />
                 <span className="text-xs font-semibold text-[#143628]">
-                  {activeCount} Aktif
+                  {activeCount} Active
                 </span>
               </div>
             </div>
@@ -209,44 +209,44 @@ export function PenerimaBooking() {
         {/* Category Filter Switcher Tabs */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 mb-6 border-b border-[#DCE5DB]">
           <button
-            onClick={() => setActiveFilter('semua')}
+            onClick={() => setActiveFilter('all')}
             className={`apple-chip text-xs py-2 px-4 ${
-              activeFilter === 'semua' ? 'apple-chip-active' : ''
+              activeFilter === 'all' ? 'apple-chip-active' : ''
             }`}
           >
-            Semua Pesanan ({bookings.length})
+            All Orders ({bookings.length})
           </button>
           <button
-            onClick={() => setActiveFilter('menunggu')}
+            onClick={() => setActiveFilter('pending')}
             className={`apple-chip text-xs py-2 px-4 ${
-              activeFilter === 'menunggu' ? 'apple-chip-active' : ''
+              activeFilter === 'pending' ? 'apple-chip-active' : ''
             }`}
           >
-            Menunggu Konfirmasi ({bookings.filter((b) => b.status === 'menunggu').length})
+            Awaiting Confirmation ({bookings.filter((b) => b.status === 'menunggu').length})
           </button>
           <button
-            onClick={() => setActiveFilter('siap')}
+            onClick={() => setActiveFilter('ready')}
             className={`apple-chip text-xs py-2 px-4 ${
-              activeFilter === 'siap' ? 'apple-chip-active' : ''
+              activeFilter === 'ready' ? 'apple-chip-active' : ''
             }`}
           >
-            Siap Diambil ({bookings.filter((b) => b.status === 'dikonfirmasi').length})
+            Ready for Pickup ({bookings.filter((b) => b.status === 'dikonfirmasi').length})
           </button>
           <button
-            onClick={() => setActiveFilter('selesai')}
+            onClick={() => setActiveFilter('completed')}
             className={`apple-chip text-xs py-2 px-4 ${
-              activeFilter === 'selesai' ? 'apple-chip-active' : ''
+              activeFilter === 'completed' ? 'apple-chip-active' : ''
             }`}
           >
-            Selesai ({completedCount})
+            Completed ({completedCount})
           </button>
           <button
-            onClick={() => setActiveFilter('dibatalkan')}
+            onClick={() => setActiveFilter('cancelled')}
             className={`apple-chip text-xs py-2 px-4 ${
-              activeFilter === 'dibatalkan' ? 'apple-chip-active' : ''
+              activeFilter === 'cancelled' ? 'apple-chip-active' : ''
             }`}
           >
-            Dibatalkan ({bookings.filter((b) => ['dibatalkan', 'kedaluwarsa'].includes(b.status)).length})
+            Cancelled ({bookings.filter((b) => ['dibatalkan', 'kedaluwarsa'].includes(b.status)).length})
           </button>
         </div>
 
@@ -257,13 +257,13 @@ export function PenerimaBooking() {
               <ShoppingBag size={22} />
             </div>
             <h3 className="text-body-strong text-[#143628] mb-1">
-              Tidak Ada Pesanan {activeFilter !== 'semua' ? `Status "${activeFilter.toUpperCase()}"` : ''}
+              No Orders {activeFilter !== 'all' ? `with Status "${activeFilter.toUpperCase()}"` : ''}
             </h3>
             <p className="text-caption-apple text-[#597367] mb-6">
-              Jelajahi restoran dan toko di katalog untuk menyelamatkan makanan berlebih hari ini.
+              Explore restaurants and stores in the catalog to rescue surplus food today.
             </p>
             <a href="#/penerima" className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2.5 px-5 rounded-xl font-medium shadow-sm transition-all inline-block">
-              Cari Makanan di Katalog
+              Browse Food in Catalog
             </a>
           </div>
         ) : (
@@ -294,7 +294,7 @@ export function PenerimaBooking() {
                           </span>
                         </div>
                         <div className="text-fine-print text-[#597367]">
-                          Dipesan pada: {formatDateTime(b.bookedAt)}
+                          Ordered on: {formatDateTime(b.bookedAt)}
                         </div>
                       </div>
                     </div>
@@ -310,21 +310,21 @@ export function PenerimaBooking() {
                       <div className="flex items-center justify-between text-xs font-semibold text-[#143628] mb-6">
                         <span className="flex items-center gap-2 text-sm font-bold">
                           <span className="w-2.5 h-2.5 rounded-full bg-[#16a34a] animate-pulse" />
-                          Status Penyelamatan Makanan
+                          Food Rescue Status
                         </span>
                         {b.status === 'dikonfirmasi' && (
                           <span className="text-[#143628] font-semibold flex items-center gap-1.5 bg-[#FFFFFF] py-1.5 px-3.5 rounded-full border border-[#DCE5DB] shadow-xs text-xs">
-                            <Clock size={14} className="text-[#2D6A4F]" /> Sisa Waktu Ambil: {formatCountdown(b.pickupDeadline)}
+                            <Clock size={14} className="text-[#2D6A4F]" /> Pickup Deadline: {formatCountdown(b.pickupDeadline)}
                           </span>
                         )}
                         {b.status === 'menunggu' && (
                           <span className="text-[#143628] font-medium text-xs bg-[#FFFFFF] border border-[#DCE5DB] px-3 py-1 rounded-full flex items-center gap-1">
-                            <Clock size={13} className="text-[#597367]" /> Menunggu konfirmasi toko
+                            <Clock size={13} className="text-[#597367]" /> Awaiting store confirmation
                           </span>
                         )}
                         {b.status === 'diambil' && (
                           <span className="text-emerald-700 font-medium text-xs bg-[#FFFFFF] border border-[#DCE5DB] px-3 py-1 rounded-full flex items-center gap-1">
-                            <CheckCircle2 size={13} className="text-emerald-600" /> Selesai Diselamatkan
+                            <CheckCircle2 size={13} className="text-emerald-600" /> Rescue Completed
                           </span>
                         )}
                       </div>
@@ -343,7 +343,7 @@ export function PenerimaBooking() {
                             {currentStep > 1 ? <CheckCircle2 size={16} /> : '1'}
                           </div>
                           <span className="text-[12px] font-semibold text-[#143628] mt-2.5 text-center">
-                            Dipesan
+                            Ordered
                           </span>
                           <span className="text-[10px] text-[#597367] mt-0.5">
                             {formatDateTime(b.bookedAt).split(',')[1] || ''}
@@ -370,10 +370,10 @@ export function PenerimaBooking() {
                             {currentStep > 2 ? <CheckCircle2 size={16} /> : '2'}
                           </div>
                           <span className="text-[12px] font-semibold text-[#143628] mt-2.5 text-center">
-                            Konfirmasi Mitra
+                            Partner Confirmation
                           </span>
                           <span className="text-[10px] text-[#597367] mt-0.5">
-                            {currentStep >= 2 ? 'Disetujui' : 'Menunggu'}
+                            {currentStep >= 2 ? 'Approved' : 'Pending'}
                           </span>
                         </div>
 
@@ -397,10 +397,10 @@ export function PenerimaBooking() {
                             {currentStep === 3 ? <CheckCircle2 size={16} /> : '3'}
                           </div>
                           <span className="text-[12px] font-semibold text-[#143628] mt-2.5 text-center">
-                            Sudah Diambil
+                            Picked Up
                           </span>
                           <span className="text-[10px] text-[#597367] mt-0.5">
-                            {currentStep === 3 ? 'Selesai' : 'Siap Diambil'}
+                            {currentStep === 3 ? 'Completed' : 'Ready'}
                           </span>
                         </div>
                       </div>
@@ -420,23 +420,23 @@ export function PenerimaBooking() {
                         <div className="text-caption-apple text-[#597367] space-y-0.5">
                           <div className="flex items-center gap-1 text-[#143628]">
                             <MapPin size={13} className="text-[#2D6A4F]" />
-                            <span>{b.fulfillmentMethod === 'courier' && b.deliveryAddress ? `Kirim ke: ${b.deliveryAddress}` : b.pickupAddress}</span>
+                            <span>{b.fulfillmentMethod === 'courier' && b.deliveryAddress ? `Deliver to: ${b.deliveryAddress}` : b.pickupAddress}</span>
                           </div>
                           <div>
-                            Jumlah: <span className="font-semibold text-[#143628]">{b.quantity} kg</span>
+                            Quantity: <span className="font-semibold text-[#143628]">{b.quantity} kg</span>
                             {b.fulfillmentMethod === 'courier' && (
                               <span className="ml-2 font-mono text-[11px] bg-[#EBF7EE] text-[#2D6A4F] px-2 py-0.5 rounded-full font-bold">
-                                Ongkir: Rp {(b.deliveryFee || 9500).toLocaleString('id-ID')}
+                                Delivery Fee: Rp {(b.deliveryFee || 9500).toLocaleString('id-ID')}
                               </span>
                             )}
                             {b.paymentStatus === 'paid' && (
                               <span className="ml-2 text-[10px] bg-[#EBF7EE] text-[#16a34a] px-2 py-0.5 rounded-full font-bold border border-[#C8E6C9]">
-                                ✓ LUNAS ({b.paymentMethod ? b.paymentMethod.replace('va_', 'VA ').toUpperCase() : 'QRIS'})
+                                ✓ PAID ({b.paymentMethod ? b.paymentMethod.replace('va_', 'VA ').toUpperCase() : 'QRIS'})
                               </span>
                             )}
                             {b.paymentStatus === 'free' && (
                               <span className="ml-2 text-[10px] bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full font-bold">
-                                100% Gratis
+                                100% Free
                               </span>
                             )}
                           </div>
@@ -449,10 +449,10 @@ export function PenerimaBooking() {
                               <Bike size={14} />
                             </div>
                             <div>
-                              <span className="font-bold text-[#143628]">{b.courier?.name || 'Budi Prasetyo (Mitra Kurir)'}</span>
+                              <span className="font-bold text-[#143628]">{b.courier?.name || 'Budi Prasetyo (Courier Partner)'}</span>
                               <span className="text-[10px] text-[#597367] ml-1.5 font-mono">({b.courier?.plateNumber || 'D 4521 BOJ'})</span>
                               <div className="text-[10px] text-[#2D6A4F] font-semibold">
-                                {b.fulfillmentMethod === 'courier' ? 'Pengantaran Tas Termal Higienis' : 'Mitra Kurir Terhubung & Siap Antar'}
+                                {b.fulfillmentMethod === 'courier' ? 'Hygienic Thermal Bag Delivery' : 'Courier Connected & Ready'}
                               </div>
                             </div>
                           </div>
@@ -461,7 +461,7 @@ export function PenerimaBooking() {
                             className="px-3 py-1.5 bg-[#2D6A4F] hover:bg-[#1C4736] text-white text-[11px] font-bold rounded-lg shadow-xs transition-all flex items-center gap-1 cursor-pointer active:scale-95"
                           >
                             <Navigation size={12} />
-                            <span>Live Peta 🛵</span>
+                            <span>Live Map 🛵</span>
                           </button>
                         </div>
                       </div>
@@ -475,7 +475,7 @@ export function PenerimaBooking() {
                           className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 shadow-xs font-semibold transition-all cursor-pointer hover:scale-102 active:scale-95"
                         >
                           <Bike size={14} className="text-[#86EFAC]" />
-                          <span>Lacak Kurir di Peta 🛵</span>
+                          <span>Track Courier on Map 🛵</span>
                         </button>
                       )}
 
@@ -484,7 +484,7 @@ export function PenerimaBooking() {
                           onClick={() => setSelectedTicket(b)}
                           className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] shadow-xs transition-colors cursor-pointer"
                         >
-                          <QrCode size={14} /> Tiket Ambil QR
+                          <QrCode size={14} /> QR Pickup Ticket
                         </button>
                       )}
 
@@ -494,7 +494,7 @@ export function PenerimaBooking() {
                           className="bg-[#FFFFFF] hover:bg-[#EDF2EC] text-xs py-2 px-3.5 rounded-xl flex items-center gap-1.5 text-[#143628] border border-[#DCE5DB] shadow-xs hover:border-[#2D6A4F] transition-colors cursor-pointer"
                         >
                           <MessageSquare size={14} className="text-[#2D6A4F]" />
-                          <span>{b.status === 'menunggu' ? 'Chat Konfirmasi' : 'Chat Koordinasi'}</span>
+                          <span>{b.status === 'menunggu' ? 'Confirmation Chat' : 'Coordination Chat'}</span>
                         </button>
                       )}
 
@@ -503,7 +503,7 @@ export function PenerimaBooking() {
                           onClick={() => setCancelModalBooking(b)}
                           className="bg-[#FFFFFF] text-xs py-2 px-3.5 rounded-xl border border-red-300 text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                         >
-                          Batalkan
+                          Cancel
                         </button>
                       )}
 
@@ -512,15 +512,15 @@ export function PenerimaBooking() {
                           <button
                             onClick={() => setCancelModalBooking(b)}
                             className="bg-[#FFFFFF] text-xs py-2 px-3 rounded-xl border border-[#DCE5DB] text-[#597367] hover:text-red-600 hover:border-red-300 transition-colors cursor-pointer"
-                            title="Batalkan jika ada kendala darurat"
+                            title="Cancel in case of emergency"
                           >
-                            Batalkan
+                            Cancel
                           </button>
                           <button
                             onClick={() => handleConfirmPickup(b)}
                             className="bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] text-xs py-2 px-4 rounded-xl font-medium shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
                           >
-                            <PackageCheck size={15} /> Konfirmasi Makanan Diterima
+                            <PackageCheck size={15} /> Confirm Food Received
                           </button>
                         </>
                       )}
@@ -528,7 +528,7 @@ export function PenerimaBooking() {
                       {b.status === 'diambil' && (
                         <div className="flex items-center gap-2">
                           <div className="text-xs text-[#15803d] font-semibold flex items-center gap-1">
-                            <CheckCircle2 size={16} /> Diselamatkan Selesai
+                            <CheckCircle2 size={16} /> Rescue Completed
                           </div>
                           {b.fulfillmentMethod === 'courier' && (
                             <button
@@ -536,7 +536,7 @@ export function PenerimaBooking() {
                               className="px-2.5 py-1 bg-[#FAF7F2] hover:bg-[#EDF2EC] text-[#2D6A4F] text-xs font-bold rounded-lg border border-[#DCE5DB] transition-all flex items-center gap-1 cursor-pointer"
                             >
                               <Star size={12} className="text-[#FBBF24] fill-[#FBBF24]" />
-                              <span>{b.courierRating ? `Rating ⭐ ${b.courierRating.rating}` : 'Beri Rating Kurir'}</span>
+                              <span>{b.courierRating ? `Rating ⭐ ${b.courierRating.rating}` : 'Rate Courier'}</span>
                             </button>
                           )}
                         </div>
@@ -556,7 +556,7 @@ export function PenerimaBooking() {
           booking={selectedTicket}
         />
 
-        {/* Modal Konfirmasi Pembatalan Pesanan */}
+        {/* Cancellation Confirmation Modal */}
         <AnimatePresence>
           {cancelModalBooking && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0C2017]/60 backdrop-blur-sm">
@@ -570,10 +570,10 @@ export function PenerimaBooking() {
                   <AlertCircle size={24} />
                 </div>
                 <h3 className="text-display-md text-[#143628] text-center mb-2">
-                  Batalkan Pesanan?
+                  Cancel Order?
                 </h3>
                 <p className="text-body-apple text-[#597367] text-center text-sm mb-6 leading-relaxed">
-                  Apakah Anda yakin ingin membatalkan pesanan <span className="font-semibold text-[#143628]">"{cancelModalBooking.surplusName}"</span> ({cancelModalBooking.quantity} kg)? Porsi makanan ini akan dikembalikan ke inventaris surplus mitra agar dapat diselamatkan orang lain.
+                  Are you sure you want to cancel the order for <span className="font-semibold text-[#143628]">"{cancelModalBooking.surplusName}"</span> ({cancelModalBooking.quantity} kg)? This food portion will be returned to the partner's surplus inventory so it can be rescued by someone else.
                 </p>
 
                 <div className="flex items-center gap-3">
@@ -581,7 +581,7 @@ export function PenerimaBooking() {
                     onClick={() => setCancelModalBooking(null)}
                     className="flex-1 py-2.5 px-4 rounded-xl border border-[#DCE5DB] text-[#143628] font-semibold text-xs hover:bg-[#EDF2EC] transition-colors uppercase tracking-wider"
                   >
-                    Kembali
+                    Back
                   </button>
                   <button
                     onClick={() => {
@@ -590,7 +590,7 @@ export function PenerimaBooking() {
                     }}
                     className="flex-1 py-2.5 px-4 rounded-xl bg-red-600 text-white font-semibold text-xs hover:bg-red-700 shadow-sm transition-colors uppercase tracking-wider"
                   >
-                    Ya, Batalkan Pesanan
+                    Yes, Cancel Order
                   </button>
                 </div>
               </motion.div>
@@ -630,7 +630,7 @@ export function PenerimaBooking() {
               } catch {
                 updateBookingStatus(bId, 'diambil');
               }
-              success('Pengantaran Selesai', 'Pangan surplus telah berhasil diantar dan diterima!');
+              success('Delivery Completed', 'Surplus food has been successfully delivered and received!');
               refresh();
               if (b) {
                 setSelectedRatingBooking(b);
@@ -646,7 +646,7 @@ export function PenerimaBooking() {
             onClose={() => setSelectedRatingBooking(null)}
             booking={selectedRatingBooking}
             onRatingSubmitted={(ratingData) => {
-              success('Rating Tersimpan', 'Terima kasih atas penilaian Anda untuk mitra kurir!');
+              success('Rating Saved', 'Thank you for rating our courier partner!');
               refresh();
             }}
           />

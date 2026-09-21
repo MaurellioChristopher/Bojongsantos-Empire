@@ -65,7 +65,7 @@ function AppRouter() {
 
     if (!isAuthenticated) {
       if (!guestAllowed.includes(route)) {
-        warning('Akses Dibatasi', 'Pengguna sebelum login tidak dapat mengakses fitur ini. Silakan masuk terlebih dahulu.');
+        warning('Access Restricted', 'Guests cannot access this feature. Please log in first.');
         window.location.hash = '#/login';
       }
       return;
@@ -78,9 +78,9 @@ function AppRouter() {
       const penyediaAllowed = ['/penyedia', '/penyedia/surplus', '/penyedia/booking', '/penyedia/history'];
       if (!penyediaAllowed.includes(route)) {
         if (route === '/dashboard' || route === '/terms') {
-          warning('Akses Dibatasi', 'Penyedia tidak dapat melihat atau mengelola Dampak ESG dan Standar Mutu.');
+          warning('Access Restricted', 'Providers cannot access ESG Impact or Safety Standards.');
         } else {
-          warning('Akses Dibatasi', 'Penyedia hanya dapat mengelola surplus dan pesanan masuk.');
+          warning('Access Restricted', 'Providers can only manage their surplus inventory and incoming orders.');
         }
         window.location.hash = '#/penyedia';
       }
@@ -94,9 +94,9 @@ function AppRouter() {
       const penerimaAllowed = ['/penerima', '/penerima/booking', '/penerima/history'];
       if (!penerimaAllowed.includes(route)) {
         if (route === '/dashboard' || route === '/terms') {
-          warning('Akses Dibatasi', 'Penerima tidak dapat melihat halaman Dampak ESG dan Standar Mutu.');
+          warning('Access Restricted', 'Recipients cannot access the ESG Impact and Quality Standards page.');
         } else {
-          warning('Akses Dibatasi', 'Penerima tidak memiliki izin untuk mengakses halaman tersebut.');
+          warning('Access Restricted', 'Recipients do not have permission to access this page.');
         }
         window.location.hash = '#/penerima';
       }
@@ -109,7 +109,7 @@ function AppRouter() {
     if (user?.role === 'admin') {
       const adminAllowed = ['/admin', '/dashboard', '/terms'];
       if (!adminAllowed.includes(route)) {
-        warning('Akses Dibatasi', 'Admin mengelola sistem dan keluhan melalui Admin Dashboard.');
+        warning('Access Restricted', 'Admins manage platform operations via the Admin Dashboard.');
         window.location.hash = '#/admin';
       }
       return;
@@ -149,7 +149,7 @@ function AppRouter() {
             </svg>
           </div>
           <div className="text-display-md font-semibold text-[#143628] tracking-tight">AksesPangan</div>
-          <div className="mt-2 text-caption-apple text-[#597367]">Memuat ekosistem penyelamatan pangan...</div>
+          <div className="mt-2 text-caption-apple text-[#597367]">Loading food rescue ecosystem...</div>
         </motion.div>
       </div>
     );

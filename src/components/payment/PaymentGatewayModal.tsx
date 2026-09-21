@@ -161,7 +161,7 @@ export function PaymentGatewayModal({
                     Sandbox Demo
                   </span>
                 </h3>
-                <p className="text-[10px] text-white/70 m-0">Payment Gateway Interaktif</p>
+                <p className="text-[10px] text-white/70 m-0">Interactive Payment Gateway</p>
               </div>
             </div>
 
@@ -175,19 +175,19 @@ export function PaymentGatewayModal({
 
           <div className="flex items-end justify-between relative z-10 pt-2 border-t border-white/10">
             <div>
-              <span className="text-[11px] text-white/70">Total Pembayaran</span>
+              <span className="text-[11px] text-white/70">Total Payment</span>
               <div className="text-2xl font-bold tracking-tight text-white mt-0.5">
                 {formatPrice(amount)}
               </div>
               <div className="text-[10px] text-[#86EFAC] truncate max-w-xs mt-0.5">
-                {itemName} {deliveryFee > 0 ? `+ Ongkir Kurir (${formatPrice(deliveryFee)})` : ''}
+                {itemName} {deliveryFee > 0 ? `+ Courier Fee (${formatPrice(deliveryFee)})` : ''}
               </div>
             </div>
 
             <div className="text-right">
               <span className="text-[10px] text-white/70 flex items-center justify-end gap-1">
                 <Clock size={11} className="text-[#FBBF24]" />
-                Sisa Waktu
+                Time Left
               </span>
               <div className="font-mono font-bold text-sm text-[#FDE68A]">{formattedTime}</div>
               <div className="text-[10px] text-white/60 font-mono">#{orderId.slice(-8)}</div>
@@ -209,7 +209,7 @@ export function PaymentGatewayModal({
               }`}
             >
               <QrCode size={15} className={activeTab === 'qris' ? 'text-[#2D6A4F]' : ''} />
-              <span>QRIS Instan</span>
+              <span>Instant QRIS</span>
             </button>
 
             <button
@@ -233,7 +233,7 @@ export function PaymentGatewayModal({
               }`}
             >
               <Banknote size={15} className={activeTab === 'cash' ? 'text-[#2D6A4F]' : ''} />
-              <span>Tunai / COD</span>
+              <span>Cash / COD</span>
             </button>
           </div>
         )}
@@ -245,9 +245,9 @@ export function PaymentGatewayModal({
           {paymentState === 'processing' && (
             <div className="py-14 flex flex-col items-center justify-center text-center space-y-3">
               <div className="w-12 h-12 border-3 border-[#2D6A4F] border-t-transparent rounded-full animate-spin" />
-              <h4 className="text-base font-bold text-[#143628]">Menghubungkan ke Bank & Gateway...</h4>
+              <h4 className="text-base font-bold text-[#143628]">Connecting to Bank & Gateway...</h4>
               <p className="text-xs text-[#597367] max-w-xs">
-                Memverifikasi mutasi pembayaran real-time Bank Indonesia Sandbox.
+                Verifying real-time transaction via Bank Indonesia Sandbox.
               </p>
             </div>
           )}
@@ -257,9 +257,9 @@ export function PaymentGatewayModal({
               <div className="w-16 h-16 rounded-full bg-[#EBF7EE] text-[#2D6A4F] flex items-center justify-center shadow-inner">
                 <CheckCircle2 size={36} />
               </div>
-              <h4 className="text-lg font-bold text-[#143628]">Pembayaran Berhasil!</h4>
+              <h4 className="text-lg font-bold text-[#143628]">Payment Successful!</h4>
               <p className="text-xs text-[#597367] max-w-xs">
-                Transaksi sebesar <strong>{formatPrice(amount)}</strong> telah lunas diverifikasi. Mengalihkan ke tiket pesanan & kurir...
+                Transaction of <strong>{formatPrice(amount)}</strong> has been verified. Redirecting to order ticket & courier...
               </p>
             </div>
           )}
@@ -268,7 +268,7 @@ export function PaymentGatewayModal({
             <div className="flex flex-col items-center text-center space-y-3">
               <div className="flex items-center justify-center gap-3">
                 <span className="text-xs font-bold text-[#143628] tracking-wider uppercase font-mono">
-                  QRIS Standar Pembayaran Nasional
+                  QRIS National Payment Standard
                 </span>
               </div>
 
@@ -277,13 +277,13 @@ export function PaymentGatewayModal({
                 <QRCodeSVG value={qrisPayload} size={170} bgColor="#ffffff" fgColor="#143628" />
                 <div className="absolute inset-0 bg-[#2D6A4F]/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center pointer-events-none">
                   <span className="text-[10px] font-bold bg-[#143628] text-white px-2 py-1 rounded-full shadow-md">
-                    Scan Bebas E-Wallet Apa Saja
+                    Scan With Any E-Wallet
                   </span>
                 </div>
               </div>
 
               <div className="text-[11px] text-[#597367] max-w-xs leading-relaxed">
-                Scan dengan <strong>GoPay, OVO, Dana, ShopeePay, BCA Mobile</strong>, atau aplikasi banking apa pun.
+                Scan with <strong>GoPay, OVO, Dana, ShopeePay, BCA Mobile</strong>, or any mobile banking app.
               </div>
 
               {/* Auto-Complete Toggle for Demonstration Ease */}
@@ -294,14 +294,14 @@ export function PaymentGatewayModal({
                   onChange={(e) => setAutoCompleteDemo(e.target.checked)}
                   className="w-3.5 h-3.5 accent-[#2D6A4F] cursor-pointer"
                 />
-                <span>Simulasikan lunas otomatis dalam 5 detik (Demo Juri)</span>
+                <span>Simulate auto-settle in 5 seconds (Judge Demo)</span>
               </label>
             </div>
           )}
 
           {paymentState === 'pending' && activeTab === 'va' && (
             <div className="space-y-4">
-              <div className="text-xs font-semibold text-[#597367]">Pilih Bank Tujuan:</div>
+              <div className="text-xs font-semibold text-[#597367]">Select Target Bank:</div>
               <div className="grid grid-cols-3 gap-2">
                 {[
                   { id: 'bca', label: 'BCA Virtual Account' },
@@ -325,7 +325,7 @@ export function PaymentGatewayModal({
 
               {/* VA Number Card */}
               <div className="p-4 bg-[#FAF7F2] rounded-2xl border border-[#DCE5DB] space-y-2">
-                <div className="text-[11px] text-[#597367]">Nomor Rekening Virtual Account:</div>
+                <div className="text-[11px] text-[#597367]">Virtual Account Number:</div>
                 <div className="flex items-center justify-between gap-2 bg-white p-3 rounded-xl border border-[#DCE5DB]">
                   <span className="font-mono text-base font-bold text-[#143628] tracking-wider">
                     {currentVa}
@@ -335,19 +335,19 @@ export function PaymentGatewayModal({
                     className="p-1.5 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#2D6A4F] rounded-lg transition-colors flex items-center gap-1 text-xs font-semibold cursor-pointer"
                   >
                     {copiedVa ? <Check size={14} className="text-[#16a34a]" /> : <Copy size={14} />}
-                    <span>{copiedVa ? 'Disalin' : 'Salin'}</span>
+                    <span>{copiedVa ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
                 <div className="text-[10px] text-[#597367]">
-                  Atas Nama: <strong>AksesPangan / {itemName.slice(0, 20)}</strong>
+                  Account Name: <strong>AksesPangan / {itemName.slice(0, 20)}</strong>
                 </div>
               </div>
 
               <div className="text-[11px] text-[#597367] space-y-1 bg-[#F7F9F6] p-3 rounded-xl border border-[#DCE5DB]">
-                <div className="font-bold text-[#143628]">Petunjuk Pembayaran:</div>
-                <div>1. Masuk ke m-Banking atau ATM bank terkait.</div>
-                <div>2. Pilih menu <strong>Transfer / Bayar &gt; Virtual Account</strong>.</div>
-                <div>3. Masukkan nomor VA di atas dan konfirmasi nominal tagihan.</div>
+                <div className="font-bold text-[#143628]">Payment Instructions:</div>
+                <div>1. Log into your m-Banking app or ATM.</div>
+                <div>2. Select <strong>Transfer / Pay &gt; Virtual Account</strong>.</div>
+                <div>3. Enter the VA number above and confirm the invoice amount.</div>
               </div>
             </div>
           )}
@@ -356,14 +356,13 @@ export function PaymentGatewayModal({
             <div className="p-4 bg-[#FAF7F2] rounded-2xl border border-[#DCE5DB] space-y-3">
               <div className="flex items-center gap-2 font-bold text-xs text-[#143628]">
                 <Banknote size={16} className="text-[#2D6A4F]" />
-                <span>Bayar Tunai Langsung (Cash on Delivery / Pickup)</span>
+                <span>Direct Cash (Cash on Delivery / Pickup)</span>
               </div>
               <p className="text-xs text-[#597367] leading-relaxed">
-                Anda dapat membayarkan uang tunai secara langsung sebesar{' '}
-                <strong>{formatPrice(amount)}</strong> kepada mitra kurir saat pesanan tiba, atau kepada kasir resto saat mengambil mandiri.
+                You can pay cash of <strong>{formatPrice(amount)}</strong> directly to the courier partner upon arrival, or to the restaurant cashier during self-pickup.
               </p>
               <div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900">
-                💡 Mohon siapkan uang pas untuk mempermudah serah terima.
+                💡 Please prepare exact cash to simplify the handover.
               </div>
             </div>
           )}
@@ -380,20 +379,20 @@ export function PaymentGatewayModal({
               className="w-full py-3 bg-[#2D6A4F] hover:bg-[#1C4736] text-white rounded-xl font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 group"
             >
               <Zap size={15} className="text-[#FBBF24] fill-[#FBBF24] group-hover:scale-110 transition-transform" />
-              <span>⚡ Simulasikan Pembayaran Berhasil (Mode Demo Juri)</span>
+              <span>⚡ Simulate Payment Success (Judge Demo Mode)</span>
               <ArrowRight size={14} />
             </button>
 
             <div className="flex items-center justify-between text-[10px] text-[#597367] px-1">
               <div className="flex items-center gap-1">
                 <ShieldCheck size={12} className="text-[#16a34a]" />
-                <span>Enkripsi 256-Bit SSL Terverifikasi</span>
+                <span>256-Bit SSL Encryption Verified</span>
               </div>
               <button
                 onClick={onClose}
                 className="hover:underline text-[#597367] hover:text-[#143628] cursor-pointer"
               >
-                Batalkan Transaksi
+                Cancel Transaction
               </button>
             </div>
           </div>

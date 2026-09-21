@@ -50,7 +50,7 @@ export function formatDistance(km: number): string {
  * Format price in Indonesian Rupiah
  */
 export function formatPrice(price: number): string {
-  if (price === 0) return 'Gratis';
+  if (price === 0) return 'Free';
   return new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -60,21 +60,21 @@ export function formatPrice(price: number): string {
 }
 
 /**
- * Format date for Indonesian locale
+ * Format date for English locale
  */
 export function formatDate(isoString: string): string {
-  return new Date(isoString).toLocaleDateString('id-ID', {
+  return new Date(isoString).toLocaleDateString('en-US', {
     day: 'numeric',
-    month: 'long',
+    month: 'short',
     year: 'numeric',
   });
 }
 
 /**
- * Format time for Indonesian locale
+ * Format time for English locale
  */
 export function formatTime(isoString: string): string {
-  return new Date(isoString).toLocaleTimeString('id-ID', {
+  return new Date(isoString).toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
   });
@@ -88,7 +88,7 @@ export function formatDateTime(isoString: string): string {
 }
 
 /**
- * Get relative time string (e.g., "2 jam lalu")
+ * Get relative time string (e.g., "2 hours ago")
  */
 export function getRelativeTime(isoString: string): string {
   const now = new Date().getTime();
@@ -99,10 +99,10 @@ export function getRelativeTime(isoString: string): string {
   const hours = Math.floor(diff / 3600000);
   const days = Math.floor(diff / 86400000);
 
-  if (minutes < 1) return 'Baru saja';
-  if (minutes < 60) return `${minutes} menit lalu`;
-  if (hours < 24) return `${hours} jam lalu`;
-  if (days < 7) return `${days} hari lalu`;
+  if (minutes < 1) return 'Just now';
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  if (days < 7) return `${days}d ago`;
   return formatDate(isoString);
 }
 
@@ -140,10 +140,10 @@ export function getTimeRemaining(expiryTime: string): {
  */
 export function formatCountdown(expiryTime: string): string {
   const { hours, minutes, seconds, isExpired } = getTimeRemaining(expiryTime);
-  if (isExpired) return 'Kedaluwarsa';
-  if (hours > 0) return `${hours}j ${minutes}m ${seconds}d`;
-  if (minutes > 0) return `${minutes}m ${seconds}d`;
-  return `${seconds}d`;
+  if (isExpired) return 'Expired';
+  if (hours > 0) return `${hours}h ${minutes}m ${seconds}s`;
+  if (minutes > 0) return `${minutes}m ${seconds}s`;
+  return `${seconds}s`;
 }
 
 export const formatTimeRemaining = formatCountdown;

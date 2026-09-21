@@ -46,16 +46,16 @@ export function RegisterPage() {
       });
 
       if (result.success) {
-        success('Pendaftaran Berhasil', 'Selamat datang di ekosistem AksesPangan');
+        success('Registration Successful', 'Welcome to the AksesPangan ecosystem');
         setTimeout(() => {
           if (role === 'penyedia') window.location.hash = '#/penyedia';
           else window.location.hash = '#/penerima';
         }, 500);
       } else {
-        error('Pendaftaran Gagal', result.error || 'Terjadi kesalahan sistem');
+        error('Registration Failed', result.error || 'A system error occurred');
       }
     } catch (err: any) {
-      error('Pendaftaran Gagal', err.message || 'Terjadi kesalahan sistem');
+      error('Registration Failed', err.message || 'A system error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -96,34 +96,34 @@ export function RegisterPage() {
                     AksesPangan
                   </span>
                   <span className="text-[10px] tracking-[0.18em] uppercase font-mono text-[#CAD6C8] mt-1">
-                    Registrasi Pengguna
+                    User Registration
                   </span>
                 </div>
               </a>
 
               <div className="max-w-md">
                 <p className="text-xs font-mono uppercase tracking-widest text-[#2D6A4F] mb-3 font-semibold">
-                  Gerakan Kolaborasi
+                  Collaborative Movement
                 </p>
                 <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#F3F8F5] leading-snug mb-4">
-                  Bergabung dalam ekosistem penyelamatan pangan berkelanjutan.
+                  Join the sustainable food rescue ecosystem.
                 </h2>
                 <p className="text-sm text-[#CAD6C8] leading-relaxed mb-8">
-                  Pilih peran Anda untuk mendistribusikan makanan berlebih atau mengklaim pangan berkualitas dengan verifikasi digital yang aman dan bermartabat.
+                  Choose your role to redistribute surplus food or claim quality meals with secure, dignified digital verification.
                 </p>
 
                 <div className="space-y-3 text-xs text-[#CAD6C8]">
                   <div className="flex items-center gap-3 py-2 border-b border-[#F3F8F5]/10">
                     <span className="font-mono text-[#2D6A4F] text-xs font-bold">01</span>
-                    <span>Proses pendaftaran instan tanpa biaya platform</span>
+                    <span>Instant registration with zero platform fees</span>
                   </div>
                   <div className="flex items-center gap-3 py-2 border-b border-[#F3F8F5]/10">
                     <span className="font-mono text-[#2D6A4F] text-xs font-bold">02</span>
-                    <span>Verifikasi tiket QR digital untuk serah terima higienis</span>
+                    <span>Digital QR ticket verification for hygienic handovers</span>
                   </div>
                   <div className="flex items-center gap-3 py-2 border-b border-[#F3F8F5]/10">
                     <span className="font-mono text-[#2D6A4F] text-xs font-bold">03</span>
-                    <span>Laporan metrik ESG dan pengurangan limbah terukur</span>
+                    <span>ESG metrics and measurable waste reduction reports</span>
                   </div>
                 </div>
               </div>
@@ -131,7 +131,7 @@ export function RegisterPage() {
 
             {/* Bottom Note */}
             <div className="relative z-10 pt-6 border-t border-[#F3F8F5]/10 text-xs text-[#A8988B]">
-              Standar Keamanan Pangan & Privasi Data Terjamin
+              Food Safety Standards & Data Privacy Guaranteed
             </div>
           </div>
 
@@ -143,16 +143,16 @@ export function RegisterPage() {
               <div className="mb-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-semibold tracking-tight text-[#143628]">
-                    Daftar Akun
+                    Create Account
                   </h2>
                   {role === 'penyedia' && (
                     <span className="text-xs font-mono text-[#597367] bg-[#EDF2EC] px-2 py-0.5 rounded-full border border-[#DCE5DB]">
-                      Langkah {step} dari {totalSteps}
+                      Step {step} of {totalSteps}
                     </span>
                   )}
                 </div>
                 <p className="text-sm text-[#597367] mt-1">
-                  Pilih peran Anda dalam ekosistem pangan.
+                  Choose your role in the food ecosystem.
                 </p>
               </div>
 
@@ -170,7 +170,7 @@ export function RegisterPage() {
                       : 'text-[#597367] hover:text-[#143628]'
                   }`}
                 >
-                  Penerima (Warga)
+                  Recipient (Community)
                 </button>
                 <button
                   type="button"
@@ -184,7 +184,7 @@ export function RegisterPage() {
                       : 'text-[#597367] hover:text-[#143628]'
                   }`}
                 >
-                  Penyedia (Mitra)
+                  Provider (Partner)
                 </button>
               </div>
 
@@ -193,7 +193,7 @@ export function RegisterPage() {
                 <div className="space-y-3.5">
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
-                      Nama Lengkap
+                      Full Name
                     </label>
                     <div className="relative">
                       <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#597367] pointer-events-none">
@@ -204,7 +204,7 @@ export function RegisterPage() {
                         required
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Nama lengkap Anda"
+                        placeholder="Your full name"
                         className="w-full bg-[#FAF7F2] text-[#143628] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#DCE5DB] focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 outline-none transition-all placeholder:text-[#597367]/60"
                       />
                     </div>
@@ -212,7 +212,7 @@ export function RegisterPage() {
 
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
-                      Alamat Email
+                      Email Address
                     </label>
                     <div className="relative">
                       <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#597367] pointer-events-none">
@@ -223,7 +223,7 @@ export function RegisterPage() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="nama@email.com"
+                        placeholder="name@email.com"
                         className="w-full bg-[#FAF7F2] text-[#143628] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#DCE5DB] focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 outline-none transition-all placeholder:text-[#597367]/60"
                       />
                     </div>
@@ -231,7 +231,7 @@ export function RegisterPage() {
 
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
-                      Nomor Telepon / WhatsApp
+                      Phone Number / WhatsApp
                     </label>
                     <div className="relative">
                       <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#597367] pointer-events-none">
@@ -242,7 +242,7 @@ export function RegisterPage() {
                         required
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        placeholder="0812xxxxxxxx"
+                        placeholder="+62812xxxxxxxx"
                         className="w-full bg-[#FAF7F2] text-[#143628] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#DCE5DB] focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 outline-none transition-all placeholder:text-[#597367]/60"
                       />
                     </div>
@@ -250,7 +250,7 @@ export function RegisterPage() {
 
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
-                      Kata Sandi
+                      Password
                     </label>
                     <div className="relative">
                       <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#597367] pointer-events-none">
@@ -261,7 +261,7 @@ export function RegisterPage() {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Minimal 6 karakter"
+                        placeholder="At least 6 characters"
                         className="w-full bg-[#FAF7F2] text-[#143628] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#DCE5DB] focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 outline-none transition-all placeholder:text-[#597367]/60"
                       />
                     </div>
@@ -274,7 +274,7 @@ export function RegisterPage() {
                       disabled={!name || !email || !password || !phone}
                       className="w-full bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] font-medium text-sm h-11 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 shadow-sm hover:shadow-md"
                     >
-                      {role === 'penyedia' ? 'Lanjut: Data Usaha Mitra' : isLoading ? 'Mendaftarkan...' : 'Selesaikan Pendaftaran'}
+                      {role === 'penyedia' ? 'Continue: Partner Business Info' : isLoading ? 'Registering...' : 'Complete Registration'}
                     </button>
                   </div>
                 </div>
@@ -285,7 +285,7 @@ export function RegisterPage() {
                 <div className="space-y-3.5">
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
-                      Nama Usaha Kuliner
+                      Culinary Business Name
                     </label>
                     <div className="relative">
                       <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#597367] pointer-events-none">
@@ -296,7 +296,7 @@ export function RegisterPage() {
                         required
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
-                        placeholder="Contoh: Dapur Rasa Buahbatu"
+                        placeholder="e.g., Dapur Rasa Resto"
                         className="w-full bg-[#FAF7F2] text-[#143628] text-sm h-11 pl-10 pr-3.5 rounded-xl border border-[#DCE5DB] focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 outline-none transition-all placeholder:text-[#597367]/60"
                       />
                     </div>
@@ -304,25 +304,25 @@ export function RegisterPage() {
 
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
-                      Jenis Usaha
+                      Business Type
                     </label>
                     <select
                       value={businessType}
                       onChange={(e) => setBusinessType(e.target.value as BusinessType)}
                       className="w-full bg-[#FAF7F2] text-[#143628] text-sm h-11 px-3.5 rounded-xl border border-[#DCE5DB] focus:border-[#2D6A4F] focus:ring-2 focus:ring-[#2D6A4F]/15 outline-none transition-all"
                     >
-                      <option value="restoran">Restoran / Rumah Makan</option>
+                      <option value="restoran">Restaurant / Eatery</option>
                       <option value="hotel">Hotel</option>
-                      <option value="kafe">Kafe / Kedai Kopi</option>
-                      <option value="katering">Jasa Katering</option>
+                      <option value="kafe">Cafe / Coffee Shop</option>
+                      <option value="katering">Catering Service</option>
                       <option value="supermarket">Bakery / Supermarket</option>
-                      <option value="lainnya">Lainnya</option>
+                      <option value="lainnya">Other</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-xs font-medium text-[#143628] mb-1">
-                      Alamat Usaha (Lokasi Penjemputan)
+                      Business Address (Pickup Location)
                     </label>
                     <div className="relative">
                       <div className="absolute left-3.5 top-3 text-[#597367] pointer-events-none">
@@ -345,7 +345,7 @@ export function RegisterPage() {
                       onClick={prevStep}
                       className="flex-1 bg-[#EDF2EC] hover:bg-[#DCE5DB] text-[#143628] font-medium text-sm h-11 rounded-xl transition-colors cursor-pointer border border-[#DCE5DB]"
                     >
-                      Kembali
+                      Back
                     </button>
                     <button
                       type="button"
@@ -353,7 +353,7 @@ export function RegisterPage() {
                       disabled={isLoading || !businessName || !businessAddress}
                       className="flex-1 bg-[#143628] hover:bg-[#1C4736] text-[#F3F8F5] font-medium text-sm h-11 rounded-xl transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 shadow-sm"
                     >
-                      {isLoading ? 'Memproses...' : 'Selesai'}
+                      {isLoading ? 'Processing...' : 'Finish'}
                     </button>
                   </div>
                 </div>
@@ -361,12 +361,12 @@ export function RegisterPage() {
 
               {/* Login Link */}
               <div className="mt-6 pt-5 border-t border-[#DCE5DB] text-center text-xs text-[#597367]">
-                Sudah memiliki akun?{' '}
+                Already have an account?{' '}
                 <a
                   href="#/login"
                   className="font-semibold text-[#2D6A4F] hover:text-[#B8401A] hover:underline transition-colors"
                 >
-                  Masuk di sini
+                  Sign in here
                 </a>
               </div>
             </div>
@@ -378,7 +378,7 @@ export function RegisterPage() {
       {/* Clean Gourmet Footer */}
       <footer className="py-4 text-center text-xs text-[#597367] border-t border-[#DCE5DB] bg-[#F7F9F6]">
         <p className="m-0">
-          AksesPangan &copy; 2026 • Platform Kolaborasi Penyelamatan Surplus Pangan
+          AksesPangan &copy; 2026 • Surplus Food Rescue & Redistribution Network
         </p>
       </footer>
     </div>
