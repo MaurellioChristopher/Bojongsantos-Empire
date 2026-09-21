@@ -143,7 +143,7 @@ function processOfflineQuery(rawQuery: string, allItems: SurplusItem[]): ChatMes
   }
 
   // ── 3. CREATOR / TEAM ────────────────────────────────────
-  if (/(creator|developer|who made|team|member|bojongsantos|created by|author|founder|pembuat)/.test(q)) {
+  if (/(creator|developer|who made|who created|team|member|bojongsantos|created by|created this|author|founder|pembuat|siapa yang membuat|siapa pembuat)/i.test(q)) {
     return mkBot(
       `👑 **AksesPangan** was innovated and built by **Team Bojongsantos Empire**:\n\n1. 🌟 **Maurellio Christopher Yonathan**\n2. 🌸 **Alya Salma Khoerunnisaa**\n3. ⚡ **Rakean Ahmad Zayyid Ardhi**\n4. 🚀 **Jazzkord Cmajor Dahring**\n\nThey engineered this platform featuring **6 isolated microservices** (Auth, Inventory, Booking, Analytics, Governance, Notifications) with integrated AI intelligence to champion **UN SDGs 2, 12, and 13** — Zero Hunger, Responsible Consumption, and Climate Action.\n\nA true tech-for-good innovation! 🇮🇩🌿`
     );

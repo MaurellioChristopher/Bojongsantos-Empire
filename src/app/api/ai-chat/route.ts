@@ -215,8 +215,8 @@ export async function POST(request: Request) {
       parts: [{ text: m.content }],
     }));
 
-    // Try gemini-2.0-flash first, fallback to 1.5-flash
-    const models = ['gemini-2.0-flash', 'gemini-1.5-flash'];
+    // Try modern Gemini 3.5 models (flash-lite, flash)
+    const models = ['gemini-3.5-flash-lite', 'gemini-3.5-flash', 'gemini-flash-latest'];
     let lastError: string = '';
     let usedModel = '';
 
