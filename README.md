@@ -45,6 +45,17 @@ AksesPangan dilengkapi dengan telemetri **ESG (Environmental, Social, and Govern
 6. **Observabilitas Arsitektur Microservices (`/#/admin` Tab Sistem):**
    - Dashboard observabilitas berstandar Apple Server Monitoring dengan telemetri *health-check* aktif (200 OK / 503 DOWN) terhadap masing-masing kontainer layanan mandiri.
 
+7. **Live Turn-by-Turn Courier Navigation HUD (`CourierNavigationModal`):**
+   - Navigasi kurir profesional di atas peta jaringan jalan riil (*real-road routing*) berbasis OSRM (Open Source Routing Machine).
+   - Dilengkapi HUD dinamis dengan spedometer kecepatan, estimasi waktu tempuh (ETA), bearing arah motor, dan *geofence alert* kedatangan otomatis ($\le 50\text{m}$).
+
+8. **Sandbox Payment Gateway Simulator (`PaymentGatewayModal`):**
+   - Sistem pembayaran terintegrasi ala Midtrans/Xendit dengan metode QRIS dinamis, Virtual Account (BCA, Mandiri, BRI), serta Cash on Delivery (COD).
+   - Tombol *⚡ Simulasikan Pembayaran Berhasil* untuk presentasi dan demo langsung tanpa transaksi uang riil.
+
+9. **SARA AI Assistant (Google Gemini 3.5 LLM):**
+   - Asisten kecerdasan buatan terintegrasi untuk rekomendasi surplus terdekat, kalkulasi reduksi jejak karbon ($CO_2e$), resep kuliner *zero-waste*, dan edukasi keamanan pangan BPOM/HACCP secara real-time.
+
 ---
 
 ## 🛠️ Technology Stack
@@ -52,8 +63,9 @@ AksesPangan dilengkapi dengan telemetri **ESG (Environmental, Social, and Govern
 | Layer | Teknologi / Tools | Keterangan |
 | :--- | :--- | :--- |
 | **Frontend Core** | Next.js 16 (App Router, Turbopack), React 19, TypeScript | Server Components & Client Hydration berkinerja tinggi |
-| **Styling & UI** | Vanilla CSS Design Tokens, Tailwind CSS, Framer Motion | Desain elegan, transisi mikro halus, estetika Apple Design |
-| **Icons & Maps** | Lucide React, Leaflet & React-Leaflet | Visualisasi spasial dan ikonografi modern |
+| **Styling & UI** | Vanilla CSS Design Tokens, Tailwind CSS, Framer Motion | Desain elegan, transisi mikro halus, estetika modern |
+| **Icons & Maps** | Lucide React, Leaflet, React-Leaflet, OSRM Engine | Visualisasi spasial, ikonografi modern & routing jalan raya riil |
+| **Generative AI** | Google Gemini 3.5 Flash-Lite / 3.5 Flash | LLM terintegrasi untuk asisten pintar SARA & kalkulasi dampak |
 | **Backend & Gateway** | Next.js Standalone API Routes & Node.js Microservices | REST API murni dengan sistem isolasi kegagalan (*Fault Tolerance*) |
 | **Cloud Database** | Supabase (PostgreSQL, Realtime, Row Level Security) | Penyimpanan data awan persisten & sinkronisasi multi-device |
 | **Local Cache / Fallback** | LocalStorage Engine + In-Memory Store | Menjamin sistem tetap beroperasi normal (*Offline-First*) |
@@ -117,10 +129,15 @@ Setiap kontainer berjalan independen di dalam `aksespangan-network`. Jika salah 
 3. **Konfigurasi Environment Variables:**
    Buat file `.env.local` di root proyek:
    ```env
+   # Supabase Cloud Database
    NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
    SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+   # Google Gemini AI (SARA Assistant)
+   GEMINI_API_KEY=your-gemini-api-key
+   NEXT_PUBLIC_GEMINI_API_KEY=your-gemini-api-key
    ```
 
 4. **Jalankan dev server:**
@@ -159,6 +176,24 @@ Untuk pengujian cepat juri/evaluator, gunakan akun demo berikut di halaman Login
 | **Penerima (Rescue)** | `penerima@demo.com` | `demo123` | Peta Surplus, Booking Makanan, Tiket PIN, Chat Mitra |
 | **Administrator** | `admin@demo.com` | `admin123` | Observabilitas Microservices, Mediasi Keluhan, Audit ESG |
 
+## 📚 Dokumentasi Teknis Lengkap (Technical Documentation)
+
+Dokumentasi arsitektur dan spesifikasi teknis mendalam tersedia secara terstruktur di dalam folder `docs/`:
+
+- 📑 **[Dokumentasi Teknis Proyek (Markdown)](docs/PROJECT_DOCUMENTATION.md)**: Dokumen teknis komprehensif (10 Bab) mencakup:
+  1. Ringkasan Eksekutif & Statistik Proyek
+  2. Struktur Tim Pengembang & Spesialisasi AI Agents
+  3. Arsitektur Decoupled Autonomous Microservices
+  4. Rincian Lengkap Technology Stack
+  5. Desain & Protokol Komunikasi 6 Mikroservis
+  6. Alur Fungsionalitas & User Journey Fitur
+  7. Standar Keamanan OWASP, BPOM, HACCP, & RLS
+  8. Panduan Deployment (Vercel & Multi-Container Docker)
+  9. Panduan Kontribusi & Standar Pengembangan
+  10. Appendix: AI-Assisted Engineering Workflow
+- 🌐 **[Dokumentasi Teknis Interaktif (HTML)](docs/PROJECT_DOCUMENTATION.html)**: Versi web interaktif siap cetak/ekspor PDF.
+- 🛠️ **[Laporan Perbaikan & Pengujian Sistem](docs/BUG_FIX_REPORT.md)**: Riwayat audit, pengujian, dan penanganan bug.
+
 ---
 
 ## 📄 Kepatuhan Lisensi Pihak Ketiga (Third-Party Resources & Licenses)
@@ -172,7 +207,14 @@ Seluruh pustaka pihak ketiga yang digunakan dalam proyek ini mematuhi lisensi *o
 
 ---
 
-## 👥 Tim Pengembang (Team)
-- **Tim:** Bojongsantos Empire
-- **Repository:** [https://github.com/MaurellioChristopher/Bojongsantos-Empire](https://github.com/MaurellioChristopher/Bojongsantos-Empire)
-- **Deployment:** [https://bojongsantos-empire.vercel.app](https://bojongsantos-empire.vercel.app)
+## 👥 Tim Pengembang (Development Team)
+
+**Bojongsantos Empire**
+1. 🌟 **Maurellio Christopher Yonathan**
+2. 🌸 **Alya Salma Khoerunnisaa**
+3. ⚡ **Rakean Ahmad Zayyid Ardhi**
+4. 🚀 **Jazzkord Cmajor Dahring**
+
+- **GitHub Repository:** [https://github.com/MaurellioChristopher/Bojongsantos-Empire](https://github.com/MaurellioChristopher/Bojongsantos-Empire)
+- **Live Deployment:** [https://bojongsantos-empire.vercel.app](https://bojongsantos-empire.vercel.app)
+
